@@ -62,6 +62,7 @@ export function layout({
         <summary>Cartas</summary>
         <div class="menu-panel">
           <a href="/cartas/"><span class="mi" style="--c:#ffcb05"></span>Todas las cartas</a>
+          <a href="/sets/"><span class="mi" style="--c:#ff9d5c"></span>Todos los sets</a>
           <a href="/caras/"><span class="mi" style="--c:#35e0d0"></span>Las 100 más caras</a>
           <a href="/mercado/"><span class="mi" style="--c:#b98cff"></span>Qué se mueve esta semana</a>
         </div>

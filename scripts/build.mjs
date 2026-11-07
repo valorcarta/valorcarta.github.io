@@ -124,6 +124,15 @@ const antesAhora = priced
   .slice(0, 3);
 const fechaPortada = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
 
+// Fecha real del dato: la del fetch más reciente del catálogo, no la del build.
+// La usan /sets/, /mercado/ y la portada; se calcula una vez.
+const fechaCatalogo = priced.reduce((max, c) => (c.updated && c.updated > max ? c.updated : max), '');
+const fechaLarga = new Date(fechaCatalogo || Date.now()).toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
 const munecosHtml = `<section class="bloque">
   <h2>Los Pokémon que más se buscan</h2>
   <p class="muted small">Una carta de cada uno, con el precio de referencia de hoy. Toca para ver todas sus versiones.</p>
@@ -258,6 +267,7 @@ ${munecosHtml}
   <div class="indice">
     ${[...bySet.keys()].map((id) => `<a href="/set/${id}/">${esc(setsById.get(id)?.name ?? id)}</a>`).join(' · ')}
   </div>
+  <p class="muted small"><a href="/sets/">Ver los ${bySet.size} sets agrupados por serie</a></p>
 </section>
 
 ${(() => {
@@ -348,15 +358,82 @@ await put(
 );
 
 // ---------- indice de cartas ----------
+// sets.json no trae serie ni fecha; sets-en.json sí y cubre todos los sets. De ahí salen
+// la serie (para /sets/) y el año (para /cartas/). El nombre se queda en español.
 const setsConPrecio = [...bySet.entries()]
   .map(([id, list]) => ({
     id,
     name: setsById.get(id)?.name ?? list[0].setName,
     n: list.length,
     total: list.reduce((s, c) => s + (c.price ?? 0), 0),
-    fecha: setsById.get(id)?.releaseDate ?? null,
+    fecha: setsById.get(id)?.releaseDate ?? SETS_EN[id]?.releaseDate ?? null,
+    serie: setsById.get(id)?.serie?.name ?? SETS_EN[id]?.serie ?? null,
   }))
   .sort((a, b) => (b.fecha ?? '').localeCompare(a.fecha ?? ''));
+const serieDe = (s) => s.serie ?? 'Otras series';
+
+// ficha de set reutilizada en /cartas/ y en /sets/
+const setCardHtml = (s) => `<a class="set-card" href="/set/${s.id}/">
+    <span class="set-name">${esc(s.name)}</span>
+    <span class="muted">${s.n} cartas${s.fecha ? ` · ${año(s.fecha)}` : ''}</span>
+    <span class="set-total">${eur(s.total)}</span></a>`;
+
+// ---------- hub /sets/: todos los sets agrupados por serie ----------
+// Serie ordenada por su set más reciente (lo nuevo arriba); dentro, los sets por fecha.
+const gruposSerie = (() => {
+  const map = new Map();
+  for (const s of setsConPrecio) {
+    const k = serieDe(s);
+    if (!map.has(k)) map.set(k, []);
+    map.get(k).push(s);
+  }
+  return [...map.entries()]
+    .map(([serie, lista]) => ({
+      serie,
+      lista,
+      nCartas: lista.reduce((x, s) => x + s.n, 0),
+      total: lista.reduce((x, s) => x + s.total, 0),
+      ultima: lista.reduce((max, s) => (s.fecha && s.fecha > max ? s.fecha : max), ''),
+    }))
+    .sort((a, b) => b.ultima.localeCompare(a.ultima));
+})();
+const nf = (n) => n.toLocaleString('es-ES');
+
+await put(
+  OUT('sets/index.html'),
+  layout({
+    title: `Todos los sets Pokémon por serie | ${config.brand}`,
+    description: `Los ${setsConPrecio.length} sets de cartas Pokémon en ${gruposSerie.length} series, con número de cartas y valor de mercado del set completo. Precios de Cardmarket actualizados.`,
+    url: '/sets/',
+    body: `
+<nav class="migas"><a href="/cartas/">Cartas</a> / Sets por serie</nav>
+<h1>Todos los sets, por serie</h1>
+<p class="lede">${setsConPrecio.length} sets en ${gruposSerie.length} series, con el número de cartas del catálogo y el
+valor de mercado del set completo. Precios de referencia de Cardmarket actualizados el ${fechaLarga}.</p>
+<p class="acciones">
+  <a class="btn" href="/cartas/">Ver todas las cartas</a>
+  <a class="btn ghost" href="/caras/">Las 100 más caras</a>
+  <a class="btn ghost" href="/mercado/">Qué se mueve esta semana</a>
+</p>
+<p class="nota small">El valor del set suma el precio de referencia de sus cartas con datos
+(${nf(priced.length)} de ${nf(cards.length)} del catálogo). No es una tasación: el estado de cada carta manda.</p>
+${gruposSerie
+  .map(
+    (g) => `<section class="serie-grupo" aria-labelledby="serie-${slugify(g.serie)}">
+  <div class="serie-cab">
+    <h2 id="serie-${slugify(g.serie)}">${esc(g.serie)}</h2>
+    <span class="serie-dato">${g.lista.length} sets · ${nf(g.nCartas)} cartas · ${eur(g.total)}</span>
+  </div>
+  <div class="grid sets">
+${g.lista.map(setCardHtml).join('\n')}
+  </div>
+</section>`,
+  )
+  .join('\n')}
+<p class="acciones"><a class="btn ghost" href="/cartas/">Volver al listado de cartas</a></p>
+<p class="nota small">Series y años según TCGdex. El valor suma el precio de referencia de cada carta con datos.</p>`,
+  }),
+);
 
 await put(
   OUT('cartas/index.html'),
@@ -370,21 +447,17 @@ await put(
 Valor total del catálogo: <b>${eur(totalValor)}</b>.</p>
 <p class="acciones">
   <a class="btn" href="/caras/">Las 100 más caras</a>
+  <a class="btn ghost" href="/sets/">Los ${setsConPrecio.length} sets, por serie</a>
   <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas</a>
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
 </p>
 <p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
 <p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
 ${munecosHtml}
+<h2>Los ${setsConPrecio.length} sets, por valor de mercado</h2>
+<p class="muted small">Cada ficha trae sus cartas con precio. También puedes verlos <a href="/sets/">agrupados por serie</a>.</p>
 <div class="grid sets">
-${setsConPrecio
-  .map(
-    (s) => `<a class="set-card" href="/set/${s.id}/">
-    <span class="set-name">${esc(s.name)}</span>
-    <span class="muted">${s.n} cartas${s.fecha ? ` · ${año(s.fecha)}` : ''}</span>
-    <span class="set-total">${eur(s.total)}</span></a>`,
-  )
-  .join('\n')}
+${setsConPrecio.map(setCardHtml).join('\n')}
 </div>`,
   }),
 );
@@ -393,15 +466,18 @@ ${setsConPrecio
 await mkdir(OUT('set'), { recursive: true });
 for (const [id, list] of bySet) {
   const meta = setsById.get(id);
+  const metaEn = SETS_EN[id] ?? {};
   const nombre = meta?.name ?? list[0].setName;
+  const serie = meta?.serie?.name ?? metaEn.serie ?? null;
+  const fechaSet = meta?.releaseDate ?? metaEn.releaseDate ?? null;
   const total = list.reduce((s, c) => s + (c.price ?? 0), 0);
   const top10 = list.filter((c) => c.price > 0).slice(0, 10);
   const caras = list.filter((c) => c.price > 0).length;
   const media = caras ? total / caras : 0;
   const body = `
-<nav class="migas"><a href="/cartas/">Cartas</a> / ${esc(nombre)}</nav>
+<nav class="migas"><a href="/cartas/">Cartas</a> / <a href="/sets/">Sets por serie</a> / ${esc(nombre)}</nav>
 <h1>Cartas de ${esc(nombre)}: lista y precios</h1>
-<p class="lede">${list.length} cartas${meta?.releaseDate ? ` · ${año(meta.releaseDate)}` : ''}${meta?.serie ? ` · ${esc(meta.serie.name)}` : ''}.
+<p class="lede">${list.length} cartas${fechaSet ? ` · ${año(fechaSet)}` : ''}${serie ? ` · ${esc(serie)}` : ''}.
 ${caras ? `Valor de mercado del set completo: <b>${eur(total)}</b>, con una media de ${eur(media)} por carta.` : 'Sin datos de precio suficientes todavía.'}</p>
 <p id="progreso-set" data-set="${esc(id)}" data-total="${list.length}" class="nota small"></p>
 
@@ -983,16 +1059,6 @@ const vitrinaCandidatas = suben.filter(
 const vitrinaHero = vitrinaCandidatas[0] ?? null;
 const vitrinaResto = vitrinaCandidatas.slice(1, 3);
 
-// Fecha real del dato: la del fetch más reciente del catálogo, no la del build.
-const fechaCatalogo = priced.reduce(
-  (max, c) => (c.updated && c.updated > max ? c.updated : max),
-  '',
-);
-const fechaLarga = new Date(fechaCatalogo || Date.now()).toLocaleDateString('es-ES', {
-  day: 'numeric',
-  month: 'long',
-  year: 'numeric',
-});
 const varFmt = (n) => `${n >= 0 ? '+' : ''}${n.toFixed(1).replace('.', ',')} %`;
 const amazonCarta = (c) => amazonLink(`${c.name} ${c.setName ?? ''} pokemon`);
 
@@ -2410,7 +2476,7 @@ await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.
 Sitemap: ${SITE}/sitemap-en.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/sets/', '/valorar/', '/premium/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))

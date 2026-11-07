@@ -418,3 +418,17 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 .aa-row b{color:#dcdce2;font-weight:600}
 .aa-now{color:var(--accent) !important}
 .aa-pct{align-self:flex-start;font-size:.78rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#12301f;margin:2px 0}
+
+
+/* ===== Hub /sets/: índice de sets agrupado por serie =====
+   La serie manda la jerarquía (lo nuevo arriba) y cada set lleva cartas y valor total. */
+.serie-grupo{margin:34px 0 0}
+.serie-cab{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;
+  margin:0 0 10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.serie-cab h2{margin:0;font-size:1.06rem;letter-spacing:-.01em}
+.serie-dato{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+@media (max-width:520px){
+  .serie-grupo{margin:26px 0 0}
+  .serie-cab{gap:4px}
+  .serie-dato{font-size:.78rem}
+}
