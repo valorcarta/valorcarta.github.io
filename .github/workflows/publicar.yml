@@ -30,7 +30,13 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Bajar catalogo y precios
-        run: node scripts/fetch.mjs
+        run: |
+          # La cache (data/cache) esta versionada en el repo. En un checkout nuevo todos
+          # los ficheros tienen mtime de ahora y el TTL de fetch.mjs los da por frescos,
+          # asi que el CI compilaba con la cache commiteada (precios del 02/06-11).
+          # Corregido 07-11: se limpia antes de bajar y se fuerza ttl 0.
+          rm -rf data/cache
+          node scripts/fetch.mjs --ttl=0
 
       - name: Rellenar sets sin traduccion (vintage)
         run: |
@@ -49,19 +55,16 @@ jobs:
         run: node scripts/build.mjs
 
       - name: Web de Yu-Gi-Oh
-        continue-on-error: true
         run: |
           node ygo/scripts/fetch.mjs
           node ygo/scripts/build.mjs
 
       - name: Web de Magic
-        continue-on-error: true
         run: |
           node magic/scripts/fetch.mjs
           node magic/scripts/build.mjs
 
       - name: Foto del dia e informe
-        continue-on-error: true
         run: |
           node scripts/snapshot.mjs
           node scripts/informe.mjs
