@@ -482,3 +482,15 @@
   });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cierra(null); });
 })();
+
+
+/* Mascota decorativa: cambia de Pokémon en cada pantalla/carga (ciclo 6). */
+(() => {
+  const img = document.getElementById('mascota-img');
+  if (!img) return;
+  const total = 6;
+  let i = parseInt(sessionStorage.getItem('vcMascota') || '-1', 10);
+  i = isNaN(i) ? 0 : (i + 1) % total;
+  try { sessionStorage.setItem('vcMascota', String(i)); } catch (e) {}
+  img.src = `/assets/mascotas/m${i + 1}.webp`;
+})();

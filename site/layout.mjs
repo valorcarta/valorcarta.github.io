@@ -126,6 +126,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
     ${nav}
   </nav>
 </header>
+<div class="mascota" aria-hidden="true"><img id="mascota-img" src="/assets/mascotas/m1.webp" width="256" height="256" alt="Pokémon decorativo" decoding="async"></div>
 <main>${body}</main>
 <footer>
   <p class="disclosure">${disclosure}</p>

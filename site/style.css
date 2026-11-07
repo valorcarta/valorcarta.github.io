@@ -532,19 +532,15 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   .precio-pill{font-size:.78rem;padding:2px 8px;margin-left:8px}
 }
 
-/* ===== Ambiente friki: cartas flotando en 2.5D detrás del héroe (solo decoración) ===== */
-.hero-dia{position:relative}
-.ambiente{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
-.ambiente img{position:absolute;width:195px;height:auto;border-radius:9px;opacity:.27;
-  filter:blur(.5px) saturate(.95);box-shadow:0 30px 60px rgba(0,0,0,.6);will-change:transform;
-  animation:flota-carta 12s ease-in-out infinite}
-.amb-1{left:-92px;top:140px;transform:perspective(760px) rotateY(16deg) rotateZ(-13deg)}
-.amb-2{right:-18px;top:-96px;width:190px;opacity:.24;transform:perspective(760px) rotateY(-18deg) rotateZ(11deg);animation-delay:-4s}
-.amb-3{right:-84px;bottom:-46px;width:215px;opacity:.26;transform:perspective(760px) rotateY(-14deg) rotateZ(-9deg);animation-delay:-7s}
-.amb-4{left:34%;bottom:-170px;width:150px;opacity:.12;transform:perspective(760px) rotateY(12deg) rotateZ(7deg);animation-delay:-9s}
-.ball-agua{position:absolute;right:-150px;top:50%;width:560px;height:560px;transform:translateY(-50%) rotate(-18deg);
-  color:var(--accent);opacity:.07}
-.hero-dia > :not(.ambiente){position:relative;z-index:1}
-@keyframes flota-carta{50%{translate:0 -12px}}
-@media (max-width:900px){.ambiente{display:none}}
-@media (prefers-reduced-motion:reduce){.ambiente img{animation:none}}
+
+/* ===== Mascota 3D (moneda de Pokémon) en el hueco superior derecho ===== */
+.mascota{position:fixed;top:92px;right:16px;z-index:4;width:min(124px,8vw);pointer-events:none;display:none;opacity:.92}
+.mascota img{width:100%;height:auto;display:block;border-radius:50%;
+  filter:brightness(.92) drop-shadow(0 16px 24px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(255,203,5,.14));
+  animation:mascota-flota 9s ease-in-out infinite}
+@keyframes mascota-flota{
+  0%,100%{transform:perspective(700px) rotateY(-12deg) translateY(0)}
+  50%{transform:perspective(700px) rotateY(-12deg) translateY(-7px)}
+}
+@media (min-width:1340px){.mascota{display:block}}
+@media (prefers-reduced-motion:reduce){.mascota img{animation:none}}

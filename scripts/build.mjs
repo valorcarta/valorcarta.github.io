@@ -246,6 +246,10 @@ await put(
   OUT('assets/icon.svg'),
   `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b"/><g transform="rotate(-8 16 16)"><rect x="7.4" y="4.4" width="17.2" height="23.2" rx="3.2" fill="none" stroke="#ffcb05" stroke-width="1.7"/><circle cx="16" cy="13.2" r="4.8" fill="#0f0e14" stroke="#ffcb05" stroke-width="1.5"/><path d="M11.2 13.2h9.6" stroke="#ffcb05" stroke-width="1.2"/><circle cx="16" cy="13.2" r="1.6" fill="#ffcb05"/><path d="M10.8 24.4h10.4" stroke="#35e0d0" stroke-width="1.9" stroke-linecap="round"/></g></svg>`,
 );
+// mascotas decorativas (monedas de Pokémon): se copian tal cual
+for (const f of (await readdir(path.join(ROOT, 'site', 'mascotas')).catch(() => []))) {
+  await put(OUT(`assets/mascotas/${f}`), await readFile(path.join(ROOT, 'site', 'mascotas', f)));
+}
 
 const guiasDir = path.join(ROOT, 'content', 'guias');
 const guias = [];
@@ -261,10 +265,6 @@ guias.sort((a, b) => a.title.localeCompare(b.title, 'es'));
 // ---------- home ----------
 const homeBody = `
 <section class="hero hero-dia">
-  <div class="ambiente" aria-hidden="true">
-    ${munecos.slice(0, 4).map((c, i) => `<img class="amb amb-${i + 1}" src="${esc(c.image)}/low.webp" alt="Carta de ${esc(c.name)}" width="245" height="342" loading="lazy" decoding="async">`).join('')}
-    <svg class="ball-agua" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 100h192M100 4a96 96 0 0 1 0 192" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="2"/></svg>
-  </div>
   <div class="hero-txt">
     <p class="kicker">${priced.length.toLocaleString('es-ES')} cartas con precio · actualizado el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
     <h1>¿Cuánto vale tu colección de cartas?</h1>
