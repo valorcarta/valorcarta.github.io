@@ -261,6 +261,10 @@ guias.sort((a, b) => a.title.localeCompare(b.title, 'es'));
 // ---------- home ----------
 const homeBody = `
 <section class="hero hero-dia">
+  <div class="ambiente" aria-hidden="true">
+    ${munecos.slice(0, 4).map((c, i) => `<img class="amb amb-${i + 1}" src="${esc(c.image)}/low.webp" alt="Carta de ${esc(c.name)}" width="245" height="342" loading="lazy" decoding="async">`).join('')}
+    <svg class="ball-agua" viewBox="0 0 200 200" aria-hidden="true"><circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 100h192M100 4a96 96 0 0 1 0 192" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+  </div>
   <div class="hero-txt">
     <p class="kicker">${priced.length.toLocaleString('es-ES')} cartas con precio · actualizado el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
     <h1>¿Cuánto vale tu colección de cartas?</h1>
