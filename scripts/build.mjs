@@ -244,7 +244,7 @@ for (const f of ['style.css', 'app.js', 'en.js']) {
 }
 await put(
   OUT('assets/icon.svg'),
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b"/><circle cx="16" cy="16" r="7" fill="#ffcb05"/><path d="M16 9a7 7 0 0 0 0 14z" fill="#f5f5f7"/></svg>`,
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="#0a0a0b"/><g transform="rotate(-8 16 16)"><rect x="7.4" y="4.4" width="17.2" height="23.2" rx="3.2" fill="none" stroke="#ffcb05" stroke-width="1.7"/><circle cx="16" cy="13.2" r="4.8" fill="#0f0e14" stroke="#ffcb05" stroke-width="1.5"/><path d="M11.2 13.2h9.6" stroke="#ffcb05" stroke-width="1.2"/><circle cx="16" cy="13.2" r="1.6" fill="#ffcb05"/><path d="M10.8 24.4h10.4" stroke="#35e0d0" stroke-width="1.9" stroke-linecap="round"/></g></svg>`,
 );
 
 const guiasDir = path.join(ROOT, 'content', 'guias');

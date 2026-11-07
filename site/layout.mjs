@@ -121,7 +121,7 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="${home}"><span class="dot"></span>${esc(config.brand)}</a>
+  <a class="brand" href="${home}"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#0f0e14"/><g transform="rotate(-8 16 16)"><rect x="7.4" y="4.4" width="17.2" height="23.2" rx="3.2" fill="none" stroke="#ffcb05" stroke-width="1.7"/><circle cx="16" cy="13.2" r="4.8" fill="#0f0e14" stroke="#ffcb05" stroke-width="1.5"/><path d="M11.2 13.2h9.6" stroke="#ffcb05" stroke-width="1.2"/><circle cx="16" cy="13.2" r="1.6" fill="#ffcb05"/><path d="M10.8 24.4h10.4" stroke="#35e0d0" stroke-width="1.9" stroke-linecap="round"/></g></svg>${esc(config.brand)}</a>
   <nav>
     ${nav}
   </nav>
