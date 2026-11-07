@@ -432,3 +432,10 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   .serie-cab{gap:4px}
   .serie-dato{font-size:.78rem}
 }
+
+/* el índice de sets es una lista larga: en móvil, dos columnas en vez de una (20.500 → ~11.000 px) */
+@media (max-width:520px){
+  .grid.sets{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid.sets .set-card{padding:12px}
+  .grid.sets .set-name{font-size:.9rem;line-height:1.2}
+}

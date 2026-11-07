@@ -376,7 +376,7 @@ const serieDe = (s) => s.serie ?? 'Otras series';
 const setCardHtml = (s) => `<a class="set-card" href="/set/${s.id}/">
     <span class="set-name">${esc(s.name)}</span>
     <span class="muted">${s.n} cartas${s.fecha ? ` · ${año(s.fecha)}` : ''}</span>
-    <span class="set-total">${eur(s.total)}</span></a>`;
+    <span class="set-total">${s.total > 0 ? eur(s.total) : '<span class="muted">Sin precio</span>'}</span></a>`;
 
 // ---------- hub /sets/: todos los sets agrupados por serie ----------
 // Serie ordenada por su set más reciente (lo nuevo arriba); dentro, los sets por fecha.
@@ -422,7 +422,7 @@ ${gruposSerie
     (g) => `<section class="serie-grupo" aria-labelledby="serie-${slugify(g.serie)}">
   <div class="serie-cab">
     <h2 id="serie-${slugify(g.serie)}">${esc(g.serie)}</h2>
-    <span class="serie-dato">${g.lista.length} sets · ${nf(g.nCartas)} cartas · ${eur(g.total)}</span>
+    <span class="serie-dato">${g.lista.length} sets · ${nf(g.nCartas)} cartas · ${g.total > 0 ? eur(g.total) : 'sin precios'}</span>
   </div>
   <div class="grid sets">
 ${g.lista.map(setCardHtml).join('\n')}
