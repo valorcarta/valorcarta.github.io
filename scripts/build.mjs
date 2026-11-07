@@ -109,6 +109,62 @@ const munecosCrudos = POPULARES
   .filter(Boolean);
 const munecosOk = await Promise.all(munecosCrudos.map((c) => imgOk(`${c.image}/low.webp`)));
 const munecos = munecosCrudos.filter((_, i) => munecosOk[i]).slice(0, 8);
+// «antes y ahora»: mismas cartas que el escaparate del mercado (media 30 d → media 7 d)
+const antesAhora = priced
+  .map((c) => {
+    const v = bestVariant(c);
+    if (!v || !v.avg30 || !v.avg7 || v.avg30 < 10 || v.avg7 <= 0) return null;
+    const pct = ((v.avg7 - v.avg30) / v.avg30) * 100;
+    if (!(pct > 0 && pct < 60) || !c.image || (c.price ?? 0) < 15) return null;
+    return { ...c, antes: v.avg30, ahora: v.avg7, pct };
+  })
+  .filter(Boolean)
+  .filter((c, i, arr) => arr.findIndex((x) => x.name === c.name && x.setId === c.setId) === i)
+  .sort((a, b) => b.pct - a.pct)
+  .slice(0, 3);
+const fechaPortada = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const munecosHtml = `<section class="bloque">
+  <h2>Los Pokémon que más se buscan</h2>
+  <p class="muted small">Una carta de cada uno, con el precio de referencia de hoy. Toca para ver todas sus versiones.</p>
+  <div class="munecos-grid">
+    ${munecos
+      .map(
+        (c) => `<a class="muneco" href="/carta/${cardSlug(c)}/">
+      <img src="${esc(c.image)}/low.webp" alt="Carta de ${esc(c.name)}" width="245" height="342" loading="lazy" decoding="async">
+      <span class="m-name">${esc(c.name)}</span>
+      <span class="m-price">${eur(c.price)}</span>
+    </a>`,
+      )
+      .join('\n')}
+  </div>
+</section>`;
+
+const antesAhoraHtml = antesAhora.length
+  ? `<section class="bloque">
+  <h2>Antes y ahora: lo que ha cambiado esta semana</h2>
+  <p class="muted small">La media de 30 días (antes) frente a la de 7 (ahora), en tres cartas. El porcentaje compara esas dos medias, no el precio de hoy con el de ayer. Datos de Cardmarket del ${fechaPortada}.</p>
+  <div class="antes-ahora">
+    ${antesAhora
+      .map(
+        (c) => `<a class="aa-card" href="/carta/${cardSlug(c)}/">
+      <img src="${esc(c.image)}/low.webp" alt="Carta ${esc(c.name)} de ${esc(c.setName)}" width="245" height="342" loading="lazy" decoding="async">
+      <div class="aa-info">
+        <span class="aa-name">${esc(c.name)}</span>
+        <span class="muted small">${esc(c.setName)}</span>
+        <span class="aa-row"><span>Antes · 30 d</span><b>${eur(c.antes)}</b></span>
+        <span class="aa-row"><span>Ahora · 7 d</span><b class="aa-now">${eur(c.ahora)}</b></span>
+        <span class="aa-pct up">${c.pct >= 0 ? '+' : ''}${c.pct.toFixed(1).replace('.', ',')} %</span>
+        <span class="muted small">Precio de referencia hoy: ${eur(c.price)}</span>
+      </div>
+    </a>`,
+      )
+      .join('\n')}
+  </div>
+  <p class="nota small">Una subida pasada no adelanta la siguiente: esto es el dato de hoy, no una predicción. <a href="/mercado/">Ver el radar completo</a>.</p>
+</section>`
+  : '';
+
 const totalValor = priced.reduce((s, c) => s + c.price, 0);
 
 await rm(DIST, { recursive: true, force: true });
@@ -164,21 +220,9 @@ const homeBody = `
   <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
 </section>
 
-<section class="bloque">
-  <h2>Los Pokémon que más se buscan</h2>
-  <p class="muted small">Una carta de cada uno, con el precio de referencia de hoy. Toca para ver todas sus versiones.</p>
-  <div class="munecos-grid">
-    ${munecos
-      .map(
-        (c) => `<a class="muneco" href="/carta/${cardSlug(c)}/">
-      <img src="${esc(c.image)}/low.webp" alt="Carta de ${esc(c.name)}" width="245" height="342" loading="lazy" decoding="async">
-      <span class="m-name">${esc(c.name)}</span>
-      <span class="m-price">${eur(c.price)}</span>
-    </a>`,
-      )
-      .join('\n')}
-  </div>
-</section>
+${antesAhoraHtml}
+
+${munecosHtml}
 
 <section class="bloque">
   <h2>Las cartas más caras ahora mismo</h2>
@@ -331,6 +375,7 @@ Valor total del catálogo: <b>${eur(totalValor)}</b>.</p>
 </p>
 <p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
 <p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+${munecosHtml}
 <div class="grid sets">
 ${setsConPrecio
   .map(
@@ -1026,6 +1071,8 @@ await put(
 Precios de Cardmarket actualizados el ${fechaLarga}. Esto no es un artículo: es el mercado de hoy.</p>
 
 ${vitrinaHtml}
+
+${munecosHtml}
 
 <p class="acciones">
   <a class="btn ghost" href="/caras/">Las 100 más caras</a>
