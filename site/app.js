@@ -438,3 +438,33 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
+
+/* ===== Vitrina de /mercado/: la carta se inclina con el ratón =====
+   Solo en punteros finos y sin prefers-reduced-motion: en táctil no hay hover y
+   el giro solo estorbaría. El precio y el botón no dependen de esto para verse. */
+(() => {
+  const cartas = document.querySelectorAll('[data-tilt]');
+  if (!cartas.length) return;
+  const fino = window.matchMedia('(hover:hover) and (pointer:fine)');
+  const quieto = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (!fino.matches || quieto.matches) return;
+  cartas.forEach((carta) => {
+    const zona = carta.closest('.vh-arte');
+    if (!zona) return;
+    let raf = 0;
+    zona.addEventListener('pointermove', (e) => {
+      const r = zona.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      if (raf) return;
+      raf = requestAnimationFrame(() => {
+        raf = 0;
+        carta.style.transform = `rotateY(${(x * 12).toFixed(2)}deg) rotateX(${(-y * 12).toFixed(2)}deg) translateY(-3px)`;
+      });
+    });
+    zona.addEventListener('pointerleave', () => {
+      if (raf) { cancelAnimationFrame(raf); raf = 0; }
+      carta.style.transform = '';
+    });
+  });
+})();

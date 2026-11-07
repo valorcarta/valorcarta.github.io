@@ -240,3 +240,99 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   .carta-info .btn{margin-top:6px}
   .carta-info > p.muted.small{font-size:.78rem;line-height:1.3;margin:.1em 0 .3em}
 }
+
+/* ===== Vitrina de cartas (/mercado/) =====
+   La tabla dice qué se mueve; esto lo enseña. La carta manda en la jerarquía
+   (imagen grande, precio al lado) y el botón de compra va con el precio, no al pie. */
+.vitrina{margin:22px 0 10px}
+.vitrina-cab{max-width:72ch}
+.vitrina-cab h2{margin:.15em 0 .3em}
+.vitrina-cab .lede{margin-top:0}
+.vitrina-hero{
+  display:grid;grid-template-columns:300px 1fr;gap:32px;align-items:center;
+  margin:18px 0 22px;padding:26px;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  background:
+    radial-gradient(120% 130% at 10% 0%,rgba(255,203,5,.12),transparent 55%),
+    radial-gradient(90% 90% at 92% 100%,rgba(53,208,127,.07),transparent 60%),
+    var(--surface);
+}
+.vh-arte{position:relative;display:block;width:100%;max-width:300px;margin:0 auto;perspective:1000px}
+.vh-glow{position:absolute;inset:-12% -16%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,203,5,.30),transparent 72%);filter:blur(26px);z-index:0}
+.carta3d{
+  position:relative;z-index:1;display:block;border-radius:16px;transform-style:preserve-3d;
+  transition:transform .35s cubic-bezier(.2,.7,.3,1);
+  box-shadow:0 30px 70px rgba(0,0,0,.7),0 6px 18px rgba(0,0,0,.55);
+  will-change:transform;
+}
+.carta3d img{display:block;width:100%;height:auto;border-radius:16px}
+.carta3d::after{
+  content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .3s;
+  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.16) 47%,transparent 60%);
+}
+.vh-arte:hover .carta3d::after,.vh-arte:focus-visible .carta3d::after{opacity:1}
+.vh-ficha h3{margin:.02em 0 .1em;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.02;letter-spacing:-.025em}
+.vh-ficha h3 a:hover{color:var(--accent)}
+.vh-set{margin:0 0 .5em}
+.vh-precio{
+  margin:.05em 0 .1em;font-size:clamp(2rem,4.4vw,3rem);font-weight:760;line-height:1;
+  color:var(--accent);letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+}
+.vh-trend{margin:0 0 8px;font-size:1.02rem}
+.vh-dato{margin:0 0 16px;max-width:56ch}
+.vh-acciones{display:flex;gap:10px;flex-wrap:wrap;margin:0}
+.vh-acciones .btn{min-height:48px;padding:12px 22px;font-size:1rem}
+.vitrina-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:16px}
+.carta-vitrina{
+  display:flex;flex-direction:column;gap:2px;flex:1 1 240px;max-width:260px;
+  padding:12px;border:1px solid var(--line);
+  border-radius:16px;background:var(--surface);transition:border-color .15s,transform .15s;
+}
+.carta-vitrina:hover{border-color:var(--accent);transform:translateY(-2px)}
+.cv-foto{position:relative;display:block;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+.cv-foto img{width:100%;height:auto;aspect-ratio:245/342;object-fit:cover}
+.cv-trend{
+  position:absolute;top:8px;left:8px;padding:3px 9px;border-radius:999px;
+  background:rgba(8,8,10,.84);font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;
+}
+.cv-nombre{font-weight:650;line-height:1.2;margin-top:8px}
+.cv-nombre:hover{color:var(--accent)}
+.cv-set{margin:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cv-pie{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:10px}
+.cv-precio{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:700;font-size:1.05rem}
+.cv-btn{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:8px 16px;
+  border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:700;font-size:.9rem;white-space:nowrap;
+}
+.cv-btn:hover{filter:brightness(1.07);color:var(--accent-ink)}
+.radar-h{font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:1.4em 0 .5em}
+@media (prefers-reduced-motion:reduce){
+  .carta3d{transition:none}
+  .carta-vitrina:hover{transform:none}
+}
+@media (max-width:860px){
+  .vitrina-hero{grid-template-columns:220px 1fr;gap:22px;padding:20px}
+  .vitrina-grid{gap:12px}
+}
+@media (max-width:560px){
+  .vitrina-hero{grid-template-columns:132px 1fr;gap:14px;padding:14px;align-items:start}
+  .vh-arte{max-width:132px}
+  .vh-glow{inset:-6%}
+  .vh-ficha h3{font-size:1.18rem}
+  .vh-precio{font-size:1.7rem}
+  .vh-trend{font-size:.88rem;margin-bottom:4px}
+  .vh-dato{display:none}
+  .vh-acciones{flex-direction:column;align-items:stretch;gap:8px;margin-top:8px}
+  .vh-acciones .btn{min-height:44px;padding:10px 12px;font-size:.88rem}
+  .vitrina-grid{gap:10px}
+  .carta-vitrina{flex:1 1 46%;max-width:calc((100% - 10px)/2);padding:9px}
+  .cv-pie{flex-direction:column;align-items:stretch;gap:6px}
+  .cv-precio{font-size:.96rem}
+  .cv-btn{width:100%;padding:6px 10px;font-size:.82rem}
+}
+
+/* el menú no cabía en 390 px y «Alertas» salía cortado */
+@media (max-width:520px){
+  .top{padding:11px 14px;gap:10px}
+  .top nav{gap:11px;font-size:.82rem}
+  .brand{font-size:.95rem}
+}

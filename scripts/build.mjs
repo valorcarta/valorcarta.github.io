@@ -903,37 +903,127 @@ const filaRadar = (c, cls) => `<tr>
   <td class="num ${cls}">${c.var7 >= 0 ? '+' : ''}${c.var7.toFixed(1)}%</td>
 </tr>`;
 
+// ---------- vitrina de /mercado/: las cartas, antes que la tabla ----------
+// La tabla dice qué se mueve; la vitrina lo enseña y ofrece la compra. Solo entran
+// cartas Pokémon con imagen y precio suficiente: un hueco gris no vende nada.
+// El orden es el mismo dato del radar, sin retocar la variación.
+const vitrinaCandidatas = suben.filter(
+  (c) => c.image && /^pok/i.test(c.category || '') && c.price >= 15,
+);
+const vitrinaHero = vitrinaCandidatas[0] ?? null;
+const vitrinaResto = vitrinaCandidatas.slice(1, 3);
+
+// Fecha real del dato: la del fetch más reciente del catálogo, no la del build.
+const fechaCatalogo = priced.reduce(
+  (max, c) => (c.updated && c.updated > max ? c.updated : max),
+  '',
+);
+const fechaLarga = new Date(fechaCatalogo || Date.now()).toLocaleDateString('es-ES', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+const varFmt = (n) => `${n >= 0 ? '+' : ''}${n.toFixed(1).replace('.', ',')} %`;
+const amazonCarta = (c) => amazonLink(`${c.name} ${c.setName ?? ''} pokemon`);
+
+const vitrinaHeroHtml = vitrinaHero
+  ? (() => {
+      const v = bestVariant(vitrinaHero);
+      const slug = cardSlug(vitrinaHero);
+      const medias =
+        v?.avg7 && v?.avg30
+          ? `<p class="vh-dato muted small">Media de 7 días: ${eur(v.avg7)}. Media de 30: ${eur(v.avg30)}. La variación sale de esas dos medias, no de una sola venta.</p>`
+          : '';
+      return `<article class="vitrina-hero">
+  <a class="vh-arte" href="/carta/${slug}/" aria-label="Ver la ficha de ${esc(vitrinaHero.name)}">
+    <span class="vh-glow" aria-hidden="true"></span>
+    <span class="carta3d" data-tilt>
+      <img src="${esc(vitrinaHero.image)}/high.webp" alt="Carta ${esc(vitrinaHero.name)} de ${esc(vitrinaHero.setName)}" width="480" height="670" loading="eager" fetchpriority="high" decoding="async">
+    </span>
+  </a>
+  <div class="vh-ficha">
+    <p class="kicker">La que más sube esta semana</p>
+    <h3><a href="/carta/${slug}/">${esc(vitrinaHero.name)}</a></h3>
+    <p class="vh-set muted">${esc(vitrinaHero.setName)}</p>
+    <p class="vh-precio">${eur(vitrinaHero.price)}</p>
+    <p class="vh-trend"><b class="up">${varFmt(vitrinaHero.var7)}</b> <span class="muted small">frente a su media de 30 días</span></p>
+    ${medias}
+    <div class="vh-acciones">
+      <a class="btn" href="${amazonCarta(vitrinaHero)}" rel="sponsored nofollow noopener" target="_blank">Comprar en Amazon</a>
+      <a class="btn ghost" href="/carta/${slug}/">Ver ficha y precios</a>
+    </div>
+  </div>
+</article>`;
+    })()
+  : '';
+
+const vitrinaMini = (c) => {
+  const slug = cardSlug(c);
+  return `<article class="carta-vitrina">
+  <a class="cv-foto" href="/carta/${slug}/">
+    <img src="${esc(c.image)}/high.webp" alt="Carta ${esc(c.name)} de ${esc(c.setName)}" width="480" height="670" loading="lazy" decoding="async">
+    <span class="cv-trend up">${varFmt(c.var7)}</span>
+  </a>
+  <a class="cv-nombre" href="/carta/${slug}/">${esc(c.name)}</a>
+  <p class="cv-set muted small">${esc(c.setName)}</p>
+  <div class="cv-pie">
+    <span class="cv-precio">${eur(c.price)}</span>
+    <a class="cv-btn" href="${amazonCarta(c)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Buscar ${esc(c.name)} en Amazon">Comprar</a>
+  </div>
+</article>`;
+};
+
+const vitrinaHtml = vitrinaHero
+  ? `<section class="vitrina" aria-labelledby="vitrina-titulo">
+  <div class="vitrina-cab">
+    <p class="kicker">El escaparate de la semana</p>
+    <h2 id="vitrina-titulo">Las cartas que se están moviendo</h2>
+    <p class="lede">Las que más han subido frente a su media de 30 días, con imagen y precio de referencia. El dato es de hoy; la subida no es una promesa.</p>
+  </div>
+  ${vitrinaHeroHtml}
+  <div class="vitrina-grid">${vitrinaResto.map(vitrinaMini).join('')}</div>
+  <p class="nota small">Enlaces de afiliado de Amazon: si compras desde ellos, ValorCarta recibe una comisión que no cambia lo que pagas. Amazon apenas vende cartas sueltas: el botón abre su buscador; el sellado sí está a la venta. Precios de referencia de Cardmarket vía TCGdex, actualizados el ${fechaLarga}.</p>
+</section>`
+  : '';
+
 await put(
   OUT('mercado/index.html'),
   layout({
     title: `Qué cartas están subiendo y bajando esta semana | ${config.brand}`,
     description:
-      'Radar de precios de cartas Pokémon: qué sube y qué baja en los últimos 7 días frente a la media de 30, recalculado a diario.',
+      'Radar de precios de cartas Pokémon: las que más suben y bajan esta semana frente a su media de 30 días, con imagen, precio de referencia y dónde comprarlas.',
     url: '/mercado/',
     alternates: altPair('/mercado/', '/en/market/'),
+    image: vitrinaHero?.image ? `${vitrinaHero.image}/high.webp` : undefined,
     body: `
 <h1>Qué se mueve esta semana</h1>
-<p class="lede">Comparación de la media de 7 días frente a la de 30, sobre ${radar.length.toLocaleString('es-ES')} cartas con liquidez suficiente.
-Se recalcula en cada actualización, así que esto no es un artículo: es el mercado de hoy.</p>
-<p class="acciones">
-  <a class="btn" href="/caras/">Las 100 más caras</a>
-  <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas, por tipo</a>
-</p>
-<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
-<p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+<p class="lede">Comparación de la media de 7 días frente a la de 30, sobre ${radar.length.toLocaleString('es-ES')} cartas.
+Precios de Cardmarket actualizados el ${fechaLarga}. Esto no es un artículo: es el mercado de hoy.</p>
 
-<div class="dos-col">
-  <div>
-    <h2>Suben</h2>
-    <table class="listado"><thead><tr><th>Carta</th><th class="num">Precio</th><th class="num">7 d</th></tr></thead>
-    <tbody>${suben.map((c) => filaRadar(c, 'up')).join('')}</tbody></table>
+${vitrinaHtml}
+
+<p class="acciones">
+  <a class="btn ghost" href="/caras/">Las 100 más caras</a>
+  <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas, por tipo</a>
+  <a class="btn ghost" href="/comprar/">Dónde comprar sin pagar de más</a>
+</p>
+
+<section class="bloque">
+  <h2>El radar completo</h2>
+  <p class="muted">Las veinte que más suben y las veinte que más bajan entre las ${radar.length.toLocaleString('es-ES')} cartas con datos suficientes. La tabla es el dato en crudo; el escaparate de arriba, las mismas cartas con imagen.</p>
+  <div class="dos-col">
+    <div>
+      <h3 class="radar-h">Suben</h3>
+      <table class="listado"><thead><tr><th>Carta</th><th class="num">Precio</th><th class="num">7 d</th></tr></thead>
+      <tbody>${suben.map((c) => filaRadar(c, 'up')).join('')}</tbody></table>
+    </div>
+    <div>
+      <h3 class="radar-h">Bajan</h3>
+      <table class="listado"><thead><tr><th>Carta</th><th class="num">Precio</th><th class="num">7 d</th></tr></thead>
+      <tbody>${bajan.map((c) => filaRadar(c, 'down')).join('')}</tbody></table>
+    </div>
   </div>
-  <div>
-    <h2>Bajan</h2>
-    <table class="listado"><thead><tr><th>Carta</th><th class="num">Precio</th><th class="num">7 d</th></tr></thead>
-    <tbody>${bajan.map((c) => filaRadar(c, 'down')).join('')}</tbody></table>
-  </div>
-</div>
+</section>
 
 <section class="bloque">
   <h2>Cómo se calcula</h2>
