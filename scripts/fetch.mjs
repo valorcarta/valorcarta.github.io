@@ -11,6 +11,9 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const CACHE = path.join(ROOT, 'data', 'cache');
 const DATA = path.join(ROOT, 'data');
 const API = 'https://api.tcgdex.net/v2/es';
+// CDN de TCGdex: con la misma URL, un runner de otro país puede recibir una copia
+// cacheada de ayer. Un sello único por ejecución fuerza la consulta a origen.
+const SELLO = Date.now().toString(36);
 const CONCURRENCY = 18;
 
 const args = Object.fromEntries(
@@ -121,7 +124,7 @@ async function main() {
   await mkdir(CACHE, { recursive: true });
 
   console.log('1/3 sets...');
-  const sets = await getJSON(`${API}/sets`);
+  const sets = await getJSON(`${API}/sets?v=${SELLO}`);
   if (!sets) throw new Error('no se pudo leer /sets');
   const setsById = new Map(sets.map((s) => [s.id, s]));
   await writeFile(
@@ -167,7 +170,7 @@ async function main() {
     if (cached.has(c.id)) return;
     const setId = c.id.split('-')[0];
     const setMeta = setsById.get(setId) ?? { id: setId, name: setId };
-    const full = await getJSON(`${API}/cards/${c.id}`);
+    const full = await getJSON(`${API}/cards/${c.id}?v=${SELLO}`);
     if (!full) return;
     const card = normalizeCard(full, setMeta);
     await writeFile(path.join(CACHE, `${c.id}.json`), JSON.stringify(card));
