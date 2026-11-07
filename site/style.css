@@ -227,8 +227,12 @@ footer{max-width:1080px;margin:0 auto;padding:34px 20px 60px;border-top:1px soli
 
 @media (max-width:820px){
   .nav-desktop{display:none}
+  /* En móvil, un solo acceso: «Menú». Cuatro enlaces de texto no caben (390 px:
+     «Comprar» y «Alertas» se salían y la página scrolleaba en horizontal). */
   .nav-movil{display:flex;align-items:center;gap:0}
-  .nav-movil a{padding:6px 6px;font-size:.8rem}
+  .nav-movil summary{padding:8px 12px;font-size:.86rem}
+  .nav-movil .menu-panel{left:auto;right:0;min-width:212px}
+  .nav-movil .menu-panel a{padding:10px 12px}
   .carta-layout{grid-template-columns:1fr}
   .carta-img{max-width:300px}
   .carta3d{transform:none}
@@ -548,11 +552,13 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 
 /* ===== Portada: escena inmersiva (auras + Pokébola) con la carta del día mandando ===== */
 .portada{position:relative;isolation:isolate;padding:56px 0 44px;min-height:min(74vh,690px)}
-.portada-fondo{position:absolute;inset:-18% -32% -12% -32%;z-index:-1;overflow:hidden;pointer-events:none}
+/* La escena se queda dentro de la sección: con inset horizontal negativo, el fondo
+   sangraba fuera y el documento scrolleaba en horizontal (482 px a 390 de ancho). */
+.portada-fondo{position:absolute;inset:-16% 0 -12% 0;z-index:-1;overflow:hidden;pointer-events:none}
 .portada-fondo .aura{position:absolute;border-radius:50%;filter:blur(95px)}
 .aura-1{width:540px;height:540px;left:42%;top:-180px;background:radial-gradient(circle,rgba(53,224,208,.34),transparent 70%)}
-.aura-2{width:470px;height:470px;right:-140px;bottom:-190px;background:radial-gradient(circle,rgba(185,140,255,.30),transparent 70%)}
-.aura-3{width:400px;height:400px;left:-190px;top:34%;background:radial-gradient(circle,rgba(255,203,5,.16),transparent 72%)}
+.aura-2{width:470px;height:470px;right:0;bottom:-190px;background:radial-gradient(circle,rgba(185,140,255,.30),transparent 70%)}
+.aura-3{width:400px;height:400px;left:0;top:34%;background:radial-gradient(circle,rgba(255,203,5,.16),transparent 72%)}
 .bola-fondo{position:absolute;right:6%;top:50%;width:600px;height:600px;transform:translateY(-50%) rotate(-16deg);color:var(--accent);opacity:.055}
 .portada h1{font-size:clamp(2.5rem,5.2vw,3.9rem);line-height:1.02;letter-spacing:-.035em;margin:.08em 0 .28em}
 .portada h1 em{font-style:normal;color:var(--accent)}

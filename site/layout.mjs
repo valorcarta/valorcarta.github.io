@@ -53,9 +53,14 @@ export function layout({
       <a href="/en/about/" class="cta-mini">About</a>
     </div>
     <div class="nav-movil">
-      <a href="/en/market/">Market</a>
-      <a href="/en/price-check/">Price check</a>
-      <a href="/en/about/" class="cta-mini">About</a>
+      <details class="menu" name="nav-menu">
+        <summary>Menu</summary>
+        <div class="menu-panel">
+          <a href="/en/market/">Market</a>
+          <a href="/en/price-check/">Price check</a>
+          <a href="/en/about/">About</a>
+        </div>
+      </details>
     </div>`
     : `<div class="nav-desktop">
       <details class="menu" name="nav-menu">
@@ -80,10 +85,15 @@ export function layout({
       <a href="/alertas/" class="cta-mini">Alertas</a>
     </div>
     <div class="nav-movil">
-      <a href="/cartas/">Cartas</a>
-      <a href="/mercado/">Mercado</a>
-      <a href="/comprar/">Comprar</a>
-      <a href="/alertas/" class="cta-mini">Alertas</a>
+      <details class="menu" name="nav-menu">
+        <summary>Menú</summary>
+        <div class="menu-panel">
+          <a href="/cartas/">Cartas</a>
+          <a href="/mercado/">Mercado</a>
+          <a href="/comprar/">Comprar</a>
+          <a href="/alertas/">Alertas de precio</a>
+        </div>
+      </details>
     </div>`;
   const disclosure = en
     ? 'As an Amazon Associate I earn from qualifying purchases. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.'
