@@ -535,10 +535,13 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 
 
 /* ===== Figura dibujada (juguete) junto al logo, sobre el fondo negro ===== */
-.figura{display:block;width:66px;height:84px;margin:-12px auto -8px 10px;pointer-events:none;position:relative;flex:none}
-.figura img{width:100%;height:100%;object-fit:contain;display:block;
-  filter:drop-shadow(0 10px 12px rgba(0,0,0,.6));
+.figura{display:block;width:94px;height:114px;margin:-26px auto -12px 6px;pointer-events:none;position:relative;flex:none}
+.figura::before{content:"";position:absolute;inset:-30%;border-radius:50%;z-index:-1;
+  background:radial-gradient(closest-side,rgba(255,203,5,.30),rgba(53,224,208,.14) 52%,transparent 72%);
+  filter:blur(16px)}
+.figura img{width:100%;height:100%;object-fit:contain;display:block;position:relative;
+  filter:drop-shadow(0 18px 18px rgba(0,0,0,.95)) drop-shadow(0 3px 0 rgba(10,9,14,.95));
   animation:figura-flota 8s ease-in-out infinite}
-@keyframes figura-flota{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
-@media (max-width:600px){.figura{width:46px;height:58px;margin:-6px 0 -4px 4px}}
+@keyframes figura-flota{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-5px) rotate(2deg)}}
+@media (max-width:600px){.figura{width:62px;height:76px;margin:-14px 0 -8px 4px}}
 @media (prefers-reduced-motion:reduce){.figura img{animation:none}}
