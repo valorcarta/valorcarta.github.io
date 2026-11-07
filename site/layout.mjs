@@ -122,11 +122,11 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 <body>
 <header class="top">
   <a class="brand" href="${home}"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#0f0e14"/><g transform="rotate(-8 16 16)"><rect x="7.4" y="4.4" width="17.2" height="23.2" rx="3.2" fill="none" stroke="#ffcb05" stroke-width="1.7"/><circle cx="16" cy="13.2" r="4.8" fill="#0f0e14" stroke="#ffcb05" stroke-width="1.5"/><path d="M11.2 13.2h9.6" stroke="#ffcb05" stroke-width="1.2"/><circle cx="16" cy="13.2" r="1.6" fill="#ffcb05"/><path d="M10.8 24.4h10.4" stroke="#35e0d0" stroke-width="1.9" stroke-linecap="round"/></g></svg>${esc(config.brand)}</a>
+  <span class="figura" aria-hidden="true"><img id="figura-img" src="/assets/mascotas/fig1.svg" width="76" height="90" alt="Pokémon decorativo" decoding="async"></span>
   <nav>
     ${nav}
   </nav>
 </header>
-<div class="mascota" aria-hidden="true"><img id="mascota-img" src="/assets/mascotas/m1.webp" width="256" height="256" alt="Pokémon decorativo" decoding="async"></div>
 <main>${body}</main>
 <footer>
   <p class="disclosure">${disclosure}</p>

@@ -533,14 +533,12 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 }
 
 
-/* ===== Mascota 3D (moneda de Pokémon) en el hueco superior derecho ===== */
-.mascota{position:fixed;top:92px;right:16px;z-index:4;width:min(128px,8.2vw);pointer-events:none;display:none;opacity:.95}
-.mascota img{width:100%;height:auto;display:block;
-  filter:drop-shadow(0 16px 24px rgba(0,0,0,.62)) drop-shadow(0 0 16px rgba(255,203,5,.12));
-  animation:mascota-flota 9s ease-in-out infinite}
-@keyframes mascota-flota{
-  0%,100%{transform:perspective(700px) rotateY(-12deg) translateY(0)}
-  50%{transform:perspective(700px) rotateY(-12deg) translateY(-7px)}
-}
-@media (min-width:1340px){.mascota{display:block}}
-@media (prefers-reduced-motion:reduce){.mascota img{animation:none}}
+
+/* ===== Figura dibujada (juguete) junto al logo, sobre el fondo negro ===== */
+.figura{display:block;width:66px;height:84px;margin:-12px auto -8px 10px;pointer-events:none;position:relative;flex:none}
+.figura img{width:100%;height:100%;object-fit:contain;display:block;
+  filter:drop-shadow(0 10px 12px rgba(0,0,0,.6));
+  animation:figura-flota 8s ease-in-out infinite}
+@keyframes figura-flota{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-4px) rotate(2deg)}}
+@media (max-width:600px){.figura{width:46px;height:58px;margin:-6px 0 -4px 4px}}
+@media (prefers-reduced-motion:reduce){.figura img{animation:none}}

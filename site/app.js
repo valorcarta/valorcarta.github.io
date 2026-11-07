@@ -484,13 +484,13 @@
 })();
 
 
-/* Mascota decorativa: cambia de Pokémon en cada pantalla/carga (ciclo 6). */
+/* Figura decorativa junto al logo: cambia de Pokémon en cada pantalla/carga. */
 (() => {
-  const img = document.getElementById('mascota-img');
+  const img = document.getElementById('figura-img');
   if (!img) return;
-  const total = 6;
-  let i = parseInt(sessionStorage.getItem('vcMascota') || '-1', 10);
+  const total = 3;
+  let i = parseInt(sessionStorage.getItem('vcFigura') || '-1', 10);
   i = isNaN(i) ? 0 : (i + 1) % total;
-  try { sessionStorage.setItem('vcMascota', String(i)); } catch (e) {}
-  img.src = `/assets/mascotas/m${i + 1}.webp`;
+  try { sessionStorage.setItem('vcFigura', String(i)); } catch (e) {}
+  img.src = `/assets/mascotas/fig${i + 1}.svg`;
 })();
