@@ -535,7 +535,7 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 
 
 /* ===== Figura dibujada (juguete) junto al logo, sobre el fondo negro ===== */
-.figura{display:block;width:94px;height:114px;margin:-26px auto -12px 6px;pointer-events:none;position:relative;flex:none}
+.figura{display:block;width:94px;height:114px;margin:-14px auto -14px 6px;pointer-events:none;position:relative;flex:none}
 .figura::before{content:"";position:absolute;inset:-30%;border-radius:50%;z-index:-1;
   background:radial-gradient(closest-side,rgba(255,203,5,.30),rgba(53,224,208,.14) 52%,transparent 72%);
   filter:blur(16px)}
