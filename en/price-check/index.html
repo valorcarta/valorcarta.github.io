@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pokémon Card Price Check — Collection Value Calculator</title>
+<meta name="description" content="Add your Pokémon cards and see the collection value at today's market prices. The 100 most valuable cards in English, with EUR, USD and GBP.">
+<link rel="canonical" href="https://valorcarta.github.io/en/price-check/">
+<link rel="alternate" hreflang="es" href="https://valorcarta.github.io/valorar/">
+<link rel="alternate" hreflang="en" href="https://valorcarta.github.io/en/price-check/">
+<link rel="alternate" hreflang="x-default" href="https://valorcarta.github.io/valorar/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ValorCarta">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Pokémon Card Price Check — Collection Value Calculator | ValorCarta">
+<meta property="og:description" content="Add your Pokémon cards and see the collection value at today's market prices. The 100 most valuable cards in English, with EUR, USD and GBP.">
+<meta property="og:url" content="https://valorcarta.github.io/en/price-check/">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="p:domain_verify" content="c1afa454d89ee36b16de2142c50827fb"/>
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pokémon card price check","url":"https://valorcarta.github.io/en/price-check/","applicationCategory":"FinanceApplication","operatingSystem":"Any","inLanguage":"en","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/en/"><span class="dot"></span>ValorCarta</a>
+  <nav>
+    <a href="/en/">Home</a>
+    <a href="/en/price-check/">Price check</a>
+    <a href="/en/market/">Market</a>
+    <a href="/en/most-expensive/">Top 100</a>
+    <a href="/en/about/" class="cta-mini">About</a>
+  </nav>
+</header>
+<main>
+<nav class="migas"><a href="/en/">Home</a> / Price check</nav>
+<h1>Pokémon card price check</h1>
+<p class="lede">Add the cards you own and see what they are worth at today's market price. This English version
+covers the 100 most valuable cards; the full 9,856-card catalogue is in Spanish.</p>
+<div id="buscador" class="buscador grande">
+  <input id="q-en" type="search" placeholder="Search the top 100: Charizard, Umbreon, Mew…" autocomplete="off" aria-label="Search cards">
+  <div id="resultados-en" class="resultados"></div>
+</div>
+<div class="dos-col coleccion">
+  <div>
+    <h2>Your collection <span id="n-cartas-en" class="muted"></span></h2>
+    <div id="coleccion-en" class="coleccion-lista"><p class="muted">No cards yet. Search above to add one.</p></div>
+  </div>
+  <aside class="total-caja">
+    <p class="muted">Market value today</p>
+    <p id="total-en" class="total">€0.00</p>
+    <p id="total-usd" class="muted">≈ $0.00 USD</p>
+    <p id="total-gbp" class="muted">≈ £0.00 GBP</p>
+    <p id="delta-en" class="muted"></p>
+    <button id="compartir-en" class="btn">Copy share link</button>
+    <button id="csv-en" class="btn ghost">Download CSV</button>
+    <button id="vaciar-en" class="btn ghost">Clear</button>
+    <p class="nota small">Reference prices from Cardmarket. USD and GBP are an approximate conversion at fixed build rates (€1 = $1.08 = £0.85), not live exchange rates.</p>
+    <a class="btn ghost" href="/valorar/">Full catalogue in Spanish</a>
+  </aside>
+</div>
+
+<section class="bloque">
+  <h2>How the total is calculated</h2>
+  <ol class="pasos">
+    <li>Each card is valued at its current Cardmarket reference price in euros.</li>
+    <li>Quantities are multiplied by that price and added up.</li>
+    <li>USD and GBP are converted at the fixed rates declared in the build: €1 = $1.08 = £0.85.</li>
+  </ol>
+  <p class="nota">The total is a market reference, not an offer. Condition, language and edition can move the real
+  value of a card by more than half. The collection is saved only in this browser.</p>
+</section></main>
+<footer>
+  <p class="disclosure">As an Amazon Associate I earn from qualifying purchases. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.</p>
+  <p class="foot-links">
+    <a href="/en/price-check/">Price check</a> · <a href="/en/most-expensive/">Top 100</a> · <a href="/en/market/">Market</a> · <a href="/en/about/">About &amp; privacy</a> · <a href="/">Versión en español</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Open data</a>
+  </p>
+  <p class="muted">Reference prices from Cardmarket, updated daily. Not an appraisal: condition decides the real value. © 2026 ValorCarta</p>
+</footer>
+<script src="/assets/app.js" defer></script>
+<script src="/assets/en.js" defer></script>
+<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
