@@ -100,6 +100,15 @@ async function imgOk(url) {
 const candidatas = priced.filter((c) => c.image).slice(0, 64);
 const checks = await Promise.all(candidatas.map((c) => imgOk(`${c.image}/low.webp`)));
 const top = candidatas.filter((_, i) => checks[i]).slice(0, 24);
+
+// «muñecos»: una carta por Pokémon popular, con la imagen comprobada (si no, hueco roto)
+const POPULARES = ['Pikachu', 'Charizard', 'Eevee', 'Gengar', 'Umbreon', 'Mewtwo',
+  'Rayquaza', 'Greninja', 'Lucario', 'Blastoise', 'Venusaur', 'Mew'];
+const munecosCrudos = POPULARES
+  .map((n) => priced.find((c) => c.image && c.name.toLowerCase() === n.toLowerCase()))
+  .filter(Boolean);
+const munecosOk = await Promise.all(munecosCrudos.map((c) => imgOk(`${c.image}/low.webp`)));
+const munecos = munecosCrudos.filter((_, i) => munecosOk[i]).slice(0, 8);
 const totalValor = priced.reduce((s, c) => s + c.price, 0);
 
 await rm(DIST, { recursive: true, force: true });
@@ -153,6 +162,22 @@ const homeBody = `
     <a class="btn ghost" href="/cartas/">Ver todas las cartas</a>
   </div>
   <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+</section>
+
+<section class="bloque">
+  <h2>Los Pokémon que más se buscan</h2>
+  <p class="muted small">Una carta de cada uno, con el precio de referencia de hoy. Toca para ver todas sus versiones.</p>
+  <div class="munecos-grid">
+    ${munecos
+      .map(
+        (c) => `<a class="muneco" href="/carta/${cardSlug(c)}/">
+      <img src="${esc(c.image)}/low.webp" alt="Carta de ${esc(c.name)}" width="245" height="342" loading="lazy" decoding="async">
+      <span class="m-name">${esc(c.name)}</span>
+      <span class="m-price">${eur(c.price)}</span>
+    </a>`,
+      )
+      .join('\n')}
+  </div>
 </section>
 
 <section class="bloque">

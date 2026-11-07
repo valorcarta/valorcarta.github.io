@@ -40,16 +40,50 @@ export function layout({
   const en = lang === 'en';
   const home = en ? '/en/' : '/';
   const nav = en
-    ? `<a href="/en/">Home</a>
-    <a href="/en/price-check/">Price check</a>
-    <a href="/en/market/">Market</a>
-    <a href="/en/most-expensive/">Top 100</a>
-    <a href="/en/about/" class="cta-mini">About</a>`
-    : `<a href="/valorar/">Valorar colección</a>
-    <a href="/cartas/">Cartas</a>
-    <a href="/comprar/">Comprar</a>
-    <a href="/mercado/">Mercado</a>
-    <a href="/alertas/" class="cta-mini">Alertas</a>`;
+    ? `<div class="nav-desktop">
+      <details class="menu">
+        <summary>Explore</summary>
+        <div class="menu-panel">
+          <a href="/en/market/"><span class="mi" style="--c:#ffcb05"></span>Market</a>
+          <a href="/en/most-expensive/"><span class="mi" style="--c:#35e0d0"></span>Top 100</a>
+        </div>
+      </details>
+      <a href="/en/price-check/">Price check</a>
+      <a href="/en/">Home</a>
+      <a href="/en/about/" class="cta-mini">About</a>
+    </div>
+    <div class="nav-movil">
+      <a href="/en/market/">Market</a>
+      <a href="/en/price-check/">Price check</a>
+      <a href="/en/about/" class="cta-mini">About</a>
+    </div>`
+    : `<div class="nav-desktop">
+      <details class="menu">
+        <summary>Cartas</summary>
+        <div class="menu-panel">
+          <a href="/cartas/"><span class="mi" style="--c:#ffcb05"></span>Todas las cartas</a>
+          <a href="/caras/"><span class="mi" style="--c:#35e0d0"></span>Las 100 más caras</a>
+          <a href="/mercado/"><span class="mi" style="--c:#b98cff"></span>Qué se mueve esta semana</a>
+        </div>
+      </details>
+      <details class="menu">
+        <summary>Herramientas</summary>
+        <div class="menu-panel">
+          <a href="/valorar/"><span class="mi" style="--c:#ffcb05"></span>Valorar colección</a>
+          <a href="/alertas/"><span class="mi" style="--c:#35e0d0"></span>Alertas de precio</a>
+          <a href="/guardar-cartas/"><span class="mi" style="--c:#b98cff"></span>Guardar cartas</a>
+          <a href="/guias/"><span class="mi" style="--c:#ff9d5c"></span>Guías de compra</a>
+        </div>
+      </details>
+      <a href="/comprar/">Comprar</a>
+      <a href="/alertas/" class="cta-mini">Alertas</a>
+    </div>
+    <div class="nav-movil">
+      <a href="/cartas/">Cartas</a>
+      <a href="/mercado/">Mercado</a>
+      <a href="/comprar/">Comprar</a>
+      <a href="/alertas/" class="cta-mini">Alertas</a>
+    </div>`;
   const disclosure = en
     ? 'As an Amazon Associate I earn from qualifying purchases. Amazon and the Amazon logo are trademarks of Amazon.com, Inc. or its affiliates.'
     : 'En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.';
