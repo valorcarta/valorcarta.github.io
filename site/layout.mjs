@@ -41,7 +41,7 @@ export function layout({
   const home = en ? '/en/' : '/';
   const nav = en
     ? `<div class="nav-desktop">
-      <details class="menu">
+      <details class="menu" name="nav-menu">
         <summary>Explore</summary>
         <div class="menu-panel">
           <a href="/en/market/"><span class="mi" style="--c:#ffcb05"></span>Market</a>
@@ -58,7 +58,7 @@ export function layout({
       <a href="/en/about/" class="cta-mini">About</a>
     </div>`
     : `<div class="nav-desktop">
-      <details class="menu">
+      <details class="menu" name="nav-menu">
         <summary>Cartas</summary>
         <div class="menu-panel">
           <a href="/cartas/"><span class="mi" style="--c:#ffcb05"></span>Todas las cartas</a>
@@ -67,7 +67,7 @@ export function layout({
           <a href="/mercado/"><span class="mi" style="--c:#b98cff"></span>Qué se mueve esta semana</a>
         </div>
       </details>
-      <details class="menu">
+      <details class="menu" name="nav-menu">
         <summary>Herramientas</summary>
         <div class="menu-panel">
           <a href="/valorar/"><span class="mi" style="--c:#ffcb05"></span>Valorar colección</a>

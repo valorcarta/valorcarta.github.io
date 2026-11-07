@@ -468,3 +468,17 @@
     });
   });
 })();
+
+
+/* Menú: solo un desplegable abierto a la vez; se cierra al pulsar fuera o Escape.
+   (El atributo name de <details> lo hace en navegadores nuevos; esto lo cubre en todos.) */
+(() => {
+  const menus = document.querySelectorAll('.top nav details');
+  if (!menus.length) return;
+  const cierra = (salvo) => menus.forEach((d) => { if (d !== salvo) d.open = false; });
+  menus.forEach((d) => d.addEventListener('toggle', () => { if (d.open) cierra(d); }));
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest || !e.target.closest('.top nav details')) cierra(null);
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') cierra(null); });
+})();
