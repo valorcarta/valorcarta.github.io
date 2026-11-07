@@ -534,9 +534,9 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 
 
 /* ===== Mascota 3D (moneda de Pokémon) en el hueco superior derecho ===== */
-.mascota{position:fixed;top:92px;right:16px;z-index:4;width:min(124px,8vw);pointer-events:none;display:none;opacity:.92}
-.mascota img{width:100%;height:auto;display:block;border-radius:50%;
-  filter:brightness(.92) drop-shadow(0 16px 24px rgba(0,0,0,.6)) drop-shadow(0 0 18px rgba(255,203,5,.14));
+.mascota{position:fixed;top:92px;right:16px;z-index:4;width:min(128px,8.2vw);pointer-events:none;display:none;opacity:.95}
+.mascota img{width:100%;height:auto;display:block;
+  filter:drop-shadow(0 16px 24px rgba(0,0,0,.62)) drop-shadow(0 0 16px rgba(255,203,5,.12));
   animation:mascota-flota 9s ease-in-out infinite}
 @keyframes mascota-flota{
   0%,100%{transform:perspective(700px) rotateY(-12deg) translateY(0)}
