@@ -49,6 +49,18 @@ jobs:
           GOATCOUNTER_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
         run: node scripts/panel.mjs
 
+      - name: Guardia de frescura del dato
+        run: |
+          # Si el fetch del runner trae un snapshot más viejo que el commiteado
+          # (CDN de TCGdex / límites de GitHub), se restaura el del repo.
+          COMMIT=$(node -e 'const {execSync}=require("child_process");const c=JSON.parse(execSync("git show HEAD:data/cards.json",{maxBuffer:1e9}).toString());console.log(c.reduce((m,x)=>x.updated&&x.updated>m?x.updated:m,""))')
+          NUEVO=$(node -e 'const c=require("./data/cards.json");console.log(c.reduce((m,x)=>x.updated&&x.updated>m?x.updated:m,""))')
+          echo "dato commit=$COMMIT · dato descargado=$NUEVO"
+          if [[ "$NUEVO" < "$COMMIT" ]]; then
+            echo "El fetch trajo dato más viejo: restauro cards.json del repo"
+            git checkout -- data/cards.json
+          fi
+
       - name: Construir la web
         env:
           SITE_URL: ${{ steps.pages.outputs.base_url }}
