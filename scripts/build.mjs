@@ -109,20 +109,31 @@ const munecosCrudos = POPULARES
   .filter(Boolean);
 const munecosOk = await Promise.all(munecosCrudos.map((c) => imgOk(`${c.image}/low.webp`)));
 const munecos = munecosCrudos.filter((_, i) => munecosOk[i]).slice(0, 8);
-// «antes y ahora»: mismas cartas que el escaparate del mercado (media 30 d → media 7 d)
-const antesAhora = priced
+// ---------- radar de precio (se recalcula en cada build) ----------
+// Una sola definición para la portada y /mercado/: la misma carta no puede
+// salir con dos cifras distintas en la misma web.
+const radar = priced
   .map((c) => {
     const v = bestVariant(c);
     if (!v || !v.avg30 || !v.avg7 || v.avg30 < 10 || v.avg7 <= 0) return null;
-    const pct = ((v.avg7 - v.avg30) / v.avg30) * 100;
-    if (!(pct > 0 && pct < 60) || !c.image || (c.price ?? 0) < 15) return null;
-    return { ...c, antes: v.avg30, ahora: v.avg7, pct };
+    return { ...c, var7: ((v.avg7 - v.avg30) / v.avg30) * 100 };
   })
-  .filter(Boolean)
-  .filter((c, i, arr) => arr.findIndex((x) => x.name === c.name && x.setId === c.setId) === i)
-  .sort((a, b) => b.pct - a.pct)
-  .slice(0, 3);
-const fechaPortada = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  .filter((c) => c && c.var7 > -60 && c.var7 < 60)
+  .filter((c, i, arr) => arr.findIndex((x) => x.name === c.name && x.setId === c.setId) === i);
+const suben = [...radar].sort((a, b) => b.var7 - a.var7).slice(0, 20);
+const bajan = [...radar].sort((a, b) => a.var7 - b.var7).slice(0, 20);
+const varFmt = (n) => `${n >= 0 ? '+' : ''}${n.toFixed(1).replace('.', ',')} %`;
+const amazonCarta = (c) => amazonLink(`${c.name} ${c.setName ?? ''} pokemon`);
+
+// Vitrina: solo cartas Pokémon con imagen y precio suficiente. Un hueco gris no vende nada.
+// El orden es el mismo dato del radar, sin retocar la variación.
+const vitrinaCandidatas = suben.filter(
+  (c) => c.image && /^pok/i.test(c.category || '') && c.price >= 15,
+);
+// La carta del día = la que más sube esta semana (la misma que abre /mercado/).
+const cartaDelDia = vitrinaCandidatas[0] ?? null;
+// «Lo que más se mueve» = las tres siguientes: la del día ya está en el héroe.
+const movers = vitrinaCandidatas.slice(1, 4);
 
 // Fecha real del dato: la del fetch más reciente del catálogo, no la del build.
 // La usan /sets/, /mercado/ y la portada; se calcula una vez.
@@ -149,28 +160,63 @@ const munecosHtml = `<section class="bloque">
   </div>
 </section>`;
 
-const antesAhoraHtml = antesAhora.length
-  ? `<section class="bloque">
-  <h2>Antes y ahora: lo que ha cambiado esta semana</h2>
-  <p class="muted small">La media de 30 días (antes) frente a la de 7 (ahora), en tres cartas. El porcentaje compara esas dos medias, no el precio de hoy con el de ayer. Datos de Cardmarket del ${fechaPortada}.</p>
-  <div class="antes-ahora">
-    ${antesAhora
-      .map(
-        (c) => `<a class="aa-card" href="/carta/${cardSlug(c)}/">
-      <img src="${esc(c.image)}/low.webp" alt="Carta ${esc(c.name)} de ${esc(c.setName)}" width="245" height="342" loading="lazy" decoding="async">
-      <div class="aa-info">
-        <span class="aa-name">${esc(c.name)}</span>
-        <span class="muted small">${esc(c.setName)}</span>
-        <span class="aa-row"><span>Antes · 30 d</span><b>${eur(c.antes)}</b></span>
-        <span class="aa-row"><span>Ahora · 7 d</span><b class="aa-now">${eur(c.ahora)}</b></span>
-        <span class="aa-pct up">${c.pct >= 0 ? '+' : ''}${c.pct.toFixed(1).replace('.', ',')} %</span>
-        <span class="muted small">Precio de referencia hoy: ${eur(c.price)}</span>
+// ---------- carta del día (héroe de portada) + lo que más se mueve ----------
+// Formato de BinderDex/Card Codex: el objeto (la carta) y su cifra mandan; el
+// porcentaje va SIEMPRE con su base y la fecha del dato al lado.
+const cartaDiaHtml = cartaDelDia
+  ? (() => {
+      const v = bestVariant(cartaDelDia);
+      const slug = cardSlug(cartaDelDia);
+      return `<aside class="dia" aria-labelledby="dia-titulo">
+  <p class="kicker dia-kicker">La carta del día</p>
+  <a class="dia-arte" href="/carta/${slug}/" aria-label="Ver la ficha de ${esc(cartaDelDia.name)}">
+    <span class="dia-halo" aria-hidden="true"></span>
+    <span class="carta3d"><img src="${esc(cartaDelDia.image)}/high.webp" alt="Carta ${esc(cartaDelDia.name)} de ${esc(cartaDelDia.setName)}" width="480" height="670" loading="eager" fetchpriority="high" decoding="async"></span>
+  </a>
+  <div class="dia-ficha">
+    <h2 id="dia-titulo"><a href="/carta/${slug}/">${esc(cartaDelDia.name)}</a></h2>
+    <p class="dia-set muted small">${esc(cartaDelDia.setName)}${cartaDelDia.localId ? ` · Nº ${esc(cartaDelDia.localId)}` : ''}</p>
+    <p class="dia-etq muted small">Precio de referencia hoy</p>
+    <p class="dia-precio">${eur(cartaDelDia.price)}</p>
+    <p class="dia-trend"><b class="${cartaDelDia.var7 >= 0 ? 'up' : 'down'}">${varFmt(cartaDelDia.var7)}</b> <span class="muted small">frente a su media de 30 días</span></p>
+    <p class="dia-medias muted small">Media 7 d: ${eur(v.avg7)} · media 30 d: ${eur(v.avg30)}.</p>
+    <div class="dia-acciones">
+      <a class="btn" href="${amazonCarta(cartaDelDia)}" rel="sponsored nofollow noopener" target="_blank">Comprar en Amazon</a>
+      <a class="btn ghost" href="/carta/${slug}/">Ver ficha y precios</a>
+    </div>
+  </div>
+  <p class="nota small">Precios de Cardmarket del ${fechaLarga}. Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti.</p>
+</aside>`;
+    })()
+  : '';
+
+const moversHtml = movers.length
+  ? `<section class="bloque movers" aria-labelledby="movers-titulo">
+  <h2 id="movers-titulo">Lo que más se mueve esta semana</h2>
+  <p class="muted small">La media de 7 días frente a la de 30, en las tres cartas que más suben después de la del día. El porcentaje compara esas dos medias, no el precio de hoy con el de ayer. Datos de Cardmarket del ${fechaLarga}; una subida pasada no adelanta la siguiente.</p>
+  <div class="vitrina-grid">
+    ${movers
+      .map((c) => {
+        const v = bestVariant(c);
+        const slug = cardSlug(c);
+        return `<article class="carta-vitrina mover">
+      <a class="cv-foto" href="/carta/${slug}/">
+        <img src="${esc(c.image)}/high.webp" alt="Carta ${esc(c.name)} de ${esc(c.setName)}" width="480" height="670" loading="lazy" decoding="async">
+        <span class="cv-trend ${c.var7 >= 0 ? 'up' : 'down'}">${varFmt(c.var7)}</span>
+      </a>
+      <a class="cv-nombre" href="/carta/${slug}/">${esc(c.name)}</a>
+      <p class="cv-set muted small">${esc(c.setName)}</p>
+      <div class="mover-aa muted small"><span>30 d</span><b>${eur(v.avg30)}</b><span>7 d</span><b class="${c.var7 >= 0 ? 'up' : 'down'}">${eur(v.avg7)}</b></div>
+      <div class="cv-pie">
+        <span class="cv-precio">${eur(c.price)}</span>
+        <a class="cv-btn" href="${amazonCarta(c)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Buscar ${esc(c.name)} en Amazon">Comprar</a>
       </div>
-    </a>`,
-      )
+    </article>`;
+      })
       .join('\n')}
   </div>
-  <p class="nota small">Una subida pasada no adelanta la siguiente: esto es el dato de hoy, no una predicción. <a href="/mercado/">Ver el radar completo</a>.</p>
+  <p class="acciones"><a class="btn ghost" href="/mercado/">Ver el radar completo: 20 que suben y 20 que bajan</a></p>
+  <p class="nota small">Enlaces de afiliado de Amazon: si compras desde ellos, ValorCarta recibe una comisión que no cambia lo que pagas. Precios de referencia de Cardmarket vía TCGdex, actualizados el ${fechaLarga}.</p>
 </section>`
   : '';
 
@@ -213,23 +259,26 @@ guias.sort((a, b) => a.title.localeCompare(b.title, 'es'));
 
 // ---------- home ----------
 const homeBody = `
-<section class="hero">
-  <p class="kicker">${priced.length.toLocaleString('es-ES')} cartas con precio · actualizado el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
-  <h1>¿Cuánto vale tu colección de cartas?</h1>
-  <p class="lede">Añade tus cartas y te decimos cuánto valen hoy, según el precio medio real de Cardmarket.
-  Sin registro, sin cookies, sin humo.</p>
-  <div id="buscador" class="buscador">
-    <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
-    <div id="resultados" class="resultados"></div>
+<section class="hero hero-dia">
+  <div class="hero-txt">
+    <p class="kicker">${priced.length.toLocaleString('es-ES')} cartas con precio · actualizado el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
+    <h1>¿Cuánto vale tu colección de cartas?</h1>
+    <p class="lede">Añade tus cartas y te decimos cuánto valen hoy, según el precio medio real de Cardmarket.
+    Sin registro, sin cookies, sin humo.</p>
+    <div id="buscador" class="buscador">
+      <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
+      <div id="resultados" class="resultados"></div>
+    </div>
+    <div class="acciones">
+      <a class="btn" href="/valorar/">Valorar mi colección</a>
+      <a class="btn ghost" href="/cartas/">Ver todas las cartas</a>
+    </div>
+    <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
   </div>
-  <div class="acciones">
-    <a class="btn" href="/valorar/">Valorar mi colección</a>
-    <a class="btn ghost" href="/cartas/">Ver todas las cartas</a>
-  </div>
-  <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+  ${cartaDiaHtml}
 </section>
 
-${antesAhoraHtml}
+${moversHtml}
 
 ${munecosHtml}
 
@@ -1031,18 +1080,7 @@ baja de precio, cuando un set se agota y cuando tu colección cambia de valor.</
   }),
 );
 
-// ---------- mercado (radar de tendencia, se recalcula en cada build) ----------
-const radar = priced
-  .map((c) => {
-    const v = bestVariant(c);
-    if (!v || !v.avg30 || !v.avg7 || v.avg30 < 10 || v.avg7 <= 0) return null;
-    return { ...c, var7: ((v.avg7 - v.avg30) / v.avg30) * 100 };
-  })
-  .filter((c) => c && c.var7 > -60 && c.var7 < 60)
-  .filter((c, i, arr) => arr.findIndex((x) => x.name === c.name && x.setId === c.setId) === i);
-const suben = [...radar].sort((a, b) => b.var7 - a.var7).slice(0, 20);
-const bajan = [...radar].sort((a, b) => a.var7 - b.var7).slice(0, 20);
-
+// ---------- mercado: el radar se calcula al principio (lo comparte con la portada) ----------
 const filaRadar = (c, cls) => `<tr>
   <td><a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a> <span class="muted small">${esc(c.setName)}</span></td>
   <td class="num">${eur(c.price)}</td>
@@ -1050,17 +1088,10 @@ const filaRadar = (c, cls) => `<tr>
 </tr>`;
 
 // ---------- vitrina de /mercado/: las cartas, antes que la tabla ----------
-// La tabla dice qué se mueve; la vitrina lo enseña y ofrece la compra. Solo entran
-// cartas Pokémon con imagen y precio suficiente: un hueco gris no vende nada.
-// El orden es el mismo dato del radar, sin retocar la variación.
-const vitrinaCandidatas = suben.filter(
-  (c) => c.image && /^pok/i.test(c.category || '') && c.price >= 15,
-);
-const vitrinaHero = vitrinaCandidatas[0] ?? null;
+// La tabla dice qué se mueve; la vitrina lo enseña y ofrece la compra.
+// Las candidatas y la carta del día son las mismas que las de la portada.
+const vitrinaHero = cartaDelDia;
 const vitrinaResto = vitrinaCandidatas.slice(1, 3);
-
-const varFmt = (n) => `${n >= 0 ? '+' : ''}${n.toFixed(1).replace('.', ',')} %`;
-const amazonCarta = (c) => amazonLink(`${c.name} ${c.setName ?? ''} pokemon`);
 
 const vitrinaHeroHtml = vitrinaHero
   ? (() => {

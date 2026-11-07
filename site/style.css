@@ -405,20 +405,91 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 .m-name{font-size:.8rem;font-weight:650;line-height:1.1;text-align:center}
 .m-price{font-size:.8rem;color:var(--accent);font-variant-numeric:tabular-nums}
 
-/* ===== Antes y ahora (portada): media 30 d → media 7 d ===== */
-.antes-ahora{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:16px 0 6px}
-.aa-card{display:flex;gap:14px;padding:14px;border-radius:16px;background:var(--surface);
-  border:1px solid var(--line);transition:border-color .15s ease,transform .15s ease}
-.aa-card:hover{border-color:var(--accent);transform:translateY(-2px);color:inherit}
-.aa-card img{width:78px;height:auto;border-radius:8px;border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 10px 22px rgba(0,0,0,.55);flex:0 0 auto}
-.aa-info{display:flex;flex-direction:column;gap:3px;min-width:0}
-.aa-name{font-weight:650;line-height:1.15}
-.aa-row{display:flex;justify-content:space-between;gap:10px;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
-.aa-row b{color:#dcdce2;font-weight:600}
-.aa-now{color:var(--accent) !important}
-.aa-pct{align-self:flex-start;font-size:.78rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#12301f;margin:2px 0}
 
+/* ===== Portada · héroe con la carta del día =====
+   Formato copiado de BinderDex/Card Codex (no su contenido): el objeto y la cifra
+   mandan en la primera pantalla. En móvil va después del titular y antes de la
+   búsqueda, para que precio y botón queden por encima del pliegue. */
+.hero-dia{max-width:none;display:grid;grid-template-columns:minmax(0,1fr) 468px;
+  gap:42px;align-items:center;padding:34px 0 16px}
+.hero-dia .hero-txt{max-width:600px}
+.dia{
+  position:relative;display:grid;grid-template-columns:212px minmax(0,1fr);
+  gap:2px 20px;align-items:center;padding:18px;border:1px solid var(--line);
+  border-radius:20px;overflow:hidden;
+  background:
+    radial-gradient(130% 120% at 8% 0%,rgba(53,224,208,.14),transparent 58%),
+    radial-gradient(90% 90% at 100% 100%,rgba(185,140,255,.14),transparent 60%),
+    var(--surface);
+}
+.dia-kicker{grid-column:1 / -1;margin:0 0 4px;color:var(--accent2);font-size:.76rem}
+.dia-arte{position:relative;display:block;padding:4px 8px 12px 2px;perspective:900px}
+.dia-halo{position:absolute;inset:-4% -10% 2% -8%;border-radius:50%;z-index:0;
+  background:radial-gradient(closest-side,rgba(53,224,208,.26),rgba(185,140,255,.10) 62%,transparent 74%);
+  filter:blur(18px)}
+.dia-arte .carta3d{position:relative;z-index:1;border-radius:13px}
+.dia-ficha{min-width:0}
+.dia-ficha h2{margin:0;font-size:1.3rem;line-height:1.06;letter-spacing:-.02em}
+.dia-ficha h2 a:hover{color:var(--accent2)}
+.dia-set{margin:4px 0 7px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dia-etq{margin:0;font-size:.72rem;letter-spacing:.02em}
+.dia-precio{margin:.02em 0 .12em;font-size:clamp(1.9rem,3vw,2.45rem);font-weight:780;line-height:1;
+  color:var(--accent);letter-spacing:-.035em;font-variant-numeric:tabular-nums}
+.dia-trend{margin:2px 0;font-size:.92rem}
+.dia-medias{margin:0 0 10px;font-size:.74rem;line-height:1.35}
+.dia-acciones{display:flex;flex-direction:column;gap:7px}
+.dia-acciones .btn{min-height:44px;padding:10px 14px;font-size:.88rem;border-radius:12px}
+.dia .nota{grid-column:1 / -1;margin:10px 0 0;font-size:.7rem;line-height:1.35}
+.dia .btn:focus-visible,.dia a:focus-visible,.mover a:focus-visible{
+  outline:2px solid var(--accent2);outline-offset:2px;border-radius:8px}
+@media (hover:hover) and (min-width:821px) and (prefers-reduced-motion:no-preference){
+  .dia-arte .carta3d{animation:dia-flota 7s ease-in-out infinite}
+  @keyframes dia-flota{
+    0%,100%{transform:perspective(1000px) rotateY(-6deg) rotateX(1.6deg) translateY(0)}
+    50%{transform:perspective(1000px) rotateY(-6deg) rotateX(1.6deg) translateY(-5px)}
+  }
+  .dia-arte:hover .carta3d,.dia-arte:focus-visible .carta3d{animation:none;
+    transform:perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-4px)}
+}
+/* móvil: titular → carta del día (precio + botón) → texto y buscador del héroe */
+@media (max-width:820px){
+  .hero-dia{display:flex;flex-direction:column;gap:12px;padding:16px 0 8px;align-items:stretch}
+  .hero-dia .hero-txt{display:contents;max-width:none}
+  .hero-dia .kicker{order:1}
+  .hero-dia h1{order:2;margin:.3em 0 .1em}
+  .hero-dia .dia{order:3;grid-template-columns:104px minmax(0,1fr);gap:2px 12px;padding:12px}
+  .hero-dia .lede{order:4}
+  .hero-dia .buscador{order:5}
+  .hero-dia .acciones{order:6}
+  .hero-dia .nota{order:7}
+  .dia-kicker{font-size:.7rem;margin-bottom:2px}
+  .dia-halo{inset:-2% -8% 4% -6%}
+  .dia-arte{padding:2px 4px 8px 0}
+  .dia-ficha h2{font-size:1rem}
+  .dia-set{font-size:.72rem;margin:2px 0 4px}
+  .dia-etq{font-size:.62rem}
+  .dia-precio{font-size:1.5rem}
+  .dia-trend{font-size:.82rem;margin:1px 0}
+  .dia-medias{display:none}
+  .dia-acciones{gap:5px;margin-top:6px}
+  .dia-acciones .btn{min-height:44px;padding:8px 10px;font-size:.8rem}
+  .dia-acciones .btn.ghost{display:none}
+  .dia .nota{font-size:.64rem;margin-top:7px}
+}
+
+/* ===== Portada · lo que más se mueve (3 cartas con CTA) =====
+   La rejilla y la tarjeta son las de la vitrina de /mercado/: mismo formato para
+   que la portada y el radar hablen el mismo idioma. Aquí solo se añade la fila
+   media 30 d → media 7 d. */
+.movers h2{font-size:1.25rem}
+.movers .vitrina-grid{margin:6px 0 0}
+.mover-aa{display:flex;flex-wrap:wrap;align-items:baseline;gap:5px;margin:2px 0 0;
+  font-size:.76rem;font-variant-numeric:tabular-nums}
+.mover-aa b{color:#dcdce2;font-weight:600}
+.movers .acciones{margin:18px 0 6px}
+@media (max-width:560px){
+  .mover .mover-aa{font-size:.72rem}
+}
 
 /* ===== Hub /sets/: índice de sets agrupado por serie =====
    La serie manda la jerarquía (lo nuevo arriba) y cada set lleva cartas y valor total. */
