@@ -767,6 +767,10 @@ for (let i = 0; i < priced.length; i += BATCH) {
       const barata = versiones.length > 1 ? Math.min(...versiones.map((x) => x.price)) : null;
       const vBest = bestVariant(c);
       const var30 = vBest?.avg30 && c.price ? ((c.price - vBest.avg30) / vBest.avg30) * 100 : null;
+      // la variación va pegada al precio (la propuesta del vigía: dato antes que adorno)
+      const pill = var30 != null
+        ? `<span class="precio-pill ${var30 >= 0 ? 'up' : 'down'}">${var30 >= 0 ? '+' : ''}${var30.toFixed(1).replace('.', ',')} % · 30 d</span>`
+        : '';
       const contexto = [
         posSet === 1 && delSet.length > 2 ? 'Es la carta más cara de su set.' : posSet > 0 && delSet.length > 2 ? `Es la número ${posSet} de ${delSet.length} en valor dentro de su set.` : '',
         versiones.length > 1 ? `Existen ${versiones.length} versiones de este personaje; la más barata está a ${eur(barata)}.` : '',
@@ -835,12 +839,12 @@ for (let i = 0; i < priced.length; i += BATCH) {
       // enseña 8,7x su propia tabla y el visitante deja de creer el dato.
       const precios = (c.variants ?? []).map((v) => v.trend ?? v.avg ?? v.price).filter((p) => typeof p === 'number' && p > 0).sort((a, b) => a - b);
       if (precios.length < 2) {
-        return `<p class="precio-grande">${eur(c.price)}<span class="muted"> · referencia ${c.variants?.[0]?.type ?? 'normal'}</span></p>`;
+        return `<p class="precio-grande">${eur(c.price)}<span class="muted"> · referencia ${c.variants?.[0]?.type ?? 'normal'}</span>${pill}</p>`;
       }
       const min = precios[0];
       const max = precios[precios.length - 1];
       // el héroe es la entrada más barata, no el máximo: el máximo solo desinfla la credibilidad
-      return `<p class="precio-grande">desde ${eur(min)}</p>
+      return `<p class="precio-grande">desde ${eur(min)}${pill}</p>
       <p class="muted small">${precios.length} variantes, de ${eur(min)} a ${eur(max)}. La versión cambia el precio: mírala en la tabla antes de fiarte de una cifra.</p>`;
     })()}
     ${trendLine(c)}
