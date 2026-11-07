@@ -206,7 +206,8 @@ const moversHtml = movers.length
       </a>
       <a class="cv-nombre" href="/carta/${slug}/">${esc(c.name)}</a>
       <p class="cv-set muted small">${esc(c.setName)}</p>
-      <div class="mover-aa muted small"><span>30 d</span><b>${eur(v.avg30)}</b><span>7 d</span><b class="${c.var7 >= 0 ? 'up' : 'down'}">${eur(v.avg7)}</b></div>
+      <div class="mover-aa muted small"><span>Media 30 d</span><b>${eur(v.avg30)}</b></div>
+      <div class="mover-aa muted small"><span>Media 7 d</span><b class="${c.var7 >= 0 ? 'up' : 'down'}">${eur(v.avg7)}</b></div>
       <div class="cv-pie">
         <span class="cv-precio">${eur(c.price)}</span>
         <a class="cv-btn" href="${amazonCarta(c)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Buscar ${esc(c.name)} en Amazon">Comprar</a>
