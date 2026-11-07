@@ -10,7 +10,16 @@ import {
 const ROOT = path.resolve(import.meta.dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 const OUT = (p) => path.join(DIST, p);
+// versión de assets por contenido: cada despliegue invalida la caché del CSS/JS/icono
+let ASSET_V = '';
 const put = async (p, data) => {
+  if (ASSET_V && typeof data === 'string' && p.endsWith('.html')) {
+    data = data
+      .replaceAll('/assets/style.css', `/assets/style.css?v=${ASSET_V}`)
+      .replaceAll('/assets/app.js', `/assets/app.js?v=${ASSET_V}`)
+      .replaceAll('/assets/en.js', `/assets/en.js?v=${ASSET_V}`)
+      .replaceAll('/assets/icon.svg', `/assets/icon.svg?v=${ASSET_V}`);
+  }
   const full = path.isAbsolute(p) ? p : OUT(p);
   await mkdir(path.dirname(full), { recursive: true });
   await writeFile(full, data);
@@ -241,6 +250,13 @@ await put('_headers', await readFile(path.join(ROOT, 'site', '_headers')));
 // assets estaticos
 for (const f of ['style.css', 'app.js', 'en.js']) {
   await put(OUT(`assets/${f}`), await readFile(path.join(ROOT, 'site', f)));
+}
+{
+  const { createHash } = await import('node:crypto');
+  const h = (buf) => createHash('sha1').update(buf).digest('hex').slice(0, 10);
+  ASSET_V = h(await readFile(path.join(ROOT, 'site', 'style.css')))
+    + h(await readFile(path.join(ROOT, 'site', 'app.js')))
+    + h(await readFile(path.join(ROOT, 'site', 'en.js')));
 }
 await put(
   OUT('assets/icon.svg'),
