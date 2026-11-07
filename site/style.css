@@ -70,12 +70,14 @@ main{max-width:1080px;margin:0 auto;padding:8px 20px 60px}
 .res .res-p{font-variant-numeric:tabular-nums;color:var(--accent)}
 
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.grid{--slab:0 10px 26px rgba(0,0,0,.4)}
 .tile{
   display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:var(--radius);
   background:var(--surface);border:1px solid var(--line);transition:border-color .15s ease,transform .15s ease;
 }
 .tile:hover{border-color:var(--accent);transform:translateY(-2px);color:inherit}
-.tile img{border-radius:8px;background:#0d0d0f;aspect-ratio:245/342;object-fit:cover}
+.tile img{border-radius:9px;background:#0d0d0f;aspect-ratio:245/342;object-fit:cover;
+  border:1px solid rgba(255,255,255,.07);box-shadow:0 8px 20px rgba(0,0,0,.5)}
 .tile-ph{aspect-ratio:245/342;border-radius:8px;background:#101013;display:flex;align-items:center;justify-content:center;color:#4a4a55;font-size:.72rem;text-align:center;padding:10px}
 .tile-name{font-size:.9rem;font-weight:600;line-height:1.2}
 .tile-price{font-variant-numeric:tabular-nums;color:var(--accent);font-weight:650}
@@ -87,7 +89,16 @@ main{max-width:1080px;margin:0 auto;padding:8px 20px 60px}
 .pasos li{margin:8px 0}
 
 .carta-layout{display:grid;grid-template-columns:340px 1fr;gap:38px;margin:26px 0 20px;align-items:start}
-.carta-img img{border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.55)}
+.carta-img{perspective:1200px}
+.carta-img img{
+  border-radius:16px;border:1px solid rgba(255,255,255,.14);
+  transform:rotateY(-5deg) rotateX(1.2deg);
+  transition:transform .45s cubic-bezier(.2,.7,.3,1),box-shadow .3s;
+  box-shadow:
+    1px 1px 0 rgba(255,255,255,.06),3px 3px 0 #141419,6px 6px 0 #0e0e12,
+    10px 10px 0 #0a0a0d,14px 16px 32px rgba(0,0,0,.55),0 34px 80px rgba(0,0,0,.65);
+}
+.carta-img:hover img{transform:rotateY(0deg) rotateX(0deg) translateY(-4px)}
 .precio-grande{font-size:2.1rem;font-weight:750;letter-spacing:-.02em;margin:.1em 0}
 .precio-grande .muted{font-size:.9rem;font-weight:400}
 .trend{display:flex;align-items:center;gap:12px;margin:6px 0 14px}
@@ -195,6 +206,9 @@ footer{max-width:1080px;margin:0 auto;padding:34px 20px 60px;border-top:1px soli
 @media (max-width:820px){
   .carta-layout{grid-template-columns:1fr}
   .carta-img{max-width:300px}
+  .carta3d{transform:none}
+  .carta-img img{transform:none}
+  .carta-vitrina:hover .cv-foto{transform:none}
   .dos-col{grid-template-columns:1fr}
   .total-caja{position:static}
   .top nav a:first-child{display:none}
@@ -260,16 +274,28 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 .vh-glow{position:absolute;inset:-12% -16%;border-radius:50%;background:radial-gradient(closest-side,rgba(255,203,5,.30),transparent 72%);filter:blur(26px);z-index:0}
 .carta3d{
   position:relative;z-index:1;display:block;border-radius:16px;transform-style:preserve-3d;
-  transition:transform .35s cubic-bezier(.2,.7,.3,1);
-  box-shadow:0 30px 70px rgba(0,0,0,.7),0 6px 18px rgba(0,0,0,.55);
+  transform:perspective(1000px) rotateY(-6deg) rotateX(1.6deg);
+  border:1px solid rgba(255,255,255,.16);
+  transition:transform .45s cubic-bezier(.2,.7,.3,1),box-shadow .35s ease;
+  box-shadow:
+    1px 1px 0 rgba(255,255,255,.07),2px 2px 0 #15151a,4px 4px 0 #101014,
+    6px 6px 0 #0c0c10,9px 9px 0 #09090c,12px 12px 0 #070709,
+    14px 18px 30px rgba(0,0,0,.55),0 34px 80px rgba(0,0,0,.7);
   will-change:transform;
 }
-.carta3d img{display:block;width:100%;height:auto;border-radius:16px}
+.carta3d img{display:block;width:100%;height:auto;border-radius:15px}
 .carta3d::after{
-  content:"";position:absolute;inset:0;border-radius:16px;pointer-events:none;opacity:0;transition:opacity .3s;
-  background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.16) 47%,transparent 60%);
+  content:"";position:absolute;inset:0;border-radius:15px;pointer-events:none;opacity:.22;transition:opacity .3s;
+  background:linear-gradient(115deg,transparent 28%,rgba(255,255,255,.20) 46%,transparent 58%);
 }
-.vh-arte:hover .carta3d::after,.vh-arte:focus-visible .carta3d::after{opacity:1}
+.vh-arte:hover .carta3d,.vh-arte:focus-visible .carta3d{
+  transform:perspective(1000px) rotateY(0deg) rotateX(0deg) translateY(-6px);
+  box-shadow:
+    1px 1px 0 rgba(255,255,255,.12),2px 2px 0 #1a1a20,4px 4px 0 #141419,
+    6px 6px 0 #0f0f13,8px 8px 0 #0b0b0e,10px 10px 0 #09090c,
+    16px 22px 40px rgba(0,0,0,.6),0 40px 90px rgba(0,0,0,.75);
+}
+.vh-arte:hover .carta3d::after,.vh-arte:focus-visible .carta3d::after{opacity:.9}
 .vh-ficha h3{margin:.02em 0 .1em;font-size:clamp(1.6rem,3.4vw,2.4rem);line-height:1.02;letter-spacing:-.025em}
 .vh-ficha h3 a:hover{color:var(--accent)}
 .vh-set{margin:0 0 .5em}
@@ -288,7 +314,13 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   border-radius:16px;background:var(--surface);transition:border-color .15s,transform .15s;
 }
 .carta-vitrina:hover{border-color:var(--accent);transform:translateY(-2px)}
-.cv-foto{position:relative;display:block;border-radius:10px;overflow:hidden;box-shadow:0 14px 34px rgba(0,0,0,.55)}
+.cv-foto{
+  position:relative;display:block;border-radius:11px;overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  transition:transform .4s cubic-bezier(.2,.7,.3,1),box-shadow .3s;
+  box-shadow:2px 2px 0 #14141a,4px 4px 0 #0e0e12,6px 6px 0 #0a0a0d,10px 14px 26px rgba(0,0,0,.6);
+}
+.carta-vitrina:hover .cv-foto{transform:perspective(800px) rotateY(-5deg) translateY(-3px)}
 .cv-foto img{width:100%;height:auto;aspect-ratio:245/342;object-fit:cover}
 .cv-trend{
   position:absolute;top:8px;left:8px;padding:3px 9px;border-radius:999px;
