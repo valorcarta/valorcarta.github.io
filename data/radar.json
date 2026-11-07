@@ -126,5 +126,27 @@
   },
   "imagen2": "https://assets.tcgdex.net/en/base/base1/2/high.webp",
   "pie2": "Blastoise (2/102), una de las diez que sostienen el valor del set."
+ },
+ {
+  "slug": "dewott-652-por-ciento-dato-raro",
+  "fecha": "2026-11-07",
+  "etiqueta": "DATO",
+  "titulo": "El 652 % que no era: cuando un dato raro entra en el radar Pokémon",
+  "gancho": "Ayer el radar marcaba Dewott a 2,01 €. Hoy a 15,13 €. El titular fácil sería «sube un 652 %»; el correcto es «este dato no cuadra».",
+  "parrafos": [
+   "Dewott de Llama Blanca (106/173, Rara Ilustración de Taira Akitsu) aparece hoy en nuestro histórico a 15,13 € de referencia. Ayer figuraba a 2,01 €: un salto del 652 %. Si solo mirásemos el cambio de un día, sería la noticia del mes.",
+   "No lo es. La media de los últimos 30 días de esta misma carta es 21,82 €, la de los últimos 7 días es 15,97 € y la de las últimas 24 h es 15,50 €. El dato de ayer (2,01 €) está fuera de todas sus medias: es una observación aislada, no un movimiento del mercado.",
+   "Cómo lo comprobamos: comparamos el precio de hoy con sus propias medias (1, 7 y 30 días) y con la horquilla de venta (mínimo 6,50 €, media 15,76 €). Cuando un salto del 652 % contradice las tres medias, la hipótesis correcta no es «la carta se ha disparado», es «el dato de ayer estaba mal o se vendió una unidad rara».",
+   "Para situar la carta: Llama Blanca tiene 173 cartas con precio y suma 2.550,25 €; Dewott representa menos del 0,6 % del set. Las que sostienen el valor son Reshiram ex (491,57 €), Victini (403,30 €) y Reshiram ex Rara Ilustración Especial (184,71 €).",
+   "Lo práctico: si tienes un Dewott, no lo vendas corriendo por un 652 % que no existe; mira la horquilla y el histórico. Si lo quieres, 15 € es el precio de referencia de hoy, no 2 €. Y si un sitio te enseña un 652 % sin enseñarte su media de 30 días, sospecha."
+  ],
+  "imagen": "https://assets.tcgdex.net/es/sv/sv10.5w/106/high.webp",
+  "producto": null,
+  "alternativa": {
+   "nombre": "Sobres de Llama Blanca",
+   "enlace": "https://www.amazon.es/s?k=sobres+llama+blanca+pokemon"
+  },
+  "imagen2": "https://assets.tcgdex.net/es/sv/sv10.5w/173/high.webp",
+  "pie2": "Reshiram ex, la carta que sí sostiene el set: 491,57 €; Dewott, 15,13 €."
  }
 ]
