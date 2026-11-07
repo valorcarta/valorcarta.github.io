@@ -280,12 +280,15 @@ guias.sort((a, b) => a.title.localeCompare(b.title, 'es'));
 
 // ---------- home ----------
 const homeBody = `
-<section class="hero hero-dia">
+<section class="hero hero-dia portada">
+  <div class="portada-fondo" aria-hidden="true">
+    <span class="aura aura-1"></span><span class="aura aura-2"></span><span class="aura aura-3"></span>
+    <svg class="bola-fondo" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 100h192M100 4a96 96 0 0 1 0 192" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+  </div>
   <div class="hero-txt">
-    <p class="kicker">${priced.length.toLocaleString('es-ES')} cartas con precio · actualizado el ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' })}</p>
-    <h1>¿Cuánto vale tu colección de cartas?</h1>
-    <p class="lede">Añade tus cartas y te decimos cuánto valen hoy, según el precio medio real de Cardmarket.
-    Sin registro, sin cookies, sin humo.</p>
+    <p class="kicker">PRECIOS DE CARTAS POKÉMON · ${priced.length.toLocaleString('es-ES')} CARTAS · ACTUALIZADO EL ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' }).toUpperCase()}</p>
+    <h1>¿Cuánto valen <em>tus</em> cartas Pokémon?</h1>
+    <p class="lede">El precio medio real de Cardmarket, actualizado a diario. Busca una carta o valora tu colección en 10 segundos: gratis, sin registro y sin humo.</p>
     <div id="buscador" class="buscador">
       <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
       <div id="resultados" class="resultados"></div>
@@ -294,6 +297,11 @@ const homeBody = `
       <a class="btn" href="/valorar/">Valorar mi colección</a>
       <a class="btn ghost" href="/cartas/">Ver todas las cartas</a>
     </div>
+    <ul class="confianza">
+      <li>Datos de Cardmarket, cada día</li>
+      <li>Histórico de 30 días por carta</li>
+      <li>Gratis, sin registro</li>
+    </ul>
     <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
   </div>
   ${cartaDiaHtml}
