@@ -29,19 +29,13 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
-      - name: Bajar catalogo y precios
+      - name: Validar el snapshot de datos del repo
         run: |
-          # La cache (data/cache) esta versionada en el repo. En un checkout nuevo todos
-          # los ficheros tienen mtime de ahora y el TTL de fetch.mjs los da por frescos,
-          # asi que el CI compilaba con la cache commiteada (precios del 02/06-11).
-          # Corregido 07-11: se limpia antes de bajar y se fuerza ttl 0.
-          rm -rf data/cache
-          node scripts/fetch.mjs --ttl=0
-
-      - name: Rellenar sets sin traduccion (vintage)
-        run: |
-          node scripts/fill-en.mjs
-          node scripts/assemble.mjs
+          # El fetch del runner no es fiable (CDN sirve ayer) y con fill-en a medias
+          # dejó fichas fuera del sitemap (base1-4-charizard daba 404 el 08-11).
+          # Se construye desde el snapshot commiteado; la actualización de precios se
+          # hace en la sesión local y se commitea aquí (data/cards.json + sets.json).
+          node -e 'const c=require("./data/cards.json");const m=c.reduce((a,x)=>x.updated&&x.updated>a?x.updated:a,"");console.log("cartas:",c.length,"· actualizado:",m);if(c.length<18000)process.exit(1)'
 
       - name: Panel de visitas
         continue-on-error: true
