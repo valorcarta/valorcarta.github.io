@@ -944,13 +944,17 @@ ${(() => {
           image: c.image ? `${c.image}/high.webp` : undefined,
           description: `${rar} del set ${c.setName}`,
           brand: { '@type': 'Brand', name: 'Pokémon' },
-          offers: {
-            '@type': 'Offer',
-            price: c.price,
-            priceCurrency: 'EUR',
-            availability: 'https://schema.org/InStock',
-            url: `${SITE}/carta/${slug}/`,
-          },
+          // El dato estructurado tiene que decir lo mismo que la pantalla: si hay
+          // variantes, la ficha enseña «desde <mínimo>» y el Offer no puede ir con c.price.
+          offers: (() => {
+            const precios = (c.variants ?? []).map((v) => v.trend ?? v.avg ?? v.price).filter((p) => typeof p === 'number' && p > 0).sort((a, b) => a - b);
+            const bajo = precios[0] ?? c.price;
+            const alto = precios.length ? precios[precios.length - 1] : c.price;
+            const hasta = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+            return precios.length > 1
+              ? { '@type': 'AggregateOffer', priceCurrency: 'EUR', lowPrice: bajo, highPrice: alto, offerCount: precios.length, availability: 'https://schema.org/InStock', priceValidUntil: hasta, url: `${SITE}/carta/${slug}/` }
+              : { '@type': 'Offer', price: c.price, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', priceValidUntil: hasta, url: `${SITE}/carta/${slug}/` };
+          })(),
         },
         ],
       });
