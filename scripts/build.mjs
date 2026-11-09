@@ -1836,7 +1836,7 @@ for (const g of GUIAS_COMPRA) {
 <p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. · Revisado: ${new Date().toISOString().slice(0, 10)}</p>
 <p class="lede">${esc(g.entradilla)}</p>
 <ul class="pasos">${g.puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-${g.asin && DISPONIBLES.has(g.asin) ? `<p><a class="btn" href="${amazonDp(g.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>` : `<p class="nota small">Ahora mismo no hay producto disponible verificado de este formato en Amazon: no se enlaza para no mandarte a otro producto. <a href="/comprar/">Ver lo que sí se vende</a>.</p>`}
+${g.asin && DISPONIBLES.has(g.asin) ? `<p><a class="btn" href="${amazonDp(g.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>` : `<p class="nota small">Ahora mismo no hay producto verificado disponible de este formato en Amazon: no se enlaza para no mandarte a otro producto. <a href="/comprar/">Ver lo que sí se vende</a>.</p>`}
 <p class="nota small">El precio lo pone Amazon. Antes de comprar, compara el precio por sobre con el resto de formatos en <a href="/comprar/">la tabla de compra</a>.</p>
 <p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>
 ${g.asin ? recosHtml(g.asin) : ''}
