@@ -53,6 +53,9 @@ let REGALOS_FRIKIS = { productos: [] };
 try { REGALOS_FRIKIS = JSON.parse(await readFile(path.join(ROOT, 'data', 'regalos.json'), 'utf8')); } catch {}
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 for (const v of Object.values(ASINS)) for (const prod of v) VERIFICADOS.add(prod.asin);
+// ORDEN 09-11: a primera vista solo lo que sí se vende. Una carta es vendible si
+// su set tiene producto verificado en Amazon (ASINS[setId]); si no, no va al héroe.
+const vendible = (c) => Boolean(ASINS[c.setId]?.length);
 let RADAR = [];
 try { RADAR = JSON.parse(await readFile(path.join(ROOT, 'data', 'radar.json'), 'utf8')); } catch {}
 let SETS_EN = {};
@@ -154,15 +157,17 @@ const radar = priced
   })
   .filter((c) => c && c.var7 > -60 && c.var7 < 60)
   .filter((c, i, arr) => arr.findIndex((x) => x.name === c.name && x.setId === c.setId) === i);
-const suben = [...radar].sort((a, b) => b.var7 - a.var7).slice(0, 20);
+const subenTodos = [...radar].sort((a, b) => b.var7 - a.var7);
+const suben = subenTodos.slice(0, 20);
 const bajan = [...radar].sort((a, b) => a.var7 - b.var7).slice(0, 20);
 const varFmt = (n) => `${n >= 0 ? '+' : ''}${n.toFixed(1).replace('.', ',')} %`;
 const amazonCarta = (c) => amazonLink(`${c.name} ${c.setName ?? ''} pokemon`);
 
-// Vitrina: solo cartas Pokémon con imagen y precio suficiente. Un hueco gris no vende nada.
-// El orden es el mismo dato del radar, sin retocar la variación.
-const vitrinaCandidatas = suben.filter(
-  (c) => c.image && /^pok/i.test(c.category || '') && c.price >= 15,
+// Vitrina: solo cartas Pokémon con imagen, precio suficiente y SET VENDIBLE.
+// A primera vista no sale una carta que no se puede comprar: si no, el héroe
+// ofrece un producto que no existe y el visitante se va sin comprar nada.
+const vitrinaCandidatas = subenTodos.filter(
+  (c) => c.image && /^pok/i.test(c.category || '') && c.price >= 15 && vendible(c),
 );
 // La carta del día = la que más sube esta semana (la misma que abre /mercado/).
 const cartaDelDia = vitrinaCandidatas[0] ?? null;
@@ -217,6 +222,7 @@ const cartaDiaHtml = cartaDelDia
     <div class="dia-acciones">
       ${ctaCarta(cartaDelDia)}
       <a class="btn ghost" href="/carta/${slug}/">Ver ficha y precios</a>
+      <a class="btn ghost" href="/comprar/">Ver los productos que sí se venden</a>
     </div>
   </div>
   <p class="nota small">Precios de Cardmarket del ${fechaLarga}. Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti.</p>
@@ -227,7 +233,7 @@ const cartaDiaHtml = cartaDelDia
 const moversHtml = movers.length
   ? `<section class="bloque movers" aria-labelledby="movers-titulo">
   <h2 id="movers-titulo">Lo que más se mueve esta semana</h2>
-  <p class="muted small">La media de 7 días frente a la de 30, en las tres cartas que más suben después de la del día. El porcentaje compara esas dos medias, no el precio de hoy con el de ayer. Datos de Cardmarket del ${fechaLarga}; una subida pasada no adelanta la siguiente.</p>
+  <p class="muted small">La media de 7 días frente a la de 30, en las tres cartas con producto verificado que más suben después de la del día. El porcentaje compara esas dos medias, no el precio de hoy con el de ayer. Datos de Cardmarket del ${fechaLarga}; una subida pasada no adelanta la siguiente.</p>
   <div class="vitrina-grid">
     ${movers
       .map((c) => {
@@ -1207,7 +1213,7 @@ const vitrinaHtml = vitrinaHero
   <div class="vitrina-cab">
     <p class="kicker">El escaparate de la semana</p>
     <h2 id="vitrina-titulo">Las cartas que se están moviendo</h2>
-    <p class="lede">Las que más han subido frente a su media de 30 días, con imagen y precio de referencia. El dato es de hoy; la subida no es una promesa.</p>
+    <p class="lede">Las cartas con producto verificado que más han subido frente a su media de 30 días, con imagen y precio de referencia. El dato es de hoy; la subida no es una promesa.</p>
   </div>
   ${vitrinaHeroHtml}
   <div class="vitrina-grid">${vitrinaResto.map(vitrinaMini).join('')}</div>
@@ -1589,7 +1595,7 @@ ${caras100
 // ---------- guias de compra por formato ----------
 const GUIAS_COMPRA = [
   {
-    slug: 'sobres', asin: 'B0GMRC58KQ', h1: 'Sobres sueltos: cuándo salen caros',
+    slug: 'sobres', asin: null, h1: 'Sobres sueltos: cuándo salen caros',
     entradilla: 'Comprar sobres de uno en uno es la forma más cara de abrir un set. Aquí está la cuenta y cuándo sí merece la pena.',
     puntos: [
       'El precio por sobre en blíster o sobre suelto suele ser más alto que en caja de 36.',
@@ -1639,7 +1645,7 @@ const GUIAS_COMPRA = [
     cta: 'Lote de 6 sobres',
   },
   {
-    slug: 'etb-dominio-delta', asin: 'B0HGG226FP', h1: 'ETB Dominio Delta: qué lleva y a qué precio',
+    slug: 'etb-dominio-delta', asin: null, h1: 'ETB Dominio Delta: qué lleva y a qué precio',
     entradilla: 'Caja de élite de Megaevolución-Dominio Delta: sobres, fundas, dados y carta promocional. Es el formato de regalo habitual y el que más se revende por encima del PVP.',
     puntos: [
       'Mismo patrón que la ETB del 30.º: compara el precio de sus sobres por separado antes de pagar la caja.',
@@ -1649,7 +1655,7 @@ const GUIAS_COMPRA = [
     cta: 'ETB Dominio Delta',
   },
   {
-    slug: 'lata', asin: 'B0GMRC58KQ', h1: 'Latas: promo garantizada, sobres caros',
+    slug: 'lata', asin: null, h1: 'Latas: promo garantizada, sobres caros',
     entradilla: 'La lata vende una carta promocional concreta. Si esa carta es la que buscas, tiene sentido; si no, estás pagando el envoltorio.',
     puntos: [
       'Mira qué promo trae y su precio suelto: a veces comprar solo la carta sale más barato.',
@@ -1683,7 +1689,7 @@ for (const g of GUIAS_COMPRA) {
 <p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. · Revisado: ${new Date().toISOString().slice(0, 10)}</p>
 <p class="lede">${esc(g.entradilla)}</p>
 <ul class="pasos">${g.puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-<p><a class="btn" href="https://www.amazon.es/dp/${g.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>
+${g.asin ? `<p><a class="btn" href="${amazonDp(g.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>` : `<p class="nota small">No hay producto verificado de este formato en Amazon: no se enlaza para no mandarte a una búsqueda vacía. <a href="/comprar/">Ver lo que sí se vende</a>.</p>`}
 <p class="nota small">El precio lo pone Amazon. Antes de comprar, compara el precio por sobre con el resto de formatos en <a href="/comprar/">la tabla de compra</a>.</p>
 <p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>`,
     }),
