@@ -604,3 +604,33 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 
 /* Imagen del producto en las tarjetas de compra (veredicto delante) */
 .reco-img{display:block;width:100%;max-height:190px;object-fit:contain;background:#fff;border-radius:12px;padding:8px;margin:10px 0}
+
+/* Ficha de carta: carta centrada, relacionadas debajo y sugerencias vendibles al lado */
+.ficha2{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:38px;align-items:start;margin-top:6px}
+@media(max-width:980px){.ficha2{grid-template-columns:1fr}}
+.ficha2-main{min-width:0;max-width:800px;margin:0 auto}
+.ficha2-carta{width:min(360px,100%);margin:0 auto 8px}
+.ficha2-carta img{width:100%;display:block;border-radius:16px;box-shadow:0 22px 55px rgba(0,0,0,.5)}
+.ficha2-main > h1{text-align:center;margin:10px 0 2px}
+.ficha2-main > .precio-grande{text-align:center;margin:0}
+.ficha2-main > .trend, .ficha2-main > p.trend{text-align:center}
+.sugerencias{position:sticky;top:18px;padding-left:26px}
+.sugerencias:before,.sugerencias:after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;border-radius:2px;filter:blur(7px);opacity:.7}
+.sugerencias:before{background:linear-gradient(180deg,transparent,#ffcb05 18%,#35e0d0 55%,transparent 95%)}
+.sugerencias:after{left:9px;opacity:.45;background:linear-gradient(180deg,transparent,#b98cff 25%,#ff9d5c 70%,transparent 96%)}
+.sugerencias h3{margin:2px 0 2px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.sug-sub{margin:0 0 12px;font-size:11.5px;color:var(--muted)}
+.sug-fila{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--text);padding:10px 6px;border-radius:12px}
+.sug-fila:hover{background:rgba(255,255,255,.04)}
+.sug-thumb{width:56px;height:56px;flex:none;border-radius:10px;background:#1b1922;display:grid;place-items:center;overflow:hidden}
+.sug-thumb img{width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;filter:brightness(2.1) saturate(1.15)}
+.sug-txt b{display:block;font-size:12.5px;line-height:1.3;font-weight:600}
+.sug-txt small{font-size:11px;color:var(--muted)}
+.sug-all{display:inline-block;margin-top:10px;font-size:11.5px;color:var(--accent2);text-decoration:none}
+.sug-af{margin-top:14px;font-size:10.5px;line-height:1.5;color:var(--muted)}
+.relacionadas{margin-top:28px;border-top:1px solid var(--line);padding-top:16px}
+.rel-cab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rel-cab h2{margin:0;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.rel-cab a{font-size:12px;color:var(--accent2);text-decoration:none}
+.rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+@media(max-width:620px){.rel-grid{grid-template-columns:repeat(2,1fr)}}
