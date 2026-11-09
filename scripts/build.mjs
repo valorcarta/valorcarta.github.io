@@ -21,6 +21,16 @@ const put = async (p, data) => {
       .replaceAll('/assets/en.js', `/assets/en.js?v=${ASSET_V}`)
       .replaceAll('/assets/icon.svg', `/assets/icon.svg?v=${ASSET_V}`);
   }
+  // TRACKING 09-11: cada enlace de afiliado lleva ascsubtag con su colocación,
+  // para que el panel de Amazon diga qué página trae clics y cuál convierte.
+  if (typeof data === 'string' && p.endsWith('.html') && /amazon\.es\/dp\//.test(data)) {
+    const rel = String(p).replace(/^.*?dist\//, '').replace(/\/?index\.html$/, '').replace(/\//g, '-') || 'inicio';
+    data = data.replace(/https:\/\/www\.amazon\.es\/dp\/([A-Z0-9]{10})([^"']*)/g,
+      (m0, asin, resto) => {
+        if (resto.includes('ascsubtag=')) return m0;
+        return `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=${encodeURIComponent('vc-'+rel)}`;
+      });
+  }
   // ORDEN 09-11: solo ASIN del catálogo verificado; el resto no se enlaza
   if (typeof data === 'string' && p.endsWith('.html')) {
     data = data.replace(/https:\/\/www\.amazon\.es\/dp\/([A-Z0-9]{10})[^"]*/g,
@@ -443,7 +453,7 @@ const homeBody = `
     <svg class="bola-fondo" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 100h192M100 4a96 96 0 0 1 0 192" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
   </div>
   <div class="hero-txt">
-    <p class="kicker">PRECIOS DE CARTAS POKÉMON · ${priced.length.toLocaleString('es-ES')} CARTAS · ACTUALIZADO EL ${new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long' }).toUpperCase()}</p>
+    <p class="kicker">PRECIOS DE CARTAS POKÉMON · ${priced.length.toLocaleString('es-ES')} CARTAS · ACTUALIZADO EL ${new Date(fechaCatalogo || Date.now()).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' }).toUpperCase()}</p>
     <h1>¿Cuánto valen <em>tus</em> cartas Pokémon?</h1>
     <p class="lede">El precio medio real de Cardmarket, actualizado a diario. Busca una carta o valora tu colección en 10 segundos: gratis, sin registro y sin humo.</p>
     <div id="buscador" class="buscador">
