@@ -68,10 +68,12 @@ let EXTRA_AMZ = [];
 try { EXTRA_AMZ = (JSON.parse(await readFile(path.join(ROOT, 'data', 'productos-extra.json'), 'utf8')) || {}).productos || []; } catch {}
 let RECOS = {};
 let SUGERENCIAS = [];
+let DISPONIBLES_PROD = [];
 try {
   const _r = JSON.parse(await readFile(path.join(ROOT, 'data', 'recomendaciones.json'), 'utf8')) || {};
   RECOS = _r.por_asin || {};
   SUGERENCIAS = _r.sugerencias || [];
+  DISPONIBLES_PROD = _r.disponibles || [];
 } catch {}
 const CATALOGO = [...PRODUCTOS_AMZ, ...EXTRA_AMZ];
 const prodInfo = (asin) => CATALOGO.find((p) => p.asin === asin) || null;
@@ -142,7 +144,7 @@ const recosHtml = (asin) => {
 
 // Sugerencias de compra en las fichas de carta: producto real, foto fundida con el fondo y enlace de afiliado.
 const sugerenciasHtml = () => {
-  const lista = SUGERENCIAS.map((a) => prodInfo(a)).filter((p) => p && p.asin).slice(0, 4);
+  const lista = DISPONIBLES_PROD.filter((x) => IMGS_SITE.has(x.asin)).map((x) => prodInfo(x.asin) || x).slice(0, 4);
   if (!lista.length) return '';
   const filas = lista.map((p) => {
     const img = IMGS_SITE.has(p.asin)
@@ -298,8 +300,8 @@ const cartaDiaHtml = cartaDelDia
 // ---------- portada: lo que sí se vende (productos con comisión) ----------
 // Pedido del dueño: en la primera línea de la portada van PRODUCTOS que pagan comisión,
 // no cartas sueltas que no se pueden comprar. El producto destacado es el nº1 en ventas.
-const ventaProd = (PRODUCTOS_AMZ.find((p) => p.asin === 'B0H8T5GC4W' && DISPONIBLES.has(p.asin))) || PRODUCTOS_AMZ.find((p) => DISPONIBLES.has(p.asin)) || null;
-const ventaOtros = PRODUCTOS_AMZ.filter((p) => ventaProd && p.asin !== ventaProd.asin && p.precio && DISPONIBLES.has(p.asin));
+const ventaProd = (() => { const d = DISPONIBLES_PROD.find((x) => x.asin); return d ? prodInfo(d.asin) || { asin: d.asin, nombre: d.nombre, precio: d.precio } : null; })();
+const ventaOtros = DISPONIBLES_PROD.filter((x) => ventaProd && x.asin !== ventaProd.asin).map((x) => prodInfo(x.asin) || x).filter((p) => p && p.precio);
 const amzProd = (p) => `https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}`;
 const ventaHtml = ventaProd
   ? `<aside class="dia venta" aria-labelledby="venta-titulo">
@@ -309,7 +311,7 @@ const ventaHtml = ventaProd
   </a>
   <div class="dia-ficha">
     <h2 id="venta-titulo"><a href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank">${esc(ventaProd.nombre)}</a></h2>
-    <p class="dia-set muted small">Producto verificado en Amazon · enlace de afiliado</p>
+    <p class="dia-set muted small">En stock en Amazon · enlace de afiliado</p>
     <p class="dia-etq muted small">Precio en Amazon</p>
     <p class="dia-precio">${eur(ventaProd.precio)}</p>
     <div class="dia-acciones">
@@ -367,6 +369,26 @@ for (const f of await readdir(path.join(ROOT, 'site')).catch(() => [])) {
     await writeFile(OUT('productos/' + f), await readFile(path.join(ROOT, 'site', f)));
   } catch {}
 }
+const dispConImagen = () => DISPONIBLES_PROD.filter((x) => IMGS_SITE.has(x.asin));
+const stockTexto = (x) => (/left in stock/i.test(x.estado || '') ? 'Solo ' + (String(x.estado).match(/\d+/)?.[0] || '2') + ' uds.' : 'En stock');
+const precioTexto = (x) => (typeof x.precio === 'number' ? eur(x.precio) : 'Precio en Amazon');
+const dispCard = (x) => `<article class="dprod">
+    <div class="dimg"><img src="/productos/producto-${esc(x.asin)}.jpg" alt="${esc(x.nombre)}" loading="lazy" decoding="async"></div>
+    <span class="dbadge">${esc(stockTexto(x))}</span>
+    <h3>${esc(x.nombre)}</h3>
+    <p class="dmotivo">${esc(x.motivo || '')}</p>
+    <p class="dprecio">${precioTexto(x)} <span>· Amazon</span></p>
+    <a class="dbtn" href="${amazonDp(x.asin)}" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a>
+  </article>`;
+const disponiblesHtml = (titulo = 'Disponible ahora · lo que sí se puede comprar') => {
+  const lista = dispConImagen().slice(0, 4);
+  if (!lista.length) return '';
+  return `<section class="bloque disp-bloque">
+    <div class="disp-cab"><div><h2>${esc(titulo)}</h2><p class="muted small">Productos verificados hoy y comprables en Amazon. Si uno se agota, sale de aquí solo.</p></div><a href="/comprar/">Ver todos los productos →</a></div>
+    <div class="disp-grid">${lista.map(dispCard).join('')}</div>
+    <p class="nota small">Enlaces de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+  </section>`;
+};
 const imgProducto = (asin) => IMGS_SITE.has(asin)
   ? `<img class="reco-img" src="/productos/producto-${esc(asin)}.jpg" alt="${esc((prodInfo(asin) || {}).nombre || 'Producto')}" loading="lazy" decoding="async">`
   : '';
@@ -443,6 +465,8 @@ const homeBody = `
 </section>
 
 ${moversHtml}
+
+${disponiblesHtml()}
 
 ${munecosHtml}
 
@@ -1887,6 +1911,7 @@ await put(
 <h1>Dónde comprar sin pagar de más</h1>
 <p class="lede">El formato cambia el precio por sobre más que la tienda. Antes de comprar, mira qué te llevas
 y cuánto estás pagando por cada sobre; luego compara.</p>
+${disponiblesHtml('Disponible ahora')}
 
 // fichas de producto con página propia: enlazarlas aquí para que no queden huérfanas
 <div class="grid">
