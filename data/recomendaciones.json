@@ -1,0 +1,217 @@
+{
+  "generado": "2026-11-09T17:36:33",
+  "fuente": "tools/recomienda.py · 0 tokens",
+  "productos": [
+    {
+      "asin": "B0H8T5GC4W",
+      "nombre": "Caja de Entrenador Élite 30.º Aniversario",
+      "precio": 52.99
+    },
+    {
+      "asin": "B0H8SXRLT4",
+      "nombre": "Lote de 6 sobres 30.º Aniversario",
+      "precio": 29.94
+    },
+    {
+      "asin": "B0H8SXC5L9",
+      "nombre": "Colección con póster 30.º Aniversario",
+      "precio": 23.99
+    },
+    {
+      "asin": "B0H8T4YLGT",
+      "nombre": "Baraja Umbreon ex 30.º Aniversario",
+      "precio": 24.99
+    },
+    {
+      "asin": "B0H8T274VV",
+      "nombre": "Baraja Espeon ex 30.º Aniversario",
+      "precio": 24.99
+    },
+    {
+      "asin": "B0BMGR3QZW",
+      "nombre": "Baraja de liga Mew VMAX",
+      "precio": 34.99
+    },
+    {
+      "asin": "B0G5YX5XVQ",
+      "nombre": "Baraja de liga Mewtwo ex",
+      "precio": 49.49
+    },
+    {
+      "asin": "B085DNDLC1",
+      "nombre": "Ultra Pro Penny Sleeve, 400 fundas blandas",
+      "precio": 6.71
+    },
+    {
+      "asin": "B000Q5ZMM0",
+      "nombre": "Ultra Pro Toploader 3x4, pack de 25",
+      "precio": 8.0
+    },
+    {
+      "asin": "B0812Z3RPY",
+      "nombre": "Ultra Pro Toploader 3x4, 100 unidades",
+      "precio": 20.0
+    },
+    {
+      "asin": "B0D7W2PJR8",
+      "nombre": "Álbum de 540 cartas, 9 bolsillos y cremallera",
+      "precio": 25.98
+    }
+  ],
+  "por_asin": {
+    "B0H8T5GC4W": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Protege lo que compras"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para no doblar esquinas"
+      },
+      {
+        "asin": "B0G5YX5XVQ",
+        "motivo": "Mismo formato, precio parecido"
+      }
+    ],
+    "B0H8SXRLT4": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Protege lo que compras"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para no doblar esquinas"
+      },
+      {
+        "asin": "B0H8T4YLGT",
+        "motivo": "Mismo formato, precio parecido"
+      }
+    ],
+    "B0H8SXC5L9": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Protege lo que compras"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para no doblar esquinas"
+      },
+      {
+        "asin": "B0H8T4YLGT",
+        "motivo": "Mismo formato, precio parecido"
+      }
+    ],
+    "B0H8T4YLGT": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Protege lo que compras"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para no doblar esquinas"
+      },
+      {
+        "asin": "B0H8T274VV",
+        "motivo": "Mismo formato, precio parecido"
+      }
+    ],
+    "B0H8T274VV": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Protege lo que compras"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para no doblar esquinas"
+      },
+      {
+        "asin": "B0H8T4YLGT",
+        "motivo": "Mismo formato, precio parecido"
+      }
+    ],
+    "B0BMGR3QZW": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Protege lo que compras"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para no doblar esquinas"
+      },
+      {
+        "asin": "B0H8SXRLT4",
+        "motivo": "Mismo formato, precio parecido"
+      }
+    ],
+    "B0G5YX5XVQ": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Protege lo que compras"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para no doblar esquinas"
+      },
+      {
+        "asin": "B0H8T5GC4W",
+        "motivo": "Mismo formato, precio parecido"
+      }
+    ],
+    "B085DNDLC1": [
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "Para la carta que vas a guardar"
+      },
+      {
+        "asin": "B0812Z3RPY",
+        "motivo": "El siguiente nivel de protección"
+      },
+      {
+        "asin": "B0H8SXC5L9",
+        "motivo": "El sobre que vas a proteger"
+      }
+    ],
+    "B000Q5ZMM0": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Para la carta que vas a guardar"
+      },
+      {
+        "asin": "B0812Z3RPY",
+        "motivo": "El siguiente nivel de protección"
+      },
+      {
+        "asin": "B0H8SXC5L9",
+        "motivo": "El sobre que vas a proteger"
+      }
+    ],
+    "B0812Z3RPY": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Para la carta que vas a guardar"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "El siguiente nivel de protección"
+      },
+      {
+        "asin": "B0H8SXC5L9",
+        "motivo": "El sobre que vas a proteger"
+      }
+    ],
+    "B0D7W2PJR8": [
+      {
+        "asin": "B085DNDLC1",
+        "motivo": "Para la carta que vas a guardar"
+      },
+      {
+        "asin": "B000Q5ZMM0",
+        "motivo": "El siguiente nivel de protección"
+      },
+      {
+        "asin": "B0H8SXC5L9",
+        "motivo": "El sobre que vas a proteger"
+      }
+    ]
+  }
+}
