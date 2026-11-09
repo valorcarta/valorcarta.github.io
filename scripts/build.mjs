@@ -26,6 +26,16 @@ const put = async (p, data) => {
     data = data.replace(/https:\/\/www\.amazon\.es\/dp\/([A-Z0-9]{10})[^"]*/g,
       (m, asin) => (VERIFICADOS.has(asin) ? m : '/comprar/'));
   }
+  // ORDEN 09-11 (2): un producto agotado o sin buy box no se enlaza aunque esté verificado
+  if (typeof data === 'string' && p.endsWith('.html')) {
+    data = data.replace(/https:\/\/www\.amazon\.es\/dp\/([A-Z0-9]{10})[^"]*/g,
+      (m, asin) => (DISPONIBLES.has(asin) ? m : '/comprar/'));
+  }
+  // Honestidad del botón: si el enlace acaba en /comprar/ no puede decir "Amazon"
+  if (typeof data === 'string' && p.endsWith('.html')) {
+    data = data.replace(/<a([^>]*href="\/comprar\/"[^>]*)>([^<]*(?:amazon|Amazon)[^<]*)<\/a>/g,
+      (m, attrs) => `<a${attrs}>Ver productos verificados</a>`);
+  }
   // ORDEN 09-11: ninguna búsqueda de Amazon en la web; solo producto exacto (/dp/) o página interna
   if (typeof data === 'string' && p.endsWith('.html')) {
     data = data.replace(/href="https:\/\/www\.amazon\.es\/s\?[^"]*"/g, 'href="/comprar/"');
@@ -54,11 +64,22 @@ try { REGALOS_FRIKIS = JSON.parse(await readFile(path.join(ROOT, 'data', 'regalo
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 let PRODUCTOS_AMZ = [];
 try { PRODUCTOS_AMZ = JSON.parse(await readFile(path.join(ROOT, 'data', 'productos.json'), 'utf8')); } catch {}
+let VERIF_PROD = {};
+try { VERIF_PROD = JSON.parse(await readFile(path.join(ROOT, 'data', 'productos-verificados.json'), 'utf8')).productos ?? {}; } catch {}
+// Solo se enlaza a Amazon lo que de verdad se puede comprar: fuera "Currently unavailable"
+// y fichas sin buy box. Si no está en esta lista, no hay enlace de afiliado.
+const DISPONIBLES = new Set(Object.entries(VERIF_PROD).filter(([, v]) => v && v.disponible).map(([k]) => k));
+for (const asin of Object.keys(VERIF_PROD)) VERIFICADOS.add(asin);
+const ASINS_OK = {};
+for (const [sid, prods] of Object.entries(ASINS)) {
+  const ok = (prods || []).filter((p) => DISPONIBLES.has(p.asin));
+  if (ok.length) ASINS_OK[sid] = ok;
+}
 // Las imágenes de producto se copian más abajo, después de vaciar dist.
 for (const v of Object.values(ASINS)) for (const prod of v) VERIFICADOS.add(prod.asin);
 // ORDEN 09-11: a primera vista solo lo que sí se vende. Una carta es vendible si
 // su set tiene producto verificado en Amazon (ASINS[setId]); si no, no va al héroe.
-const vendible = (c) => Boolean(ASINS[c.setId]?.length);
+const vendible = (c) => Boolean(ASINS_OK[c.setId]?.length);
 let RADAR = [];
 try { RADAR = JSON.parse(await readFile(path.join(ROOT, 'data', 'radar.json'), 'utf8')); } catch {}
 let SETS_EN = {};
@@ -94,12 +115,9 @@ const gbpEn = (n) => (n == null || !isFinite(n) ? '—' : nfGbpEn.format(n * FX.
 const FX_NOTE = `USD and GBP are an approximate conversion at fixed build rates (€1 = $${FX.USD.toFixed(2)} = £${FX.GBP.toFixed(2)}), not live exchange rates.`;
 const amazonDp = (asin) => `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}`;
 // 09-11: el CTA nunca promete la carta suelta. Solo sellado verificado o página interna.
-const ctaCarta = (c, cls = 'btn') => {
-  const prod = ASINS[c.setId]?.[0];
-  return prod
-    ? `<a class="${cls}" href="${amazonDp(prod.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`
-    : `<a class="${cls} ghost" href="/comprar/">Ver los productos que sí se venden</a>`;
-};
+// Una carta no es un producto de Amazon: aquí nunca se enlaza a otro producto.
+const ctaCarta = (c, cls = 'btn') =>
+  `<a class="${cls} ghost" href="/comprar/">Ver los productos que sí se venden</a>`;
 const ASIN_LABEL_EN = {
   B0BTRN9FT5: '36-pack booster box · Scarlet & Violet',
   B0FDGXLR5L: 'Elite Trainer Box · Scarlet & Violet (Koraidon)',
@@ -240,8 +258,8 @@ const cartaDiaHtml = cartaDelDia
 // ---------- portada: lo que sí se vende (productos con comisión) ----------
 // Pedido del dueño: en la primera línea de la portada van PRODUCTOS que pagan comisión,
 // no cartas sueltas que no se pueden comprar. El producto destacado es el nº1 en ventas.
-const ventaProd = PRODUCTOS_AMZ.find((p) => p.asin === 'B0H8T5GC4W') || PRODUCTOS_AMZ[0] || null;
-const ventaOtros = PRODUCTOS_AMZ.filter((p) => ventaProd && p.asin !== ventaProd.asin && p.precio);
+const ventaProd = (PRODUCTOS_AMZ.find((p) => p.asin === 'B0H8T5GC4W' && DISPONIBLES.has(p.asin))) || PRODUCTOS_AMZ.find((p) => DISPONIBLES.has(p.asin)) || null;
+const ventaOtros = PRODUCTOS_AMZ.filter((p) => ventaProd && p.asin !== ventaProd.asin && p.precio && DISPONIBLES.has(p.asin));
 const amzProd = (p) => `https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}`;
 const ventaHtml = ventaProd
   ? `<aside class="dia venta" aria-labelledby="venta-titulo">
@@ -251,7 +269,7 @@ const ventaHtml = ventaProd
   </a>
   <div class="dia-ficha">
     <h2 id="venta-titulo"><a href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank">${esc(ventaProd.nombre)}</a></h2>
-    <p class="dia-set muted small">nº1 en ventas de Juguetes</p>
+    <p class="dia-set muted small">Producto verificado en Amazon · enlace de afiliado</p>
     <p class="dia-etq muted small">Precio en Amazon</p>
     <p class="dia-precio">${eur(ventaProd.precio)}</p>
     <div class="dia-acciones">
@@ -380,7 +398,7 @@ const homeBody = `
       <li>Histórico de 30 días por carta</li>
       <li>Gratis, sin registro</li>
     </ul>
-    <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+    ${ASINS_OK['30th']?.[0] ? `<p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS_OK['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>` : ''}
   </div>
   ${ventaHtml}
 </section>
@@ -607,7 +625,7 @@ Valor total del catálogo: <b>${eur(totalValor)}</b>.</p>
   <a class="btn ghost" href="/comprar/sobres/">Sobres y cajas</a>
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
 </p>
-<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
+<p class="acciones"><a class="btn" href="/comprar/">Sobres y cajas verificados →</a></p>
 <p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
 ${munecosHtml}
 <h2>Los ${setsConPrecio.length} sets, por valor de mercado</h2>
@@ -646,14 +664,14 @@ ${
 
 <p class="acciones">
   ${
-    ASINS[id]?.length
-      ? ASINS[id].slice(0, 3).map((prod) => `<a class="btn" href="https://www.amazon.es/dp/${prod.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`).join('\n')
+    ASINS_OK[id]?.length
+      ? ASINS_OK[id].slice(0, 3).map((prod) => `<a class="btn" href="https://www.amazon.es/dp/${prod.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`).join('\n')
       : `<p class="nota small">No hay producto verificado de este set en Amazon: no se enlaza para no mandarte a una búsqueda donde no hay nada que comprar. <a href="/comprar/">Ver los productos que sí se venden</a>.</p>`
   }
   <a class="btn ghost" href="/guardar-cartas/">Fundas para estas cartas</a>
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
 </p>
-<p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. ${ASINS[id]?.length ? 'El botón lleva al sellado del set, no a una carta concreta.' : 'Como este set no tiene un producto único verificado, el botón busca sus sobres en Amazon.'}</p>
+<p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. ${ASINS_OK[id]?.length ? 'El botón lleva al producto sellado verificado de este set, no a una carta concreta.' : 'Este set no tiene ahora mismo un producto verificado y disponible: no enlazamos a Amazon.'}</p>
 
 <h2>Preguntas frecuentes sobre ${esc(nombre)}</h2>
 <div class="faq">
@@ -790,7 +808,7 @@ await put('radar/index.html', layout({
 <p class="acciones"><a class="btn" href="/caras/">Las 100 más caras</a>
 <a class="btn ghost" href="/mercado/">Qué se mueve esta semana</a>
 <a class="btn ghost" href="/valorar/">Valorar mi colección</a></p>
-<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
+<p class="acciones"><a class="btn" href="/comprar/">Sobres y cajas verificados →</a></p>
 <p class="nota small">Aviso de afiliado: si compras desde ese enlace, ValorCarta recibe una comisión de Amazon sin coste para ti. El precio no cambia.</p>
 <div class="nota small" style="max-width:64ch;margin:0 0 18px">
   <p><b>Cómo se lee esto:</b> cada pieza empieza por lo que ha pasado, sigue con el número de nuestro catálogo
@@ -919,10 +937,11 @@ for (let i = 0; i < priced.length; i += BATCH) {
 
             // 09-11 ORDEN DEL DUEÑO: la carta suelta NO se vende en Amazon.
       // Solo se enlaza a Amazon si hay producto verificado: /dp/ exacto. Sin producto, no hay CTA de Amazon.
-      const ctaAmazon = ASINS[c.setId]?.length
-        ? `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
-    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. <b>Esta carta suelta no se vende en Amazon</b>: el enlace lleva al producto sellado de su set, que sí existe y sí se puede comprar.</p>`
-        : `<p class="nota small" style="margin:14px 0 6px"><b>Esta carta suelta no se vende en Amazon.</b> No hay producto verificado para su set, así que aquí no se enlaza a Amazon: sería mandarte a una búsqueda donde no hay nada que comprar.</p>`;
+      // ORDEN DEL DUEÑO: esta carta suelta no se vende en Amazon. No se enlaza a otro
+      // producto del set: el enlace iría con algo que no es lo que se está viendo.
+      const ctaAmazon = `<p class="nota small" style="margin:14px 0 6px"><b>Esta carta suelta no se vende en Amazon.</b>
+    Aquí no hay enlace de compra: no te mandamos a otro producto en su lugar. Los productos
+    que sí se venden y sí dan comisión están en <a href="/comprar/">los productos verificados</a>.</p>`;
 
       const body = `
 <nav class="migas"><a href="/cartas/">Cartas</a> / <a href="/set/${c.setId}/">${esc(c.setName)}</a> / ${esc(c.name)}</nav>
@@ -1072,7 +1091,7 @@ if (guias.length) {
   <a class="btn" href="/guardar-cartas/">Guardar y proteger cartas</a>
   <a class="btn ghost" href="/comprar/">Comprar sin pagar de más</a>
 </p>
-<p class="acciones"><a class="btn" href="${amazonLink('pokemon tcg sobres')}" rel="sponsored nofollow noopener" target="_blank">Sobres de Pokémon en Amazon</a></p>
+<p class="acciones"><a class="btn" href="/comprar/">Sobres y cajas verificados →</a></p>
 <p class="nota small">Enlace de afiliado: ValorCarta recibe una comisión de Amazon si compras desde ahí, sin coste para ti.</p>
 <p class="lede">Lo que aprendes a base de comprar mal. Sin humo y sin promesas de rentabilidad.</p>
 <div class="grid guias-grid">
@@ -1736,7 +1755,7 @@ for (const g of GUIAS_COMPRA) {
 <p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. · Revisado: ${new Date().toISOString().slice(0, 10)}</p>
 <p class="lede">${esc(g.entradilla)}</p>
 <ul class="pasos">${g.puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
-${g.asin ? `<p><a class="btn" href="${amazonDp(g.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>` : `<p class="nota small">No hay producto verificado de este formato en Amazon: no se enlaza para no mandarte a una búsqueda vacía. <a href="/comprar/">Ver lo que sí se vende</a>.</p>`}
+${g.asin && DISPONIBLES.has(g.asin) ? `<p><a class="btn" href="${amazonDp(g.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>` : `<p class="nota small">Ahora mismo no hay producto disponible verificado de este formato en Amazon: no se enlaza para no mandarte a otro producto. <a href="/comprar/">Ver lo que sí se vende</a>.</p>`}
 <p class="nota small">El precio lo pone Amazon. Antes de comprar, compara el precio por sobre con el resto de formatos en <a href="/comprar/">la tabla de compra</a>.</p>
 <p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>`,
     }),
@@ -1826,9 +1845,11 @@ ${PRODUCTOS.map(
   <td><b>${esc(n)}</b></td>
   <td class="muted">${esc(d)}</td>
   <td class="num">${
-    q
+    q && DISPONIBLES.has(q)
       ? `<a href="https://www.amazon.es/dp/${q}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver producto →</a>`
-      : `<a href="/guardar-cartas/">Guía →</a>`
+      : q
+        ? '<span class="muted">No disponible ahora</span>'
+        : `<a href="/guardar-cartas/">Guía →</a>`
   }</td>
 </tr>`,
 ).join('')}
@@ -1848,7 +1869,7 @@ ${PRODUCTOS.map(
     <li><b>El precinto manda.</b> Si el producto viene abierto o sin retractilar, el valor cae. Revisa el estado al recibir y fotografía el paquete antes de abrirlo.</li>
     <li><b>El sobre no da dinero por abrir.</b> Abrir es azar. Si compras para coleccionar, compra la carta suelta; si compras para abrir, asume que estás pagando la experiencia.</li>
   </ol>
-  <p class="nota small">Los enlaces llevan a búsquedas de Amazon con nuestra etiqueta de afiliado: si compras, nos llevamos una comisión sin coste extra para ti. El precio lo pone Amazon, no nosotros.</p>
+  <p class="nota small">Los enlaces llevan a la ficha exacta del producto en Amazon con nuestra etiqueta de afiliado: si compras, nos llevamos una comisión sin coste extra para ti. Si un producto no está disponible, no se enlaza: no te mandamos a otro en su lugar.</p>
 </section>`,
   }),
 );
@@ -2169,7 +2190,7 @@ await enPage(
     scripts: ['/assets/en.js'],
     body: `${homeEnBody}
 <div class="acciones">
-  <a class="btn" href="${amazonLink('pokemon tcg booster box')}" rel="sponsored nofollow noopener" target="_blank">Sealed Pokémon TCG on Amazon</a>
+  <a class="btn" href="/comprar/">Verified sealed products →</a>
   <a class="btn ghost" href="/en/price-check/">Value my collection</a>
 </div>
 <p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases. The price you pay does not change.</p>`,
@@ -2317,7 +2338,7 @@ await enPage(
     alternates: altPair('/mercado/', '/en/market/'),
     body: `${marketEnBody}
 <div class="acciones">
-  <a class="btn" href="${amazonLink('pokemon tcg booster box')}" rel="sponsored nofollow noopener" target="_blank">Sealed Pokémon TCG on Amazon</a>
+  <a class="btn" href="/comprar/">Verified sealed products →</a>
   <a class="btn ghost" href="/en/price-check/">Value my collection</a>
 </div>
 <p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases. The price you pay does not change.</p>`,
@@ -2363,7 +2384,7 @@ await enPage(
     alternates: altPair('/caras/', '/en/most-expensive/'),
     body: `${mostExpensiveEnBody}
 <div class="acciones">
-  <a class="btn" href="${amazonLink('pokemon tcg booster box')}" rel="sponsored nofollow noopener" target="_blank">Sealed Pokémon TCG on Amazon</a>
+  <a class="btn" href="/comprar/">Verified sealed products →</a>
   <a class="btn ghost" href="/en/">Top 100 by value</a>
 </div>
 <p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases.</p>`,
@@ -2500,11 +2521,9 @@ for (const c of enCards) {
 
   const asin = ASINS[c.setId]?.[0] ?? null;
   const ctaEn = asin
-    ? `<a class="btn" href="${amazonDp(asin.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(
-        ASIN_LABEL_EN[asin.asin] ?? `Shop ${setName} on Amazon`,
-      )}</a>`
-    : `<a class="btn" href="/en/most-expensive/">See how this card compares</a>
-    <p class="nota small">This card is out of print, so there is no sealed product to link. Most copies are bought and sold between collectors; we do not link to a search page because that commission is lower and it is not a real product.</p>`;
+    ? `<a class="btn ghost" href="/en/most-expensive/">See how this card compares</a>
+    <p class="nota small">This single card is not sold on Amazon, so there is no Amazon link here: we would be sending you to another product. See the verified sealed products in <a href="/comprar/">Buy</a>.</p>`
+    : `<a class="btn ghost" href="/en/most-expensive/">See how this card compares</a>`;
 
   const pos = enCards.findIndex((x) => x.id === c.id);
   const more = [...enCards.slice(pos + 1), ...enCards.slice(0, pos)].slice(0, 6);
@@ -2570,9 +2589,9 @@ ${
       scripts: ['/assets/en.js'],
       body: `${body}
 <div class="acciones">
-  <a class="btn" href="${amazonLink(`${enName(c)} ${setName} pokemon card`)}" rel="sponsored nofollow noopener" target="_blank">Search ${esc(enName(c))} on Amazon</a>
+  <a class="btn ghost" href="/comprar/">See verified sealed products</a>
 </div>
-<p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases. The price you pay does not change. Single cards are rarely sold sealed on Amazon, so the button opens a search.</p>`,
+<p class="nota small">Affiliate disclosure: as an Amazon Associate, ValorCarta earns from qualifying purchases. This single card is not sold on Amazon, so there is no Amazon link here: we do not send you to a search page. Verified sealed products are in Buy.</p>`,
       jsonld: [
         {
           '@context': 'https://schema.org',
