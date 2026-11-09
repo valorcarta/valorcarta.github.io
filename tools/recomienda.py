@@ -107,3 +107,4 @@ with open(os.path.join(D, "recomendaciones.json"), "w", encoding="utf-8") as f:
     json.dump(salida, f, ensure_ascii=False, indent=2)
     f.write("\n")
 print(f"recomienda: {len(catalogo)} productos, {sum(len(v) for v in recos.values())} relacionados")
+# rebuild 1846
