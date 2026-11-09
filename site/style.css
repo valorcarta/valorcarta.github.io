@@ -594,3 +594,10 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 
 /* 09-11: imágenes de portada a ancho de pantalla (bloqueante móvil) */
 @media (max-width: 480px) { .dia-arte, .carta3d, .cv-foto, .dia-arte img, .cv-foto img { width: 100% !important; max-width: 100% !important; height: auto !important; } }
+
+/* Recomendador: unos productos llevan a otros (tools/recomienda.py) */
+.recos{grid-column:1/-1;border-top:1px dashed var(--line);margin-top:10px;padding-top:8px;display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline}
+.recos-k{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.reco-link{font-size:.82rem;color:var(--accent2);text-decoration:none;line-height:1.4}
+.reco-link span{color:var(--muted);font-size:.72rem}
+.reco-link:hover{text-decoration:underline}
