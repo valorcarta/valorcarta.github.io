@@ -61,7 +61,7 @@ for p in catalogo:
     recos[asin] = items[:3]
 
 # Sugerencias para fichas de carta: los 4 productos que sí se venden (protección + pack top)
-preferidos = ["B0H8T5GC4W", "B085DNDLC1", "B000Q5ZMM0", "B0D7W2PJR8"]
+preferidos = ["B0BMGR3QZW", "B0G5YX5XVQ", "B078NBBQXQ", "B0HMJ88KGX", "B085DNDLC1", "B000Q5ZMM0", "B0D7W2PJR8"]
 sug = [a for a in preferidos if a in disp]
 if len(sug) < 4:
     for p in sorted(packs, key=precio):
@@ -69,8 +69,38 @@ if len(sug) < 4:
             sug.append(p["asin"])
         if len(sug) >= 4:
             break
+# Solo lo que se puede comprar de verdad ahora (In stock / últimas unidades)
+estado = {a: str(v.get("estado") or "") for a, v in ver.items()}
+stock = [a for a, e in estado.items() if "In stock" in e or "left in stock" in e]
+reclamo = {
+ "B0BMGR3QZW": ("Baraja de liga Mew VMAX", "60 cartas listas para jugar", None),
+ "B0G5YX5XVQ": ("Baraja de liga Mewtwo ex", "60 cartas listas para jugar", None),
+ "B078NBBQXQ": ("Mazo Ampharos ex", "Baraja de 60 cartas, sin abrir sobres", 29.0),
+ "B0HMJ88KGX": ("Lata Otoño EX", "Promo asegurada dentro", 40.0),
+ "B0C8YBXDYQ": ("Booster Bundle 151", "6 sobres del 151", None),
+ "B0BCPRFMQH": ("Sobre Silver Tempest", "Sobre suelto para probar", None),
+ "B085DNDLC1": ("Penny Sleeve · 400 fundas", "Lo primero antes de tocar la carta", 6.71),
+ "B000Q5ZMM0": ("Toploader 3x4 · 25 uds.", "La esquina deja de doblarse", 8.0),
+ "B0812Z3RPY": ("Toploader 3x4 · 100 uds.", "Para vender varias", 20.0),
+ "B0D7W2PJR8": ("Álbum 540 cartas", "Fuera del polvo y del sol", 25.98),
+}
+disp_lista = []
+for a in stock:
+    info = next((x for x in catalogo if x["asin"] == a), None)
+    nombre, motivo, precio = reclamo.get(a, (None, None, None))
+    if info and info.get("nombre"):
+        nombre = info["nombre"]
+    if info and info.get("precio"):
+        precio = float(info["precio"])
+    disp_lista.append({"asin": a, "nombre": nombre or a, "precio": precio, "motivo": motivo or "",
+                       "estado": estado[a]})
+storage = {"B085DNDLC1", "B000Q5ZMM0", "B0812Z3RPY", "B0D7W2PJR8"}
+orden = ["B0BMGR3QZW", "B0G5YX5XVQ", "B078NBBQXQ", "B0HMJ88KGX", "B0C8YBXDYQ", "B0BCPRFMQH"]
+disp_lista.sort(key=lambda x: (orden.index(x["asin"]) if x["asin"] in orden else 50 + (storage and x["asin"] in storage),
+                               x["precio"] or 999))
+
 salida = {"generado": time.strftime("%Y-%m-%dT%H:%M:%S"), "fuente": "tools/recomienda.py · 0 tokens",
-          "sugerencias": sug,
+          "sugerencias": sug, "disponibles": disp_lista,
           "productos": [{"asin": p["asin"], "nombre": p.get("nombre"), "precio": p.get("precio")} for p in catalogo],
           "por_asin": recos}
 with open(os.path.join(D, "recomendaciones.json"), "w", encoding="utf-8") as f:
