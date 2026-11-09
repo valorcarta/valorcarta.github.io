@@ -60,7 +60,17 @@ for p in catalogo:
         items += [{"asin": o["asin"], "motivo": "Mismo formato, precio parecido"} for o in otros]
     recos[asin] = items[:3]
 
+# Sugerencias para fichas de carta: los 4 productos que sí se venden (protección + pack top)
+preferidos = ["B0H8T5GC4W", "B085DNDLC1", "B000Q5ZMM0", "B0D7W2PJR8"]
+sug = [a for a in preferidos if a in disp]
+if len(sug) < 4:
+    for p in sorted(packs, key=precio):
+        if p["asin"] not in sug:
+            sug.append(p["asin"])
+        if len(sug) >= 4:
+            break
 salida = {"generado": time.strftime("%Y-%m-%dT%H:%M:%S"), "fuente": "tools/recomienda.py · 0 tokens",
+          "sugerencias": sug,
           "productos": [{"asin": p["asin"], "nombre": p.get("nombre"), "precio": p.get("precio")} for p in catalogo],
           "por_asin": recos}
 with open(os.path.join(D, "recomendaciones.json"), "w", encoding="utf-8") as f:
