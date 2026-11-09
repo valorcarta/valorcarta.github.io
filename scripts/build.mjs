@@ -64,6 +64,12 @@ try { REGALOS_FRIKIS = JSON.parse(await readFile(path.join(ROOT, 'data', 'regalo
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
 let PRODUCTOS_AMZ = [];
 try { PRODUCTOS_AMZ = JSON.parse(await readFile(path.join(ROOT, 'data', 'productos.json'), 'utf8')); } catch {}
+let EXTRA_AMZ = [];
+try { EXTRA_AMZ = (JSON.parse(await readFile(path.join(ROOT, 'data', 'productos-extra.json'), 'utf8')) || {}).productos || []; } catch {}
+let RECOS = {};
+try { RECOS = (JSON.parse(await readFile(path.join(ROOT, 'data', 'recomendaciones.json'), 'utf8')) || {}).por_asin || {}; } catch {}
+const CATALOGO = [...PRODUCTOS_AMZ, ...EXTRA_AMZ];
+const prodInfo = (asin) => CATALOGO.find((p) => p.asin === asin) || null;
 let VERIF_PROD = {};
 try { VERIF_PROD = JSON.parse(await readFile(path.join(ROOT, 'data', 'productos-verificados.json'), 'utf8')).productos ?? {}; } catch {}
 // Solo se enlaza a Amazon lo que de verdad se puede comprar: fuera "Currently unavailable"
@@ -118,6 +124,17 @@ const amazonDp = (asin) => `https://www.amazon.es/dp/${asin}?tag=${encodeURIComp
 // Una carta no es un producto de Amazon: aquí nunca se enlaza a otro producto.
 const ctaCarta = (c, cls = 'btn') =>
   `<a class="${cls} ghost" href="/comprar/">Ver los productos que sí se venden</a>`;
+// Unos productos llevan a otros (lo calcula tools/recomienda.py; el build solo lo pinta).
+const recosHtml = (asin) => {
+  const lista = (RECOS[asin] || []).filter((x) => prodInfo(x.asin)).slice(0, 3);
+  if (!lista.length) return '';
+  const chips = lista.map((x) => {
+    const pr = prodInfo(x.asin);
+    return `<a class="reco-link" href="${amazonDp(x.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(pr.nombre)}${pr.precio ? ` · ${eur(pr.precio)}` : ''} <span>${esc(x.motivo)}</span></a>`;
+  }).join('');
+  return `<div class="recos"><span class="recos-k">Va bien con</span>${chips}</div>`;
+};
+
 const ASIN_LABEL_EN = {
   B0BTRN9FT5: '36-pack booster box · Scarlet & Violet',
   B0FDGXLR5L: 'Elite Trainer Box · Scarlet & Violet (Koraidon)',
@@ -1433,6 +1450,7 @@ ${PRODUCTOS_GUARDAR.map(
     <p class="reco-veredicto">${esc(p.veredicto)}</p>
     <p class="reco-nombre">${esc(p.nombre)} <span class="muted">· ${esc(p.precio)}</span></p>
     <a class="btn" href="https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon</a>
+    ${recosHtml(p.asin)}
   </div>`,
   ).join('')}
 </section>
@@ -1770,6 +1788,7 @@ for (const g of GUIAS_COMPRA) {
 ${g.asin && DISPONIBLES.has(g.asin) ? `<p><a class="btn" href="${amazonDp(g.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>` : `<p class="nota small">Ahora mismo no hay producto disponible verificado de este formato en Amazon: no se enlaza para no mandarte a otro producto. <a href="/comprar/">Ver lo que sí se vende</a>.</p>`}
 <p class="nota small">El precio lo pone Amazon. Antes de comprar, compara el precio por sobre con el resto de formatos en <a href="/comprar/">la tabla de compra</a>.</p>
 <p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>
+${g.asin ? recosHtml(g.asin) : ''}
 <p class="nota small">Protege lo que compras: <a href="/guardar-cartas/">fundas, toploaders y álbumes verificados</a> · <a href="/comprar/">todos los formatos</a>.</p>`,
     }),
   );

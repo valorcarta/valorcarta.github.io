@@ -13,6 +13,7 @@ if [ -f .env ]; then set -a; . ./.env; set +a; fi
 {
   echo "=== $(date -Iseconds) inicio (pid $$)"
   "$NODE" scripts/fetch.mjs || { echo "fetch FALLO"; exit 1; }
+  python3 tools/recomienda.py || echo "recomienda FALLO"
   "$NODE" scripts/build.mjs || { echo "build FALLO"; exit 1; }
   "$NODE" scripts/snapshot.mjs || echo "snapshot FALLO"
   "$NODE" scripts/telegram.mjs || echo "telegram FALLO"
