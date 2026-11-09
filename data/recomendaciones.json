@@ -1,11 +1,86 @@
 {
-  "generado": "2026-11-09T18:03:17",
+  "generado": "2026-11-09T18:25:23",
   "fuente": "tools/recomienda.py · 0 tokens",
   "sugerencias": [
-    "B0H8T5GC4W",
+    "B0BMGR3QZW",
+    "B0G5YX5XVQ",
+    "B078NBBQXQ",
+    "B0HMJ88KGX",
     "B085DNDLC1",
     "B000Q5ZMM0",
     "B0D7W2PJR8"
+  ],
+  "disponibles": [
+    {
+      "asin": "B0BMGR3QZW",
+      "nombre": "Baraja de liga Mew VMAX",
+      "precio": 34.99,
+      "motivo": "60 cartas listas para jugar",
+      "estado": "In stock"
+    },
+    {
+      "asin": "B0G5YX5XVQ",
+      "nombre": "Baraja de liga Mewtwo ex",
+      "precio": 49.49,
+      "motivo": "60 cartas listas para jugar",
+      "estado": "In stock"
+    },
+    {
+      "asin": "B078NBBQXQ",
+      "nombre": "Mazo Ampharos ex",
+      "precio": 29.0,
+      "motivo": "Baraja de 60 cartas, sin abrir sobres",
+      "estado": "In stock"
+    },
+    {
+      "asin": "B0HMJ88KGX",
+      "nombre": "Lata Otoño EX",
+      "precio": 40.0,
+      "motivo": "Promo asegurada dentro",
+      "estado": "In stock"
+    },
+    {
+      "asin": "B0C8YBXDYQ",
+      "nombre": "Booster Bundle 151",
+      "precio": null,
+      "motivo": "6 sobres del 151",
+      "estado": "Only 2 left in stock"
+    },
+    {
+      "asin": "B0BCPRFMQH",
+      "nombre": "Sobre Silver Tempest",
+      "precio": null,
+      "motivo": "Sobre suelto para probar",
+      "estado": "Only 2 left in stock"
+    },
+    {
+      "asin": "B085DNDLC1",
+      "nombre": "Ultra Pro Penny Sleeve, 400 fundas blandas",
+      "precio": 6.71,
+      "motivo": "Lo primero antes de tocar la carta",
+      "estado": "In stock"
+    },
+    {
+      "asin": "B000Q5ZMM0",
+      "nombre": "Ultra Pro Toploader 3x4, pack de 25",
+      "precio": 8.0,
+      "motivo": "La esquina deja de doblarse",
+      "estado": "In stock"
+    },
+    {
+      "asin": "B0812Z3RPY",
+      "nombre": "Ultra Pro Toploader 3x4, 100 unidades",
+      "precio": 20.0,
+      "motivo": "Para vender varias",
+      "estado": "In stock"
+    },
+    {
+      "asin": "B0D7W2PJR8",
+      "nombre": "Álbum de 540 cartas, 9 bolsillos y cremallera",
+      "precio": 25.98,
+      "motivo": "Fuera del polvo y del sol",
+      "estado": "In stock"
+    }
   ],
   "productos": [
     {
