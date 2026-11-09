@@ -307,7 +307,7 @@ const ventaHtml = ventaProd
   ? `<aside class="dia venta" aria-labelledby="venta-titulo">
   <p class="kicker dia-kicker">Lo que sí se vende · enlace de afiliado</p>
   <a class="dia-arte venta-arte" href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Ver ${esc(ventaProd.nombre)} en Amazon">
-    <span class="venta-foto"><img src="/productos/${esc(path.basename(ventaProd.imagen_local).replace(/\.png$/i, '.jpg'))}" alt="${esc(ventaProd.nombre)}" width="480" height="458" loading="eager" fetchpriority="high" decoding="async"></span>
+    <span class="venta-foto"><img src="/productos/producto-${esc(ventaProd.asin)}.jpg" alt="${esc(ventaProd.nombre)}" width="480" height="458" loading="eager" fetchpriority="high" decoding="async"></span>
   </a>
   <div class="dia-ficha">
     <h2 id="venta-titulo"><a href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank">${esc(ventaProd.nombre)}</a></h2>
