@@ -21,6 +21,11 @@ const put = async (p, data) => {
       .replaceAll('/assets/en.js', `/assets/en.js?v=${ASSET_V}`)
       .replaceAll('/assets/icon.svg', `/assets/icon.svg?v=${ASSET_V}`);
   }
+  // ORDEN 09-11: solo ASIN del catálogo verificado; el resto no se enlaza
+  if (typeof data === 'string' && p.endsWith('.html')) {
+    data = data.replace(/https:\/\/www\.amazon\.es\/dp\/([A-Z0-9]{10})[^"]*/g,
+      (m, asin) => (VERIFICADOS.has(asin) ? m : '/comprar/'));
+  }
   // ORDEN 09-11: ninguna búsqueda de Amazon en la web; solo producto exacto (/dp/) o página interna
   if (typeof data === 'string' && p.endsWith('.html')) {
     data = data.replace(/href="https:\/\/www\.amazon\.es\/s\?[^"]*"/g, 'href="/comprar/"');
@@ -43,9 +48,11 @@ const setsById = new Map(sets.map((s) => [s.id, s]));
 let CAMBIOS = null;
 try { CAMBIOS = JSON.parse(await readFile(path.join(ROOT, 'data', 'changes.json'), 'utf8')); } catch {}
 let ASINS = {};
+const VERIFICADOS = new Set();
 let REGALOS_FRIKIS = { productos: [] };
 try { REGALOS_FRIKIS = JSON.parse(await readFile(path.join(ROOT, 'data', 'regalos.json'), 'utf8')); } catch {}
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
+for (const v of Object.values(ASINS)) for (const prod of v) VERIFICADOS.add(prod.asin);
 let RADAR = [];
 try { RADAR = JSON.parse(await readFile(path.join(ROOT, 'data', 'radar.json'), 'utf8')); } catch {}
 let SETS_EN = {};
@@ -80,6 +87,13 @@ const usdEn = (n) => (n == null || !isFinite(n) ? '—' : nfUsdEn.format(n * FX.
 const gbpEn = (n) => (n == null || !isFinite(n) ? '—' : nfGbpEn.format(n * FX.GBP));
 const FX_NOTE = `USD and GBP are an approximate conversion at fixed build rates (€1 = $${FX.USD.toFixed(2)} = £${FX.GBP.toFixed(2)}), not live exchange rates.`;
 const amazonDp = (asin) => `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}`;
+// 09-11: el CTA nunca promete la carta suelta. Solo sellado verificado o página interna.
+const ctaCarta = (c, cls = 'btn') => {
+  const prod = ASINS[c.setId]?.[0];
+  return prod
+    ? `<a class="${cls}" href="${amazonDp(prod.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`
+    : `<a class="${cls} ghost" href="/comprar/">Ver los productos que sí se venden</a>`;
+};
 const ASIN_LABEL_EN = {
   B0BTRN9FT5: '36-pack booster box · Scarlet & Violet',
   B0FDGXLR5L: 'Elite Trainer Box · Scarlet & Violet (Koraidon)',
@@ -201,7 +215,7 @@ const cartaDiaHtml = cartaDelDia
     <p class="dia-trend"><b class="${cartaDelDia.var7 >= 0 ? 'up' : 'down'}">${varFmt(cartaDelDia.var7)}</b> <span class="muted small">frente a su media de 30 días</span></p>
     <p class="dia-medias muted small">Media 7 d: ${eur(v.avg7)} · media 30 d: ${eur(v.avg30)}.</p>
     <div class="dia-acciones">
-      <a class="btn" href="${amazonCarta(cartaDelDia)}" rel="sponsored nofollow noopener" target="_blank">Comprar en Amazon</a>
+      ${ctaCarta(cartaDelDia)}
       <a class="btn ghost" href="/carta/${slug}/">Ver ficha y precios</a>
     </div>
   </div>
@@ -230,7 +244,7 @@ const moversHtml = movers.length
       <div class="mover-aa muted small"><span>Media 7 d</span><b class="${c.var7 >= 0 ? 'up' : 'down'}">${eur(v.avg7)}</b></div>
       <div class="cv-pie">
         <span class="cv-precio">${eur(c.price)}</span>
-        <a class="cv-btn" href="${amazonCarta(c)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Buscar ${esc(c.name)} en Amazon">Comprar</a>
+        <a class="cv-btn" href="/carta/${cardSlug(c)}/" aria-label="Ver precio de ${esc(c.name)}">Ver</a>
       </div>
     </article>`;
       })
@@ -1164,7 +1178,7 @@ const vitrinaHeroHtml = vitrinaHero
     <p class="vh-trend"><b class="up">${varFmt(vitrinaHero.var7)}</b> <span class="muted small">frente a su media de 30 días</span></p>
     ${medias}
     <div class="vh-acciones">
-      <a class="btn" href="${amazonCarta(vitrinaHero)}" rel="sponsored nofollow noopener" target="_blank">Comprar en Amazon</a>
+      ${ctaCarta(vitrinaHero)}
       <a class="btn ghost" href="/carta/${slug}/">Ver ficha y precios</a>
     </div>
   </div>
@@ -1183,7 +1197,7 @@ const vitrinaMini = (c) => {
   <p class="cv-set muted small">${esc(c.setName)}</p>
   <div class="cv-pie">
     <span class="cv-precio">${eur(c.price)}</span>
-    <a class="cv-btn" href="${amazonCarta(c)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Buscar ${esc(c.name)} en Amazon">Comprar</a>
+    <a class="cv-btn" href="/carta/${cardSlug(c)}/" aria-label="Ver precio de ${esc(c.name)}">Ver</a>
   </div>
 </article>`;
 };
