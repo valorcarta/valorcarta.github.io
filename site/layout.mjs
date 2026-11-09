@@ -148,6 +148,9 @@ ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script
 <script src="/assets/app.js" defer></script>
 ${scripts.map((s) => `<script src="${esc(s)}" defer></script>`).join('\n')}
 ${config.goatcounter ? `<script data-goatcounter="https://${esc(config.goatcounter)}/count" async src="https://gc.zgo.at/count.js"></script>` : ''}
+<script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";
+fetch("https://abacus.jasoncameron.dev/hit/valorcarta/"+k,{mode:"cors",keepalive:true});
+fetch("https://abacus.jasoncameron.dev/hit/valorcarta/total",{mode:"cors",keepalive:true});}catch(e){}})();</script>
 </body>
 </html>`;
 }
@@ -194,10 +197,25 @@ export const bestVariant = (card) =>
     .filter((v) => (v.trend ?? v.avg) != null)
     .sort((a, b) => (b.trend ?? b.avg) - (a.trend ?? a.avg))[0] ?? null;
 
+// Precio de un listado: el mismo que usa la tabla y el héroe de la ficha.
+export const listingPrice = (v) => v?.trend ?? v?.avg ?? v?.price ?? null;
+
+// La fila que fija el héroe es la más barata (lo que se enseña como «desde»).
+// La variación de 30 d sale SIEMPRE de esa fila, nunca del listado más caro:
+// si no, la ficha da una cifra de un precio que el visitante no ve.
+export const heroVariant = (card) =>
+  (card.variants ?? [])
+    .filter((v) => {
+      const p = listingPrice(v);
+      return typeof p === 'number' && p > 0;
+    })
+    .sort((a, b) => listingPrice(a) - listingPrice(b))[0] ?? null;
+
 export function trendLine(card, lang = 'es') {
-  const v = bestVariant(card);
-  if (!v || (v.avg30 == null && v.avg == null)) return '';
-  const pts = [v.avg30, v.avg7 ?? v.avg30, v.avg1 ?? v.avg7 ?? v.avg30, v.avg];
+  const v = heroVariant(card);
+  const price = listingPrice(v);
+  if (!v || price == null || !v.avg30) return '';
+  const pts = [v.avg30, v.avg7 ?? v.avg30, v.avg1 ?? v.avg7 ?? v.avg30, price];
   const max = Math.max(...pts);
   const min = Math.min(...pts);
   const span = max - min || 1;
@@ -206,12 +224,16 @@ export function trendLine(card, lang = 'es') {
   const path = pts
     .map((p, i) => `${i === 0 ? 'M' : 'L'}${((i / (pts.length - 1)) * w).toFixed(1)},${(h - ((p - min) / span) * (h - 6) - 3).toFixed(1)}`)
     .join(' ');
-  const delta = pts[3] - pts[0];
-  const pct = pts[0] ? (delta / pts[0]) * 100 : 0;
+  const delta = price - v.avg30;
+  const pct = (delta / v.avg30) * 100;
+  // Dos decimales de dato no dan para «-0,0 %»: ese cero se enseña sin signo.
+  const shown = Math.abs(pct) < 0.05 ? 0 : pct;
   const label = lang === 'en' ? '30 days' : '30 días';
+  const num = Math.abs(shown).toFixed(1).replace('.', lang === 'en' ? '.' : ',');
+  const sign = shown > 0 ? '+' : shown < 0 ? '-' : '';
   return `<div class="trend">
     <svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><path d="${path}" fill="none" stroke="${delta >= 0 ? '#35d07f' : '#ff5c5c'}" stroke-width="2"/></svg>
-    <span class="muted">${label}: <b class="${delta >= 0 ? 'up' : 'down'}">${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%</b></span>
+    <span class="muted">${label}: <b class="${delta >= 0 ? 'up' : 'down'}">${sign}${num}${lang === 'en' ? '%' : ' %'}</b></span>
   </div>`;
 }
 
