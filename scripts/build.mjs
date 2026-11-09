@@ -21,6 +21,12 @@ const put = async (p, data) => {
       .replaceAll('/assets/en.js', `/assets/en.js?v=${ASSET_V}`)
       .replaceAll('/assets/icon.svg', `/assets/icon.svg?v=${ASSET_V}`);
   }
+  // COHERENCIA 09-11: ninguna página con enlace a Amazon sale sin aviso de afiliado
+  if (typeof data === 'string' && p.endsWith('.html') && /amazon\.es/.test(data)
+      && !/enlace de afiliado|comisi[oó]n de amazon/i.test(data)) {
+    const aviso = '<p class="nota small" style="margin:18px 0 0;color:#8b8b93;font-size:.8rem;line-height:1.5">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas.</p>';
+    data = data.includes('</main>') ? data.replace('</main>', aviso + '\n</main>') : data.replace('</body>', aviso + '\n</body>');
+  }
   const full = path.isAbsolute(p) ? p : OUT(p);
   await mkdir(path.dirname(full), { recursive: true });
   await writeFile(full, data);
@@ -44,7 +50,7 @@ let CARDS_EN = {};
 try { CARDS_EN = JSON.parse(await readFile(path.join(ROOT, 'data', 'cards-en.json'), 'utf8')); } catch {}
 
 const priced = cards.filter((c) => c.price > 0);
-const TOP_INDEXABLE = 300;
+const TOP_INDEXABLE = 1000000; // 09-11: indexar todas las cartas con precio (antes 300)
 const indexables = new Set(priced.slice(0, TOP_INDEXABLE).map((c) => c.id));
 
 // ---------- edición inglesa: 100 cartas más caras y páginas núcleo ----------
@@ -592,7 +598,7 @@ ${
 ${list
   .map(
     (c) => `<tr>
-  <td><a href="/carta/${cardSlug(c)}/">${esc(c.name)} <span class="muted">${esc(c.localId ?? '')}</span></a></td>
+  <td>${c.price > 0 ? `<a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a>` : esc(c.name)} <span class="muted">${esc(c.localId ?? '')}</span></td>
   <td class="muted">${esc(c.rarity ?? '—')}</td>
   <td class="num">${c.price ? eur(c.price) : '—'}</td></tr>`,
   )
@@ -646,7 +652,7 @@ for (const pieza of RADAR) {
     : `<h3 style="margin:0 0 10px;font-size:1.22rem;line-height:1.3">Esto no se compra: se entiende</h3>
     <p style="margin:0 0 14px;color:#ddd">Esta pieza es una noticia, no un producto. Si te sirve, empieza por saber qué tienes.</p>
     <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="/valorar/">Valorar mi colección</a>`}
-    ${pieza.alternativa ? `<a style="display:inline-block;margin-left:14px;font-size:.92rem;color:#e0a800" href="${esc(pieza.alternativa.enlace)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">o ${esc(pieza.alternativa.nombre)}</a>` : ''}
+    ${pieza.alternativa ? `<a style="display:inline-block;margin-left:14px;font-size:.92rem;color:#e0a800" href="${esc(pieza.alternativa.enlace)}${/^https?:\/\/(www\.)?amazon\./.test(pieza.alternativa.enlace) ? `&tag=${encodeURIComponent(config.amazonTag)}` : ""}" rel="sponsored nofollow noopener" target="_blank">o ${esc(pieza.alternativa.nombre)}</a>` : ''}
     <p style="margin:14px 0 0;font-size:.78rem;color:#8b8b93;line-height:1.5">Aquí hay enlaces de afiliado: si compras desde ellos, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas.</p>
   </div>`;
 
@@ -1360,7 +1366,7 @@ ${PRODUCTOS_GUARDAR.map(
     <li><b>Cajas de cartón sin funda</b>: el roce se come el borde impreso.</li>
   </ul>
   <p><a class="btn ghost" href="/valorar/">Ver cuánto vale mi colección</a>
-  <a class="btn ghost" href="/guias/guardar-cartas-sin-que-se-curven/">Guía: que no se curven</a></p>
+  <a class="btn ghost" href="/guardar-cartas/">Guía: que no se curven</a></p>
 </section>`,
   }),
 );
@@ -1833,7 +1839,7 @@ Con precios de mercado, no con intuición.</p>
       <li>Valor del catálogo completo</li>
       <li>Un correo, los lunes. Sin instalar nada</li>
     </ul>
-    <a class="btn ghost" href="/informe-muestra/">Ver informe de muestra</a>
+    <a class="btn ghost" href="/datos/">Ver informe de muestra</a>
   <a class="btn" href="mailto:${esc(config.emailVentas)}?subject=Quiero%20el%20informe%20de%20prueba">Pedir el primero gratis</a>
   </div>
   <div class="plan destacado">
