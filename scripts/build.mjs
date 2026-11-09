@@ -52,6 +52,9 @@ const VERIFICADOS = new Set();
 let REGALOS_FRIKIS = { productos: [] };
 try { REGALOS_FRIKIS = JSON.parse(await readFile(path.join(ROOT, 'data', 'regalos.json'), 'utf8')); } catch {}
 try { ASINS = JSON.parse(await readFile(path.join(ROOT, 'data', 'asins.json'), 'utf8')); } catch {}
+let PRODUCTOS_AMZ = [];
+try { PRODUCTOS_AMZ = JSON.parse(await readFile(path.join(ROOT, 'data', 'productos.json'), 'utf8')); } catch {}
+// Las imágenes de producto se copian más abajo, después de vaciar dist.
 for (const v of Object.values(ASINS)) for (const prod of v) VERIFICADOS.add(prod.asin);
 // ORDEN 09-11: a primera vista solo lo que sí se vende. Una carta es vendible si
 // su set tiene producto verificado en Amazon (ASINS[setId]); si no, no va al héroe.
@@ -234,6 +237,32 @@ const cartaDiaHtml = cartaDelDia
     })()
   : '';
 
+// ---------- portada: lo que sí se vende (productos con comisión) ----------
+// Pedido del dueño: en la primera línea de la portada van PRODUCTOS que pagan comisión,
+// no cartas sueltas que no se pueden comprar. El producto destacado es el nº1 en ventas.
+const ventaProd = PRODUCTOS_AMZ.find((p) => p.asin === 'B0H8T5GC4W') || PRODUCTOS_AMZ[0] || null;
+const ventaOtros = PRODUCTOS_AMZ.filter((p) => ventaProd && p.asin !== ventaProd.asin && p.precio);
+const amzProd = (p) => `https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}`;
+const ventaHtml = ventaProd
+  ? `<aside class="dia venta" aria-labelledby="venta-titulo">
+  <p class="kicker dia-kicker">Lo que sí se vende · enlace de afiliado</p>
+  <a class="dia-arte venta-arte" href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Ver ${esc(ventaProd.nombre)} en Amazon">
+    <span class="venta-foto"><img src="/productos/${esc(path.basename(ventaProd.imagen_local).replace(/\.png$/i, '.jpg'))}" alt="${esc(ventaProd.nombre)}" width="480" height="458" loading="eager" fetchpriority="high" decoding="async"></span>
+  </a>
+  <div class="dia-ficha">
+    <h2 id="venta-titulo"><a href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank">${esc(ventaProd.nombre)}</a></h2>
+    <p class="dia-set muted small">nº1 en ventas de Juguetes</p>
+    <p class="dia-etq muted small">Precio en Amazon</p>
+    <p class="dia-precio">${eur(ventaProd.precio)}</p>
+    <div class="dia-acciones">
+      <a class="btn" href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a>
+      <a class="btn ghost" href="/comprar/">Más productos verificados</a>
+    </div>
+    <p class="venta-mas small">También con comisión: ${ventaOtros.slice(0, 2).map((p) => `<a href="${amzProd(p)}" rel="sponsored nofollow noopener" target="_blank">${esc(p.nombre)} · ${eur(p.precio)}</a>`).join(' · ')}</p>
+  </div>
+  <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+</aside>`
+  : '';
 const moversHtml = movers.length
   ? `<section class="bloque movers" aria-labelledby="movers-titulo">
   <h2 id="movers-titulo">Lo que más se mueve esta semana</h2>
@@ -270,6 +299,20 @@ const totalValor = priced.reduce((s, c) => s + c.price, 0);
 await rm(DIST, { recursive: true, force: true });
 await mkdir(OUT('assets'), { recursive: true });
 await mkdir(OUT('data'), { recursive: true });
+// Portada: imagen del producto con comisión (versionada en el repo; servida como .jpg).
+// Fuentes por orden: site/productos, site/ (lo que sube el repo) y dinero/pines (local).
+const IMG_VENTA = 'producto-B0H8T5GC4W';
+await mkdir(OUT('productos'), { recursive: true }).catch(() => {});
+for (const origen of [
+  path.join(ROOT, 'site', 'productos', IMG_VENTA + '.jpg'),
+  path.join(ROOT, 'site', IMG_VENTA + '.jpg'),
+  path.join(ROOT, 'dinero', 'pines', IMG_VENTA + '.png'),
+]) {
+  try {
+    await writeFile(OUT('productos/' + IMG_VENTA + '.jpg'), await readFile(origen));
+    break;
+  } catch {}
+}
 
 // GitHub Pages: sin Jekyll, si no ignora carpetas que empiezan por _
 await put('.nojekyll', '');
@@ -339,7 +382,7 @@ const homeBody = `
     </ul>
     <p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
   </div>
-  ${cartaDiaHtml}
+  ${ventaHtml}
 </section>
 
 ${moversHtml}
