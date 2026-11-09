@@ -494,3 +494,13 @@
   try { sessionStorage.setItem('vcFigura', String(i)); } catch (e) {}
   img.src = `/assets/mascotas/fig${i + 1}.svg`;
 })();
+
+/* Arreglo defensivo: normaliza los ASIN en las rutas de imágenes de producto (mayúsculas) */
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('img[src*="/productos/producto-"]').forEach(function (img) {
+    var m = img.getAttribute('src').match(/producto-([A-Za-z0-9]{10})\.jpg/);
+    if (m && m[1] !== m[1].toUpperCase()) {
+      img.src = img.getAttribute('src').replace(m[1], m[1].toUpperCase());
+    }
+  });
+});
