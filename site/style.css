@@ -601,3 +601,6 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 .reco-link{font-size:.82rem;color:var(--accent2);text-decoration:none;line-height:1.4}
 .reco-link span{color:var(--muted);font-size:.72rem}
 .reco-link:hover{text-decoration:underline}
+
+/* Imagen del producto en las tarjetas de compra (veredicto delante) */
+.reco-img{display:block;width:100%;max-height:190px;object-fit:contain;background:#fff;border-radius:12px;padding:8px;margin:10px 0}
