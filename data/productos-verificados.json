@@ -1,0 +1,142 @@
+{
+  "_doc": "Verificación de producto en Amazon.es: fecha, título, estado de compra y si se enlaza. Sin buy box o 'Currently unavailable' = no se enlaza.",
+  "comprobado": "2026-11-09",
+  "fuente": "amazon.es (sesión 9333) — ficha de cada ASIN",
+  "productos": {
+    "B0BTRN9FT5": {
+      "titulo": "Caja de 36 sobres Escarlata y Púrpura",
+      "estado": "sin disponibilidad",
+      "disponible": false
+    },
+    "B0FDGXLR5L": {
+      "titulo": "ETB Escarlata y Púrpura (Koraidon)",
+      "estado": "Currently unavailable",
+      "disponible": false
+    },
+    "B078NBBQXQ": {
+      "titulo": "Mazo Ampharos ex",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B0BMGR3QZW": {
+      "titulo": "Baraja de Liga Mew VMAX",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B0G5YX5XVQ": {
+      "titulo": "Baraja de Liga Mewtwo ex",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B0DM6HQ8X5": {
+      "titulo": "ETB Evoluciones Prismáticas",
+      "estado": "Currently unavailable",
+      "disponible": false
+    },
+    "B0DWGBC38K": {
+      "titulo": "Súper Premium Evoluciones Prismáticas",
+      "estado": "Currently unavailable",
+      "disponible": false
+    },
+    "B0HMJ88KGX": {
+      "titulo": "Lata Otoño EX",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B0G4NT3SH1": {
+      "titulo": "ETB Héroes Ascendentes",
+      "estado": "sin disponibilidad",
+      "disponible": false
+    },
+    "B0FTG3C43P": {
+      "titulo": "Sobres Ghost Fires (6)",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B0GGHXWSDC": {
+      "titulo": "ETB Balance",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B0H8T5GC4W": {
+      "titulo": "ETB 30.º Aniversario",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B0H8SXRLT4": {
+      "titulo": "Lote de 6 sobres 30.º",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B0H8SXC5L9": {
+      "titulo": "Colección con póster 30.º",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B0H8T4YLGT": {
+      "titulo": "Baraja Umbreon ex 30.º",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B0H8T274VV": {
+      "titulo": "Baraja Espeon ex 30.º",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B09CQGL1SH": {
+      "titulo": "ETB Cielos Evolutivos (vendedor inglés, sin compra directa)",
+      "estado": "sin disponibilidad",
+      "disponible": false
+    },
+    "B0C8YBXDYQ": {
+      "titulo": "Pokémon 151 Booster Bundle",
+      "estado": "Only 2 left in stock",
+      "disponible": true
+    },
+    "B0BCPRFMQH": {
+      "titulo": "Silver Tempest Booster Pack",
+      "estado": "Only 2 left in stock",
+      "disponible": true
+    },
+    "B0GZKZ1FL9": {
+      "titulo": "ETB Absolute Darkness",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B085DNDLC1": {
+      "titulo": "Ultra Pro Penny Sleeve 400",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B000Q5ZMM0": {
+      "titulo": "Ultra Pro Toploader 25",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B0812Z3RPY": {
+      "titulo": "Ultra Pro Toploader 100",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B0D7W2PJR8": {
+      "titulo": "Álbum 540 cartas con cremallera",
+      "estado": "In stock",
+      "disponible": true
+    },
+    "B0GMRC58KQ": {
+      "titulo": "Lata Mega-Charizard X EX",
+      "estado": "Currently unavailable",
+      "disponible": false
+    },
+    "B0H1HDKXGH": {
+      "titulo": "Lata Mega-Clefable Lunar",
+      "estado": "Available by invitation",
+      "disponible": true
+    },
+    "B0DSGDJP6Q": {
+      "titulo": "Premium Collection Ogerpon ex",
+      "estado": "Currently unavailable",
+      "disponible": false
+    }
+  }
+}
