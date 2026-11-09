@@ -583,3 +583,6 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 
 /* 09-11: móvil sin scroll horizontal (bloqueante de estética) */
 @media (max-width: 480px) { html, body { overflow-x: hidden; } }
+
+/* 09-11: imágenes de portada a ancho de pantalla (bloqueante móvil) */
+@media (max-width: 480px) { .dia-arte, .carta3d, .cv-foto, .dia-arte img, .cv-foto img { width: 100% !important; max-width: 100% !important; height: auto !important; } }
