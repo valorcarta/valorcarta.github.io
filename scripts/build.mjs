@@ -137,12 +137,16 @@ async function imgOk(url) {
 const candidatas = priced.filter((c) => c.image).slice(0, 64);
 const checks = await Promise.all(candidatas.map((c) => imgOk(`${c.image}/low.webp`)));
 const top = candidatas.filter((_, i) => checks[i]).slice(0, 24);
+// Portada: "las más caras" entre las que tienen producto verificado (para no abrir con una carta que no se vende)
+const candidatasVend = priced.filter((c) => c.image && vendible(c)).slice(0, 40);
+const checksVend = await Promise.all(candidatasVend.map((c) => imgOk(`${c.image}/low.webp`)));
+const topVendibles = candidatasVend.filter((_, i) => checksVend[i]).slice(0, 24);
 
 // «muñecos»: una carta por Pokémon popular, con la imagen comprobada (si no, hueco roto)
 const POPULARES = ['Pikachu', 'Charizard', 'Eevee', 'Gengar', 'Umbreon', 'Mewtwo',
   'Rayquaza', 'Greninja', 'Lucario', 'Blastoise', 'Venusaur', 'Mew'];
 const munecosCrudos = POPULARES
-  .map((n) => priced.find((c) => c.image && c.name.toLowerCase() === n.toLowerCase()))
+  .map((n) => priced.find((c) => c.image && vendible(c) && c.name.toLowerCase() === n.toLowerCase()))
   .filter(Boolean);
 const munecosOk = await Promise.all(munecosCrudos.map((c) => imgOk(`${c.image}/low.webp`)));
 const munecos = munecosCrudos.filter((_, i) => munecosOk[i]).slice(0, 8);
@@ -343,9 +347,9 @@ ${moversHtml}
 ${munecosHtml}
 
 <section class="bloque">
-  <h2>Las cartas más caras ahora mismo</h2>
+  <h2>Las cartas más caras que sí se venden</h2>
   <div class="grid">
-    ${top.map((c, i) => cardTile({ ...c, prio: i < 6 })).join('\n')}
+    ${topVendibles.map((c, i) => cardTile({ ...c, prio: i < 6 })).join('\n')}
   </div>
 </section>
 
