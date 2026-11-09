@@ -67,7 +67,12 @@ try { PRODUCTOS_AMZ = JSON.parse(await readFile(path.join(ROOT, 'data', 'product
 let EXTRA_AMZ = [];
 try { EXTRA_AMZ = (JSON.parse(await readFile(path.join(ROOT, 'data', 'productos-extra.json'), 'utf8')) || {}).productos || []; } catch {}
 let RECOS = {};
-try { RECOS = (JSON.parse(await readFile(path.join(ROOT, 'data', 'recomendaciones.json'), 'utf8')) || {}).por_asin || {}; } catch {}
+let SUGERENCIAS = [];
+try {
+  const _r = JSON.parse(await readFile(path.join(ROOT, 'data', 'recomendaciones.json'), 'utf8')) || {};
+  RECOS = _r.por_asin || {};
+  SUGERENCIAS = _r.sugerencias || [];
+} catch {}
 const CATALOGO = [...PRODUCTOS_AMZ, ...EXTRA_AMZ];
 const prodInfo = (asin) => CATALOGO.find((p) => p.asin === asin) || null;
 let VERIF_PROD = {};
@@ -133,6 +138,24 @@ const recosHtml = (asin) => {
     return `<a class="reco-link" href="${amazonDp(x.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(pr.nombre)}${pr.precio ? ` · ${eur(pr.precio)}` : ''} <span>${esc(x.motivo)}</span></a>`;
   }).join('');
   return `<div class="recos"><span class="recos-k">Va bien con</span>${chips}</div>`;
+};
+
+// Sugerencias de compra en las fichas de carta: producto real, foto fundida con el fondo y enlace de afiliado.
+const sugerenciasHtml = () => {
+  const lista = SUGERENCIAS.map((a) => prodInfo(a)).filter((p) => p && p.asin).slice(0, 4);
+  if (!lista.length) return '';
+  const filas = lista.map((p) => {
+    const img = IMGS_SITE.has(p.asin)
+      ? `<span class="sug-thumb"><img src="/productos/producto-${esc(p.asin)}.jpg" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>`
+      : `<span class="sug-thumb"></span>`;
+    return `<a class="sug-fila" href="${amazonDp(p.asin)}" rel="sponsored nofollow noopener" target="_blank">${img}<span class="sug-txt"><b>${esc(p.nombre)}</b><small>${p.precio ? eur(p.precio) : ''} · Amazon ↗</small></span></a>`;
+  }).join('');
+  return `<aside class="sugerencias" aria-label="Productos que sí se venden">
+    <h3>Sugerencias</h3><p class="sug-sub">Productos que sí se venden, con enlace de afiliado</p>
+    ${filas}
+    <a class="sug-all" href="/comprar/">Ver todos los productos verificados →</a>
+    <p class="sug-af">Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+  </aside>`;
 };
 
 const ASIN_LABEL_EN = {
@@ -959,13 +982,16 @@ for (let i = 0; i < priced.length; i += BATCH) {
     Aquí no hay enlace de compra: no te mandamos a otro producto en su lugar. Los productos
     que sí se venden y sí dan comisión están en <a href="/comprar/">los productos verificados</a>.</p>`;
 
+      const relacionadasHtml = relacionados.length
+        ? `<section class="relacionadas"><div class="rel-cab"><h2>Cartas relacionadas</h2><a href="/set/${c.setId}/">Ver el set completo${total ? ` (${total})` : ''} →</a></div><div class="rel-grid">${relacionados.slice(0, 4).map(cardTile).join('')}</div></section>`
+        : '';
       const body = `
 <nav class="migas"><a href="/cartas/">Cartas</a> / <a href="/set/${c.setId}/">${esc(c.setName)}</a> / ${esc(c.name)}</nav>
-<div class="carta-layout">
-  <div class="carta-img">
-    ${c.image ? `<img src="${esc(c.image)}/high.webp" alt="Carta ${esc(c.name)} de ${esc(c.setName)}" width="480" height="670" loading="eager" onerror="this.style.display='none'">` : ''}
-  </div>
-  <div class="carta-info">
+<div class="ficha2">
+  <div class="ficha2-main">
+    <div class="ficha2-carta">
+      ${c.image ? `<img src="${esc(c.image)}/high.webp" alt="Carta ${esc(c.name)} de ${esc(c.setName)}" width="480" height="670" loading="eager" onerror="this.style.display='none'">` : ''}
+    </div>
     <h1>¿Cuánto vale ${esc(c.name)}?</h1>
     ${(() => {
       // El héroe y la variación de 30 d tienen que salir de la MISMA fila: la más
@@ -1023,9 +1049,10 @@ for (let i = 0; i < priced.length; i += BATCH) {
       <span class="muted small">€</span>
       <button class="btn" data-watch="${slug}">Activar aviso</button>
     </div>
+    ${relacionadasHtml}
   </div>
+  ${sugerenciasHtml()}
 </div>
-${relacionados.length ? `<section class="bloque"><h2>Otras cartas de ${esc(c.setName)}</h2><div class="grid">${relacionados.map(cardTile).join('')}</div></section>` : ''}
 ${(() => {
   const otras = (porNombre.get(c.name.toLowerCase()) ?? []).filter((x) => x.id !== c.id).slice(0, 6);
   if (!otras.length) return '';
