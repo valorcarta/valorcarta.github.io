@@ -334,20 +334,19 @@ const totalValor = priced.reduce((s, c) => s + c.price, 0);
 await rm(DIST, { recursive: true, force: true });
 await mkdir(OUT('assets'), { recursive: true });
 await mkdir(OUT('data'), { recursive: true });
-// Portada: imagen del producto con comisión (versionada en el repo; servida como .jpg).
-// Fuentes por orden: site/productos, site/ (lo que sube el repo) y dinero/pines (local).
-const IMG_VENTA = 'producto-B0H8T5GC4W';
+// Imágenes de producto versionadas en site/ (JPEG): se copian a dist/productos/.
+const IMGS_SITE = new Set();
 await mkdir(OUT('productos'), { recursive: true }).catch(() => {});
-for (const origen of [
-  path.join(ROOT, 'site', 'productos', IMG_VENTA + '.jpg'),
-  path.join(ROOT, 'site', IMG_VENTA + '.jpg'),
-  path.join(ROOT, 'dinero', 'pines', IMG_VENTA + '.png'),
-]) {
+for (const f of await readdir(path.join(ROOT, 'site')).catch(() => [])) {
+  if (!/^producto-.*\.jpg$/i.test(f)) continue;
+  IMGS_SITE.add(f.replace(/^producto-/i, '').replace(/\.jpg$/i, ''));
   try {
-    await writeFile(OUT('productos/' + IMG_VENTA + '.jpg'), await readFile(origen));
-    break;
+    await writeFile(OUT('productos/' + f), await readFile(path.join(ROOT, 'site', f)));
   } catch {}
 }
+const imgProducto = (asin) => IMGS_SITE.has(asin)
+  ? `<img class="reco-img" src="/productos/producto-${esc(asin)}.jpg" alt="${esc((prodInfo(asin) || {}).nombre || 'Producto')}" loading="lazy" decoding="async">`
+  : '';
 
 // GitHub Pages: sin Jekyll, si no ignora carpetas que empiezan por _
 await put('.nojekyll', '');
@@ -1448,6 +1447,7 @@ ${PRODUCTOS_GUARDAR.map(
     (p) => `<div class="reco">
     <p class="reco-tramo">${esc(p.tramo)}</p>
     <p class="reco-veredicto">${esc(p.veredicto)}</p>
+    ${imgProducto(p.asin)}
     <p class="reco-nombre">${esc(p.nombre)} <span class="muted">· ${esc(p.precio)}</span></p>
     <a class="btn" href="https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon</a>
     ${recosHtml(p.asin)}
