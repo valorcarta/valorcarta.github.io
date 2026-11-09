@@ -21,6 +21,10 @@ const put = async (p, data) => {
       .replaceAll('/assets/en.js', `/assets/en.js?v=${ASSET_V}`)
       .replaceAll('/assets/icon.svg', `/assets/icon.svg?v=${ASSET_V}`);
   }
+  // ORDEN 09-11: ninguna búsqueda de Amazon en la web; solo producto exacto (/dp/) o página interna
+  if (typeof data === 'string' && p.endsWith('.html')) {
+    data = data.replace(/href="https:\/\/www\.amazon\.es\/s\?[^"]*"/g, 'href="/comprar/"');
+  }
   // COHERENCIA 09-11: ninguna página con enlace a Amazon sale sin aviso de afiliado
   if (typeof data === 'string' && p.endsWith('.html') && /amazon\.es/.test(data)
       && !/enlace de afiliado|comisi[oó]n de amazon/i.test(data)) {
@@ -577,7 +581,7 @@ ${
   ${
     ASINS[id]?.length
       ? ASINS[id].slice(0, 3).map((prod) => `<a class="btn" href="https://www.amazon.es/dp/${prod.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`).join('\n')
-      : `<a class="btn" href="https://www.amazon.es/s?k=${encodeURIComponent(`sobres ${nombre} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Buscar sobres de ${esc(nombre)} en Amazon</a>`
+      : `<p class="nota small">No hay producto verificado de este set en Amazon: no se enlaza para no mandarte a una búsqueda donde no hay nada que comprar. <a href="/comprar/">Ver los productos que sí se venden</a>.</p>`
   }
   <a class="btn ghost" href="/guardar-cartas/">Fundas para estas cartas</a>
   <a class="btn ghost" href="/valorar/">¿Cuánto vale mi colección?</a>
