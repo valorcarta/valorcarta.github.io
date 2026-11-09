@@ -846,13 +846,12 @@ for (let i = 0; i < priced.length; i += BATCH) {
         )
         .join('');
 
-            const ctaAmazon = ASINS[c.setId]?.length
-        ? `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Ver ${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
-    <a class="btn" style="display:block;text-align:center;font-size:.95rem;padding:12px 16px;margin:6px 0 10px;border:2px solid #e0a800;color:#8a6a00;border-radius:10px;font-weight:600;text-decoration:none" href="/set/${esc(c.setId)}/">Ver todas las cartas de ${esc(c.setName)}</a>
-    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. Amazon no vende esta carta suelta: el botón lleva al sellado del set, que sí existe.</p>`
-        : `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/s?k=${encodeURIComponent(`sobres ${c.setName || ""} pokemon`)}&tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Buscar sobres de ${esc(c.setName)} en Amazon</a>
-    <a class="btn" style="display:block;text-align:center;font-size:.95rem;padding:12px 16px;margin:6px 0 10px;border:2px solid #e0a800;color:#8a6a00;border-radius:10px;font-weight:600;text-decoration:none" href="/set/${esc(c.setId)}/">Ver todas las cartas de ${esc(c.setName)}</a>
-    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. La carta suelta no se vende en Amazon: el botón busca el sellado del set, que sí es comprable.</p>`;
+            // 09-11 ORDEN DEL DUEÑO: la carta suelta NO se vende en Amazon.
+      // Solo se enlaza a Amazon si hay producto verificado: /dp/ exacto. Sin producto, no hay CTA de Amazon.
+      const ctaAmazon = ASINS[c.setId]?.length
+        ? `<a class="btn comprar" style="display:block;text-align:center;font-size:1.12rem;padding:16px 18px;margin:14px 0 6px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${ASINS[c.setId][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(ASINS[c.setId][0].nombre)} en Amazon</a>
+    <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas. <b>Esta carta suelta no se vende en Amazon</b>: el enlace lleva al producto sellado de su set, que sí existe y sí se puede comprar.</p>`
+        : `<p class="nota small" style="margin:14px 0 6px"><b>Esta carta suelta no se vende en Amazon.</b> No hay producto verificado para su set, así que aquí no se enlaza a Amazon: sería mandarte a una búsqueda donde no hay nada que comprar.</p>`;
 
       const body = `
 <nav class="migas"><a href="/cartas/">Cartas</a> / <a href="/set/${c.setId}/">${esc(c.setName)}</a> / ${esc(c.name)}</nav>
