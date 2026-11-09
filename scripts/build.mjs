@@ -52,7 +52,7 @@ const put = async (p, data) => {
   }
   // COHERENCIA 09-11: ninguna página con enlace a Amazon sale sin aviso de afiliado
   if (typeof data === 'string' && p.endsWith('.html') && /amazon\.es/.test(data)
-      && !/enlace de afiliado|comisi[oó]n de amazon/i.test(data)) {
+      && !/enlace de afiliado|etiqueta de afiliado|comisi[oó]n de amazon|afiliad/i.test(data)) {
     const aviso = '<p class="nota small" style="margin:18px 0 0;color:#8b8b93;font-size:.8rem;line-height:1.5">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon que no cambia lo que pagas.</p>';
     data = data.includes('</main>') ? data.replace('</main>', aviso + '\n</main>') : data.replace('</body>', aviso + '\n</body>');
   }
