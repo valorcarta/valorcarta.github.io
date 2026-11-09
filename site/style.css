@@ -580,3 +580,6 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   .bola-fondo{width:380px;height:380px;right:-110px;opacity:.07}
   .portada h1{font-size:clamp(2.1rem,8.6vw,2.7rem)}
 }
+
+/* 09-11: móvil sin scroll horizontal (bloqueante de estética) */
+@media (max-width: 480px) { html, body { overflow-x: hidden; } }
