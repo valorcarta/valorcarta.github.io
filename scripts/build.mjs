@@ -4,7 +4,8 @@ import { mkdir, writeFile, readFile, rm, readdir } from 'node:fs/promises';
 import path from 'node:path';
 import config from '../config.json' with { type: 'json' };
 import {
-  layout, esc, eur, cardSlug, slugify, priceTable, trendLine, amazonLink, ebayLink, bestVariant, SITE,
+  layout, esc, eur, cardSlug, slugify, priceTable, trendLine, amazonLink, ebayLink, bestVariant,
+  heroVariant, listingPrice, SITE,
 } from '../site/layout.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
@@ -793,16 +794,9 @@ for (let i = 0; i < priced.length; i += BATCH) {
       const posSet = delSet.findIndex((x) => x.id === c.id) + 1;
       const versiones = (porNombre.get(c.name.toLowerCase()) ?? []).filter((x) => x.price > 0);
       const barata = versiones.length > 1 ? Math.min(...versiones.map((x) => x.price)) : null;
-      const vBest = bestVariant(c);
-      const var30 = vBest?.avg30 && c.price ? ((c.price - vBest.avg30) / vBest.avg30) * 100 : null;
-      // la variación va pegada al precio (la propuesta del vigía: dato antes que adorno)
-      const pill = var30 != null
-        ? `<span class="precio-pill ${var30 >= 0 ? 'up' : 'down'}">${var30 >= 0 ? '+' : ''}${var30.toFixed(1).replace('.', ',')} % · 30 d</span>`
-        : '';
       const contexto = [
         posSet === 1 && delSet.length > 2 ? 'Es la carta más cara de su set.' : posSet > 0 && delSet.length > 2 ? `Es la número ${posSet} de ${delSet.length} en valor dentro de su set.` : '',
         versiones.length > 1 ? `Existen ${versiones.length} versiones de este personaje; la más barata está a ${eur(barata)}.` : '',
-        var30 != null ? `Frente a su media de 30 días, está ${var30 >= 0 ? 'un ' + var30.toFixed(0) + ' % por encima' : 'un ' + Math.abs(var30).toFixed(0) + ' % por debajo'}.` : '',
       ].filter(Boolean).join(' ');
 
       const rar = c.rarity && c.rarity !== 'Ninguno' ? `Carta ${String(c.rarity).toLowerCase()}` : 'Carta';
@@ -863,16 +857,28 @@ for (let i = 0; i < priced.length; i += BATCH) {
   <div class="carta-info">
     <h1>¿Cuánto vale ${esc(c.name)}?</h1>
     ${(() => {
-      // con varias variantes la cifra héroe es la mediana, nunca el máximo: si no, la ficha
-      // enseña 8,7x su propia tabla y el visitante deja de creer el dato.
-      const precios = (c.variants ?? []).map((v) => v.trend ?? v.avg ?? v.price).filter((p) => typeof p === 'number' && p > 0).sort((a, b) => a - b);
+      // El héroe y la variación de 30 d tienen que salir de la MISMA fila: la más
+      // barata (lo que se enseña como «desde»). Un listado de Cardmarket por fila,
+      // igual que la tabla; si no, la ficha cuenta más variantes de las que enseña.
+      const filas = [];
+      const vistos = new Set();
+      for (const v of c.variants ?? []) {
+        const p = listingPrice(v);
+        if (typeof p !== 'number' || p <= 0) continue;
+        const clave = v.productId ?? `${v.type}|${v.subtype}|${filas.length}`;
+        if (vistos.has(clave)) continue;
+        vistos.add(clave);
+        filas.push(v);
+      }
+      const precios = filas.map(listingPrice).sort((a, b) => a - b);
+      const vHero = heroVariant(c);
       if (precios.length < 2) {
-        return `<p class="precio-grande">${eur(c.price)}<span class="muted"> · referencia ${c.variants?.[0]?.type ?? 'normal'}</span>${pill}</p>`;
+        return `<p class="precio-grande">${eur(listingPrice(vHero) ?? c.price)}<span class="muted"> · referencia ${filas[0]?.type ?? 'normal'}</span></p>`;
       }
       const min = precios[0];
       const max = precios[precios.length - 1];
       // el héroe es la entrada más barata, no el máximo: el máximo solo desinfla la credibilidad
-      return `<p class="precio-grande">desde ${eur(min)}${pill}</p>
+      return `<p class="precio-grande">desde ${eur(listingPrice(vHero))}</p>
       <p class="muted small">${precios.length} variantes, de ${eur(min)} a ${eur(max)}. La versión cambia el precio: mírala en la tabla antes de fiarte de una cifra.</p>`;
     })()}
     ${trendLine(c)}
@@ -944,17 +950,13 @@ ${(() => {
           image: c.image ? `${c.image}/high.webp` : undefined,
           description: `${rar} del set ${c.setName}`,
           brand: { '@type': 'Brand', name: 'Pokémon' },
-          // El dato estructurado tiene que decir lo mismo que la pantalla: si hay
-          // variantes, la ficha enseña «desde <mínimo>» y el Offer no puede ir con c.price.
-          offers: (() => {
-            const precios = (c.variants ?? []).map((v) => v.trend ?? v.avg ?? v.price).filter((p) => typeof p === 'number' && p > 0).sort((a, b) => a - b);
-            const bajo = precios[0] ?? c.price;
-            const alto = precios.length ? precios[precios.length - 1] : c.price;
-            const hasta = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
-            return precios.length > 1
-              ? { '@type': 'AggregateOffer', priceCurrency: 'EUR', lowPrice: bajo, highPrice: alto, offerCount: precios.length, availability: 'https://schema.org/InStock', priceValidUntil: hasta, url: `${SITE}/carta/${slug}/` }
-              : { '@type': 'Offer', price: c.price, priceCurrency: 'EUR', availability: 'https://schema.org/InStock', priceValidUntil: hasta, url: `${SITE}/carta/${slug}/` };
-          })(),
+          offers: {
+            '@type': 'Offer',
+            price: c.price,
+            priceCurrency: 'EUR',
+            availability: 'https://schema.org/InStock',
+            url: `${SITE}/carta/${slug}/`,
+          },
         },
         ],
       });
@@ -1458,7 +1460,8 @@ for (const c of priced.slice(0, 500)) {
 await put(OUT('data/widget.json'), JSON.stringify(widgetData));
 
 // ---------- datos abiertos (Dataset schema para Google Dataset Search) ----------
-const fechaDatos = (cards[0]?.updated ?? new Date().toISOString()).slice(0, 10);
+const fechaDatos = priced.reduce((max, c) => ((c.updated ?? '') > max ? c.updated : max), '').slice(0, 10)
+  || new Date().toISOString().slice(0, 10);
 await put(
   OUT('datos/index.html'),
   layout({
@@ -2363,8 +2366,17 @@ for (const c of enCards) {
   const image = cardImageEn(c);
   const total = cardTotalEn(c);
   const year = setYearEn(c);
-  const vBest = bestVariant(c);
-  const var30 = vBest?.avg30 && c.price ? ((c.price - vBest.avg30) / vBest.avg30) * 100 : null;
+  const vHero = heroVariant(c);
+  const heroPrice = listingPrice(vHero) ?? c.price;
+  const heroListings = new Set(
+    (c.variants ?? [])
+      .filter((v) => {
+        const p = listingPrice(v);
+        return typeof p === 'number' && p > 0;
+      })
+      .map((v) => v.productId ?? `${v.type}|${v.subtype}|${listingPrice(v)}`),
+  );
+  const desdeEn = heroListings.size > 1 ? 'From ' : '';
   const delSet = (bySet.get(c.setId) ?? []).filter((x) => x.price > 0);
   const posSet = delSet.findIndex((x) => x.id === c.id) + 1;
   const categoryEn = meta.category === 'Pokemon' ? 'Pokémon' : meta.category || 'Pokémon';
@@ -2380,9 +2392,6 @@ for (const c of enCards) {
       : posSet > 0 && delSet.length > 2
         ? `It ranks #${posSet} of ${delSet.length} by market value in ${setName}.`
         : '',
-    var30 != null
-      ? `It is ${Math.abs(var30).toFixed(0)}% ${var30 >= 0 ? 'above' : 'below'} its 30-day average.`
-      : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -2433,8 +2442,8 @@ for (const c of enCards) {
   </div>
   <div class="carta-info">
     <h1>How much is ${esc(enName(c))} worth?</h1>
-    <p class="precio-grande">${eurEn(c.price)}<span class="muted"> · ${esc(vBest ? variantLabelEn(vBest).toLowerCase() : 'reference')}</span></p>
-    <p class="muted">≈ ${usdEn(c.price)} USD · ≈ ${gbpEn(c.price)} GBP <span class="small">(approximate conversion)</span></p>
+    <p class="precio-grande">${desdeEn}${eurEn(heroPrice)}<span class="muted"> · ${esc(vHero ? variantLabelEn(vHero).toLowerCase() : 'reference')}</span></p>
+    <p class="muted">≈ ${usdEn(heroPrice)} USD · ≈ ${gbpEn(heroPrice)} GBP <span class="small">(approximate conversion)</span></p>
     ${trendLine(c, 'en')}
     <p class="muted">${esc(descriptionEn)}</p>
     ${priceTableEn(c)}
@@ -2586,6 +2595,9 @@ const idx = priced.map((c) => [
   c.setId,
 ]);
 await put(OUT('data/cartas.json'), JSON.stringify(idx));
+// FSM 08-11: ruta de datos crudos para el crítico y QA clínico (auditoría servido vs dato).
+await put(OUT('data/cards.json'), JSON.stringify(cards));
+await put(OUT('datos/cards.json'), JSON.stringify(cards));
 
 console.log(`OK ${n} cartas, ${bySet.size} sets, ${urls.length} URLs en sitemap`);
 console.log(`   catálogo valorado: ${eur(totalValor)} · índice ${(JSON.stringify(idx).length / 1e6).toFixed(1)} MB`);
