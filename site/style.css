@@ -278,7 +278,11 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   .carta-info h1{font-size:1.42rem;margin:.2em 0 .1em;line-height:1.15}
   .precio-grande{font-size:1.75rem;margin:.05em 0}
   .trend{margin:2px 0 8px}
-  .trend svg{height:30px}
+  /* P0: en móvil la variación NO se esconde: es la única cifra de 30 d de la ficha.
+     `main` sube la especificidad para ganar a cualquier `display:none` anterior. */
+  main .carta-info .trend{display:flex}
+  .trend svg{width:160px;height:30px}
+  .trend b{white-space:nowrap}
   .carta-info .btn{margin-top:6px}
   .carta-info > p.muted.small{font-size:.78rem;line-height:1.3;margin:.1em 0 .3em}
 }
