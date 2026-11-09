@@ -448,6 +448,14 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 .dia-medias{margin:0 0 10px;font-size:.74rem;line-height:1.35}
 .dia-acciones{display:flex;flex-direction:column;gap:7px}
 .dia-acciones .btn{min-height:44px;padding:10px 14px;font-size:.88rem;border-radius:12px}
+/* Portada: producto con comisión en la primera línea (sustituye a la carta del día del héroe) */
+.venta-arte{padding:0}
+.venta-foto{display:block;background:#fff;border-radius:14px;padding:10px;box-shadow:0 14px 34px rgba(0,0,0,.45)}
+.venta-foto img{display:block;width:100%;height:auto;max-height:250px;object-fit:contain;border-radius:8px}
+.venta-mas{margin:10px 0 0;line-height:1.5;color:var(--muted)}
+.venta-mas a{color:var(--accent2);text-decoration:none}
+.venta-mas a:hover{text-decoration:underline}
+@media (max-width:760px){.venta-foto img{max-height:150px}}
 .dia .nota{grid-column:1 / -1;margin:10px 0 0;font-size:.7rem;line-height:1.35}
 .dia .btn:focus-visible,.dia a:focus-visible,.mover a:focus-visible{
   outline:2px solid var(--accent2);outline-offset:2px;border-radius:8px}
