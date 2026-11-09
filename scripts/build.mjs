@@ -1438,6 +1438,18 @@ ${PRODUCTOS_GUARDAR.map(
 </section>
 
 <section class="bloque">
+  <h2>Productos que encajan entre sí</h2>
+  <p class="muted">Cada pieza protege la siguiente: funda blanda → toploader → álbum. Si compras una, aquí tienes la que va con ella. Todos los enlaces llevan a Amazon con nuestra etiqueta de afiliado.</p>
+  <ul class="pasos">
+    <li><a href="/comprar/">Cajas, ETB y lotes</a> — el formato que compras antes de guardar.</li>
+    <li><a href="/comprar/etb-30/">ETB del 30.º aniversario</a> — la caja que más se vende.</li>
+    <li><a href="/comprar/lote-30/">Lote de 6 sobres del 30.º</a> — la referencia por sobre.</li>
+    <li><a href="/comprar/regalos/">Qué regalar</a> — si es para otra persona.</li>
+    <li><a href="/valorar/">Valorar la colección</a> — antes de gastar en fundas.</li>
+  </ul>
+</section>
+
+<section class="bloque">
   <h2>Cómo lo comprobamos (y qué no)</h2>
   <p>El criterio de los tramos sale del precio de mercado de las cartas, no de una prueba de laboratorio: todavía
   <b>no hemos medido</b> cuántas barajadas aguanta cada funda ni cuánto tarda en amarillear. Cuando lo hagamos, lo
@@ -1757,7 +1769,8 @@ for (const g of GUIAS_COMPRA) {
 <ul class="pasos">${g.puntos.map((x) => `<li>${esc(x)}</li>`).join('')}</ul>
 ${g.asin && DISPONIBLES.has(g.asin) ? `<p><a class="btn" href="${amazonDp(g.asin)}" rel="sponsored nofollow noopener" target="_blank">${esc(g.cta)} en Amazon</a></p>` : `<p class="nota small">Ahora mismo no hay producto disponible verificado de este formato en Amazon: no se enlaza para no mandarte a otro producto. <a href="/comprar/">Ver lo que sí se vende</a>.</p>`}
 <p class="nota small">El precio lo pone Amazon. Antes de comprar, compara el precio por sobre con el resto de formatos en <a href="/comprar/">la tabla de compra</a>.</p>
-<p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>`,
+<p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>
+<p class="nota small">Protege lo que compras: <a href="/guardar-cartas/">fundas, toploaders y álbumes verificados</a> · <a href="/comprar/">todos los formatos</a>.</p>`,
     }),
   );
 }
@@ -1870,6 +1883,7 @@ ${PRODUCTOS.map(
     <li><b>El sobre no da dinero por abrir.</b> Abrir es azar. Si compras para coleccionar, compra la carta suelta; si compras para abrir, asume que estás pagando la experiencia.</li>
   </ol>
   <p class="nota small">Los enlaces llevan a la ficha exacta del producto en Amazon con nuestra etiqueta de afiliado: si compras, nos llevamos una comisión sin coste extra para ti. Si un producto no está disponible, no se enlaza: no te mandamos a otro en su lugar.</p>
+  <p class="acciones"><a class="btn" href="/guardar-cartas/">Protege lo que compras: fundas y álbumes →</a></p>
 </section>`,
   }),
 );
