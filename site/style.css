@@ -652,3 +652,29 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 .dprecio span{font-size:.72rem;color:var(--muted);font-weight:500}
 .dbtn{margin-top:auto;display:block;text-align:center;background:var(--accent);color:#111;font-weight:800;border-radius:9px;padding:9px 10px;text-decoration:none;font-size:.82rem}
 .dbtn:hover{filter:brightness(1.05)}
+
+/* Escaparate disponible: más atractivo, sin perder honestidad */
+.disp-bloque{position:relative;padding:24px 24px 18px;border:1px solid rgba(255,255,255,.08);border-radius:24px;
+  background:radial-gradient(70% 90% at 12% 0%,rgba(53,224,208,.10),transparent 60%),
+             radial-gradient(60% 90% at 100% 100%,rgba(185,140,255,.10),transparent 62%),
+             linear-gradient(180deg,#16141d,#111018)}
+.disp-cab h2{font-size:clamp(1.4rem,2vw,1.8rem);letter-spacing:-.02em}
+.disp-cab h2::before{content:"Compra verificada hoy";display:block;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:#8b7fc4;font-weight:700;margin-bottom:8px}
+.disp-cab > a{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:8px 14px;color:var(--text)}
+.disp-cab > a:hover{border-color:var(--accent2);color:var(--accent2)}
+.disp-grid{gap:18px;margin:20px 0 12px}
+.dprod{border-radius:18px;padding:14px 14px 16px;border:1px solid rgba(255,255,255,.08);
+  background:linear-gradient(180deg,#1b1922,#141219);transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease}
+.dprod:hover{transform:translateY(-4px);border-color:rgba(255,203,5,.38);box-shadow:0 22px 48px rgba(0,0,0,.48)}
+.dimg{height:200px;border-radius:14px;background:linear-gradient(180deg,#fbfbfd,#ececf2);box-shadow:inset 0 0 0 1px rgba(0,0,0,.04)}
+.dimg img{padding:10px;filter:saturate(1.04)}
+.dbadge{top:22px;right:22px;display:inline-flex;align-items:center;gap:0;color:#bff5d8;background:rgba(10,22,16,.9);border-color:rgba(87,185,141,.45);font-size:.64rem;padding:5px 10px}
+.dbadge::before{content:"";width:6px;height:6px;border-radius:50%;background:#57b98d;margin-right:6px;box-shadow:0 0 0 3px rgba(87,185,141,.2)}
+.dprod h3{font-size:1.02rem;margin-top:10px}
+.dmotivo{font-size:.82rem;color:#a49fb8}
+.dprecio{font-size:1.35rem;letter-spacing:-.02em;margin:4px 0 10px}
+.dprecio span{font-size:.74rem;color:#928da3}
+.dbtn{background:linear-gradient(180deg,#ffd83d,#ffc400);color:#151004;border-radius:11px;padding:11px 12px;font-size:.9rem;font-weight:800;letter-spacing:.01em;
+  box-shadow:0 8px 20px rgba(255,203,5,.20);transition:transform .15s ease, filter .15s ease}
+.dbtn:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.disp-bloque .nota{color:#8a8499}
