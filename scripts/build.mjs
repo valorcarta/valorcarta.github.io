@@ -64,6 +64,12 @@ const put = async (p, data) => {
 const cards = JSON.parse(await readFile(path.join(ROOT, 'data', 'cards.json'), 'utf8'))
   .map((c) => ({ ...c, serie: c.serie ?? c.serious ?? null }));
 const sets = JSON.parse(await readFile(path.join(ROOT, 'data', 'sets.json'), 'utf8'));
+// Nombre real del set de una carta: tl:tk-bw-e-15 → "Kit de Entrenador BW (Excadrill)".
+const nombreSet = (c) => {
+  const pref = String(c.id || '').replace(new RegExp(`-${c.localId}$`), '');
+  const s = sets.find((x) => x.id === pref) || sets.find((x) => x.id === c.setId);
+  return s && s.name ? s.name : (c.setName || '');
+};
 const setsById = new Map(sets.map((s) => [s.id, s]));
 let CAMBIOS = null;
 try { CAMBIOS = JSON.parse(await readFile(path.join(ROOT, 'data', 'changes.json'), 'utf8')); } catch {}
@@ -1098,7 +1104,7 @@ ${(() => {
 
       const enSlugFor = enSlugById.get(c.id);
       const html = layout({
-        title: `${c.name} ${c.localId ?? ''} — ${c.setName}: precio y valor | ${config.brand}`,
+        title: `${c.name} ${c.localId ?? ''} — ${nombreSet(c)}: precio y valor | ${config.brand}`,
         description: `¿Cuánto vale ${c.name} de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
         url: `/carta/${slug}/`,
         alternates: enSlugFor ? altPair(`/carta/${slug}/`, `/en/card/${enSlugFor}/`) : undefined,
@@ -1557,7 +1563,7 @@ try {
   panel = JSON.parse(await readFile(path.join(ROOT, 'data', 'panel.json'), 'utf8'));
 } catch {}
 if (panel) {
-  const max = Math.max(1, ...panel.porDia.map((d) => d.visitas));
+  const max = Math.max(1, ...(panel.porDia || []).map((d) => d.visitas));
   await put(
     OUT('panel/index.html'),
     layout({
@@ -1568,17 +1574,17 @@ if (panel) {
       noindex: true,
       body: `
 <h1>Visitas · últimos 30 días</h1>
-<p class="lede"><b>${panel.total.toLocaleString('es-ES')}</b> visitas desde ${panel.desde} hasta ${panel.hasta}. Actualizado: ${panel.actualizado.slice(0, 16).replace('T', ' ')}.</p>
-<div class="grafico">${panel.porDia
+<p class="lede"><b>${(panel.total ?? 0).toLocaleString('es-ES')}</b> visitas desde ${panel.desde ?? '—'} hasta ${panel.hasta ?? '—'}. Actualizado: ${String(panel.actualizado ?? '—').slice(0, 16).replace('T', ' ')}.</p>
+<div class="grafico">${(panel.porDia || [])
         .map(
           (d) => `<div class="barra" title="${d.dia}: ${d.visitas}" style="height:${Math.max(2, (d.visitas / max) * 100)}%"></div>`,
         )
         .join('')}</div>
 <div class="dos-col">
-  <div><h2>Páginas</h2><table class="listado"><tbody>${panel.paginas
+  <div><h2>Páginas</h2><table class="listado"><tbody>${(panel.paginas || [])
     .map((p) => `<tr><td>${esc(p.ruta)}</td><td class="num">${p.visitas}</td></tr>`)
     .join('') || '<tr><td class="muted">Sin datos</td></tr>'}</tbody></table></div>
-  <div><h2>De dónde vienen</h2><table class="listado"><tbody>${panel.referidores
+  <div><h2>De dónde vienen</h2><table class="listado"><tbody>${(panel.referidores || [])
     .map((r) => `<tr><td>${esc(r.ref)}</td><td class="num">${r.visitas}</td></tr>`)
     .join('') || '<tr><td class="muted">Sin datos</td></tr>'}</tbody></table></div>
 </div>`,
