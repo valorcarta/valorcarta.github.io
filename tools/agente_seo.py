@@ -15,7 +15,7 @@ import sys
 import time
 import urllib.parse
 
-V = "/Users/home/Documents/deepseek-harness/default-workspace/valorcarta"
+V = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # local o CI (ruta relativa)
 DIST = os.path.join(V, "dist")
 D = os.path.join(V, "dinero")
 ACTA = os.path.join(D, "SEO.md")
