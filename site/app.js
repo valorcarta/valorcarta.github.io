@@ -334,9 +334,10 @@
     // se etiqueta con la procedencia de la visita (utm_content/utm_medium) para saber
     // QUÉ pieza produjo el clic, no solo que hubo un clic
     const q = new URLSearchParams(location.search);
-    const origen = (q.get('utm_content') || q.get('utm_medium') || 'directo').slice(0, 40);
+    const origen = (q.get('utm_content') || q.get('utm_medium') || 'directo').slice(0, 24);
+    const asin = ((a.getAttribute('href') || '').match(/\/dp\/([A-Z0-9]{10})/) || [])[1] || 'sin-asin';
     window.goatcounter.count({
-      path: 'amazon-click/' + origen,
+      path: 'amazon-click/' + asin + '/' + origen,
       title: location.pathname,
       event: true,
     });
