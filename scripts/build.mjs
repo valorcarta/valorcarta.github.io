@@ -402,7 +402,8 @@ const disponiblesHtml = (titulo = 'Disponible ahora · lo que sí se puede compr
   return `<section class="bloque disp-bloque">
     <div class="disp-cab"><div><h2>${esc(titulo)}</h2><p class="muted small">Productos verificados hoy y comprables en Amazon. Si uno se agota, sale de aquí solo.</p></div><a href="/comprar/">Ver todos los productos →</a></div>
     <div class="disp-grid">${lista.map(dispCard).join('')}</div>
-    <p class="nota small">Enlaces de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+    <p class="nota small">Enlaces de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon sin coste para ti.
+    El precio y la disponibilidad pueden variar en Amazon: se revisan cada día y lo agotado sale solo.</p>
   </section>`;
 };
 const imgProducto = (asin) => IMGS_SITE.has(asin)
@@ -1064,6 +1065,8 @@ for (let i = 0; i < priced.length; i += BATCH) {
     ${priceTable(c)}
     <p class="muted small">La versión y el idioma cambian lo que vale: la misma carta en otra edición o en japonés puede costar la mitad o el doble. Compara la fila de la tabla antes de decidir.</p>
     <p><a class="btn ghost" href="/set/${c.setId}/">Ver el set completo${total ? ` (${total} cartas)` : ''}</a></p>
+    <p><a class="btn" href="/comprar/" rel="nofollow">Ver dónde comprar esta carta →</a>
+       <span class="muted small">Productos verificados y en stock · enlace de afiliado</span></p>
     ${
       ataques
         ? `<h2 class="mini">Ataques</h2><ul class="ataques">${ataques}</ul>`
