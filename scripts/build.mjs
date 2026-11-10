@@ -142,7 +142,7 @@ const eurEn = (n) => (n == null || !isFinite(n) ? '—' : nfEurEn.format(n));
 const usdEn = (n) => (n == null || !isFinite(n) ? '—' : nfUsdEn.format(n * FX.USD));
 const gbpEn = (n) => (n == null || !isFinite(n) ? '—' : nfGbpEn.format(n * FX.GBP));
 const FX_NOTE = `USD and GBP are an approximate conversion at fixed build rates (€1 = $${FX.USD.toFixed(2)} = £${FX.GBP.toFixed(2)}), not live exchange rates.`;
-const amazonDp = (asin) => `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}`;
+const amazonDp = (asin) => `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=${encodeURIComponent('vc-carta-'+asin)}`;
 // 09-11: el CTA nunca promete la carta suelta. Solo sellado verificado o página interna.
 // Una carta no es un producto de Amazon: aquí nunca se enlaza a otro producto.
 const ctaCarta = (c, cls = 'btn') =>
@@ -318,7 +318,7 @@ const cartaDiaHtml = cartaDelDia
 // no cartas sueltas que no se pueden comprar. El producto destacado es el nº1 en ventas.
 const ventaProd = (() => { const d = DISPONIBLES_PROD.find((x) => x.asin); return d ? prodInfo(d.asin) || { asin: d.asin, nombre: d.nombre, precio: d.precio } : null; })();
 const ventaOtros = DISPONIBLES_PROD.filter((x) => ventaProd && x.asin !== ventaProd.asin).map((x) => prodInfo(x.asin) || x).filter((p) => p && p.precio);
-const amzProd = (p) => `https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}`;
+const amzProd = (p) => `https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=${encodeURIComponent('vc-prod-'+p.asin)}`;
 const ventaHtml = ventaProd
   ? `<aside class="dia venta" aria-labelledby="venta-titulo">
   <p class="kicker dia-kicker">Lo que sí se vende · enlace de afiliado</p>
@@ -475,7 +475,7 @@ const homeBody = `
       <li>Histórico de 30 días por carta</li>
       <li>Gratis, sin registro</li>
     </ul>
-    ${ASINS_OK['30th']?.[0] ? `<p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS_OK['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>` : ''}
+    ${ASINS_OK['30th']?.[0] ? `<p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS_OK['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=vc-aniversario" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>` : ''}
   </div>
   ${ventaHtml}
 </section>
@@ -744,7 +744,7 @@ ${
 <p class="acciones">
   ${
     ASINS_OK[id]?.length
-      ? ASINS_OK[id].slice(0, 3).map((prod) => `<a class="btn" href="https://www.amazon.es/dp/${prod.asin}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`).join('\n')
+      ? ASINS_OK[id].slice(0, 3).map((prod) => `<a class="btn" href="https://www.amazon.es/dp/${prod.asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=vc-set" rel="sponsored nofollow noopener" target="_blank">${esc(prod.nombre)} en Amazon</a>`).join('\n')
       : `<p class="nota small">No hay producto verificado de este set en Amazon: no se enlaza para no mandarte a una búsqueda donde no hay nada que comprar. <a href="/comprar/">Ver los productos que sí se venden</a>.</p>`
   }
   <a class="btn ghost" href="/guardar-cartas/">Fundas para estas cartas</a>
@@ -816,7 +816,7 @@ for (const pieza of RADAR) {
     <p style="margin:0 0 6px;font-size:.8rem;letter-spacing:.12em;color:#e0a800;font-weight:700">${esc(pieza.etiqueta)}</p>
     ${pieza.producto ? `<h3 style="margin:0 0 10px;font-size:1.22rem;line-height:1.3">${esc(pieza.producto.nombre)}</h3>
     <p style="margin:0 0 14px;color:#ddd">${esc(pieza.producto.precio)} · ${esc(pieza.producto.nota)}</p>
-    <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${esc(pieza.producto.asin)}?tag=${encodeURIComponent(config.amazonTag)}" rel="sponsored nofollow noopener" target="_blank">Dónde conseguirlo</a>`
+    <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="https://www.amazon.es/dp/${esc(pieza.producto.asin)}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=vc-pieza" rel="sponsored nofollow noopener" target="_blank">Dónde conseguirlo</a>`
     : `<h3 style="margin:0 0 10px;font-size:1.22rem;line-height:1.3">Esto no se compra: se entiende</h3>
     <p style="margin:0 0 14px;color:#ddd">Esta pieza es una noticia, no un producto. Si te sirve, empieza por saber qué tienes.</p>
     <a class="btn" style="display:inline-block;padding:14px 20px;background:#e0a800;color:#111;border-radius:10px;font-weight:700;text-decoration:none" href="/valorar/">Valorar mi colección</a>`}
