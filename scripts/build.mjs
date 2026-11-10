@@ -1557,7 +1557,7 @@ ${PRODUCTOS_GUARDAR.map(
   }),
 );
 
-// ---------- panel de visitas ----------
+// ---------- panel de visitas (build 2026-11-10: tolerante a panel.json parcial) ----------
 let panel = null;
 try {
   panel = JSON.parse(await readFile(path.join(ROOT, 'data', 'panel.json'), 'utf8'));
