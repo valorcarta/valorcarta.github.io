@@ -328,19 +328,36 @@
   }
 
   // medir clics salientes a Amazon (evento de GoatCounter)
+  // 11-11: el contador del script puede no haber cargado aún (o un navegador
+  // dentro de una app lo bloquea) y entonces el clic se perdía: solo 10 de 182
+  // quedaron apuntados. Si goatcounter.count no está, se manda el mismo evento
+  // a pelo al endpoint /count con sendBeacon.
+  // El canal se saca de utm_source y, si no viene, del referrer (YouTube y
+  // Pinterest no siempre conservan la query al abrir el enlace).
   document.addEventListener('click', (e) => {
     const a = e.target.closest && e.target.closest('a[href*="amazon.es"]');
-    if (!a || !window.goatcounter || !window.goatcounter.count) return;
-    // se etiqueta con la procedencia de la visita (utm_content/utm_medium) para saber
-    // QUÉ pieza produjo el clic, no solo que hubo un clic
+    if (!a) return;
     const q = new URLSearchParams(location.search);
-    const origen = (q.get('utm_content') || q.get('utm_medium') || 'directo').slice(0, 24);
+    let ref = '';
+    try { ref = new URL(document.referrer || '').hostname; } catch (err) { ref = ''; }
+    const canal = (q.get('utm_source') || '').toLowerCase()
+      || (/youtu\.?be/i.test(ref) ? 'youtube' : '')
+      || (/pinterest/i.test(ref) ? 'pinterest' : '')
+      || (/google/i.test(ref) ? 'google' : '');
+    const pieza = q.get('utm_content') || q.get('utm_medium') || 'directo';
+    const origen = ((canal ? canal + ':' : '') + pieza).replace(/[^a-zA-Z0-9:._-]/g, '').slice(0, 32) || 'directo';
     const asin = ((a.getAttribute('href') || '').match(/\/dp\/([A-Z0-9]{10})/) || [])[1] || 'sin-asin';
-    window.goatcounter.count({
-      path: 'amazon-click/' + asin + '/' + origen,
-      title: location.pathname,
-      event: true,
-    });
+    const ruta = 'amazon-click/' + asin + '/' + origen;
+    if (window.goatcounter && window.goatcounter.count) {
+      window.goatcounter.count({ path: ruta, title: location.pathname, event: true });
+      return;
+    }
+    try {
+      const url = 'https://valorcarta.goatcounter.com/count'
+        + '?p=' + encodeURIComponent(ruta) + '&e=1&t=' + encodeURIComponent(location.pathname);
+      if (navigator.sendBeacon) navigator.sendBeacon(url);
+      else new Image().src = url;
+    } catch (err) {}
   }, true);
 
 
@@ -378,23 +395,11 @@
     dispara();
   })();
 
-  // ID de seguimiento por canal (05-11): Amazon sí lo reporta, el ascsubtag no.
-  // Pin -> valorcarta-pin-21 · vídeo -> valorcarta-video-21 · resto -> valorcarta-21
-  (() => {
-    const q = new URLSearchParams(location.search);
-    const medio = (q.get('utm_medium') || '').toLowerCase();
-    const origen = (q.get('utm_source') || '').toLowerCase();
-    let etiqueta = 'valorcarta-21';
-    if (medio === 'video') etiqueta = 'valorcarta-video-21';
-    else if (origen === 'pinterest' || medio) etiqueta = 'valorcarta-pin-21';
-    document.querySelectorAll('a[href*="amazon.es"]').forEach((a) => {
-      try {
-        const u = new URL(a.getAttribute('href'), location.href);
-        u.searchParams.set('tag', etiqueta);
-        a.setAttribute('href', u.toString());
-      } catch (e) {}
-    });
-  })();
+  // ETIQUETA DE AMAZON (11-11): NO se toca. La cuenta solo tiene registrada
+  // `valorcarta-21`; los ID por canal (valorcarta-pin-21 / valorcarta-video-21)
+  // no existían en el panel y esos clics caían en «Other» (107 de 182, 0 pedidos).
+  // Un enlace con etiqueta no registrada no acredita comisión: se deja la válida
+  // siempre y el canal se mide con el evento de GoatCounter de arriba.
 
   // atribución por pieza (05-11): el pin llega con ?utm_content=vtc-xxxx
   // y ese valor viaja a Amazon como ascsubtag. Sin esto, los clics no tienen dueño.
@@ -412,27 +417,9 @@
   })();
 
 
-  // StoreID por canal (06-11): si la visita viene de Pinterest, los enlaces de
-  // Amazon se reescriben al ID de Pinterest. Sin esto todo se atribuía a la web
-  // y no se podía saber qué trae cada canal.
-  (() => {
-    const q = new URLSearchParams(location.search);
-    const dePinterest = q.get('utm_source') === 'pinterest'
-      || /pinterest\./i.test(document.referrer || '');
-    if (!dePinterest) return;
-    const reescribe = () => {
-      document.querySelectorAll('a[href*="amazon.es"]').forEach((a) => {
-        try {
-          const u = new URL(a.getAttribute('href'), location.href);
-          if (u.searchParams.get('tag') === 'valorcarta-pin-21') return;
-          u.searchParams.set('tag', 'valorcarta-pin-21');
-          a.setAttribute('href', u.toString());
-        } catch (e) {}
-      });
-    };
-    reescribe();
-    setTimeout(reescribe, 1200);   // por si el buscador pinta enlaces después
-  })();
+  // StoreID por canal de Pinterest: RETIRADO (11-11) por lo mismo que el bloque
+  // anterior — el ID valorcarta-pin-21 no existe en el panel y reescribirlo solo
+  // servía para mandar el clic a «Other». La etiqueta válida no se toca.
 
   // si el DOM ya está listo cuando este fichero se ejecuta, DOMContentLoaded no vuelve a
   // dispararse y init() no corría (el progreso del set salía vacío, 05-11)
