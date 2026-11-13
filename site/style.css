@@ -678,3 +678,10 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   box-shadow:0 8px 20px rgba(255,203,5,.20);transition:transform .15s ease, filter .15s ease}
 .dbtn:hover{transform:translateY(-1px);filter:brightness(1.04)}
 .disp-bloque .nota{color:#8a8499}
+
+/* Kit de protección (fichas de carta): 3 productos + vídeo vertical */
+.proteccion-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start;margin:14px 0 0}
+.proteccion-grid .reco{margin:0}
+.video-proteccion{grid-column:1/-1;justify-self:center;width:100%;max-width:340px;aspect-ratio:9/16;position:relative}
+.video-proteccion iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px}
+@media(max-width:720px){.proteccion-grid{grid-template-columns:1fr}.video-proteccion{max-width:300px}}
