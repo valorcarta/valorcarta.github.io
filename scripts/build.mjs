@@ -412,6 +412,29 @@ const PROTECCION = [
   { asin: 'B0D7W2PJR8', nombre: 'Álbum 540 cartas', precio: '25,98 €', porque: 'Fuera del polvo y del sol, y sin anillas que marquen.' },
 ];
 const VIDEO_PROTECCION = 'https://www.youtube-nocookie.com/embed/7jsK89fEkQ4';
+const AUTENTICIDAD = [
+  { asin: 'B0GCJVSFV5', nombre: 'Linterna UV 365 nm', porque: 'La prueba que delata una falsa en segundos.' },
+  { asin: 'B09MG1FV1V', nombre: 'Lupa 10 aumentos', porque: 'Mira el patrón de puntos del texto.' },
+  { asin: 'B0FCLWGYQJ', nombre: 'Báscula 0,1 g', porque: 'La auténtica ronda 1,7-1,8 g.' },
+  { asin: 'B07T8TR863', nombre: 'Guantes de nitrilo', porque: 'No dejes huellas en la carta.' },
+];
+const VIDEO_AUTENTICIDAD = 'https://www.youtube-nocookie.com/embed/BT8D4bfMEmY';
+const bloqueAutenticidad = () => `<section class="bloque autenticidad">
+  <h2>Comprueba que es auténtica antes de pagar</h2>
+  <p class="muted small">Las cuatro pruebas del vídeo, con productos en stock. Enlaces de afiliado de Amazon (comisión sin coste para ti).</p>
+  <div class="proteccion-grid">
+    ${AUTENTICIDAD.map((p) => `<div class="reco">
+      ${imgProducto(p.asin)}
+      <p class="reco-nombre">${esc(p.nombre)}</p>
+      <p class="reco-veredicto">${esc(p.porque)}</p>
+      <a class="btn" href="https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=vc-autenticidad-${p.asin}" rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon</a>
+    </div>`).join('')}
+    <div class="video-proteccion">
+      <iframe src="${VIDEO_AUTENTICIDAD}" title="Prueba UV: cómo saber si una carta es falsa" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>`;
+
 const bloqueProteccion = () => `<section class="bloque proteccion">
   <h2>Protégela antes de guardarla</h2>
   <p class="muted small">Si la carta vale más que la funda, no hay duda. Productos verificados y en stock; enlaces de afiliado de Amazon (comisión sin coste para ti).</p>
@@ -1084,6 +1107,7 @@ for (let i = 0; i < priced.length; i += BATCH) {
     ${trendLine(c)}
     ${ctaAmazon}
     ${bloqueProteccion()}
+    ${bloqueAutenticidad()}
     <p class="muted">${esc(descripcion)}. Número ${esc(c.localId ?? '—')}/${total}.</p>
     ${priceTable(c)}
     <p class="muted small">La versión y el idioma cambian lo que vale: la misma carta en otra edición o en japonés puede costar la mitad o el doble. Compara la fila de la tabla antes de decidir.</p>
@@ -1951,6 +1975,9 @@ const PRODUCTOS = [
   ['Fundas Ultra Pro (400)', 'B085DNDLC1', 'Lo primero antes de tocar una carta que valga algo.'],
   ['Toploader rígido (25)', 'B000Q5ZMM0', 'Para que la esquina no se doble: la mitad del valor.'],
   ['Álbum 540 cartas', 'B0D7W2PJR8', 'Fuera del polvo y del sol, sin anillas que marquen.'],
+  ['Álbum 360 cartas', 'B0D6VVLN8N', 'Álbum de 360 bolsillos, sin anillas: la opción barata para empezar.'],
+  ['Fundas perfect fit (600)', 'B0CSVWMDK5', 'Funda interior fina: va dentro de la funda blanda.'],
+  ['Caja para 160 toploaders', 'B0F5B2B3F2', 'Caja rígida para guardar las cartas ya protegidas.'],
 ];
 
 await put(
