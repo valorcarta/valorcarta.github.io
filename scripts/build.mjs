@@ -406,6 +406,28 @@ const disponiblesHtml = (titulo = 'Disponible ahora · lo que sí se puede compr
     El precio y la disponibilidad pueden variar en Amazon: se revisan cada día y lo agotado sale solo.</p>
   </section>`;
 };
+const PROTECCION = [
+  { asin: 'B085DNDLC1', nombre: 'Funda blanda (400 uds.)', precio: 'desde 6,71 €', porque: 'Primera barrera: evita roce y polvo por céntimos.' },
+  { asin: 'B000Q5ZMM0', nombre: 'Toploader rígido (25 uds.)', precio: 'desde 8 €', porque: 'Sin esto la esquina se dobla y la carta pierde la mitad del valor.' },
+  { asin: 'B0D7W2PJR8', nombre: 'Álbum 540 cartas', precio: '25,98 €', porque: 'Fuera del polvo y del sol, y sin anillas que marquen.' },
+];
+const VIDEO_PROTECCION = 'https://www.youtube-nocookie.com/embed/7jsK89fEkQ4';
+const bloqueProteccion = () => `<section class="bloque proteccion">
+  <h2>Protégela antes de guardarla</h2>
+  <p class="muted small">Si la carta vale más que la funda, no hay duda. Productos verificados y en stock; enlaces de afiliado de Amazon (comisión sin coste para ti).</p>
+  <div class="proteccion-grid">
+    ${PROTECCION.map((p) => `<div class="reco">
+      ${imgProducto(p.asin)}
+      <p class="reco-nombre">${esc(p.nombre)} <span class="muted">· ${esc(p.precio)}</span></p>
+      <p class="reco-veredicto">${esc(p.porque)}</p>
+      <a class="btn" href="https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=vc-proteccion-${p.asin}" rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon</a>
+    </div>`).join('')}
+    <div class="video-proteccion">
+      <iframe src="${VIDEO_PROTECCION}" title="Cómo conservar una carta Pokémon" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+</section>`;
+
 const imgProducto = (asin) => IMGS_SITE.has(asin)
   ? `<img class="reco-img" src="/productos/producto-${esc(asin)}.jpg" alt="${esc((prodInfo(asin) || {}).nombre || 'Producto')}" loading="lazy" decoding="async">`
   : '';
@@ -1061,6 +1083,7 @@ for (let i = 0; i < priced.length; i += BATCH) {
     })()}
     ${trendLine(c)}
     ${ctaAmazon}
+    ${bloqueProteccion()}
     <p class="muted">${esc(descripcion)}. Número ${esc(c.localId ?? '—')}/${total}.</p>
     ${priceTable(c)}
     <p class="muted small">La versión y el idioma cambian lo que vale: la misma carta en otra edición o en japonés puede costar la mitad o el doble. Compara la fila de la tabla antes de decidir.</p>
@@ -1499,9 +1522,11 @@ await put(
     body: `
 <nav class="migas"><a href="/guias/">Guías</a> / Guardar cartas</nav>
 <h1>Cómo guardar cartas según lo que valen</h1>
+<p class="muted small">Vídeo de 10 s: cómo se guarda una carta de 1.000 $ sin estropearla.</p>
 <p class="aviso-afiliado">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables. Los precios los pone Amazon. · Revisado: ${fechaHoy}</p>
 <p class="lede">No todas las cartas merecen el mismo gasto. La regla es simple: la protección tiene que costar menos que
 lo que protege, y en cuanto la carta vale más de lo que cuesta un toploader, no hay discusión.</p>
+<div class="video-proteccion" style="margin:18px auto 0"><iframe src="https://www.youtube-nocookie.com/embed/7jsK89fEkQ4" title="Cómo conservar una carta Pokémon" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
 <table class="listado">
 <thead><tr><th>Tramo</th><th>Qué usar</th><th>Por qué</th></tr></thead>
@@ -1909,14 +1934,23 @@ ${REGALOS.map(([tramo, items]) => `
 
 // ---------- comprar (intencion de compra -> afiliado) ----------
 const PRODUCTOS = [
-  ['Sobres sueltos', null, 'Para probar suerte sin comprometerte. El precio por sobre siempre es peor que en caja.'],
-  ['Caja de 36 sobres', 'B0BTRN9FT5', 'El mejor precio por sobre si vas a abrir mucho. Compara antes de comprar.'],
-  ['ETB (caja de élite)', 'B0FDGXLR5L', 'Sobres, fundas y dados. Suele salir mejor que comprar las piezas por separado.'],
-  ['Lata', 'B0GMRC58KQ', 'Promo garantizada. Revisa qué carta trae antes de pagar de más.'],
-  ['Blíster de 3', 'B0H1HDKXGH', 'Cómodo en tienda física, caro por sobre. Útil para regalo.'],
-  ['Colección premium', 'B0DSGDJP6Q', 'Producto de nicho: si no la abres, el precinto manda.'],
-  ['Fundas', 'B085DNDLC1', 'Lo primero antes de tocar una carta que valga algo.'],
-  ['Binder', 'B0D7W2PJR8', 'Para guardar la colección sin que se doblen las esquinas.'],
+  ['ETB 30.º aniversario', 'B0H8T5GC4W', 'La caja de élite del aniversario: sobres, fundas y dados. La que más se busca.'],
+  ['Lote de 6 sobres 30.º', 'B0H8SXRLT4', 'Seis sobres del aniversario a precio por sobre razonable.'],
+  ['Colección con póster 30.º', 'B0H8SXC5L9', 'Sobres + póster: buen regalo y fácil de guardar.'],
+  ['Baraja Umbreon ex 30.º', 'B0H8T4YLGT', 'Baraja lista para jugar, personaje muy coleccionado.'],
+  ['Baraja Espeon ex 30.º', 'B0H8T274VV', 'Baraja lista para jugar; Espeon tira mucho.'],
+  ['Booster Bundle 151', 'B0C8YBXDYQ', 'El set con las 151 originales: el más buscado por nostálgicos.'],
+  ['Sobre Silver Tempest', 'B0BCPRFMQH', 'Sobre suelto para probar suerte sin comprar caja.'],
+  ['ETB Oscuridad Absoluta', 'B0GZKZ1FL9', 'Caja de élite de un set con demanda alta.'],
+  ['Sobres Ghost Fires (6)', 'B0FTG3C43P', 'Lote pequeño para abrir sin comprometerte.'],
+  ['ETB Balance', 'B0GGHXWSDC', 'Caja de élite para empezar con buen precio por sobre.'],
+  ['Lata Otoño EX', 'B0HMJ88KGX', 'Lata con promo garantizada: si te interesa la carta, mírala antes.'],
+  ['Mazo Ampharos ex', 'B078NBBQXQ', 'Mazo de batalla completo, 60 cartas listas.'],
+  ['Baraja Mew VMAX', 'B0BMGR3QZW', 'Baraja de liga competitiva, de las más usadas.'],
+  ['Baraja Mewtwo ex', 'B0G5YX5XVQ', 'Baraja de liga competitiva, fácil de mejorar.'],
+  ['Fundas Ultra Pro (400)', 'B085DNDLC1', 'Lo primero antes de tocar una carta que valga algo.'],
+  ['Toploader rígido (25)', 'B000Q5ZMM0', 'Para que la esquina no se doble: la mitad del valor.'],
+  ['Álbum 540 cartas', 'B0D7W2PJR8', 'Fuera del polvo y del sol, sin anillas que marquen.'],
 ];
 
 await put(
