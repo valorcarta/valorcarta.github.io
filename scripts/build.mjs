@@ -2748,6 +2748,12 @@ await put(OUT('404.html'), layout({
   body: `<h1>Esa carta no existe</h1><p class="lede">Puede que el enlace esté mal o que la carta ya no tenga datos de precio.</p><p><a class="btn" href="/valorar/">Valorar mi colección</a></p>`,
 }));
 
+// página de enlaces (todas las redes, para las bios)
+try {
+  const redesHtml = await readFile(path.join(ROOT, 'site', 'redes.html'), 'utf8');
+  await put(OUT('redes/index.html'), redesHtml);
+} catch (e) {}
+
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml
 Sitemap: ${SITE}/sitemap-en.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
