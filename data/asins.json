@@ -1,0 +1,111 @@
+{
+ "sv01": [
+  {
+   "asin": "B0BTRN9FT5",
+   "nombre": "Caja de 36 sobres · Escarlata y Púrpura"
+  },
+  {
+   "asin": "B0FDGXLR5L",
+   "nombre": "Elite Trainer Box · Escarlata y Púrpura (Koraidon)"
+  },
+  {
+   "asin": "B078NBBQXQ",
+   "nombre": "Mazo de batalla Ampharos ex · 60 cartas listo para jugar (29 €)"
+  },
+  {
+   "asin": "B0BMGR3QZW",
+   "nombre": "Baraja de Liga Mew VMAX · 60 cartas (34 €)"
+  },
+  {
+   "asin": "B0G5YX5XVQ",
+   "nombre": "Baraja de Liga Mewtwo ex del Team Rocket (49 €)"
+  }
+ ],
+ "sv08.5": [
+  {
+   "asin": "B0DM6HQ8X5",
+   "nombre": "Elite Trainer Box · Evoluciones Prismáticas"
+  },
+  {
+   "asin": "B0DWGBC38K",
+   "nombre": "Colección Súper Premium · Evoluciones Prismáticas"
+  },
+  {
+   "asin": "B0HMJ88KGX",
+   "nombre": "Lata Colección Otoño EX (40 €)"
+  }
+ ],
+ "me02.5": [
+  {
+   "asin": "B0G4NT3SH1",
+   "nombre": "Elite Trainer Box · Héroes Ascendentes"
+  }
+ ],
+ "me02": [
+  {
+   "asin": "B0FTG3C43P",
+   "nombre": "Lote de 6 sobres · Fuegos Fantasmales"
+  }
+ ],
+ "me03": [
+  {
+   "asin": "B0GGHXWSDC",
+   "nombre": "Elite Trainer Box · Equilibrio Perfecto"
+  }
+ ],
+ "30th": [
+  {
+   "asin": "B0H8T5GC4W",
+   "nombre": "Caja de Entrenador Élite · 30.º Aniversario (52,99 €, nº1 en Juguetes)"
+  },
+  {
+   "asin": "B0H8SXRLT4",
+   "nombre": "Lote de 6 sobres · 30.º Aniversario (nº2)"
+  },
+  {
+   "asin": "B0H8SXC5L9",
+   "nombre": "Colección con póster · 30.º Aniversario (nº3)"
+  },
+  {
+   "asin": "B0H8T4YLGT",
+   "nombre": "Baraja Combate Umbreon ex · 30.º Aniversario (nº4)"
+  },
+  {
+   "asin": "B0H8T274VV",
+   "nombre": "Baraja Combate Espeon ex · 30.º Aniversario (nº5)"
+  }
+ ],
+ "swsh7": [
+  {
+   "asin": "B09CQGL1SH",
+   "nombre": "Elite Trainer Box · Cielos Evolutivos"
+  }
+ ],
+ "sv03.5": [
+  {
+   "asin": "B0C8YBXDYQ",
+   "nombre": "Booster Bundle 151",
+   "precio": 265.53,
+   "verificado": "2026-11-05",
+   "nota": "caja de 6 sobres, la opción más vendida del set 151"
+  }
+ ],
+ "swsh12": [
+  {
+   "asin": "B0BCPRFMQH",
+   "nombre": "Sobre de Plata Tempestad",
+   "precio": 39.58,
+   "verificado": "2026-11-05",
+   "nota": "338 valoraciones, el más vendido del set"
+  }
+ ],
+ "me05": [
+  {
+   "asin": "B0GZKZ1FL9",
+   "nombre": "Elite Trainer Box · Oscuridad Absoluta",
+   "precio": 52.99,
+   "verificado": "2026-11-06",
+   "nota": "ETB en español, en stock; curl 200 y título Pokémon comprobados"
+  }
+ ]
+}
