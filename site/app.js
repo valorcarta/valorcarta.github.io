@@ -7,7 +7,9 @@
 
   let DB = null;
   let MAP = new Map();
+  let PROD = null;
   const enValorar = !!document.getElementById('coleccion');
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   const leer = () => {
     try { return JSON.parse(localStorage.getItem(KEY) || '[]'); } catch { return []; }
@@ -43,22 +45,38 @@
     return DB;
   }
 
-  function pintarResultados(items) {
+  async function cargarProductos() {
+    if (PROD) return PROD;
+    try {
+      const r = await fetch('/data/productos.json');
+      PROD = r.ok ? await r.json() : [];
+    } catch { PROD = []; }
+    return PROD;
+  }
+
+  function pintarResultados(items, prods = []) {
     const box = $('#resultados');
     if (!box) return;
-    if (!items.length) { box.classList.remove('on'); return; }
-    box.innerHTML = items
-      .map((row) => {
-        const [slug, name, set, price, , img] = row;
-        return `<div class="res" data-slug="${slug}">
+    if (!items.length && !prods.length) { box.classList.remove('on'); return; }
+    box.innerHTML =
+      items
+        .map((row) => {
+          const [slug, name, set, price, , img] = row;
+          return `<div class="res" data-slug="${slug}">
           ${img ? `<img src="${img}/low.webp" alt="" loading="lazy">` : ''}
           <span class="res-n">${name}<br><span class="res-s">${set}</span></span>
           <span class="res-p">${eur(price)}</span>
         </div>`;
-      })
-      .join('');
+        })
+        .join('') +
+      prods
+        .map((p) => `<a class="res" href="https://www.amazon.es/dp/${p.a}?tag=valorcarta-21&ascsubtag=vc-buscador" target="_blank" rel="nofollow sponsored noopener">
+          <span class="res-n">${esc(p.t)}<br><span class="res-s">Producto · ver oferta en Amazon</span></span>
+          <span class="res-p">${p.p ? eur(p.p) : ''}</span>
+        </a>`)
+        .join('');
     box.classList.add('on');
-    box.querySelectorAll('.res').forEach((el) => {
+    box.querySelectorAll('.res[data-slug]').forEach((el) => {
       el.addEventListener('click', () => {
         const slug = el.dataset.slug;
         if (enValorar) { add(slug); $('#q').value = ''; box.classList.remove('on'); }
@@ -79,7 +97,8 @@
       else if (n.includes(t) || norm(row[2]).includes(t)) out.push(row);
       if (empieza.length > 14) break;
     }
-    pintarResultados([...empieza, ...out].slice(0, 14));
+    const prods = (PROD || []).filter((p) => norm(p.t + ' ' + (p.k || '')).includes(t)).slice(0, 3);
+    pintarResultados([...empieza, ...out].slice(0, 14), prods);
   }
 
   function pintar() {
@@ -221,8 +240,9 @@
     if (document.documentElement.lang === 'en') return;
     const q = $('#q');
     if (q) {
-      q.addEventListener('input', (e) => buscar(e.target.value));
-      q.addEventListener('focus', () => { if (DB) buscar(q.value); });
+      const conProductos = () => { if (!PROD) cargarProductos().then(() => { if (q.value) buscar(q.value); }); };
+      q.addEventListener('input', (e) => { conProductos(); buscar(e.target.value); });
+      q.addEventListener('focus', () => { conProductos(); if (DB) buscar(q.value); });
       document.addEventListener('click', (e) => {
         if (!e.target.closest('.buscador')) $('#resultados')?.classList.remove('on');
       });
