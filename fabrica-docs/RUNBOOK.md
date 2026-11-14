@@ -1,7 +1,10 @@
 # Runbook — comandos probados
 
 Todos los comandos de esta página se han ejecutado al menos una vez y han funcionado en
-este Mac. Se copian tal cual; si fallan, se anota en `ERRORES.md` antes de cambiar nada.
+este Mac. **Se lanzan desde la raíz del repo** (`~/Documents/deepseek-harness/default-workspace/valorcarta`),
+salvo los que dicen otra ruta. Lo que va entre `<...>` se rellena con lo que liste
+`AGENTES.md` (agentes) o `DATOS.md` (ficheros). Si un comando falla, se anota en
+`ERRORES.md` antes de cambiar nada.
 
 ## Estado y agentes
 
