@@ -259,7 +259,8 @@ const movers = vitrinaCandidatas.slice(1, 4);
 
 // Fecha real del dato: la del fetch más reciente del catálogo, no la del build.
 // La usan /sets/, /mercado/ y la portada; se calcula una vez.
-const fechaCatalogo = priced.reduce((max, c) => (c.updated && c.updated > max ? c.updated : max), '');
+const fechaCatalogo = [priced.reduce((max, c) => (c.updated && c.updated > max ? c.updated : max), ''),
+  CAMBIOS?.fecha || ''].reduce((max, d) => (d && d > max ? d : max), '');
 const fechaLarga = new Date(fechaCatalogo || Date.now()).toLocaleDateString('es-ES', {
   day: 'numeric',
   month: 'long',
@@ -557,14 +558,14 @@ ${munecosHtml}
   <h2>Índice: las 100 cartas más caras</h2>
   <p class="muted small">Enlaces directos a las fichas con más valor de mercado. Se recalcula a diario.</p>
   <div class="indice">
-    ${priced.slice(0, 100).map((c) => `<a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a>`).join(' · ')}
+    ${priced.slice(0, 100).map((c, i) => `<a href="/carta/${cardSlug(c)}/"><b>${i + 1}</b><span>${esc(c.name)}</span><em>${eur(c.price)}</em></a>`).join('')}
   </div>
 </section>
 
 <section class="bloque">
   <h2>Todos los sets</h2>
-  <div class="indice">
-    ${[...bySet.keys()].map((id) => `<a href="/set/${id}/">${esc(setsById.get(id)?.name ?? id)}</a>`).join(' · ')}
+  <div class="indice sets">
+    ${[...bySet.entries()].map(([id, lista]) => `<a href="/set/${id}/"><span>${esc(setsById.get(id)?.name ?? id)}</span><em>${lista.length}</em></a>`).join('')}
   </div>
   <p class="muted small"><a href="/sets/">Ver los ${bySet.size} sets agrupados por serie</a></p>
 </section>
