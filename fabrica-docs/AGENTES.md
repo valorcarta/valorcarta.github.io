@@ -3,7 +3,7 @@
 
 # Agentes de la fábrica — qué corre, cuándo y cómo comprobarlo
 
-Generado: 2026-11-14 · 68 agentes en ~/Library/LaunchAgents (solo com.valorcarta*). Cada fila está sacada del plist, no del recuerdo.
+Generado: 2026-11-14 · 69 agentes en ~/Library/LaunchAgents (solo com.valorcarta*). Cada fila está sacada del plist, no del recuerdo.
 
 | agente | cuándo | qué hace | comprobar |
 |---|---|---|---|
@@ -23,6 +23,7 @@ Generado: 2026-11-14 · 68 agentes en ~/Library/LaunchAgents (solo com.valorcart
 | `cta` | 09:55 | Puerta de compra + barrido de TODA la web (local, 0 red, 0 tokens) | `tail -3 dinero/logs-cta.log` |
 | `cumple` | {'Minute': 0}, {'Minute': 30} | Agente de cumplimiento: deja el panel de objetivos en verde y con prueba, solo | `tail -3 dinero/logs-cumple.log` |
 | `dashboard` | cada 1 min | Registro AUDITADO de los objetivos de los 5 canales — 0 tokens | `tail -3 dinero/logs-dashboard.log` |
+| `datosabiertos` | 10:10 | Mantiene el volcado de datos abiertos (repo precios-cartas-datos) al día | `tail -3 dinero/logs-precios-abiertos.out` |
 | `divergente` | 07:55, 19:55 | Agente Divergente: valida en cola todas las propuestas y exige pruebas. 0 tokens | `tail -3 dinero/logs-divergente.log` |
 | `espacio` | cada 30 min | vigia_espacio.sh | `launchctl print gui/501/com.valorcarta.espacio | grep state` |
 | `estetica` | 09:20 | Agente de estética: mide la cara de la web en móvil y su coherencia con el catálogo | `tail -3 dinero/logs-estetica.log` |
