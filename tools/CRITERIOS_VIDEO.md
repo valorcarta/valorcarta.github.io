@@ -1,1 +1,0 @@
-../dinero/CRITERIOS_VIDEO.md

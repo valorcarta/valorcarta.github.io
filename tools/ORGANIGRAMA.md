@@ -1,1 +1,0 @@
-../dinero/ORGANIGRAMA.md

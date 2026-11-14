@@ -1,1 +1,0 @@
-../dinero/CADENA.md
