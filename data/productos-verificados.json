@@ -1,0 +1,367 @@
+{
+  "_doc": "Verificación de producto en Amazon.es: fecha, título, estado de compra y si se enlaza. Sin buy box o 'Currently unavailable' = no se enlaza.",
+  "comprobado": "2026-11-14",
+  "fuente": "amazon.es (navegador invisible) — 45 ASIN, 2026-11-14",
+  "productos": {
+    "B0BTRN9FT5": {
+      "titulo": "Pokémon TCG, Scarlet & Violet Booster Display Box (36 Booster Packs)",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 99.9,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0FDGXLR5L": {
+      "titulo": "Pokémon: JCC Pokémon Koraidon Scarlet Purple Elite Trainer Box (1 Expanded Illustration Promo Card, 9 Upgrade Envelopes ",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B078NBBQXQ": {
+      "titulo": "Pokémon TCG: Ampharos ex Battle Deck (60 Card Ready-to-Play Deck)",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 29.6,
+      "vendedor": "Amazon UK",
+      "comprobado": "2026-11-14"
+    },
+    "B0BMGR3QZW": {
+      "titulo": "Pokémon: Mew League Battle Deck VMAX (1 Deck of 60 Full Cards, 6 2 Holographic Cards)",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 34.99,
+      "vendedor": "Sold by Amazon Segunda mano and Fulfilled by Amazon.",
+      "comprobado": "2026-11-14"
+    },
+    "B0G5YX5XVQ": {
+      "titulo": "Pokémon: Mewtwo Ex Team Rocket League Battle Deck (1 Deck of 60 Cards Ready to Play)",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 49.49,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0DM6HQ8X5": {
+      "titulo": "Pokémon JCC Pokémon Scarlet Purple Elite Trainer Box-Prismatic Evolutions (1 Card with Expanded Illustration, 9 Upgrade ",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0DWGBC38K": {
+      "titulo": "Pokémon: Super Premium Scarlet & Purple-Prismatic Evolutions Collection (1 Holographic Expanded Illustration Promotion C",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0HMJ88KGX": {
+      "titulo": "Pokémon Autumn Collection Tin EX",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 39.95,
+      "vendedor": "dinydon",
+      "comprobado": "2026-11-14"
+    },
+    "B0G4NT3SH1": {
+      "titulo": "Pokémon: Megaevolution-Ascending Heroes Elite Trainer Box (1 Expanded Illustration Promo Card, 9 Upgrade Envelopes and P",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0FTG3C43P": {
+      "titulo": "Pokémon: JCC Pokémon Megaevolution Enhancement Packs-Ghost Fires (6 Upgrade Envelopes)",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 29.94,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0GGHXWSDC": {
+      "titulo": "Pokémon: JCC Pokémon Megaevolution-Balance Elite Trainer Box (1 Promo Card with Expanded Illustration, 9 Upgrade Envelop",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0H8T5GC4W": {
+      "titulo": "Pokémon: JCC Pokémon 30th Anniversary Celebration Elite Trainer Box (1 Promo Card with Expanded Illustration, 9 Upgrade ",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0H8SXRLT4": {
+      "titulo": "Pokémon: JCC Pokémon 30th Anniversary Celebration Enhancement Envelopes Pack (6 Upgrade Envelopes)",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 29.94,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0H8SXC5L9": {
+      "titulo": "Pokémon: JCC Pokémon 30th Anniversary Celebration Poster Collection (3 Promo Cards, 1 Poster and 3 Upgrade Envelopes)",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 23.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0H8T4YLGT": {
+      "titulo": "Pokémon: Umbreon Ex Pokémon 30th Anniversary Celebration Combat Deck (60 Card Ready-to-Play Deck and Accessories)",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 24.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0H8T274VV": {
+      "titulo": "Pokémon: JCC Pokémon Espeon Ex Celebration 30th Anniversary Combat Deck (60 Card Ready-to-Play Deck and Accessories)",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 24.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B09CQGL1SH": {
+      "titulo": "Pokémon SAS7 Evolving Skies Elite Trainer Box - Orange",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 83.6,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0C8YBXDYQ": {
+      "titulo": "Pokémon Pokemon TCG Scarlet & Violet 3.5 Pokemon 151 Booster Bundle",
+      "estado": "últimas unidades",
+      "disponible": true,
+      "precio": 265.53,
+      "vendedor": "lanius_trading",
+      "comprobado": "2026-11-14"
+    },
+    "B0BCPRFMQH": {
+      "titulo": "Pokemon - Silver Tempest Booster Pack",
+      "estado": "últimas unidades",
+      "disponible": true,
+      "precio": 38.64,
+      "vendedor": "Amazon UK",
+      "comprobado": "2026-11-14"
+    },
+    "B0GZKZ1FL9": {
+      "titulo": "Pokémon: Mega Evolution Absolute Darkness Elite Trainer Box (1 Promo Card with Expanded Illustration, 9 Upgrade Envelope",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B085DNDLC1": {
+      "titulo": "Ultra Pro Penny 400 Standard Soft Card Sleeves for Trading Cards Like Pokemon Magic Standard Size Clear",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 8.16,
+      "vendedor": "ReCard GmbH",
+      "comprobado": "2026-11-14"
+    },
+    "B000Q5ZMM0": {
+      "titulo": "Ultra Pro Regular Toploader 2.5\" x 3.5\" (3' x 4') Cardboard - Pack of 25",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 9.23,
+      "vendedor": "ReCard GmbH",
+      "comprobado": "2026-11-14"
+    },
+    "B0812Z3RPY": {
+      "titulo": "Ultra Pro 3x4 Clear Regular, 100 Count Thick Toploaders, Trading Card Sleeves Like Pokemon Magic, Clear Standard Size",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 15.13,
+      "vendedor": "ReCard GmbH",
+      "comprobado": "2026-11-14"
+    },
+    "B0D7W2PJR8": {
+      "titulo": "9 Pockets and 30 Page Collector Card Album",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 24.98,
+      "vendedor": "KOSTAR-EU",
+      "comprobado": "2026-11-14"
+    },
+    "B0GMRC58KQ": {
+      "titulo": "Pokémon: Pokemon TCG: Mega-Charizard X EX TCG Pokémon Tin (4 Upgrade Envelopes & 1 Holographic Promo Card)",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 24.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0H1HDKXGH": {
+      "titulo": "Pokémon: Mega-Clefable Lunar Tin: JCC Pokémon Mega-Clefable ex (4 Upgrade Envelopes and 1 Holographic Promotion Card)",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 24.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0DSGDJP6Q": {
+      "titulo": "Pokémon Premium Collection Ogerpon ex by JCC Pokémon (3 Holographic Cards & 6 Upgrade Packs)",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 15.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0GCJVSFV5": {
+      "titulo": "Shadowhawk 365nm UV Flashlight With Filter Lens-30W 4 Core",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 32.99,
+      "vendedor": "SHADOWHAWK",
+      "comprobado": "2026-11-14"
+    },
+    "B0F7RK529B": {
+      "titulo": "Darkbeam UV Flashlight 365nm LED Black Light, Powerful Ultraviolet Lamp",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 17.99,
+      "vendedor": "DARKBEAM",
+      "comprobado": "2026-11-14"
+    },
+    "B09MG1FV1V": {
+      "titulo": "10 x Jewellery Magnifying Glass with Case for Scientific Books, Reading, Newspapers, Insects, Leisure, Observation (10X)",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 6.99,
+      "vendedor": "CUNAOUK",
+      "comprobado": "2026-11-14"
+    },
+    "B0DK52XPMV": {
+      "titulo": "10pcs Jewelry Magnifier with UV and LED Lights 10X Rechargeable Magnifier 22mm Triplet Optical Glass Jewelry Magnifier M",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 25.99,
+      "vendedor": "DP-GLOBAL",
+      "comprobado": "2026-11-14"
+    },
+    "B0FCLWGYQJ": {
+      "titulo": "GeekerChip Precision Scales 500 g/0.1 g, Jewelry Scales, Portable Scales, with LCD Display and Units, Tare Function, Sta",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 7.99,
+      "vendedor": "NAZIA FLYY LTD",
+      "comprobado": "2026-11-14"
+    },
+    "B0936D7DJ5": {
+      "titulo": "Vitafit 500g Precision Scale 0.1g, LCD Pocket Scale Blue, Black",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 9.99,
+      "vendedor": "Vitafit",
+      "comprobado": "2026-11-14"
+    },
+    "B07T8TR863": {
+      "titulo": "by Amazon Blue Nitrile Disposable Gloves, Powder Free, Latex Free, Size M, Pack of 100",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 5.97,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0D6VVLN8N": {
+      "titulo": "PUWOWYE Album Cards, 360 Trading Card Album, Waterproof Card Collection Album, Black Chrome Album",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 11.98,
+      "vendedor": "GLOBAL PERPETUAL LINK LIMITED",
+      "comprobado": "2026-11-14"
+    },
+    "B0F5B2B3F2": {
+      "titulo": "Qualified Card Storage Box, Sports Card Box, Trading Card Storage Box for 160 Top Loaders, 40 One Touch, 40 Qualified Ca",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 36.99,
+      "vendedor": "Wild Spring International",
+      "comprobado": "2026-11-14"
+    },
+    "B00GKT1B94": {
+      "titulo": "Ultimate Guard 10050 Sleeves, 64 x 89 mm, 10050",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 3.59,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0CSVWMDK5": {
+      "titulo": "Mlikero 600 Paquete de Fundas Cartas, Perfect Fit Inner Card Sleeves, Funda Cartas para Cartas de Comercio, Cartas de De",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 16.99,
+      "vendedor": "qingjstore",
+      "comprobado": "2026-11-14"
+    },
+    "B0H8SX832W": {
+      "titulo": "Pokémon: JCC Pokémon 30th Anniversary Celebration Collection Album (1 Album and 5 Upgrade Envelopes)",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 44.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0C4V8F77B": {
+      "titulo": "Pokémon: Scarlet & Purple Combat Stadium (2 Decks, 11 Upgrade Packs, and more)",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 61.49,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0CJYK29Y9": {
+      "titulo": "Pokemon-trading-card-game",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 30.56,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0GSSQYPK3": {
+      "titulo": "Pokémon: Increasing Megaevolution-Caos Enhancement Pack (6 Upgrade Envelopes)",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 29.94,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0DSGB5Q6B": {
+      "titulo": "Pokémon Ursaluna Crimson Moon Collection (4 Holographic Cards and 4 Upgrade Packs)",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 15.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0HGG226FP": {
+      "titulo": "Pokémon: Megaevolution-Delta Domain Elite Trainer Box (1 Promo Card with Expanded Illustration, 9 Upgrade Envelopes and ",
+      "estado": "solo por invitación",
+      "disponible": false,
+      "precio": 52.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    },
+    "B0D6WLBJKX": {
+      "titulo": "Pokémon: JCC Scarlet & Purple Elite Trainer Box-Shadow Fable Pokémon",
+      "estado": "sin disponibilidad",
+      "disponible": false,
+      "precio": 69.99,
+      "vendedor": "",
+      "comprobado": "2026-11-14"
+    }
+  }
+}
