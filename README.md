@@ -91,3 +91,9 @@ scripts/serve.mjs    servidor local con URLs limpias
 content/guias/      9 guías escritas por agentes, se renderizan en /guia/<slug>/
 site/                plantillas, CSS y JS (sin framework)
 ```
+
+## Documentación operativa
+
+`fabrica-docs/INDICE.md` — mapa de la fábrica: qué agente corre, dónde vive cada dato,
+cómo se construye y publica, comandos probados y errores ya vistos. Se lee por necesidad;
+`AGENTES.md` y `DATOS.md` se generan con `python3 tools/gen_docs.py`.
