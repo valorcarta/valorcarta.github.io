@@ -5,10 +5,10 @@
   "productos": {
     "B0BTRN9FT5": {
       "titulo": "Pokémon TCG, Scarlet & Violet Booster Display Box (36 Booster Packs)",
-      "estado": "sin disponibilidad",
-      "disponible": false,
-      "precio": 99.9,
-      "vendedor": "",
+      "estado": "In stock",
+      "disponible": true,
+      "precio": 512.77,
+      "vendedor": "BalticVaris España",
       "comprobado": "2026-11-14"
     },
     "B0FDGXLR5L": {
@@ -61,10 +61,10 @@
     },
     "B0HMJ88KGX": {
       "titulo": "Pokémon Autumn Collection Tin EX",
-      "estado": "In stock",
+      "estado": "últimas unidades",
       "disponible": true,
-      "precio": 39.95,
-      "vendedor": "dinydon",
+      "precio": 32.95,
+      "vendedor": "JonyTCG",
       "comprobado": "2026-11-14"
     },
     "B0G4NT3SH1": {
@@ -167,15 +167,15 @@
       "titulo": "Ultra Pro Penny 400 Standard Soft Card Sleeves for Trading Cards Like Pokemon Magic Standard Size Clear",
       "estado": "In stock",
       "disponible": true,
-      "precio": 8.16,
-      "vendedor": "ReCard GmbH",
+      "precio": 8.29,
+      "vendedor": "MOLOKA STORE",
       "comprobado": "2026-11-14"
     },
     "B000Q5ZMM0": {
       "titulo": "Ultra Pro Regular Toploader 2.5\" x 3.5\" (3' x 4') Cardboard - Pack of 25",
       "estado": "In stock",
       "disponible": true,
-      "precio": 9.23,
+      "precio": 8.72,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-14"
     },
@@ -183,7 +183,7 @@
       "titulo": "Ultra Pro 3x4 Clear Regular, 100 Count Thick Toploaders, Trading Card Sleeves Like Pokemon Magic, Clear Standard Size",
       "estado": "In stock",
       "disponible": true,
-      "precio": 15.13,
+      "precio": 15.14,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-14"
     },
@@ -215,7 +215,7 @@
       "titulo": "Pokémon Premium Collection Ogerpon ex by JCC Pokémon (3 Holographic Cards & 6 Upgrade Packs)",
       "estado": "sin disponibilidad",
       "disponible": false,
-      "precio": 15.99,
+      "precio": 39.99,
       "vendedor": "",
       "comprobado": "2026-11-14"
     },
@@ -359,7 +359,7 @@
       "titulo": "Pokémon: JCC Scarlet & Purple Elite Trainer Box-Shadow Fable Pokémon",
       "estado": "sin disponibilidad",
       "disponible": false,
-      "precio": 69.99,
+      "precio": 46.99,
       "vendedor": "",
       "comprobado": "2026-11-14"
     }
