@@ -7,8 +7,8 @@ Generado: 2026-11-14 · 33 ficheros JSON en data/. La forma sale de abrir el fic
 
 | fichero | forma | peso | lo tocan |
 |---|---|---|---|
-| `amazon-csv-resumen.json` | objeto · fecha, filas, clics, pedidos, ganancias, fuente | 138 B | amazon_csv.py |
-| `amazon-informes.json` | objeto · fecha, clics_30d, ventana_30d, fuente | 171 B | amazon_informes.py, dashboard_datos.py, dashboard_objetivos.py … |
+| `amazon-csv-resumen.json` | objeto · fecha, filas, clics, pedidos, ganancias, fuente | 138 B | amazon_compras.py, amazon_csv.py |
+| `amazon-informes.json` | objeto · fecha, clics_30d, ventana_30d, fuente | 171 B | amazon_compras.py, amazon_informes.py, dashboard_datos.py … |
 | `arte-referencias.json` | objeto · onepeace, pokebeach, limitless | 1 KB | arte_referencias.py |
 | `arte.json` | objeto · actualizado, score, colores, fuentes, tamanos, espacios … | 391 B | agente_arte.py, dashboard_datos.py, scaner_dashboard.py … |
 | `asins.json` | objeto · sv01, sv08.5, me02.5, me02, me03, 30th … | 2 KB | audita_cta.py, auditoria.mjs, build.mjs … |
@@ -23,8 +23,8 @@ Generado: 2026-11-14 · 33 ficheros JSON en data/. La forma sale de abrir el fic
 | `pinterest-top.json` | objeto · actualizado, pines | 2 KB | pinterest_top.py |
 | `primer-pedido.json` | objeto · fecha, clics_30d, pedidos, ganancias_eur, conversion_pct, ventana … | 304 B | sin referencias |
 | `productos-extra.json` | objeto · _doc, productos | 755 B | amazon_vigia.py, build.mjs, recomienda.py |
-| `productos-verificados.json` | objeto · _doc, comprobado, fuente, productos | 12 KB | agente_comercio.py, amazon_vigia.py, build.mjs … |
-| `productos.json` | lista de 21 · campos: asin, nombre, gancho, precio, imagen_local, enlace_amazon | 6 KB | amazon_vigia.py, build.mjs, precios_amazon.py … |
+| `productos-verificados.json` | objeto · _doc, comprobado, fuente, productos | 12 KB | agente_comercio.py, amazon_compras.py, amazon_vigia.py … |
+| `productos.json` | lista de 21 · campos: asin, nombre, gancho, precio, imagen_local, enlace_amazon | 6 KB | amazon_compras.py, amazon_vigia.py, build.mjs … |
 | `proyecto.json` | objeto · actualizado, items, disco_gb | 878 B | scaner_proyecto.py |
 | `radar.json` | lista de 6 · campos: slug, fecha, etiqueta, titulo, gancho, parrafos | 12 KB | audita_texto.py, build.mjs, control.py … |
 | `recomendaciones.json` | objeto · generado, fuente, sugerencias, disponibles, productos, por_asin | 6 KB | build.mjs, recomienda.py |

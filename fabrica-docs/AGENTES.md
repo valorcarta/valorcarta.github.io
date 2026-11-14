@@ -3,7 +3,7 @@
 
 # Agentes de la fábrica — qué corre, cuándo y cómo comprobarlo
 
-Generado: 2026-11-14 · 69 agentes en ~/Library/LaunchAgents (solo com.valorcarta*). Cada fila está sacada del plist, no del recuerdo.
+Generado: 2026-11-14 · 70 agentes en ~/Library/LaunchAgents (solo com.valorcarta*). Cada fila está sacada del plist, no del recuerdo.
 
 | agente | cuándo | qué hace | comprobar |
 |---|---|---|---|
@@ -19,6 +19,7 @@ Generado: 2026-11-14 · 69 agentes en ~/Library/LaunchAgents (solo com.valorcart
 | `ciclos` | 09:35 | Scanner de ciclos: qué agente/script hay en cada etapa y dónde se rompe. 0 tokens | `tail -3 dinero/logs-ciclos.log` |
 | `coherencia` | 09:05 | Agente de coherencia web — mira la web entera en 8 dimensiones y deja acta | `tail -3 dinero/logs-coherencia.log` |
 | `comercio` | 08:05 | Agente de comercio: audita y arregla la tienda de afiliado. 0 tokens | `tail -3 dinero/logs-comercio.log` |
+| `compras` | 13:20 | Agente compras: investiga por qué no llegan pedidos desde la web a Amazon. 0 tokens | `tail -3 dinero/logs-compras.out` |
 | `control` | 20:30 | valorcarta_bot.py — la fábrica ValorCarta, una tarea por fichero y por funciones | `tail -3 ~/valorcarta_bot/logs/control.log` |
 | `cta` | 09:55 | Puerta de compra + barrido de TODA la web (local, 0 red, 0 tokens) | `tail -3 dinero/logs-cta.log` |
 | `cumple` | {'Minute': 0}, {'Minute': 30} | Agente de cumplimiento: deja el panel de objetivos en verde y con prueba, solo | `tail -3 dinero/logs-cumple.log` |

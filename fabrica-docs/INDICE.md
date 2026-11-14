@@ -14,6 +14,7 @@ da por bueno.
 | publicar un pin | `SITIO.md` §Pines | `bash tools/ventana.sh` (hace prep y publica) |
 | saber qué productos de Amazon están a la venta | `DATOS.md` + `dinero/AMAZON-VIGIA.md` | `python3 tools/amazon_vigia.py --limite 5 --sin-escribir` |
 | arreglar algo que se rompió | `ERRORES.md` | el comando de prueba de su entrada |
+| por qué no hay pedidos de Amazon | `dinero/AMAZON-COMPRAS.md` | `python3 tools/amazon_compras.py` |
 | dejar el repo apañado (basura, docs, push) | `dinero/REPO.md` + este índice | `python3 tools/repo.py --sin-arreglar` |
 | decisiones que esperan al dueño | `dinero/decisiones/pendientes.json` | `python3 tools/pendientes.py` |
 | comandos del día a día | `RUNBOOK.md` | se pega tal cual, están probados |
