@@ -16,6 +16,17 @@ launchctl bootstrap gui/501 ~/Library/LaunchAgents/<label>.plist   # cargar
 launchctl bootout gui/501 ~/Library/LaunchAgents/<label>.plist     # descargar
 ```
 
+## Repositorio
+
+```bash
+python3 tools/repo.py --sin-arreglar   # mide el repo y no toca nada (acta en dinero/REPO.md)
+python3 tools/repo.py                  # limpia basura generada, comitea docs y empuja si toca
+python3 tools/pendientes.py            # lo que espera decisión del dueño, con antigüedad
+```
+
+El agente `repo` corre a las 07:15 y 20:30 y **solo** toca `fabrica-docs/` y `.gitignore`:
+no borra ramas, no reescribe historia y no hace force-push.
+
 ## Documentación de la fábrica
 
 ```bash

@@ -3,7 +3,7 @@
 
 # Agentes de la fábrica — qué corre, cuándo y cómo comprobarlo
 
-Generado: 2026-11-14 · 67 agentes en ~/Library/LaunchAgents (solo com.valorcarta*). Cada fila está sacada del plist, no del recuerdo.
+Generado: 2026-11-14 · 68 agentes en ~/Library/LaunchAgents (solo com.valorcarta*). Cada fila está sacada del plist, no del recuerdo.
 
 | agente | cuándo | qué hace | comprobar |
 |---|---|---|---|
@@ -60,6 +60,7 @@ Generado: 2026-11-14 · 67 agentes en ~/Library/LaunchAgents (solo com.valorcart
 | `redaccion` | 09:30 | valorcarta_bot.py — la fábrica ValorCarta, una tarea por fichero y por funciones | `tail -3 ~/valorcarta_bot/logs/redaccion.log` |
 | `redes` | 18:30, 22:30 | Agente de redes: hace el turno completo (TikTok + Instagram) en invisible, 0 tokens | `tail -3 ~/Downloads/FABRICA/social/logs/redes-agente.log` |
 | `render` | 13:45 | Agente de render: guion registrado → vídeo 1080x1920 con voz ElevenLabs. 0 tokens API | `tail -3 dinero/logs-render.log` |
+| `repo` | 07:15, 20:30 | Agente repo: deja el repositorio apañado y deja acta. 0 tokens, solo comprobaciones | `tail -3 dinero/logs-repo.out` |
 | `robustez` | 08:50 | Agente de robustez: busca errores de ingeniería y arregla los seguros. 0 tokens | `tail -3 dinero/logs-robustez.log` |
 | `ronda` | cada 3 h | Ronda de mando (cada 3 h, 0 tokens): foto de cumplimiento y huecos para el Lead | `tail -3 dinero/logs-ronda.log` |
 | `rota` | cada 10 min | rota.sh | `launchctl print gui/501/com.valorcarta.rota | grep state` |
