@@ -14,3 +14,14 @@ tools/VETOS.md
 tools/competencia/
 dist/
 informes/
+
+.env
+.env.*
+data/yt_token.json
+data/yt_secret.txt
+tools/nostr/keys.json
+
+# generados por herramientas (agente repo)
+.DS_Store
+__pycache__/
+*.pyc
