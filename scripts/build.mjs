@@ -1892,7 +1892,61 @@ const GUIAS_COMPRA = [
   },
 ];
 
+// Cada formato lleva a los que de verdad compiten con él, con el motivo en una línea.
+// No es "productos parecidos": es qué mirar antes de pagar por este.
+const COMPRA_RELACIONADOS = {
+  sobres: [
+    ['caja-36', 'Si vas a abrir muchos, la caja baja el precio por sobre.'],
+    ['lote-30', 'Seis sobres a 4,99 €: la referencia contra la que medir cualquier caja.'],
+    ['blister', 'El sobre de tienda física: cómodo, pero el más caro por sobre.'],
+  ],
+  'caja-36': [
+    ['sobres', 'Primero mira el precio del sobre suelto: es la vara de medir.'],
+    ['etb', 'La caja de élite cambia sobres por fundas, dados y promo.'],
+    ['lote-30', 'Un lote pequeño dice si el set te interesa antes de gastar en 36 sobres.'],
+  ],
+  etb: [
+    ['etb-30', 'La ETB del 30.º es la que más se vende: misma cuenta, otra promo.'],
+    ['lote-30', 'Si solo quieres sobres, el lote sale mejor por euro.'],
+    ['lata', 'La lata también vende una promo concreta: compáralas antes de pagar.'],
+  ],
+  'etb-30': [
+    ['lote-30', 'Si la promo expandida no te importa, los sobres sueltos salen mejor.'],
+    ['etb', 'La ETB normal, para comparar qué trae de más y de menos.'],
+    ['caja-36', 'Abrir por volumen: la caja de 36 es la otra vía.'],
+  ],
+  'lote-30': [
+    ['etb-30', 'La caja que incluye estos mismos sobres más accesorios y promo.'],
+    ['sobres', 'Comprar de uno en uno: casi siempre peor por sobre.'],
+    ['caja-36', 'Si el set te convence, la caja reparte el gasto.'],
+  ],
+  'etb-dominio-delta': [
+    ['etb-30', 'Mismo formato en otro set: comprueba cuál se revende por encima del PVP.'],
+    ['etb', 'La ETB de un set en catálogo, más fácil de encontrar a precio normal.'],
+    ['lote-30', 'La referencia de precio por sobre para no pagar de más por la caja.'],
+  ],
+  lata: [
+    ['etb', 'La ETB trae promo y accesorios: compara qué te llevas.'],
+    ['blister', 'El blister es la otra vía de comprar pocos sobres en tienda.'],
+    ['sobres', 'La cuenta por sobre que desmonta casi todas las latas.'],
+  ],
+  blister: [
+    ['sobres', 'El precio por sobre, para ver cuánto pagas de más por el envoltorio.'],
+    ['lata', 'Otra promo garantizada, con más sobres y peor precio por sobre.'],
+    ['etb', 'Si es un regalo, la caja de élite da más presencia por lo que cuesta.'],
+  ],
+};
+
 for (const g of GUIAS_COMPRA) {
+  const relacionados = (COMPRA_RELACIONADOS[g.slug] || [])
+    .map(([slug, por]) => {
+      const otro = GUIAS_COMPRA.find((x) => x.slug === slug);
+      return otro
+        ? `<a class="rel-card" href="/comprar/${slug}/"><b>${esc(otro.cta)}</b><span>${esc(por)}</span></a>`
+        : '';
+    })
+    .filter(Boolean)
+    .join('');
   await put(
     OUT(`comprar/${g.slug}/index.html`),
     layout({
@@ -1909,6 +1963,7 @@ ${g.asin && DISPONIBLES.has(g.asin) ? `<p><a class="btn" href="${amazonDp(g.asin
 <p class="nota small">El precio lo pone Amazon. Antes de comprar, compara el precio por sobre con el resto de formatos en <a href="/comprar/">la tabla de compra</a>.</p>
 <p class="nota"><a href="/valorar/">Ver cuánto vale mi colección →</a> · <a href="/mercado/">Qué se mueve esta semana →</a></p>
 ${g.asin ? recosHtml(g.asin) : ''}
+${relacionados ? `<h2 class="rel-titulo">Antes de pagar, mira estos</h2><div class="rel-grid">${relacionados}</div>` : ''}
 <p class="nota small">Protege lo que compras: <a href="/guardar-cartas/">fundas, toploaders y álbumes verificados</a> · <a href="/comprar/">todos los formatos</a>.</p>`,
     }),
   );
@@ -2157,7 +2212,7 @@ const legal = (slug, titulo, cuerpo) =>
 await legal(
   'aviso-legal',
   'Aviso legal',
-  `<p>Titular: ${esc(config.titular)} · NIF ${esc(config.nif)} · ${esc(config.contactEmail)}.</p>
+  `<p>Titular: ${esc(config.titular)}${config.nif ? ` · NIF ${esc(config.nif)}` : ''} · Contacto: ${esc(config.contactEmail)}.</p>
    <p>${esc(config.brand)} es un sitio independiente de información de precios. No está afiliado, patrocinado ni respaldado por Nintendo, Creatures Inc., GAME FREAK ni The Pokémon Company. Las marcas citadas pertenecen a sus titulares.</p>
    <p>Participamos en el Programa de Afiliados de Amazon. Los precios mostrados son de referencia (Cardmarket) y pueden variar; no constituyen una oferta de venta.</p>`,
 );
@@ -2167,6 +2222,14 @@ await legal(
   `<p>No usamos cookies de seguimiento ni publicidad. Tu colección se guarda en el almacenamiento local de tu navegador y no se envía a ningún servidor.</p>
    <p>Si te suscribes, el pago lo procesa Lemon Squeezy como vendedor (merchant of record) y nosotros solo recibimos tu email para enviarte los avisos. Puedes darte de baja en cualquier momento.</p>
    <p>Contacto: ${esc(config.contactEmail)}.</p>`,
+);
+
+await legal(
+  'contacto',
+  'Contacto',
+  `<p>Para cualquier duda, corrección de precio, retirada de contenido o propuesta: escríbenos a <a href="mailto:${esc(config.contactEmail)}">${esc(config.contactEmail)}</a>.</p>
+   <p>Respondemos en 48 h laborables. Si el mensaje es sobre el estado de un pedido de Amazon, el vendedor es Amazon: ahí no podemos intervenir.</p>
+   <p>Participamos en el Programa de Afiliados de Amazon: si compras desde nuestros enlaces recibimos una comisión que no cambia lo que pagas.</p>`,
 );
 
 // ---------- English edition (/en/) ----------
