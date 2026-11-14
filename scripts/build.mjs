@@ -2977,6 +2977,26 @@ const idx = priced.map((c) => [
   c.setId,
 ]);
 await put(OUT('data/cartas.json'), JSON.stringify(idx));
+// productos verificados con stock para el buscador de la portada (14-11): solo los disponibles,
+// así el desplegable encuentra fundas, top-loaders, sobres y demás, no solo cartas.
+const clavesProducto = (t) => {
+  const s = String(t || '').toLowerCase();
+  const k = [];
+  if (/sleeve|penn|funda/.test(s)) k.push('funda', 'fundas', 'sleeves');
+  if (/toploader|top-load/.test(s)) k.push('toploader', 'top-loaders', 'funda rigida', 'funda rígida', 'protector rigido');
+  if (/album|binder/.test(s)) k.push('album', 'álbum', 'albumes', 'archivador');
+  if (/battle deck|deck|mazo/.test(s)) k.push('mazo', 'baraja');
+  if (/booster|pack/.test(s)) k.push('sobre', 'sobres', 'sobre booster');
+  if (/elite trainer|etb/.test(s)) k.push('etb', 'caja elite');
+  if (/tin|collection/.test(s)) k.push('lata', 'coleccionista');
+  if (/playmat/.test(s)) k.push('tapete');
+  if (/dice/.test(s)) k.push('dados');
+  return [...new Set(k)].join(' ');
+};
+const busqProds = Object.entries(VERIF_PROD || {})
+  .filter(([, v]) => v && v.disponible)
+  .map(([asin, v]) => ({ a: asin, t: String(v.titulo || '').slice(0, 120), p: v.precio ?? null, k: clavesProducto(v.titulo) }));
+await put(OUT('data/productos.json'), JSON.stringify(busqProds));
 // FSM 08-11: ruta de datos crudos para el crítico y QA clínico (auditoría servido vs dato).
 await put(OUT('data/cards.json'), JSON.stringify(cards));
 await put(OUT('datos/cards.json'), JSON.stringify(cards));
