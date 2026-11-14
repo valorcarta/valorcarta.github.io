@@ -1,0 +1,470 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ValorCarta — ¿Cuánto valen tus cartas Pokémon? Precios de hoy</title>
+<meta name="description" content="Calcula el valor de tu colección de cartas Pokémon con precios reales de Cardmarket actualizados a diario. 10.648 cartas, gratis y sin registro.">
+<link rel="canonical" href="https://valorcarta.github.io/">
+<link rel="alternate" hreflang="es" href="https://valorcarta.github.io/">
+<link rel="alternate" hreflang="en" href="https://valorcarta.github.io/en/">
+<link rel="alternate" hreflang="x-default" href="https://valorcarta.github.io/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ValorCarta">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="ValorCarta — ¿Cuánto valen tus cartas Pokémon? Precios de hoy">
+<meta property="og:description" content="Calcula el valor de tu colección de cartas Pokémon con precios reales de Cardmarket actualizados a diario. 10.648 cartas, gratis y sin registro.">
+<meta property="og:url" content="https://valorcarta.github.io/">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="p:domain_verify" content="c1afa454d89ee36b16de2142c50827fb"/>
+<link rel="stylesheet" href="/assets/style.css?v=d6ecc1bc5fe0bb6f4e8c5f0fd85eb2">
+<link rel="icon" href="/assets/icon.svg?v=d6ecc1bc5fe0bb6f4e8c5f0fd85eb2" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ValorCarta","url":"https://valorcarta.github.io","mainEntity":[{"@type":"Question","name":"¿Los precios son una tasación?","acceptedAnswer":{"@type":"Answer","text":"No. Son precios de referencia de mercado; una tasación exige ver la carta."}},{"@type":"Question","name":"¿De dónde salen los precios?","acceptedAnswer":{"@type":"Answer","text":"De Cardmarket, vía la API pública de TCGdex, actualizados a diario."}},{"@type":"Question","name":"¿Cuánto cuesta usarlo?","acceptedAnswer":{"@type":"Answer","text":"El valorador y las fichas son gratis y no piden registro."}}],"potentialAction":{"@type":"SearchAction","target":"https://valorcarta.github.io/cartas/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#0f0e14"/><g transform="rotate(-8 16 16)"><rect x="7.4" y="4.4" width="17.2" height="23.2" rx="3.2" fill="none" stroke="#ffcb05" stroke-width="1.7"/><circle cx="16" cy="13.2" r="4.8" fill="#0f0e14" stroke="#ffcb05" stroke-width="1.5"/><path d="M11.2 13.2h9.6" stroke="#ffcb05" stroke-width="1.2"/><circle cx="16" cy="13.2" r="1.6" fill="#ffcb05"/><path d="M10.8 24.4h10.4" stroke="#35e0d0" stroke-width="1.9" stroke-linecap="round"/></g></svg>ValorCarta</a>
+  <span class="figura" aria-hidden="true"><img id="figura-img" src="/assets/mascotas/fig1.svg" width="76" height="90" alt="Pokémon decorativo" decoding="async"></span>
+  <nav>
+    <div class="nav-desktop">
+      <details class="menu" name="nav-menu">
+        <summary>Cartas</summary>
+        <div class="menu-panel">
+          <a href="/cartas/"><span class="mi" style="--c:#ffcb05"></span>Todas las cartas</a>
+          <a href="/sets/"><span class="mi" style="--c:#ff9d5c"></span>Todos los sets</a>
+          <a href="/caras/"><span class="mi" style="--c:#35e0d0"></span>Las 100 más caras</a>
+          <a href="/mercado/"><span class="mi" style="--c:#b98cff"></span>Qué se mueve esta semana</a>
+        </div>
+      </details>
+      <details class="menu" name="nav-menu">
+        <summary>Herramientas</summary>
+        <div class="menu-panel">
+          <a href="/valorar/"><span class="mi" style="--c:#ffcb05"></span>Valorar colección</a>
+          <a href="/alertas/"><span class="mi" style="--c:#35e0d0"></span>Alertas de precio</a>
+          <a href="/guardar-cartas/"><span class="mi" style="--c:#b98cff"></span>Guardar cartas</a>
+          <a href="/guias/"><span class="mi" style="--c:#ff9d5c"></span>Guías de compra</a>
+        </div>
+      </details>
+      <a href="/comprar/">Comprar</a>
+      <a href="/alertas/" class="cta-mini">Alertas</a>
+    </div>
+    <div class="nav-movil">
+      <details class="menu" name="nav-menu">
+        <summary>Menú</summary>
+        <div class="menu-panel">
+          <a href="/cartas/">Cartas</a>
+          <a href="/mercado/">Mercado</a>
+          <a href="/comprar/">Comprar</a>
+          <a href="/alertas/">Alertas de precio</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+</header>
+<main>
+<section class="hero hero-dia portada">
+  <div class="portada-fondo" aria-hidden="true">
+    <span class="aura aura-1"></span><span class="aura aura-2"></span><span class="aura aura-3"></span>
+    <svg class="bola-fondo" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 100h192M100 4a96 96 0 0 1 0 192" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+  </div>
+  <div class="hero-txt">
+    <p class="kicker">PRECIOS DE CARTAS POKÉMON · 10.648 CARTAS · ACTUALIZADO EL 14 DE NOVIEMBRE</p>
+    <h1>¿Cuánto valen <em>tus</em> cartas Pokémon?</h1>
+    <p class="lede">El precio medio real de Cardmarket, actualizado a diario. Busca una carta o valora tu colección en 10 segundos: gratis, sin registro y sin humo.</p>
+    <div id="buscador" class="buscador">
+      <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
+      <div id="resultados" class="resultados"></div>
+    </div>
+    <div class="acciones">
+      <a class="btn" href="/valorar/">Valorar mi colección</a>
+      <a class="btn ghost" href="/cartas/">Ver todas las cartas</a>
+    </div>
+    <ul class="confianza">
+      <li>Datos de Cardmarket, cada día</li>
+      <li>Histórico de 30 días por carta</li>
+      <li>Gratis, sin registro</li>
+    </ul>
+    
+  </div>
+  <aside class="dia venta" aria-labelledby="venta-titulo">
+  <p class="kicker dia-kicker">Lo que sí se vende · enlace de afiliado</p>
+  <a class="dia-arte venta-arte" href="https://www.amazon.es/dp/B0BMGR3QZW?tag=valorcarta-21&ascsubtag=vc-prod-B0BMGR3QZW" rel="sponsored nofollow noopener" target="_blank" aria-label="Ver Baraja de liga Mew VMAX en Amazon">
+    <span class="venta-foto"><img src="/productos/producto-B0BMGR3QZW.jpg" alt="Baraja de liga Mew VMAX" width="480" height="458" loading="eager" fetchpriority="high" decoding="async"></span>
+  </a>
+  <div class="dia-ficha">
+    <h2 id="venta-titulo"><a href="https://www.amazon.es/dp/B0BMGR3QZW?tag=valorcarta-21&ascsubtag=vc-prod-B0BMGR3QZW" rel="sponsored nofollow noopener" target="_blank">Baraja de liga Mew VMAX</a></h2>
+    <p class="dia-set muted small">En stock en Amazon · enlace de afiliado</p>
+    <p class="dia-etq muted small">Precio en Amazon</p>
+    <p class="dia-precio">34,99 €</p>
+    <div class="dia-acciones">
+      <a class="btn" href="https://www.amazon.es/dp/B0BMGR3QZW?tag=valorcarta-21&ascsubtag=vc-prod-B0BMGR3QZW" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a>
+      <a class="btn ghost" href="/comprar/">Más productos verificados</a>
+    </div>
+    <p class="venta-mas small">También con comisión: <a href="https://www.amazon.es/dp/B0G5YX5XVQ?tag=valorcarta-21&ascsubtag=vc-prod-B0G5YX5XVQ" rel="sponsored nofollow noopener" target="_blank">Baraja de liga Mewtwo ex · 49,49 €</a> · <a href="https://www.amazon.es/dp/B078NBBQXQ?tag=valorcarta-21&ascsubtag=vc-prod-B078NBBQXQ" rel="sponsored nofollow noopener" target="_blank">Mazo Ampharos ex · 29,00 €</a></p>
+  </div>
+  <p class="nota small">Enlace de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon sin coste para ti.</p>
+</aside>
+</section>
+
+<section class="bloque movers" aria-labelledby="movers-titulo">
+  <h2 id="movers-titulo">Lo que más se mueve esta semana</h2>
+  <p class="muted small">La media de 7 días frente a la de 30, en las tres cartas con producto verificado que más suben después de la del día. El porcentaje compara esas dos medias, no el precio de hoy con el de ayer. Datos de Cardmarket del 14 de noviembre de 2026; una subida pasada no adelanta la siguiente.</p>
+  <div class="vitrina-grid">
+    <article class="carta-vitrina mover">
+      <a class="cv-foto" href="/carta/sv08.5-150-glaceon-ex/">
+        <img src="https://assets.tcgdex.net/es/sv/sv08.5/150/high.webp" alt="Carta Glaceon ex de Evoluciones Prismáticas" width="480" height="670" loading="lazy" decoding="async">
+        <span class="cv-trend up">+35,1 %</span>
+      </a>
+      <a class="cv-nombre" href="/carta/sv08.5-150-glaceon-ex/">Glaceon ex</a>
+      <p class="cv-set muted small">Evoluciones Prismáticas</p>
+      <div class="mover-aa muted small"><span>Media 30 d</span><b>181,17 €</b></div>
+      <div class="mover-aa muted small"><span>Media 7 d</span><b class="up">244,78 €</b></div>
+      <div class="cv-pie">
+        <span class="cv-precio">192,90 €</span>
+        <a class="cv-btn" href="/carta/sv08.5-150-glaceon-ex/" aria-label="Ver precio de Glaceon ex">Ver</a>
+      </div>
+    </article>
+<article class="carta-vitrina mover">
+      <a class="cv-foto" href="/carta/sv03.5-180-omanyte/">
+        <img src="https://assets.tcgdex.net/es/sv/sv03.5/180/high.webp" alt="Carta Omanyte de 151" width="480" height="670" loading="lazy" decoding="async">
+        <span class="cv-trend up">+22,3 %</span>
+      </a>
+      <a class="cv-nombre" href="/carta/sv03.5-180-omanyte/">Omanyte</a>
+      <p class="cv-set muted small">151</p>
+      <div class="mover-aa muted small"><span>Media 30 d</span><b>15,68 €</b></div>
+      <div class="mover-aa muted small"><span>Media 7 d</span><b class="up">19,17 €</b></div>
+      <div class="cv-pie">
+        <span class="cv-precio">16,74 €</span>
+        <a class="cv-btn" href="/carta/sv03.5-180-omanyte/" aria-label="Ver precio de Omanyte">Ver</a>
+      </div>
+    </article>
+<article class="carta-vitrina mover">
+      <a class="cv-foto" href="/carta/sv08.5-157-ferropaladin-ex/">
+        <img src="https://assets.tcgdex.net/es/sv/sv08.5/157/high.webp" alt="Carta Ferropaladín ex de Evoluciones Prismáticas" width="480" height="670" loading="lazy" decoding="async">
+        <span class="cv-trend up">+19,9 %</span>
+      </a>
+      <a class="cv-nombre" href="/carta/sv08.5-157-ferropaladin-ex/">Ferropaladín ex</a>
+      <p class="cv-set muted small">Evoluciones Prismáticas</p>
+      <div class="mover-aa muted small"><span>Media 30 d</span><b>39,31 €</b></div>
+      <div class="mover-aa muted small"><span>Media 7 d</span><b class="up">47,12 €</b></div>
+      <div class="cv-pie">
+        <span class="cv-precio">44,88 €</span>
+        <a class="cv-btn" href="/carta/sv08.5-157-ferropaladin-ex/" aria-label="Ver precio de Ferropaladín ex">Ver</a>
+      </div>
+    </article>
+  </div>
+  <p class="acciones"><a class="btn ghost" href="/mercado/">Ver el radar completo: 20 que suben y 20 que bajan</a></p>
+  <p class="nota small">Enlaces de afiliado de Amazon: si compras desde ellos, ValorCarta recibe una comisión que no cambia lo que pagas. Precios de referencia de Cardmarket vía TCGdex, actualizados el 14 de noviembre de 2026.</p>
+</section>
+
+<section class="bloque disp-bloque">
+    <div class="disp-cab"><div><h2>Disponible ahora · lo que sí se puede comprar</h2><p class="muted small">Productos verificados hoy y comprables en Amazon. Si uno se agota, sale de aquí solo.</p></div><a href="/comprar/">Ver todos los productos →</a></div>
+    <div class="disp-grid"><article class="dprod">
+    <div class="dimg"><img src="/productos/producto-B0BMGR3QZW.jpg" alt="Baraja de liga Mew VMAX" loading="lazy" decoding="async"></div>
+    <span class="dbadge">En stock</span>
+    <h3>Baraja de liga Mew VMAX</h3>
+    <p class="dmotivo">60 cartas listas para jugar</p>
+    <p class="dprecio">34,99 € <span>· Amazon</span></p>
+    <a class="dbtn" href="https://www.amazon.es/dp/B0BMGR3QZW?tag=valorcarta-21&ascsubtag=vc-carta-B0BMGR3QZW" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a>
+  </article><article class="dprod">
+    <div class="dimg"><img src="/productos/producto-B0G5YX5XVQ.jpg" alt="Baraja de liga Mewtwo ex" loading="lazy" decoding="async"></div>
+    <span class="dbadge">En stock</span>
+    <h3>Baraja de liga Mewtwo ex</h3>
+    <p class="dmotivo">60 cartas listas para jugar</p>
+    <p class="dprecio">49,49 € <span>· Amazon</span></p>
+    <a class="dbtn" href="https://www.amazon.es/dp/B0G5YX5XVQ?tag=valorcarta-21&ascsubtag=vc-carta-B0G5YX5XVQ" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a>
+  </article><article class="dprod">
+    <div class="dimg"><img src="/productos/producto-B078NBBQXQ.jpg" alt="Mazo Ampharos ex" loading="lazy" decoding="async"></div>
+    <span class="dbadge">En stock</span>
+    <h3>Mazo Ampharos ex</h3>
+    <p class="dmotivo">Baraja de 60 cartas, sin abrir sobres</p>
+    <p class="dprecio">29,00 € <span>· Amazon</span></p>
+    <a class="dbtn" href="https://www.amazon.es/dp/B078NBBQXQ?tag=valorcarta-21&ascsubtag=vc-carta-B078NBBQXQ" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a>
+  </article><article class="dprod">
+    <div class="dimg"><img src="/productos/producto-B0HMJ88KGX.jpg" alt="Lata Otoño EX" loading="lazy" decoding="async"></div>
+    <span class="dbadge">En stock</span>
+    <h3>Lata Otoño EX</h3>
+    <p class="dmotivo">Promo asegurada dentro</p>
+    <p class="dprecio">40,00 € <span>· Amazon</span></p>
+    <a class="dbtn" href="https://www.amazon.es/dp/B0HMJ88KGX?tag=valorcarta-21&ascsubtag=vc-carta-B0HMJ88KGX" rel="sponsored nofollow noopener" target="_blank">Ver en Amazon</a>
+  </article></div>
+    <p class="nota small">Enlaces de afiliado: si compras desde aquí, ValorCarta recibe una comisión de Amazon sin coste para ti.
+    El precio y la disponibilidad pueden variar en Amazon: se revisan cada día y lo agotado sale solo.</p>
+  </section>
+
+<section class="bloque">
+  <h2>Los Pokémon que más se buscan</h2>
+  <p class="muted small">Una carta de cada uno, con el precio de referencia de hoy. Toca para ver todas sus versiones.</p>
+  <div class="munecos-grid">
+    <a class="muneco" href="/carta/sv03.5-025-pikachu/">
+      <img src="https://assets.tcgdex.net/es/sv/sv03.5/025/low.webp" alt="Carta de Pikachu" width="245" height="342" loading="lazy" decoding="async">
+      <span class="m-name">Pikachu</span>
+      <span class="m-price">71,81 €</span>
+    </a>
+<a class="muneco" href="/carta/sv03.5-133-eevee/">
+      <img src="https://assets.tcgdex.net/es/sv/sv03.5/133/low.webp" alt="Carta de Eevee" width="245" height="342" loading="lazy" decoding="async">
+      <span class="m-name">Eevee</span>
+      <span class="m-price">23,56 €</span>
+    </a>
+<a class="muneco" href="/carta/sv03.5-094-gengar/">
+      <img src="https://assets.tcgdex.net/es/sv/sv03.5/094/low.webp" alt="Carta de Gengar" width="245" height="342" loading="lazy" decoding="async">
+      <span class="m-name">Gengar</span>
+      <span class="m-price">42,09 €</span>
+    </a>
+<a class="muneco" href="/carta/sv08.5-059-umbreon/">
+      <img src="https://assets.tcgdex.net/es/sv/sv08.5/059/low.webp" alt="Carta de Umbreon" width="245" height="342" loading="lazy" decoding="async">
+      <span class="m-name">Umbreon</span>
+      <span class="m-price">42,80 €</span>
+    </a>
+<a class="muneco" href="/carta/sv03.5-150-mewtwo/">
+      <img src="https://assets.tcgdex.net/es/sv/sv03.5/150/low.webp" alt="Carta de Mewtwo" width="245" height="342" loading="lazy" decoding="async">
+      <span class="m-name">Mewtwo</span>
+      <span class="m-price">1,04 €</span>
+    </a>
+  </div>
+</section>
+
+<section class="bloque">
+  <h2>Las cartas más caras que sí se venden</h2>
+  <div class="grid">
+    <a class="tile" href="/carta/sv08.5-161-umbreon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/161/low.webp" alt="Umbreon ex" width="245" height="342" loading="eager" fetchpriority="high" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Umbreon ex</span>
+  <span class="tile-price">1290,10 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/swsh12-186-lugia-v/">
+  <img src="https://assets.tcgdex.net/es/swsh/swsh12/186/low.webp" alt="Lugia V" width="245" height="342" loading="eager" fetchpriority="high" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Lugia V</span>
+  <span class="tile-price">445,63 €</span>
+  <span class="tile-set muted">Tempestad Plateada</span>
+</a>
+<a class="tile" href="/carta/sv03.5-199-charizard-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/199/low.webp" alt="Charizard ex" width="245" height="342" loading="eager" fetchpriority="high" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Charizard ex</span>
+  <span class="tile-price">343,78 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv08.5-144-leafeon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/144/low.webp" alt="Leafeon ex" width="245" height="342" loading="eager" fetchpriority="high" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Leafeon ex</span>
+  <span class="tile-price">276,99 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-156-sylveon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/156/low.webp" alt="Sylveon ex" width="245" height="342" loading="eager" fetchpriority="high" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Sylveon ex</span>
+  <span class="tile-price">256,69 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-149-vaporeon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/149/low.webp" alt="Vaporeon ex" width="245" height="342" loading="eager" fetchpriority="high" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Vaporeon ex</span>
+  <span class="tile-price">199,71 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-150-glaceon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/150/low.webp" alt="Glaceon ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Glaceon ex</span>
+  <span class="tile-price">192,90 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-155-espeon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/155/low.webp" alt="Espeon ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Espeon ex</span>
+  <span class="tile-price">177,25 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-153-jolteon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/153/low.webp" alt="Jolteon ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Jolteon ex</span>
+  <span class="tile-price">160,82 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-162-bramaluna-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/162/low.webp" alt="Bramaluna ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Bramaluna ex</span>
+  <span class="tile-price">148,88 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-167-eevee-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/167/low.webp" alt="Eevee ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Eevee ex</span>
+  <span class="tile-price">131,89 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv08.5-146-flareon-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/146/low.webp" alt="Flareon ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Flareon ex</span>
+  <span class="tile-price">129,22 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv03.5-198-venusaur-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/198/low.webp" alt="Venusaur ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Venusaur ex</span>
+  <span class="tile-price">112,30 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv03.5-200-blastoise-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/200/low.webp" alt="Blastoise ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Blastoise ex</span>
+  <span class="tile-price">104,07 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv03.5-202-zapdos-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/202/low.webp" alt="Zapdos ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Zapdos ex</span>
+  <span class="tile-price">96,12 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/swsh12-131-dragonite/">
+  <img src="https://assets.tcgdex.net/es/swsh/swsh12/131/low.webp" alt="Dragonite" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Dragonite</span>
+  <span class="tile-price">95,38 €</span>
+  <span class="tile-set muted">Tempestad Plateada</span>
+</a>
+<a class="tile" href="/carta/sv03.5-168-charmander/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/168/low.webp" alt="Charmander" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Charmander</span>
+  <span class="tile-price">84,38 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv08.5-165-dragapult-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/165/low.webp" alt="Dragapult ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Dragapult ex</span>
+  <span class="tile-price">84,32 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv03.5-001-bulbasaur/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/001/low.webp" alt="Bulbasaur" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Bulbasaur</span>
+  <span class="tile-price">80,39 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv08.5-147-ceruledge-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv08.5/147/low.webp" alt="Ceruledge ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Ceruledge ex</span>
+  <span class="tile-price">76,54 €</span>
+  <span class="tile-set muted">Evoluciones Prismáticas</span>
+</a>
+<a class="tile" href="/carta/sv03.5-170-squirtle/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/170/low.webp" alt="Squirtle" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Squirtle</span>
+  <span class="tile-price">74,44 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv03.5-025-pikachu/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/025/low.webp" alt="Pikachu" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Pikachu</span>
+  <span class="tile-price">71,81 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv03.5-004-charmander/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/004/low.webp" alt="Charmander" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Charmander</span>
+  <span class="tile-price">71,22 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+<a class="tile" href="/carta/sv03.5-201-alakazam-ex/">
+  <img src="https://assets.tcgdex.net/es/sv/sv03.5/201/low.webp" alt="Alakazam ex" width="245" height="342" loading="lazy" fetchpriority="auto" decoding="async" onerror="this.outerHTML='<div class=tile-ph>'+this.alt+'</div>'">
+  <span class="tile-name">Alakazam ex</span>
+  <span class="tile-price">70,97 €</span>
+  <span class="tile-set muted">151</span>
+</a>
+  </div>
+</section>
+
+<section class="bloque">
+  <h2>Guías para no regalar dinero</h2>
+  <div class="grid guias-grid">
+    <a class="guia-card" href="/guia/cuanto-cuesta-gradear-una-carta-pokemon/">
+      <span class="guia-t">¿Cuánto cuesta gradear una carta Pokémon? Cómo saber si te sale a cuenta</span>
+      <span class="muted small">El coste real de gradear una carta incluye envío y seguro, no solo la tarifa. La regla para saber si te sale a cuenta antes de pagar, con precios de hoy y los tres errores que más dinero cuestan.</span></a><a class="guia-card" href="/guia/cartas-pokemon-doradas/">
+      <span class="guia-t">Cartas Pokémon doradas: qué son y cuánto valen</span>
+      <span class="muted small">Qué es una carta dorada o secreta, por qué vale más que el resto del set y cuánto cuestan hoy las más caras, con precios de referencia reales.</span></a><a class="guia-card" href="/guia/catalogar-tu-coleccion/">
+      <span class="guia-t">Cómo catalogar tu colección sin volverte loco</span>
+      <span class="muted small">Separa por sets, identifica variantes y anota el estado como un dato más. Un método sencillo para catalogar tu colección sin perder tardes.</span></a>
+  </div>
+</section>
+
+<section class="bloque">
+  <h2>Índice: las 100 cartas más caras</h2>
+  <p class="muted small">Enlaces directos a las fichas con más valor de mercado. Se recalcula a diario.</p>
+  <div class="indice">
+    <a href="/carta/base1-4-charizard/"><b>1</b><span>Charizard</span><em>3489,25 €</em></a><a href="/carta/30th-R-mew/"><b>2</b><span>Mew</span><em>3236,08 €</em></a><a href="/carta/30th-G-mew/"><b>3</b><span>Mew</span><em>2847,65 €</em></a><a href="/carta/swsh7-215-umbreon-vmax/"><b>4</b><span>Umbreon VMAX</span><em>1872,01 €</em></a><a href="/carta/ru1-7-pikachu/"><b>5</b><span>Pikachu</span><em>1675,54 €</em></a><a href="/carta/30th-B-mew/"><b>6</b><span>Mew</span><em>1613,18 €</em></a><a href="/carta/sv08.5-161-umbreon-ex/"><b>7</b><span>Umbreon ex</span><em>1290,10 €</em></a><a href="/carta/swsh7-218-rayquaza-vmax/"><b>8</b><span>Rayquaza VMAX</span><em>1154,90 €</em></a><a href="/carta/neo1-9-lugia/"><b>9</b><span>Lugia</span><em>1150,82 €</em></a><a href="/carta/ex10-105-lugia-ex/"><b>10</b><span>Lugia ex</span><em>1116,95 €</em></a><a href="/carta/base1-2-blastoise/"><b>11</b><span>Blastoise</span><em>958,83 €</em></a><a href="/carta/swsh11-186-giratina-v/"><b>12</b><span>Giratina V</span><em>942,45 €</em></a><a href="/carta/ex10-102-espeon-ex/"><b>13</b><span>Espeon ex</span><em>813,18 €</em></a><a href="/carta/ex10-112-umbreon-ex/"><b>14</b><span>Umbreon ex</span><em>807,58 €</em></a><a href="/carta/bw6-120-mew-ex/"><b>15</b><span>Mew-EX</span><em>765,71 €</em></a><a href="/carta/base1-15-venusaur/"><b>16</b><span>Venusaur</span><em>760,73 €</em></a><a href="/carta/base1-10-mewtwo/"><b>17</b><span>Mewtwo</span><em>741,32 €</em></a><a href="/carta/me02.5-276-pikachu-ex/"><b>18</b><span>Pikachu ex</span><em>707,49 €</em></a><a href="/carta/sv04.5-232-mew-ex/"><b>19</b><span>Mew ex</span><em>675,74 €</em></a><a href="/carta/swsh8-271-gengar-vmax/"><b>20</b><span>Gengar VMAX</span><em>635,13 €</em></a><a href="/carta/ex10-117-celebi-ex/"><b>21</b><span>Celebi ex</span><em>603,52 €</em></a><a href="/carta/swsh7-194-rayquaza-v/"><b>22</b><span>Rayquaza V</span><em>587,30 €</em></a><a href="/carta/me02-125-mega-charizard-x-ex/"><b>23</b><span>Mega-Charizard X ex</span><em>566,04 €</em></a><a href="/carta/sv10-231-mewtwo-ex-del-team-rocket/"><b>24</b><span>Mewtwo ex del Team Rocket</span><em>542,44 €</em></a><a href="/carta/bw6-124-giratina-ex/"><b>25</b><span>Giratina-EX</span><em>541,46 €</em></a><a href="/carta/me02.5-284-mega-gengar-ex/"><b>26</b><span>Mega-Gengar ex</span><em>529,18 €</em></a><a href="/carta/base2-1-clefable/"><b>27</b><span>Clefable</span><em>527,90 €</em></a><a href="/carta/base1-12-ninetales/"><b>28</b><span>Ninetales</span><em>507,14 €</em></a><a href="/carta/bw5-60-umbreon/"><b>29</b><span>Umbreon</span><em>504,28 €</em></a><a href="/carta/sv10.5b-172-zekrom-ex/"><b>30</b><span>Zekrom ex</span><em>492,77 €</em></a><a href="/carta/swshp-SWSH296-festival-de-campeones/"><b>31</b><span>Festival de Campeones</span><em>491,48 €</em></a><a href="/carta/sv10.5w-173-reshiram-ex/"><b>32</b><span>Reshiram ex</span><em>486,69 €</em></a><a href="/carta/bw6-128-rayquaza/"><b>33</b><span>Rayquaza</span><em>473,76 €</em></a><a href="/carta/svp-045-complejo-turistico-paraiso/"><b>34</b><span>Complejo Turístico Paraíso</span><em>454,64 €</em></a><a href="/carta/base1-16-zapdos/"><b>35</b><span>Zapdos</span><em>449,64 €</em></a><a href="/carta/swsh12-186-lugia-v/"><b>36</b><span>Lugia V</span><em>445,63 €</em></a><a href="/carta/sv10.5b-171-victini/"><b>37</b><span>Victini</span><em>433,94 €</em></a><a href="/carta/ru1-10-mew/"><b>38</b><span>Mew</span><em>431,06 €</em></a><a href="/carta/ru1-9-mewtwo/"><b>39</b><span>Mewtwo</span><em>431,06 €</em></a><a href="/carta/sv10.5w-172-victini/"><b>40</b><span>Victini</span><em>403,30 €</em></a><a href="/carta/sv03-164-pidgeot-ex/"><b>41</b><span>Pidgeot ex</span><em>400,00 €</em></a><a href="/carta/base1-58-pikachu/"><b>42</b><span>Pikachu</span><em>389,13 €</em></a><a href="/carta/swsh7-192-dragonite-v/"><b>43</b><span>Dragonite V</span><em>366,75 €</em></a><a href="/carta/ru1-6-gyarados/"><b>44</b><span>Gyarados</span><em>361,86 €</em></a><a href="/carta/swsh7-189-umbreon-v/"><b>45</b><span>Umbreon V</span><em>359,49 €</em></a><a href="/carta/base1-1-alakazam/"><b>46</b><span>Alakazam</span><em>354,76 €</em></a><a href="/carta/hgss1-28-pichu/"><b>47</b><span>Pichu</span><em>354,19 €</em></a><a href="/carta/swsh7-205-leafeon-vmax/"><b>48</b><span>Leafeon VMAX</span><em>351,08 €</em></a><a href="/carta/exu-A-unown/"><b>49</b><span>Unown</span><em>347,77 €</em></a><a href="/carta/ex1-101-mewtwo-ex/"><b>50</b><span>Mewtwo ex</span><em>344,18 €</em></a><a href="/carta/sv03.5-199-charizard-ex/"><b>51</b><span>Charizard ex</span><em>343,78 €</em></a><a href="/carta/hgssp-HGSS18-tropical-tidal-wave/"><b>52</b><span>Tropical Tidal Wave</span><em>341,89 €</em></a><a href="/carta/base1-6-gyarados/"><b>53</b><span>Gyarados</span><em>335,50 €</em></a><a href="/carta/smp-SM158-charizard/"><b>54</b><span>Charizard</span><em>334,74 €</em></a><a href="/carta/smp-SM226-charizard/"><b>55</b><span>Charizard</span><em>334,74 €</em></a><a href="/carta/swsh6-201-blaziken-vmax/"><b>56</b><span>Blaziken VMAX</span><em>332,26 €</em></a><a href="/carta/smp-SM168-pikachu-y-zekrom-gx/"><b>57</b><span>Pikachu y Zekrom GX</span><em>312,63 €</em></a><a href="/carta/smp-SM248-pikachu-y-zekrom-gx/"><b>58</b><span>Pikachu y Zekrom GX</span><em>312,63 €</em></a><a href="/carta/swsh8-270-espeon-vmax/"><b>59</b><span>Espeon VMAX</span><em>308,66 €</em></a><a href="/carta/svp-150-complejo-turistico-paraiso/"><b>60</b><span>Complejo Turístico Paraíso</span><em>307,22 €</em></a><a href="/carta/svp-101-pikachu/"><b>61</b><span>Pikachu</span><em>295,69 €</em></a><a href="/carta/me02.5-290-mega-dragonite-ex/"><b>62</b><span>Mega-Dragonite ex</span><em>295,22 €</em></a><a href="/carta/sv10.5b-166-zekrom-ex/"><b>63</b><span>Zekrom ex</span><em>290,29 €</em></a><a href="/carta/ex10-108-scizor-ex/"><b>64</b><span>Scizor ex</span><em>278,57 €</em></a><a href="/carta/swsh7-212-sylveon-vmax/"><b>65</b><span>Sylveon VMAX</span><em>278,19 €</em></a><a href="/carta/sv08.5-144-leafeon-ex/"><b>66</b><span>Leafeon ex</span><em>276,99 €</em></a><a href="/carta/bw5-107-darkrai-ex/"><b>67</b><span>Darkrai-EX</span><em>275,05 €</em></a><a href="/carta/ru1-12-lucario/"><b>68</b><span>Lucario</span><em>272,63 €</em></a><a href="/carta/svp-044-charmander/"><b>69</b><span>Charmander</span><em>270,44 €</em></a><a href="/carta/base1-7-hitmonchan/"><b>70</b><span>Hitmonchan</span><em>269,37 €</em></a><a href="/carta/ru1-8-zapdos/"><b>71</b><span>Zapdos</span><em>266,19 €</em></a><a href="/carta/ex10-19-vaporeon/"><b>72</b><span>Vaporeon</span><em>265,30 €</em></a><a href="/carta/swshp-SWSH197-glaceon-v-astro/"><b>73</b><span>Glaceon V-ASTRO</span><em>265,00 €</em></a><a href="/carta/sv10.5b-105-seismitoad/"><b>74</b><span>Seismitoad</span><em>257,95 €</em></a><a href="/carta/swsh12.5gg-GG69-giratina-v-astro/"><b>75</b><span>Giratina V-ASTRO</span><em>257,92 €</em></a><a href="/carta/sv08.5-156-sylveon-ex/"><b>76</b><span>Sylveon ex</span><em>256,69 €</em></a><a href="/carta/base1-3-chansey/"><b>77</b><span>Chansey</span><em>252,92 €</em></a><a href="/carta/bw5-106-groudon-ex/"><b>78</b><span>Groudon-EX</span><em>252,53 €</em></a><a href="/carta/ru1-15-rattata/"><b>79</b><span>Rattata</span><em>252,42 €</em></a><a href="/carta/swsh7-209-glaceon-vmax/"><b>80</b><span>Glaceon VMAX</span><em>250,47 €</em></a><a href="/carta/bw6-123-rayquaza-ex/"><b>81</b><span>Rayquaza-EX</span><em>249,72 €</em></a><a href="/carta/svp-051-snorlax/"><b>82</b><span>Snorlax</span><em>246,82 €</em></a><a href="/carta/swsh7-180-espeon-v/"><b>83</b><span>Espeon V</span><em>243,50 €</em></a><a href="/carta/bw5-109-gardevoir/"><b>84</b><span>Gardevoir</span><em>243,28 €</em></a><a href="/carta/base1-11-nidoking/"><b>85</b><span>Nidoking</span><em>242,72 €</em></a><a href="/carta/sv04.5-234-charizard-ex/"><b>86</b><span>Charizard ex</span><em>241,49 €</em></a><a href="/carta/swsh9-154-charizard-v/"><b>87</b><span>Charizard V</span><em>241,03 €</em></a><a href="/carta/me02.5-277-pikachu-ex/"><b>88</b><span>Pikachu ex</span><em>239,80 €</em></a><a href="/carta/swsh8-269-mew-vmax/"><b>89</b><span>Mew VMAX</span><em>237,89 €</em></a><a href="/carta/swsh6-177-moltres-de-galar-v/"><b>90</b><span>Moltres de Galar V</span><em>236,54 €</em></a><a href="/carta/sv10-232-garchomp-ex-de-cintia/"><b>91</b><span>Garchomp ex de Cintia</span><em>234,49 €</em></a><a href="/carta/cel25cc-CC002-charizard/"><b>92</b><span>Charizard</span><em>231,13 €</em></a><a href="/carta/smp-SM148-festival-de-campeones/"><b>93</b><span>Festival de Campeones</span><em>229,31 €</em></a><a href="/carta/smp-SM231-festival-de-campeones/"><b>94</b><span>Festival de Campeones</span><em>229,31 €</em></a><a href="/carta/smp-SM78-festival-de-campeones/"><b>95</b><span>Festival de Campeones</span><em>229,31 €</em></a><a href="/carta/swsh11-180-aerodactyl-v/"><b>96</b><span>Aerodactyl V</span><em>227,57 €</em></a><a href="/carta/sv10.5w-166-reshiram-ex/"><b>97</b><span>Reshiram ex</span><em>225,90 €</em></a><a href="/carta/smp-SM241-umbreon-y-darkrai-gx/"><b>98</b><span>Umbreon y Darkrai GX</span><em>216,96 €</em></a><a href="/carta/me02-130-mega-charizard-x-ex/"><b>99</b><span>Mega-Charizard X ex</span><em>216,19 €</em></a><a href="/carta/svp-224-complejo-turistico-paraiso/"><b>100</b><span>Complejo Turístico Paraíso</span><em>215,35 €</em></a>
+  </div>
+</section>
+
+<section class="bloque">
+  <h2>Todos los sets</h2>
+  <div class="indice sets">
+    <a href="/set/base1/"><span>Edición Básica</span><em>102</em></a><a href="/set/30th/"><span>Celebración 30.º Aniversario</span><em>191</em></a><a href="/set/swsh7/"><span>Cielos Evolutivos</span><em>237</em></a><a href="/set/ru1/"><span>Pokémon Rumble</span><em>16</em></a><a href="/set/sv08.5/"><span>Evoluciones Prismáticas</span><em>180</em></a><a href="/set/neo1/"><span>Neo Genesis</span><em>111</em></a><a href="/set/ex10/"><span>EX Fuerzas Ocultas</span><em>117</em></a><a href="/set/swsh11/"><span>Origen Perdido</span><em>217</em></a><a href="/set/bw6/"><span>Dragones Majestuosos</span><em>128</em></a><a href="/set/me02.5/"><span>Héroes Ascendentes</span><em>295</em></a><a href="/set/sv04.5/"><span>Destinos de Paldea</span><em>245</em></a><a href="/set/swsh8/"><span>Golpe Fusión</span><em>284</em></a><a href="/set/me02/"><span>Fuegos Fantasmales</span><em>130</em></a><a href="/set/sv10/"><span>Rivales Predestinados</span><em>244</em></a><a href="/set/base2/"><span>Jungla</span><em>64</em></a><a href="/set/bw5/"><span>Oscuros Exploradores</span><em>111</em></a><a href="/set/sv10.5b/"><span>Fulgor Negro</span><em>172</em></a><a href="/set/swshp/"><span>Cartas de promoción ESES</span><em>301</em></a><a href="/set/sv10.5w/"><span>Llama Blanca</span><em>173</em></a><a href="/set/svp/"><span>SVP Black Star Promos</span><em>198</em></a><a href="/set/swsh12/"><span>Tempestad Plateada</span><em>215</em></a><a href="/set/sv03/"><span>Llamas Obsidianas</span><em>230</em></a><a href="/set/hgss1/"><span>HeartGold SoulSilver</span><em>124</em></a><a href="/set/exu/"><span>EX Fuerzas Ocultas Unown</span><em>27</em></a><a href="/set/ex1/"><span>Rubí &amp; Zafiro</span><em>109</em></a><a href="/set/sv03.5/"><span>151</span><em>207</em></a><a href="/set/hgssp/"><span>HGSS Black Star Promos</span><em>25</em></a><a href="/set/smp/"><span>SL Cartas de promoción</span><em>240</em></a><a href="/set/swsh6/"><span>Reinado Escalofriante</span><em>233</em></a><a href="/set/swsh12.5gg/"><span>Cenit Supremo Galería de Galar</span><em>70</em></a><a href="/set/swsh9/"><span>Astros Brillantes</span><em>186</em></a><a href="/set/cel25cc/"><span>Celebraciones Colección Clásica</span><em>25</em></a><a href="/set/sv02/"><span>Evoluciones en Paldea</span><em>279</em></a><a href="/set/me03/"><span>Equilibrio Perfecto</span><em>124</em></a><a href="/set/sv08/"><span>Chispas Fulgurantes</span><em>252</em></a><a href="/set/swsh5/"><span>Estilos de Combate</span><em>183</em></a><a href="/set/bw4/"><span>Próximos Destinos</span><em>103</em></a><a href="/set/bw1/"><span>Negro y Blanco</span><em>115</em></a><a href="/set/me05/"><span>Oscuridad Absoluta</span><em>120</em></a><a href="/set/me01/"><span>Megaevolución</span><em>188</em></a><a href="/set/swsh10/"><span>Resplandor Astral</span><em>216</em></a><a href="/set/bw7/"><span>Fronteras Cruzadas</span><em>153</em></a><a href="/set/sm3/"><span>Sombras Ardientes</span><em>169</em></a><a href="/set/sv06/"><span>Mascarada Crepuscular</span><em>226</em></a><a href="/set/mep/"><span>MEP Black Star Promos</span><em>96</em></a><a href="/set/swsh4.5sv/"><span>Destinos Brillantes Tesoro Brillante</span><em>122</em></a><a href="/set/base3/"><span>Fósil</span><em>62</em></a><a href="/set/swsh12tg/"><span>Tempestad Plateada Galería de Entrenador</span><em>30</em></a><a href="/set/hgss2/"><span>Liberados</span><em>96</em></a><a href="/set/me04/"><span>Caos Creciente</span><em>122</em></a><a href="/set/swsh11tg/"><span>Origen Perdido Galería de Entrenador</span><em>30</em></a><a href="/set/swsh4/"><span>Voltaje Vívido</span><em>203</em></a><a href="/set/bw3/"><span>Nobles Victorias</span><em>102</em></a><a href="/set/swsh10tg/"><span>Resplandor Astral Galería de Entrenador</span><em>30</em></a><a href="/set/swsh9tg/"><span>Astros Brillantes Galería de Entrenador</span><em>30</em></a><a href="/set/bw2/"><span>Fuerzas Emergentes</span><em>98</em></a><a href="/set/swsh10.5/"><span>Pokémon GO</span><em>88</em></a><a href="/set/pl1/"><span>Platino</span><em>133</em></a><a href="/set/pl4/"><span>Arceus</span><em>111</em></a><a href="/set/sv09/"><span>Juntos de Aventuras</span><em>190</em></a><a href="/set/sv04/"><span>Brecha Paradójica</span><em>266</em></a><a href="/set/sv07/"><span>Corona Astral</span><em>175</em></a><a href="/set/sv05/"><span>Fuerzas Temporales</span><em>218</em></a><a href="/set/cel25/"><span>Celebraciones</span><em>25</em></a><a href="/set/sv06.5/"><span>Fabula Sombría</span><em>99</em></a><a href="/set/swsh2/"><span>Choque Rebelde</span><em>209</em></a><a href="/set/swsh12.5/"><span>Cenit Supremo</span><em>160</em></a><a href="/set/swsh3/"><span>Oscuridad Incandescente</span><em>201</em></a><a href="/set/2012bw/"><span>Colección de McDonald's 2012</span><em>12</em></a><a href="/set/basep/"><span>Wizards Black Star Promos</span><em>53</em></a><a href="/set/2021swsh/"><span>Colección de McDonald's 2021</span><em>25</em></a><a href="/set/tk-hs-g/"><span>Kit de Entrenador HeatGold &amp; SoulSilver (Gyarados)</span><em>30</em></a><a href="/set/tk-hs-r/"><span>Kit de Entrenador HeatGold &amp; SoulSilver (Raichu)</span><em>30</em></a><a href="/set/tk-ex-latia/"><span>Kit de Entrenador EX (Latias)</span><em>10</em></a><a href="/set/tk-ex-latio/"><span>Kit de Entrenador EX (Latios)</span><em>10</em></a><a href="/set/swsh4.5/"><span>Destinos Brillantes</span><em>73</em></a><a href="/set/tk-ex-p/"><span>Kit de Entrenador EX (Plusle)</span><em>12</em></a><a href="/set/2011bw/"><span>Colección de McDonald's 2011</span><em>12</em></a><a href="/set/2022swsh/"><span>Colección de McDonald's 2022</span><em>15</em></a><a href="/set/tk-ex-m/"><span>Kit de Entrenador EX (Ninun)</span><em>12</em></a><a href="/set/2023sv/"><span>Colección de McDonald's 2023</span><em>15</em></a><a href="/set/2024sv/"><span>Colección de McDonald's 2024</span><em>15</em></a><a href="/set/bw10/"><span>Explosión Plasma</span><em>105</em></a><a href="/set/sve/"><span>Escarlata y Púrpura Energía</span><em>24</em></a><a href="/set/tk/"><span>tk</span><em>337</em></a><a href="/set/tk-dp-l/"><span>Kit de Entrenador Diamante &amp; Perla (Lucario)</span><em>11</em></a><a href="/set/tk-dp-m/"><span>Kit de Entrenador Diamante &amp; Perla (Manaphy)</span><em>12</em></a><a href="/set/sm9/"><span>Union de Aliados</span><em>196</em></a><a href="/set/sm11/"><span>Mentes Unidas</span><em>258</em></a><a href="/set/sm10/"><span>Vínculos Indestructibles</span><em>234</em></a><a href="/set/mee/"><span>Megaevolución Energía</span><em>16</em></a><a href="/set/sm6/"><span>Luz Prohibida</span><em>146</em></a><a href="/set/A1/"><span>Genes Formidables</span><em>286</em></a><a href="/set/A1a/"><span>La Isla Singular</span><em>86</em></a><a href="/set/A2/"><span>Pugna Espaciotemporal</span><em>207</em></a><a href="/set/A2a/"><span>Luz Triunfal</span><em>96</em></a><a href="/set/A2b/"><span>Festival Brillante</span><em>111</em></a><a href="/set/A3/"><span>Guardianes Celestiales</span><em>239</em></a><a href="/set/A4a/"><span>Manantial Oculto</span><em>105</em></a><a href="/set/B1a/"><span>Fuego Carmesí</span><em>103</em></a><a href="/set/B2/"><span>Desfile de Ensueño</span><em>234</em></a><a href="/set/B2a/"><span>Paldean Wonders</span><em>129</em></a><a href="/set/P/"><span>P</span><em>92</em></a><a href="/set/bw8/"><span>Tormenta Plasma</span><em>138</em></a><a href="/set/bw9/"><span>Glaciación Plasma</span><em>122</em></a><a href="/set/bwp/"><span>NB Promo</span><em>101</em></a><a href="/set/det1/"><span>Detective Pikachu</span><em>18</em></a><a href="/set/dp1/"><span>Diamante &amp; Perla</span><em>130</em></a><a href="/set/dp2/"><span>Tesoros Misteriosos</span><em>124</em></a><a href="/set/dp3/"><span>Maravillas Secretas</span><em>132</em></a><a href="/set/dp4/"><span>Grandes Encuentros</span><em>106</em></a><a href="/set/dp6/"><span>Despertar de las Leyendas</span><em>146</em></a><a href="/set/dp7/"><span>Frente Tormentoso</span><em>106</em></a><a href="/set/dpp/"><span>DP Black Star Promos</span><em>56</em></a><a href="/set/dv1/"><span>Tesoro de Dragones</span><em>21</em></a><a href="/set/g1/"><span>Generaciones</span><em>117</em></a><a href="/set/me06/"><span>Dominio Delta</span><em>141</em></a><a href="/set/np/"><span>Nintendo Black Star Promos</span><em>40</em></a><a href="/set/sm1/"><span>Sol y Luna</span><em>163</em></a><a href="/set/sm115/"><span>Destinos Ocultos</span><em>69</em></a><a href="/set/sm12/"><span>Eclipse Cósmico</span><em>271</em></a><a href="/set/sm2/"><span>Albor de Guadianes</span><em>169</em></a><a href="/set/sm3.5/"><span>Leyendas Luminosas</span><em>78</em></a><a href="/set/sm4/"><span>Invasión Carmesí</span><em>124</em></a><a href="/set/sm5/"><span>Ultraprisma</span><em>173</em></a><a href="/set/sm7/"><span>Tormenta Celestial</span><em>183</em></a><a href="/set/sm7.5/"><span>Majestad De Dragones</span><em>78</em></a><a href="/set/sm8/"><span>Truenos Perdidos</span><em>236</em></a><a href="/set/sma/"><span>Destinos Ocultos Tesoro Brillante</span><em>94</em></a><a href="/set/sv01/"><span>Escarlata y Púrpura</span><em>258</em></a><a href="/set/swsh1/"><span>Espada y Escudo</span><em>216</em></a><a href="/set/swsh3.5/"><span>Camino de Campeones</span><em>80</em></a><a href="/set/xy1/"><span>XY</span><em>146</em></a><a href="/set/xy10/"><span>Destinos Enfrentados</span><em>129</em></a><a href="/set/xy11/"><span>Asedio de Vapor</span><em>116</em></a><a href="/set/xy12/"><span>Evoluciones</span><em>113</em></a><a href="/set/xy2/"><span>Destellos de Fuego</span><em>110</em></a><a href="/set/xy3/"><span>Puños Furiosos</span><em>114</em></a><a href="/set/xy4/"><span>Fuerzas Fantasmales</span><em>124</em></a><a href="/set/xy5/"><span>Duelos Primigenios</span><em>164</em></a><a href="/set/xy6/"><span>Cielos Rugientes</span><em>112</em></a><a href="/set/xy7/"><span>Antiguos Orígenes</span><em>101</em></a><a href="/set/xy8/"><span>Turbo Impulso</span><em>165</em></a><a href="/set/xy9/"><span>TURBOLímite</span><em>126</em></a><a href="/set/xya/"><span>Cartas alternativas</span><em>6</em></a><a href="/set/xyp/"><span>XY Cartas de promoción</span><em>216</em></a>
+  </div>
+  <p class="muted small"><a href="/sets/">Ver los 146 sets agrupados por serie</a></p>
+</section>
+
+<section class="bloque">
+  <h2>Lo que se movió el 2026-11-14</h2>
+  <p class="muted small">Comparado con el día anterior. Se recalcula en cada actualización, así que cambia cada mañana.</p>
+  <ul class="pasos"><li><a href="/carta/bw6-22-ho-oh-ex/">Ho-Oh-EX</a> — 5,16 € (+151.7 %)</li><li><a href="/carta/swshp-SWSH182-vaporeon-vmax/">Vaporeon VMAX</a> — 131,01 € (+140.6 %)</li><li><a href="/carta/swshp-SWSH129-umbreon/">Umbreon</a> — 26,30 € (+67.8 %)</li><li><a href="/carta/sv06-185-applin/">Applin</a> — 11,49 € (+64.1 %)</li><li><a href="/carta/sv08-213-kecleon/">Kecleon</a> — 10,13 € (+59.8 %)</li><li><a href="/carta/sv10.5b-105-seismitoad/">Seismitoad</a> — 257,95 € (+57.2 %)</li></ul>
+  <p class="muted small">Actualizado: 2026-11-14 · <a href="/mercado/">ver el radar completo</a></p>
+</section>
+
+<section class="bloque">
+  <h2>Cómo se calcula lo que vale tu colección</h2>
+  <p>Una carta no vale lo que dice un catálogo: vale lo que alguien paga por ella esta semana. Por eso aquí no usamos
+  precios de tienda ni recomendaciones, sino la media de ventas reales de Cardmarket de los últimos días, que es la
+  referencia que usan los coleccionistas en Europa.</p>
+  <p>Para cada carta verás tres cifras: el <b>precio de referencia</b> (la tendencia actual), la <b>media de 30 días</b>
+  (para saber si está subiendo o bajando) y el <b>mínimo</b> (lo más barato que se ha vendido). Las tres juntas cuentan
+  una historia; una sola engaña.</p>
+  <h2>Qué cambia el valor de una carta</h2>
+  <ul class="pasos">
+    <li><b>El estado.</b> Una carta Near Mint puede valer el doble que la misma carta con desgaste. Si no está perfecta, no vale la cifra que ves.</li>
+    <li><b>La versión.</b> Normal, reversa y holo del mismo número son cartas distintas y precios distintos.</li>
+    <li><b>El idioma.</b> Español e inglés no cotizan igual; las japonesas, a veces, muy distinto.</li>
+    <li><b>La reimpresión.</b> Si el personaje vuelve en otro set, la versión antigua suele bajar.</li>
+  </ul>
+  <h2>Preguntas frecuentes</h2>
+  <h3>¿Los precios son una tasación?</h3>
+  <p>No. Son precios de referencia de mercado. Una tasación exige ver la carta; esto te dice cuánto se está pagando por cartas parecidas.</p>
+  <h3>¿De dónde salen?</h3>
+  <p>De Cardmarket, vía la API pública de TCGdex, y se actualizan a diario. Puedes descargar el volcado completo en nuestros <a href="https://github.com/valorcarta/precios-cartas-datos">datos abiertos</a>.</p>
+  <h3>¿Cuánto cuesta usarlo?</h3>
+  <p>Nada. El valorador y las fichas son gratis y no piden registro. Si algún día quieres que te avisemos por email cuando una carta baje, eso sí se paga.</p>
+</section>
+
+<section class="bloque dos-col">
+  <div>
+    <h2>Precio de mercado, no de catálogo</h2>
+    <p>Los precios salen de las ventas reales de Cardmarket: media, tendencia y mínimo de los últimos 30 días.
+    Se actualizan a diario. Una carta sin movimiento no sube porque un catálogo lo diga.</p>
+  </div>
+  <div>
+    <h2>Cómo se usa</h2>
+    <ol class="pasos">
+      <li>Busca tus cartas y añádelas a la colección.</li>
+      <li>Mira el total, cuánto subió en 30 días y cuáles son tus cartas que más valen.</li>
+      <li>Guarda el enlace y vuelve cuando quieras: el valor se recalcula solo.</li>
+    </ol>
+  </div>
+</section></main>
+<footer>
+  <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
+  <p class="foot-links">
+    <a href="/valorar/">Valorar colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
+    <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
+  </p>
+  <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
+</footer>
+<script src="/assets/app.js?v=d6ecc1bc5fe0bb6f4e8c5f0fd85eb2" defer></script>
+
+<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";
+fetch("https://abacus.jasoncameron.dev/hit/valorcarta/"+k,{mode:"cors",keepalive:true});
+fetch("https://abacus.jasoncameron.dev/hit/valorcarta/total",{mode:"cors",keepalive:true});}catch(e){}})();</script>
+</body>
+</html>

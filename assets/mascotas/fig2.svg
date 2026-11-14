@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 142">
+  <defs><filter id="sombra" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter></defs>
+  <ellipse cx="80" cy="132" rx="54" ry="7" fill="#000" opacity=".55" filter="url(#sombra)"/>
+  <g stroke="#141018" stroke-width="5.5" stroke-linejoin="round" stroke-linecap="round">
+    <ellipse cx="80" cy="92" rx="56" ry="46" fill="#2f7f8f"/>
+    <path d="M48 56 q4 -18 16 -8" fill="#2f7f8f"/>
+    <path d="M112 56 q-4 -18 -16 -8" fill="#2f7f8f"/>
+    <path d="M26 78 q-10 8 -4 18" fill="none"/>
+    <path d="M134 78 q10 8 4 18" fill="none"/>
+    <ellipse cx="54" cy="126" rx="16" ry="11" fill="#2f7f8f"/>
+    <ellipse cx="106" cy="126" rx="16" ry="11" fill="#2f7f8f"/>
+  </g>
+  <ellipse cx="80" cy="100" rx="37" ry="32" fill="#f3e6ca"/>
+  <g stroke="#141018" stroke-width="4.4" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M66 92 q14 11 28 0" fill="none"/>
+    <path d="M66 92 q-2 11 7 15" fill="none"/>
+    <path d="M94 92 q2 11 -7 15" fill="none"/>
+    <path d="M72 100 l-3 8 M88 100 l3 8" fill="none"/>
+    <ellipse cx="54" cy="82" rx="5.5" ry="6.5" fill="#141018"/>
+    <ellipse cx="106" cy="82" rx="5.5" ry="6.5" fill="#141018"/>
+  </g>
+  <circle cx="56" cy="80" r="2" fill="#fff"/>
+  <circle cx="108" cy="80" r="2" fill="#fff"/>
+  <path d="M42 112 q38 18 76 0" fill="none" stroke="#1e5a66" stroke-width="4.5" stroke-linecap="round" opacity=".6"/>
+</svg>
