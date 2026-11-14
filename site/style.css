@@ -693,3 +693,14 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
 .video-proteccion{grid-column:1/-1;justify-self:center;width:100%;max-width:340px;aspect-ratio:9/16;position:relative}
 .video-proteccion iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:14px}
 @media(max-width:720px){.proteccion-grid{grid-template-columns:1fr}.video-proteccion{max-width:300px}}
+
+/* ===== Formatos que compiten entre sí: enlazar producto con producto =====
+   Cada ficha de compra termina con los formatos que de verdad se comparan
+   con ella y el motivo en una línea. Es una decisión, no un catálogo. */
+.rel-titulo{margin:34px 0 12px;font-size:1.15rem}
+.rel-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
+.rel-card{display:flex;flex-direction:column;gap:5px;padding:14px 16px;border:1px solid var(--line);
+  border-radius:12px;background:var(--surface);transition:border-color .15s ease,transform .15s ease}
+.rel-card:hover{border-color:var(--accent);transform:translateY(-2px);color:inherit}
+.rel-card b{font-weight:650;font-size:.95rem;color:var(--text)}
+.rel-card span{font-size:.82rem;line-height:1.45;color:var(--muted)}
