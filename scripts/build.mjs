@@ -552,7 +552,7 @@ const vcShelfHtml = (lista) => lista.map((p, i) => `<a class="vc-prod" href="${v
       <span class="linea"><span class="p">${vcPrecio(p)}</span><span class="boton">Comprar</span></span>
     </a>`).join('\n      ');
 
-const homeBody = `
+const homeBody = `<div class="vc-ancho">
 <div class="vc-barra">
   <span class="nombre">Mercado</span>
   <span class="migas">Inicio</span>
@@ -680,7 +680,7 @@ ${(() => {
       const c = nombre.get(m.id);
       if (!c) return '';
       const signo = m.pct >= 0 ? '+' : '';
-      return `<li><a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a> — ${eur(m.a)} (${signo}${m.pct.toFixed(1)} %)</li>`;
+      return `<li><a href="/carta/${cardSlug(c)}/">${esc(c.name)}</a> — ${eur(m.a)} (${signo}${m.pct.toFixed(1)} %)</li></div>`;
     })
     .filter(Boolean)
     .join('')}</ul>` : '<p>Hoy ninguna carta se ha movido más de un 3 %. El mercado está plano.</p>'}
