@@ -822,3 +822,28 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   .vc-fija .der{width:100%;justify-content:space-between}
 }
 .vc-buscador{max-width:460px;margin:16px auto 0;position:relative}
+
+/* móvil: que la portada muestre producto en la primera pantalla (15-11-2026) */
+@media (max-width:760px){
+  .vc-barra{display:none}
+  .vc-tit{padding:0 0 8px}
+  .vc-tit h1{font-size:1.45rem;margin:0 auto 6px}
+  .vc-tit .sub{display:none}
+  .vc-tit .kicker{font-size:9px;margin-bottom:8px}
+  .vc-buscador{margin:10px auto 0;max-width:100%}
+  .vc-unidad{padding:8px}
+  .vc-aviso{font-size:.66rem;line-height:1.4;margin:0 0 8px}
+  .vc-ficha{min-height:142px;padding:11px}
+  .vc-ficha h2{font-size:1.02rem}
+  .vc-ficha p{font-size:.7rem;margin:0 0 6px}
+  .vc-compra-cab{margin:10px 0 8px}
+  .vc-compra-cab p{display:none}
+  .vc-compra-cab h2{font-size:1rem}
+  .vc-prod{padding:9px}
+  .vc-prod .placa{height:84px}
+  .vc-prod .placa img{max-height:76px}
+  .vc-prod h3{font-size:.82rem}
+  .vc-prod .micro{display:none}
+  .vc-prod .p{font-size:.95rem}
+  .vc-ribbon{display:none}
+}
