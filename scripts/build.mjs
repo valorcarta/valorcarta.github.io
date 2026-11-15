@@ -1155,8 +1155,8 @@ ${(() => {
 
       const enSlugFor = enSlugById.get(c.id);
       const html = layout({
-        title: `${c.name} ${c.localId ?? ''} — ${nombreSet(c)}: precio y valor | ${config.brand}`,
-        description: `¿Cuánto vale ${c.name} de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
+        title: `${c.name} ${c.localId ?? ''} — ${nombreSet(c)}: precio y valor | Carta Pokémon | ${config.brand}`,
+        description: `¿Cuánto vale ${c.name}, carta Pokémon de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
         url: `/carta/${slug}/`,
         alternates: enSlugFor ? altPair(`/carta/${slug}/`, `/en/card/${enSlugFor}/`) : undefined,
         noindex: !indexables.has(c.id),
