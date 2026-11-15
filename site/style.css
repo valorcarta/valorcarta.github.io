@@ -847,3 +847,5 @@ a.btn,button.btn,.btn{min-height:44px !important;display:inline-flex !important;
   .vc-prod .p{font-size:.95rem}
   .vc-ribbon{display:none}
 }
+main:has(.vc-ancho){max-width:1240px}
+@media (max-width:1280px){main:has(.vc-ancho){max-width:1080px}}
