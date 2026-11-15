@@ -499,37 +499,135 @@ for (const f of (await readdir(guiasDir).catch(() => [])).filter((f) => f.endsWi
 guias.sort((a, b) => a.title.localeCompare(b.title, 'es'));
 
 // ---------- home ----------
+
+// ---------- portada nueva (aprobada 15-11-2026) ----------
+const vcProductos = DISPONIBLES_PROD
+  .filter((x) => x.asin && IMGS_SITE.has(x.asin))
+  .map((x) => ({
+    asin: x.asin,
+    nombre: x.nombre || '',
+    motivo: x.motivo || '',
+    estado: x.estado || '',
+    precio: (VERIF_PROD[x.asin] || {}).precio ?? x.precio ?? null,
+  }));
+const vcShelf = vcProductos.slice(0, 8);
+const vcBoton = (p) => `https://www.amazon.es/dp/${p.asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=${encodeURIComponent('vc-portada-' + p.asin)}`;
+const vcPrecio = (p) => (typeof p.precio === 'number' ? eur(p.precio) : 'Precio en Amazon');
+const vcSello = (p) => (/left in stock|queda/i.test(p.estado || '') ? '<span class="sello ult">últimas</span>' : '<span class="sello">en stock</span>');
+const vcDia = (() => {
+  const c = (priced.find((x) => typeof x.price === 'number' && x.price > 0) || cartaDelDia || null);
+  return c ? { c, v: { precio: c.price } } : null;
+})();
+const vcLupa = (() => {
+  const a = 'B09MG1FV1V';
+  const v = VERIF_PROD[a] || {};
+  if (DISPONIBLES.has(a) && IMGS_SITE.has(a)) {
+    return { asin: a, nombre: 'Lupa de 10 aumentos', motivo: 'La prueba que delata una falsa en segundos.', estado: v.estado || 'In stock', precio: v.precio ?? null };
+  }
+  return vcProductos.find((x) => x.asin === 'B085DNDLC1') || vcProductos[1] || null;
+})();
+const vcMazo = vcProductos.find((x) => x.asin === 'B0BMGR3QZW') || vcProductos[0] || null;
+const vcMueven = ((CAMBIOS && CAMBIOS.suben) || [])
+  .map((m) => { const c = cards.find((x) => x.id === m.id); return c ? { c, pct: m.pct } : null; })
+  .filter(Boolean).slice(0, 2);
+const vcEtiqueta = (nombre) => {
+  const n = (nombre || '').toLowerCase();
+  if (n.includes('funda') || n.includes('penny')) return 'FUNDAS';
+  if (n.includes('toploader')) return 'TOPLOADER';
+  if (n.includes('mazo') || n.includes('baraja')) return 'MAZO';
+  if (n.includes('lata')) return 'LATA';
+  if (n.includes('album') || n.includes('álbum')) return 'ÁLBUM';
+  if (n.includes('etb') || n.includes('elite')) return 'ETB';
+  if (n.includes('caja') || n.includes('display')) return 'CAJA';
+  if (n.includes('sobre') || n.includes('booster')) return 'SOBRE';
+  if (n.includes('lupa')) return 'LUPA';
+  return 'AMAZON';
+};
+const vcShelfHtml = (lista) => lista.map((p, i) => `<a class="vc-prod" href="${vcBoton(p)}" rel="sponsored nofollow noopener" target="_blank">
+      ${vcSello(p)}
+      <span class="placa"><img src="/productos/producto-${esc(p.asin)}.jpg" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>
+      <span class="num">[ ${String(i + 1).padStart(2, '0')} ] ${esc(vcEtiqueta(p.nombre))}</span>
+      <h3>${esc(p.nombre)}</h3>
+      <p class="micro">${esc(p.motivo || 'Producto verificado y en stock hoy.')}</p>
+      <span class="linea"><span class="p">${vcPrecio(p)}</span><span class="boton">Comprar</span></span>
+    </a>`).join('\n      ');
+
 const homeBody = `
-<section class="hero hero-dia portada">
-  <div class="portada-fondo" aria-hidden="true">
-    <span class="aura aura-1"></span><span class="aura aura-2"></span><span class="aura aura-3"></span>
-    <svg class="bola-fondo" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M4 100h192M100 4a96 96 0 0 1 0 192" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="100" cy="100" r="30" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+<div class="vc-barra">
+  <span class="nombre">Mercado</span>
+  <span class="migas">Inicio</span>
+  <span class="der"><a href="/mercado/">Resumen</a><a href="/cartas/">Fichas</a><a class="comprar" href="/comprar/">Comprar</a></span>
+</div>
+
+<div class="vc-tit">
+  <p class="kicker">Precio real de Cardmarket · ${priced.length.toLocaleString('es-ES')} cartas</p>
+  <h1>Cuánto valen tus cartas. De verdad.</h1>
+  <p class="sub">Actualizado a diario. Gratis y sin registro.</p>
+  <p class="micro"><span>Media de 30 días</span><i></i><span>Mínimo de cada carta</span><i></i><span>Stock comprobado hoy</span></p>
+  <div id="buscador" class="buscador vc-buscador">
+    <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
+    <div id="resultados" class="resultados"></div>
   </div>
-  <div class="hero-txt">
-    <p class="kicker">PRECIOS DE CARTAS POKÉMON · ${priced.length.toLocaleString('es-ES')} CARTAS · ACTUALIZADO EL ${new Date(fechaCatalogo || Date.now()).toLocaleDateString('es-ES', { day: 'numeric', month: 'long' }).toUpperCase()}</p>
-    <h1>¿Cuánto valen <em>tus</em> cartas Pokémon?</h1>
-    <p class="lede">El precio medio real de Cardmarket, actualizado a diario. Busca una carta o valora tu colección en 10 segundos: gratis, sin registro y sin humo.</p>
-    <div id="buscador" class="buscador">
-      <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
-      <div id="resultados" class="resultados"></div>
-    </div>
-    <div class="acciones">
-      <a class="btn" href="/valorar/">Valorar mi colección</a>
-      <a class="btn ghost" href="/cartas/">Ver todas las cartas</a>
-    </div>
-    <ul class="confianza">
-      <li>Datos de Cardmarket, cada día</li>
-      <li>Histórico de 30 días por carta</li>
-      <li>Gratis, sin registro</li>
-    </ul>
-    ${ASINS_OK['30th']?.[0] ? `<p class="nota small" style="margin-top:14px">Compra: <a href="https://www.amazon.es/dp/${ASINS_OK['30th'][0].asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=vc-aniversario" rel="sponsored nofollow noopener" target="_blank"><b>la caja del 30.º aniversario (52,99 €)</b></a>. Enlace de afiliado: ValorCarta recibe una comisión de Amazon sin coste para ti.</p>` : ''}
+</div>
+
+<section class="vc-unidad">
+  <p class="vc-aviso">Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti. Los precios los pone Amazon; el stock se comprueba antes de mostrarlo.</p>
+
+  <div class="vc-tres">
+    ${vcDia ? `<a class="vc-ficha dorada" href="/carta/${cardSlug(vcDia.c)}/">
+      <span class="et">La carta de la semana</span>
+      <span class="foto" style="position:absolute;right:14px;top:26px;width:112px;transform:rotate(4deg)"><img src="${esc(vcDia.c.image)}/high.webp" alt="${esc(vcDia.c.name)}" loading="eager"></span>
+      <h2>${esc(vcDia.c.name)}</h2>
+      <p>Precio medio real de Cardmarket, con su mínimo de 30 días al lado.</p>
+      <span class="vc-linea"><span class="vc-precio">${eur(vcDia.v?.precio ?? 0)}</span><span class="vc-cta">Ver la ficha</span></span>
+    </a>` : ''}
+    ${vcLupa ? `<a class="vc-ficha dos azul" href="${vcBoton(vcLupa)}" rel="sponsored nofollow noopener" target="_blank">
+      <span class="et">Cazafalsas</span>
+      <span class="txt"><h2>La lupa que delata una falsa en 30 segundos</h2><p>Linterna UV y lupa de 10 aumentos: las dos pruebas del vídeo, con stock comprobado hoy.</p></span>
+      <span class="foto"><img src="/productos/producto-${esc(vcLupa.asin)}.jpg" alt="${esc(vcLupa.nombre)}" loading="lazy"></span>
+      <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcLupa)}</span><span class="vc-cta dorada">Comprar</span></span>
+    </a>` : ''}
+    ${vcMazo ? `<a class="vc-ficha dos roja" href="${vcBoton(vcMazo)}" rel="sponsored nofollow noopener" target="_blank">
+      <span class="et">Lo que sí se vende</span>
+      <span class="txt"><h2>El mazo que se abre y se juega el mismo día</h2><p>60 cartas listas. Si el producto se agota, desaparece de aquí solo: no enlazamos humo.</p></span>
+      <span class="foto"><img src="/productos/producto-${esc(vcMazo.asin)}.jpg" alt="${esc(vcMazo.nombre)}" loading="lazy"></span>
+      <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcMazo)}</span><span class="vc-cta dorada">Comprar</span></span>
+    </a>` : ''}
   </div>
-  ${ventaHtml}
+
+  <div class="vc-compra-cab">
+    <div><h2>Lo que está a la venta hoy</h2><p>Solo entra lo que el vigilante ha visto comprable hoy. El sello es el estado real.</p></div>
+    <span class="vc-pill">${DISPONIBLES.size} productos verificados</span>
+  </div>
+  <div class="vc-estante">
+      ${vcShelfHtml(vcShelf.slice(0, 4))}
+  </div>
+  ${vcShelf.length > 4 ? `<div class="vc-estante">
+      ${vcShelfHtml(vcShelf.slice(4, 8))}
+  </div>` : ''}
+
+  ${vcMueven.length ? `<div class="vc-ribbon">
+    <span class="et">Mientras miras</span>
+    ${vcMueven.map((m) => `<a href="/carta/${cardSlug(m.c)}/">${esc(m.c.name)} <span class="sube">${m.pct >= 0 ? '+' : ''}${m.pct.toFixed(1)} %</span></a>`).join('\n    ')}
+    <a class="mas" href="/mercado/">ver las 20 que más se mueven →</a>
+  </div>` : ''}
+
+  <div class="vc-pie">
+    <p class="nota">Precios de Amazon de hoy; el stock se comprueba antes de mostrarlo. Si un producto se agota, desaparece de aquí solo.</p>
+    <a class="btn-todos" href="/comprar/">Ver los ${DISPONIBLES.size} productos que sí se venden →</a>
+  </div>
 </section>
 
-${moversHtml}
+<div class="vc-fija" id="vcFija">
+  <span>Solo enlazamos lo que hoy se puede comprar</span>
+  <span class="der"><a href="/valorar/">Valorar mi colección</a><a class="btn" href="/comprar/">Comprar los ${DISPONIBLES.size} →</a></span>
+</div>
+<script>
+(() => { const b = document.getElementById('vcFija'); if (!b) return;
+  const pinta = () => b.classList.toggle('visible', window.scrollY > 420);
+  window.addEventListener('scroll', pinta, { passive: true }); pinta(); })();
+</script>
 
-${disponiblesHtml()}
 
 ${munecosHtml}
 
