@@ -1,7 +1,7 @@
 {
   "_doc": "Verificación de producto en Amazon.es: fecha, título, estado de compra y si se enlaza. Sin buy box o 'Currently unavailable' = no se enlaza.",
   "comprobado": "2026-11-15",
-  "fuente": "amazon.es (navegador invisible) — 42 ASIN, 2026-11-15",
+  "fuente": "amazon.es (navegador invisible) — 45 ASIN, 2026-11-15",
   "productos": {
     "B0BTRN9FT5": {
       "titulo": "Pokémon TCG, Scarlet & Violet Booster Display Box (36 Booster Packs)",
@@ -25,7 +25,7 @@
       "disponible": true,
       "precio": 29.6,
       "vendedor": "Amazon UK",
-      "comprobado": "2026-11-14"
+      "comprobado": "2026-11-15"
     },
     "B0BMGR3QZW": {
       "titulo": "Pokémon: Mew League Battle Deck VMAX (1 Deck of 60 Full Cards, 6 2 Holographic Cards)",
@@ -97,7 +97,7 @@
       "disponible": false,
       "precio": 52.99,
       "vendedor": "",
-      "comprobado": "2026-11-14"
+      "comprobado": "2026-11-15"
     },
     "B0H8SXRLT4": {
       "titulo": "Pokémon: JCC Pokémon 30th Anniversary Celebration Enhancement Envelopes Pack (6 Upgrade Envelopes)",
@@ -161,13 +161,13 @@
       "disponible": false,
       "precio": 52.99,
       "vendedor": "",
-      "comprobado": "2026-11-14"
+      "comprobado": "2026-11-15"
     },
     "B085DNDLC1": {
       "titulo": "Ultra Pro Penny 400 Standard Soft Card Sleeves for Trading Cards Like Pokemon Magic Standard Size Clear",
       "estado": "In stock",
       "disponible": true,
-      "precio": 8.12,
+      "precio": 7.48,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-15"
     },
@@ -175,7 +175,7 @@
       "titulo": "Ultra Pro Regular Toploader 2.5\" x 3.5\" (3' x 4') Cardboard - Pack of 25",
       "estado": "In stock",
       "disponible": true,
-      "precio": 8.61,
+      "precio": 9.2,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-15"
     },
@@ -183,7 +183,7 @@
       "titulo": "Ultra Pro 3x4 Clear Regular, 100 Count Thick Toploaders, Trading Card Sleeves Like Pokemon Magic, Clear Standard Size",
       "estado": "In stock",
       "disponible": true,
-      "precio": 15.14,
+      "precio": 15.13,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-15"
     },
