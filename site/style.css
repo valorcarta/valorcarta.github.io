@@ -953,3 +953,46 @@ main:has(.vc-ancho){max-width:1240px}
 .fajo .c1{width:88%;transform:rotate(3deg) translate(3px,-2px)}
 .vc-ficha.dos.dorada .foto.fajo{overflow:hidden;border-radius:10px}
 @media (max-width:760px){.fajo img{width:80%}.fajo .c1{width:84%}}
+
+/* fajo algo más grande: sube la fila a 232 px y las cartas al 90% (16-11-2026) */
+.vc-tres .vc-ficha{min-height:232px}
+.fajo img{width:90%}
+.fajo .c5{transform:rotate(-17deg) translate(-13px,2px) scale(.97)}
+.fajo .c4{transform:rotate(-12deg) translate(-9px,2px) scale(.98)}
+.fajo .c3{transform:rotate(-7deg) translate(-5px,1px) scale(.99)}
+.fajo .c2{transform:rotate(-2deg) translate(-2px,1px) scale(1.01)}
+.fajo .c1{width:94%;transform:rotate(3deg) translate(4px,-2px)}
+@media (max-width:760px){.vc-tres .vc-ficha{min-height:210px}.fajo img{width:86%}.fajo .c1{width:90%}}
+
+/* ficha de la semana más grande: fila a 300 px y fajo casi a tope (16-11-2026) */
+.vc-tres{grid-template-columns:1.7fr 1fr 1fr}
+.vc-tres .vc-ficha{min-height:300px}
+.fajo img{width:96%}
+.fajo .c5{transform:rotate(-15deg) translate(-14px,4px) scale(.96)}
+.fajo .c4{transform:rotate(-10deg) translate(-9px,3px) scale(.97)}
+.fajo .c3{transform:rotate(-6deg) translate(-5px,2px) scale(.98)}
+.fajo .c2{transform:rotate(-2deg) translate(-2px,1px) scale(.99)}
+.fajo .c1{width:100%;transform:rotate(2deg) translate(4px,0)}
+@media (max-width:760px){
+  .vc-tres{grid-template-columns:1fr}
+  .vc-tres .vc-ficha{min-height:250px}
+  .fajo img{width:88%}
+  .fajo .c1{width:92%}
+}
+
+/* fajo dimensionado por alto (no por ancho) y etiqueta que no invade la foto */
+.fajo img{width:auto;height:94%;max-height:none}
+.fajo .c1{width:auto;height:98%}
+.vc-ficha.dos .et{font-size:9px;letter-spacing:.1em;padding:4px 7px;max-width:100%;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media (max-width:760px){.fajo img{height:88%}.fajo .c1{height:92%}}
+
+/* las fotos de producto de las fichas 2 y 3 llenan su columna por alto */
+.vc-ficha.dos .foto img{height:100%;width:auto;max-height:none;object-fit:contain}
+.foto.fajo img{height:94%}
+
+/* fotos de las fichas 2 y 3 a sangre dentro de su placa */
+.vc-ficha.dos .foto{position:relative;width:auto;min-width:0}
+.vc-ficha.dos .foto img{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);
+  object-fit:contain;max-height:none}
+.foto.fajo{position:relative;width:auto}
