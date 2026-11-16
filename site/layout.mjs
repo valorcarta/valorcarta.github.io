@@ -35,6 +35,7 @@ export function layout({
   lang = 'es',
   alternates = [],
   scripts = [],
+  ogTitle = '',
 }) {
   const canonical = SITE + url;
   const en = lang === 'en';
@@ -82,6 +83,7 @@ export function layout({
         </div>
       </details>
       <a href="/comprar/">Comprar</a>
+      <a href="/productos/">Productos</a>
       <a href="/alertas/" class="cta-mini">Alertas</a>
     </div>
     <div class="nav-movil">
@@ -91,6 +93,7 @@ export function layout({
           <a href="/cartas/">Cartas</a>
           <a href="/mercado/">Mercado</a>
           <a href="/comprar/">Comprar</a>
+          <a href="/productos/">Productos</a>
           <a href="/alertas/">Alertas de precio</a>
         </div>
       </details>
@@ -100,7 +103,7 @@ export function layout({
     : 'En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.';
   const footLinks = en
     ? `<a href="/en/price-check/">Price check</a> · <a href="/en/most-expensive/">Top 100</a> · <a href="/en/market/">Market</a> · <a href="/en/about/">About &amp; privacy</a> · <a href="/">Versión en español</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Open data</a>`
-    : `<a href="/valorar/">Valorar colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
+    : `<a href="/valorar/">Valorar colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/productos/">Productos</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
     <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>`;
   const footNote = en
     ? 'Reference prices from Cardmarket, updated daily. Not an appraisal: condition decides the real value.'
@@ -118,7 +121,7 @@ ${noindex ? '<meta name="robots" content="noindex,follow">' : ''}
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="${esc(config.brand)}">
 <meta property="og:locale" content="${en ? 'en_US' : 'es_ES'}">
-<meta property="og:title" content="${esc(title)}">
+<meta property="og:title" content="${esc(ogTitle || title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${canonical}">
 ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
