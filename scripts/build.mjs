@@ -578,10 +578,6 @@ const homeBody = `<div class="vc-ancho">
       <span class="et">La carta de la semana</span>
       <span class="txt"><h2>${esc(vcDia.c.name)}</h2><p>Precio medio real de Cardmarket, con su mínimo de 30 días al lado.</p></span>
       <span class="foto fajo">
-        <img class="c5" src="${esc(vcDia.c.image)}/high.webp" alt="" loading="eager" aria-hidden="true">
-        <img class="c4" src="${esc(vcDia.c.image)}/high.webp" alt="" loading="eager" aria-hidden="true">
-        <img class="c3" src="${esc(vcDia.c.image)}/high.webp" alt="" loading="eager" aria-hidden="true">
-        <img class="c2" src="${esc(vcDia.c.image)}/high.webp" alt="" loading="eager" aria-hidden="true">
         <img class="c1" src="${esc(vcDia.c.image)}/high.webp" alt="${esc(vcDia.c.name)}" loading="eager">
       </span>
       <span class="vc-linea"><span class="vc-precio">${eur(vcDia.v?.precio ?? 0)}</span><span class="vc-cta">Ver la ficha</span></span>
