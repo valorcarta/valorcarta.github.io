@@ -996,3 +996,30 @@ main:has(.vc-ancho){max-width:1240px}
 .vc-ficha.dos .foto img{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);
   object-fit:contain;max-height:none}
 .foto.fajo{position:relative;width:auto}
+
+/* la carta, sola y con perspectiva real (16-11-2026) */
+.vc-ficha.dos.dorada .foto.fajo{perspective:900px;overflow:visible;background:transparent!important;box-shadow:none!important;border-radius:0!important}
+.fajo img{position:relative;inset:auto;width:auto;height:94%;max-height:none;border-radius:10px;
+  transform:rotateY(-9deg) rotateX(2deg) rotate(-2deg);transform-origin:50% 50%;
+  box-shadow:
+    0 2px 3px rgba(0,0,0,.35),
+    0 10px 18px rgba(0,0,0,.45),
+    0 26px 50px rgba(0,0,0,.55),
+    0 40px 80px rgba(0,0,0,.35);
+  filter:saturate(1.03) contrast(1.02)}
+.fajo .c1{position:relative;inset:auto;width:auto;height:96%}
+@media (max-width:760px){.fajo img{height:88%}.fajo .c1{height:92%}}
+
+/* carta sola centrada y a tamaño real dentro de la ficha */
+.vc-ficha.dos.dorada .foto.fajo{position:relative;width:auto;padding:0;display:block}
+.fajo .c1{position:absolute;top:50%;left:50%;height:94% !important;width:auto !important;max-height:none !important;
+  transform:translate(-50%,-50%) rotateY(-10deg) rotateX(2deg) rotate(-2deg) !important;
+  transform-origin:50% 50%;border-radius:10px;
+  box-shadow:0 2px 3px rgba(0,0,0,.4),0 12px 22px rgba(0,0,0,.5),0 28px 55px rgba(0,0,0,.6),0 44px 90px rgba(0,0,0,.4)}
+
+/* carta sola: llena la caja y el object-fit respeta la proporción */
+.vc-ficha.dos.dorada .foto.fajo{height:100%;min-height:272px;align-self:stretch}
+.vc-tres .vc-ficha.dos.dorada{align-items:stretch}
+.fajo .c1{position:absolute !important;inset:0 !important;width:100% !important;height:100% !important;
+  object-fit:contain;object-position:center;
+  transform:rotateY(-10deg) rotateX(2deg) rotate(-2deg) !important}
