@@ -2242,6 +2242,16 @@ await put(
 <h1>Qué producto necesitas</h1>
 <p class="lede">Todo lo que hoy se puede comprar, con el stock comprobado y el precio que pone Amazon. Filtra por lo que buscas.</p>
 <p class="aviso-afiliado">Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti.</p>
+<div class="rail-cats">
+${vcCats.filter((c) => c !== 'Todos').map((cat) => {
+  const p = vcBuscador.find((x) => x.categoria === cat);
+  return `<a class="rail-cat" href="#tema-${slugify(cat)}">
+    <span class="rail-img">${p && p.foto ? `<img src="${p.foto}" alt="" loading="lazy">` : ''}</span>
+    <span class="rail-nombre">${esc(cat)}</span>
+  </a>`;
+}).join('\n')}
+</div>
+
 <div class="buscador-productos">
   <input id="qprod" type="search" placeholder="Busca: fundas, toploader, mazo, ETB…" autocomplete="off" aria-label="Buscar producto">
   <div class="chips">${vcCats.map((c) => `<button class="chip${c === 'Todos' ? ' on' : ''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
