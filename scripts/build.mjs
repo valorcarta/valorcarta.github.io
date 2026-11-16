@@ -2186,6 +2186,95 @@ const PRODUCTOS = [
   ['Caja para 160 toploaders', 'B0F5B2B3F2', 'Caja rígida para guardar las cartas ya protegidas.'],
 ];
 
+
+// ---------- buscador de productos (pedido 16-11-2026): todo lo comprable en una página ----------
+
+const vcCatFija = {
+  B000Q5ZMM0: 'Toploaders', B00GKT1B94: 'Fundas', B078NBBQXQ: 'Mazos', B07T8TR863: 'Autenticidad',
+  B0812Z3RPY: 'Toploaders', B085DNDLC1: 'Fundas', B0936D7DJ5: 'Autenticidad', B09MG1FV1V: 'Autenticidad',
+  B0BCPRFMQH: 'Sobres', B0BMGR3QZW: 'Mazos', B0BTRN9FT5: 'Cajas', B0C4V8F77B: 'Mazos',
+  B0C8YBXDYQ: 'Sobres', B0CJYK29Y9: 'Mazos', B0CSVWMDK5: 'Fundas', B0D6VVLN8N: 'Álbumes',
+  B0D7W2PJR8: 'Álbumes', B0DK52XPMV: 'Autenticidad', B0F5B2B3F2: 'Cajas', B0F7RK529B: 'Autenticidad',
+  B0FCLWGYQJ: 'Autenticidad', B0G5YX5XVQ: 'Mazos', B0GCJVSFV5: 'Autenticidad', B0HMJ88KGX: 'Latas',
+};
+const vcCategoria = (nombre) => {
+  const n = (nombre || '').toLowerCase();
+  if (n.includes('funda') || n.includes('penny')) return 'Fundas';
+  if (n.includes('toploader')) return 'Toploaders';
+  if (n.includes('mazo') || n.includes('baraja')) return 'Mazos';
+  if (n.includes('lata')) return 'Latas';
+  if (n.includes('album') || n.includes('álbum')) return 'Álbumes';
+  if (n.includes('etb') || n.includes('elite')) return 'ETB';
+  if (n.includes('caja') || n.includes('display')) return 'Cajas';
+  if (n.includes('sobre') || n.includes('booster')) return 'Sobres';
+  if (n.includes('lupa') || n.includes('linterna') || n.includes('báscula') || n.includes('guante')) return 'Autenticidad';
+  return 'Otros';
+};
+const vcBuscador = Object.entries(VERIF_PROD)
+  .filter(([asin, v]) => v && v.disponible)
+  .map(([asin, v]) => {
+    const info = prodInfo(asin) || {};
+    const nombre = info.nombre || v.titulo || asin;
+    return {
+      asin,
+      nombre: nombre.replace(/\s+/g, ' ').trim(),
+      precio: typeof v.precio === 'number' ? v.precio : (info.precio ?? null),
+      categoria: vcCatFija[asin] || vcCategoria(`${info.nombre || ''} ${v.titulo || ''}`),
+      foto: IMGS_SITE.has(asin) ? `/productos/producto-${asin}.jpg` : null,
+      ultimas: /left in stock|queda/i.test(v.estado || ''),
+      url: `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=${encodeURIComponent('vc-buscador-' + asin)}`,
+    };
+  })
+  .sort((a, b) => a.categoria.localeCompare(b.categoria, 'es') || a.nombre.localeCompare(b.nombre, 'es'));
+const vcCats = ['Todos', ...Array.from(new Set(vcBuscador.map((p) => p.categoria)))];
+
+await put(
+  OUT('productos/index.html'),
+  layout({
+    title: `Buscador de productos Pokémon: fundas, toploaders y mazos | ${config.brand}`,
+    description: 'Filtra lo que hoy se puede comprar en Amazon: fundas, toploaders, mazos, latas, ETB y sobres, con stock comprobado y precio real.',
+    url: '/productos/',
+    body: `
+<h1>Qué producto necesitas</h1>
+<p class="lede">Todo lo que hoy se puede comprar, con el stock comprobado y el precio que pone Amazon. Filtra por lo que buscas.</p>
+<p class="aviso-afiliado">Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti.</p>
+<div class="buscador-productos">
+  <input id="qprod" type="search" placeholder="Busca: fundas, toploader, mazo, ETB…" autocomplete="off" aria-label="Buscar producto">
+  <div class="chips">${vcCats.map((c) => `<button class="chip${c === 'Todos' ? ' on' : ''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
+</div>
+<div class="grid-productos" id="gridprod">
+${vcBuscador.map((p) => `<a class="prod-card" href="${p.url}" rel="sponsored nofollow noopener" target="_blank" data-cat="${esc(p.categoria)}" data-nombre="${esc((p.nombre + ' ' + p.categoria).toLowerCase())}">
+  ${p.foto ? `<span class="prod-foto"><img src="${p.foto}" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>` : '<span class="prod-foto sin">sin foto</span>'}
+  <span class="prod-cat">${esc(p.categoria)}</span>
+  <span class="prod-nombre">${esc(p.nombre)}</span>
+  <span class="prod-precio">${p.precio != null ? eur(p.precio) : 'Precio en Amazon'}</span>
+  <span class="prod-estado${p.ultimas ? ' ult' : ''}">${p.ultimas ? 'últimas unidades' : 'en stock'}</span>
+  <span class="prod-cta">Ver en Amazon →</span>
+</a>`).join('\n')}
+</div>
+<p class="nota small" id="sincta" style="display:none">Ningún producto coincide con esa búsqueda.</p>
+<script>
+(() => {
+  const q = document.getElementById('qprod'), grid = document.getElementById('gridprod'),
+        vacio = document.getElementById('sincta'), chips = [...document.querySelectorAll('.chip')];
+  let cat = 'Todos';
+  const pinta = () => {
+    const t = (q.value || '').toLowerCase().trim(); let n = 0;
+    [...grid.children].forEach((c) => {
+      const ok = (cat === 'Todos' || c.dataset.cat === cat) && (!t || c.dataset.nombre.includes(t));
+      c.style.display = ok ? '' : 'none'; if (ok) n++;
+    });
+    vacio.style.display = n ? 'none' : '';
+  };
+  q.addEventListener('input', pinta);
+  chips.forEach((b) => b.addEventListener('click', () => {
+    chips.forEach((x) => x.classList.toggle('on', x === b)); cat = b.dataset.cat; pinta();
+  }));
+})();
+</script>`,
+  }),
+);
+
 await put(
   OUT('comprar/index.html'),
   layout({
@@ -3033,7 +3122,7 @@ await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.
 Sitemap: ${SITE}/sitemap-en.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
 
 // sitemap
-const urls = ['/', '/cartas/', '/sets/', '/valorar/', '/premium/', '/circulo/', '/guias/', '/datos/', '/comprar/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/cartas/', '/sets/', '/valorar/', '/premium/', '/circulo/', '/guias/', '/datos/', '/comprar/', '/productos/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
