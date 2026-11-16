@@ -519,10 +519,10 @@ const vcDia = (() => {
   return c ? { c, v: { precio: c.price } } : null;
 })();
 const vcLupa = (() => {
-  const a = 'B09MG1FV1V';
+  const a = 'B0GCJVSFV5';
   const v = VERIF_PROD[a] || {};
   if (DISPONIBLES.has(a) && IMGS_SITE.has(a)) {
-    return { asin: a, nombre: 'Lupa de 10 aumentos', motivo: 'La prueba que delata una falsa en segundos.', estado: v.estado || 'In stock', precio: v.precio ?? null };
+    return { asin: a, nombre: 'Linterna UV 365 nm', motivo: 'La prueba que delata una falsa en segundos.', estado: v.estado || 'In stock', precio: v.precio ?? null };
   }
   return vcProductos.find((x) => x.asin === 'B085DNDLC1') || vcProductos[1] || null;
 })();
@@ -574,22 +574,21 @@ const homeBody = `<div class="vc-ancho">
   <p class="vc-aviso">Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti. Los precios los pone Amazon; el stock se comprueba antes de mostrarlo.</p>
 
   <div class="vc-tres">
-    ${vcDia ? `<a class="vc-ficha dorada" href="/carta/${cardSlug(vcDia.c)}/">
+    ${vcDia ? `<a class="vc-ficha dos dorada" href="/carta/${cardSlug(vcDia.c)}/">
       <span class="et">La carta de la semana</span>
-      <span class="foto" style="position:absolute;right:14px;top:26px;width:112px;transform:rotate(4deg)"><img src="${esc(vcDia.c.image)}/high.webp" alt="${esc(vcDia.c.name)}" loading="eager"></span>
-      <h2>${esc(vcDia.c.name)}</h2>
-      <p>Precio medio real de Cardmarket, con su mínimo de 30 días al lado.</p>
+      <span class="txt"><h2>${esc(vcDia.c.name)}</h2><p>Precio medio real de Cardmarket, con su mínimo de 30 días al lado.</p></span>
+      <span class="foto"><img src="${esc(vcDia.c.image)}/high.webp" alt="${esc(vcDia.c.name)}" loading="eager"></span>
       <span class="vc-linea"><span class="vc-precio">${eur(vcDia.v?.precio ?? 0)}</span><span class="vc-cta">Ver la ficha</span></span>
     </a>` : ''}
     ${vcLupa ? `<a class="vc-ficha dos azul" href="${vcBoton(vcLupa)}" rel="sponsored nofollow noopener" target="_blank">
       <span class="et">Cazafalsas</span>
-      <span class="txt"><h2>La lupa que delata una falsa en 30 segundos</h2><p>Linterna UV y lupa de 10 aumentos: las dos pruebas del vídeo, con stock comprobado hoy.</p></span>
+      <span class="txt"><h2>La linterna que delata una falsa</h2><p>365 nm: lo que el ojo no ve.</p></span>
       <span class="foto"><img src="/productos/producto-${esc(vcLupa.asin)}.jpg" alt="${esc(vcLupa.nombre)}" loading="lazy"></span>
       <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcLupa)}</span><span class="vc-cta dorada">Comprar</span></span>
     </a>` : ''}
     ${vcMazo ? `<a class="vc-ficha dos roja" href="${vcBoton(vcMazo)}" rel="sponsored nofollow noopener" target="_blank">
       <span class="et">Lo que sí se vende</span>
-      <span class="txt"><h2>El mazo que se abre y se juega el mismo día</h2><p>60 cartas listas. Si el producto se agota, desaparece de aquí solo: no enlazamos humo.</p></span>
+      <span class="txt"><h2>Mazo listo para jugar</h2><p>60 cartas, sin montar nada.</p></span>
       <span class="foto"><img src="/productos/producto-${esc(vcMazo.asin)}.jpg" alt="${esc(vcMazo.nombre)}" loading="lazy"></span>
       <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcMazo)}</span><span class="vc-cta dorada">Comprar</span></span>
     </a>` : ''}
@@ -614,13 +613,13 @@ const homeBody = `<div class="vc-ancho">
 
   <div class="vc-pie">
     <p class="nota">Precios de Amazon de hoy; el stock se comprueba antes de mostrarlo. Si un producto se agota, desaparece de aquí solo.</p>
-    <a class="btn-todos" href="/comprar/">Ver los ${DISPONIBLES.size} productos que sí se venden →</a>
+    <a class="btn-todos" href="/productos/">Ver los ${DISPONIBLES.size} productos que sí se venden →</a>
   </div>
 </section>
 
 <div class="vc-fija" id="vcFija">
   <span>Solo enlazamos lo que hoy se puede comprar</span>
-  <span class="der"><a href="/valorar/">Valorar mi colección</a><a class="btn" href="/comprar/">Comprar los ${DISPONIBLES.size} →</a></span>
+  <span class="der"><a href="/valorar/">Valorar mi colección</a><a class="btn" href="/productos/">Comprar los ${DISPONIBLES.size} →</a></span>
 </div>
 <script>
 (() => { const b = document.getElementById('vcFija'); if (!b) return;
@@ -735,11 +734,14 @@ await put(
     description: `Calcula el valor de tu colección de cartas Pokémon con precios reales de Cardmarket actualizados a diario. ${priced.length.toLocaleString('es-ES')} cartas, gratis y sin registro.`,
     url: '/',
     alternates: altPair('/', '/en/'),
+    ogTitle: 'Cartas Pokémon: cuánto valen de verdad y precio real de hoy',
     body: homeBody,
     jsonld: {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: config.brand,
+      alternateName: 'ValorCarta Pokémon',
+      inLanguage: 'es-ES',
       url: SITE,
       mainEntity: [
         { '@type': 'Question', name: '¿Los precios son una tasación?', acceptedAnswer: { '@type': 'Answer', text: 'No. Son precios de referencia de mercado; una tasación exige ver la carta.' } },
@@ -2242,33 +2244,49 @@ await put(
   <input id="qprod" type="search" placeholder="Busca: fundas, toploader, mazo, ETB…" autocomplete="off" aria-label="Buscar producto">
   <div class="chips">${vcCats.map((c) => `<button class="chip${c === 'Todos' ? ' on' : ''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('')}</div>
 </div>
-<div class="grid-productos" id="gridprod">
-${vcBuscador.map((p) => `<a class="prod-card" href="${p.url}" rel="sponsored nofollow noopener" target="_blank" data-cat="${esc(p.categoria)}" data-nombre="${esc((p.nombre + ' ' + p.categoria).toLowerCase())}">
-  ${p.foto ? `<span class="prod-foto"><img src="${p.foto}" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>` : '<span class="prod-foto sin">sin foto</span>'}
-  <span class="prod-cat">${esc(p.categoria)}</span>
-  <span class="prod-nombre">${esc(p.nombre)}</span>
-  <span class="prod-precio">${p.precio != null ? eur(p.precio) : 'Precio en Amazon'}</span>
-  <span class="prod-estado${p.ultimas ? ' ult' : ''}">${p.ultimas ? 'últimas unidades' : 'en stock'}</span>
-  <span class="prod-cta">Ver en Amazon →</span>
-</a>`).join('\n')}
+<div id="gridprod">
+${vcCats.filter((c) => c !== 'Todos').map((cat) => {
+  const lista = vcBuscador.filter((p) => p.categoria === cat);
+  if (!lista.length) return '';
+  return `<section class="tema-productos" id="tema-${slugify(cat)}" data-tema="${esc(cat)}">
+  <h2 class="tema-titulo">${esc(cat)} <span>${lista.length}</span></h2>
+  <div class="grid-productos">
+${lista.map((p) => `    <a class="prod-card" href="${p.url}" rel="sponsored nofollow noopener" target="_blank" data-cat="${esc(p.categoria)}" data-nombre="${esc((p.nombre + ' ' + p.categoria).toLowerCase())}">
+      ${p.foto ? `<span class="prod-foto"><img src="${p.foto}" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>` : '<span class="prod-foto sin">sin foto</span>'}
+      <span class="prod-cat">${esc(p.categoria)}</span>
+      <span class="prod-nombre">${esc(p.nombre)}</span>
+      <span class="prod-precio">${p.precio != null ? eur(p.precio) : 'Precio en Amazon'}</span>
+      <span class="prod-estado${p.ultimas ? ' ult' : ''}">${p.ultimas ? 'últimas unidades' : 'en stock'}</span>
+      <span class="prod-cta">Ver en Amazon →</span>
+    </a>`).join('\n')}
+  </div>
+</section>`;
+}).join('\n')}
 </div>
 <p class="nota small" id="sincta" style="display:none">Ningún producto coincide con esa búsqueda.</p>
 <script>
 (() => {
   const q = document.getElementById('qprod'), grid = document.getElementById('gridprod'),
-        vacio = document.getElementById('sincta'), chips = [...document.querySelectorAll('.chip')];
+        vacio = document.getElementById('sincta'), chips = [...document.querySelectorAll('.chip')],
+        temas = [...document.querySelectorAll('.tema-productos')];
   let cat = 'Todos';
   const pinta = () => {
     const t = (q.value || '').toLowerCase().trim(); let n = 0;
-    [...grid.children].forEach((c) => {
-      const ok = (cat === 'Todos' || c.dataset.cat === cat) && (!t || c.dataset.nombre.includes(t));
-      c.style.display = ok ? '' : 'none'; if (ok) n++;
+    temas.forEach((sec) => {
+      const deTema = cat === 'Todos' || sec.dataset.tema === cat;
+      let m = 0;
+      [...sec.querySelectorAll('.prod-card')].forEach((c) => {
+        const ok = deTema && (!t || c.dataset.nombre.includes(t));
+        c.style.display = ok ? '' : 'none'; if (ok) { n++; m++; }
+      });
+      sec.style.display = (deTema && (m || !t)) ? '' : 'none';
     });
     vacio.style.display = n ? 'none' : '';
   };
   q.addEventListener('input', pinta);
   chips.forEach((b) => b.addEventListener('click', () => {
     chips.forEach((x) => x.classList.toggle('on', x === b)); cat = b.dataset.cat; pinta();
+    if (cat !== 'Todos') { const el = document.getElementById('tema-' + cat.toLowerCase()); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
   }));
 })();
 </script>`,
