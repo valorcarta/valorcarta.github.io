@@ -870,3 +870,76 @@ main:has(.vc-ancho){max-width:1240px}
 .prod-estado{font:600 9px/1 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#8ef0b8}
 .prod-estado.ult{color:#ffc46b}
 .prod-cta{font-size:.8rem;color:#C0A062;font-weight:600}
+.tema-productos{margin:26px 0 6px;scroll-margin-top:80px}
+.tema-titulo{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:1.5rem;font-weight:600;
+  letter-spacing:-.01em;margin:0 0 12px;display:flex;align-items:baseline;gap:10px}
+.tema-titulo span{font-family:var(--mono,ui-monospace);font-size:12px;color:#8a8578;letter-spacing:.1em}
+
+/* ===== el producto se ve más (16-11-2026): fotos recortadas y más grandes ===== */
+.vc-prod .placa{height:150px}
+.vc-prod .placa img{max-height:140px;width:100%;object-fit:contain}
+.vc-ficha .foto{width:142px;padding:6px}
+.vc-ficha.dos{grid-template-columns:minmax(0,1fr) 132px}
+.prod-foto{height:176px}
+.prod-foto img{max-height:164px;width:100%;object-fit:contain}
+.dimg{height:190px}
+.reco-img{height:190px}
+@media (max-width:760px){
+  .vc-prod .placa{height:118px}
+  .vc-prod .placa img{max-height:110px}
+  .vc-ficha .foto{width:104px}
+  .vc-ficha.dos{grid-template-columns:minmax(0,1fr) 96px}
+  .prod-foto{height:140px}
+  .prod-foto img{max-height:130px}
+}
+
+/* hero: el producto ocupa la mitad de la ficha (16-11-2026) */
+.vc-ficha.dos{grid-template-columns:minmax(0,1fr) 44%;gap:10px 14px;align-items:center}
+.vc-ficha.dos .foto{grid-row:1/span 3;grid-column:2;align-self:stretch;display:grid;place-items:center;
+  border-radius:12px;padding:8px;margin:0}
+.vc-ficha.dos .foto img{max-height:100%;width:100%;height:100%;object-fit:contain}
+.vc-ficha.dos h2{font-size:1.12rem}
+.vc-ficha.dos p{font-size:.74rem;margin:0 0 8px}
+@media (max-width:760px){
+  .vc-ficha.dos{grid-template-columns:minmax(0,1fr) 40%}
+  .vc-ficha.dos h2{font-size:1rem}
+}
+
+/* columnas del hero bien repartidas: etiqueta y texto a la izquierda, foto a la derecha */
+.vc-ficha.dos{grid-template-columns:minmax(0,1fr) 44%;grid-template-rows:auto auto auto}
+.vc-ficha.dos .et{grid-column:1;grid-row:1;align-self:start}
+.vc-ficha.dos .txt{grid-column:1;grid-row:2;align-self:start}
+.vc-ficha.dos .compra-linea{grid-column:1;grid-row:3;align-self:end}
+.vc-ficha.dos .foto{grid-column:2;grid-row:1/span 3;align-self:stretch}
+
+/* la carta de la semana, protagonista (16-11-2026) */
+.vc-ficha.dorada{min-height:196px}
+.vc-ficha.dorada .foto{background:transparent;box-shadow:none;padding:0;border-radius:0}
+.vc-ficha.dorada .foto img{border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.55)}
+.vc-ficha.dorada h2,.vc-ficha.dorada p{padding-right:180px}
+.vc-ficha.dorada .vc-linea{padding-right:0}
+@media (max-width:760px){
+  .vc-ficha.dorada{min-height:186px}
+  .vc-ficha.dorada .foto{width:170px !important;right:-4px !important;top:-4px !important}
+  .vc-ficha.dorada h2,.vc-ficha.dorada p{padding-right:120px}
+}
+
+/* la carta de la semana: ficha más alta y fotografía al 44% como las demás */
+.vc-tres .vc-ficha{min-height:214px}
+.vc-ficha.dos.dorada{grid-template-columns:minmax(0,1fr) 46%}
+.vc-ficha.dos.dorada .foto{background:transparent;box-shadow:none;padding:0}
+.vc-ficha.dos.dorada .foto img{border-radius:8px;box-shadow:0 18px 40px rgba(0,0,0,.55);max-height:100%;width:auto}
+.vc-ficha.dos.dorada h2,.vc-ficha.dos.dorada p{padding-right:0}
+@media (max-width:760px){.vc-tres .vc-ficha{min-height:188px}
+  .vc-ficha.dos.dorada{grid-template-columns:minmax(0,1fr) 44%}}
+
+/* fajo de cartas detrás de la de la semana (16-11-2026) */
+.vc-ficha.dos.dorada .foto.fajo{position:relative;display:grid;place-items:center;overflow:visible}
+.fajo img{position:absolute;width:76%;height:auto;border-radius:8px;
+  box-shadow:0 14px 30px rgba(0,0,0,.55),0 2px 0 rgba(0,0,0,.4);transform-origin:50% 90%}
+.fajo .c5{transform:rotate(-16deg) translate(-10px,4px) scale(.97);filter:brightness(.45) saturate(.8);z-index:1}
+.fajo .c4{transform:rotate(-11deg) translate(-7px,3px) scale(.98);filter:brightness(.52) saturate(.85);z-index:2}
+.fajo .c3{transform:rotate(-6deg) translate(-4px,2px) scale(.99);filter:brightness(.62) saturate(.9);z-index:3}
+.fajo .c2{transform:rotate(-2deg) translate(-1px,1px);filter:brightness(.75) saturate(.95);z-index:4}
+.fajo .c1{transform:rotate(3deg) translate(3px,0);z-index:5;width:80%;filter:drop-shadow(0 18px 26px rgba(0,0,0,.5))}
+@media (max-width:760px){.fajo img{width:72%}.fajo .c1{width:76%}}
