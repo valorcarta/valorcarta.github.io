@@ -1157,3 +1157,46 @@ h1,h2,h3{color:#1d1d1f}
   transform:none!important;box-shadow:0 8px 20px rgba(0,0,0,.18)!important;border-radius:8px!important}
 /* productos sobre el color de la ficha, sin cajita interna */
 .vc-tres .vc-ficha:not(.dorada) .foto{background:transparent!important}
+
+/* productos recortados con transparencia y sombra suave (17-11-2026) */
+.vc-tres .vc-ficha .foto img,
+.prod-foto img,.dimg img,.sug-thumb img,.reco-img{
+  filter:drop-shadow(0 14px 22px rgba(0,0,0,.22)) drop-shadow(0 2px 4px rgba(0,0,0,.10))}
+.vc-tres .vc-ficha:not(.dorada) .foto{background:transparent!important}
+.vc-tres .vc-ficha .foto{padding:4px!important}
+.prod-foto{background:#F5F5F7!important}
+
+/* ===== HERO ESTILO APPLE STORE v3 (17-11-2026) ===== */
+.vc-tit{padding:10px 0 26px}
+.vc-tit h1{font-size:clamp(2.2rem,5vw,4.1rem)!important;line-height:1.05;letter-spacing:-.035em!important;font-weight:700}
+.vc-tit .sub{font-size:1.35rem!important;color:#1d1d1f!important;margin-top:10px!important}
+.vc-tit .micro{font-size:.8rem!important;color:#86868b!important}
+.vc-unidad{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}
+.vc-aviso{color:#86868b!important;font-size:.78rem!important;padding:0 4px 16px!important}
+.vc-tres{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important}
+.vc-ficha{position:relative!important;border:0!important;border-radius:22px!important;padding:0!important;
+  overflow:hidden!important;min-height:0!important;display:flex!important;flex-direction:column!important;
+  box-shadow:none!important}
+.vc-ficha.dos.dorada{background:linear-gradient(180deg,#ffd60a,#ffc300 100%)!important}
+.vc-ficha.azul{background:linear-gradient(180deg,#d6e4f5,#c7d8ef 100%)!important}
+.vc-ficha.roja{background:linear-gradient(180deg,#f6e0e8,#f0d3df 100%)!important}
+.vc-ficha .foto{order:-1!important;position:relative!important;width:100%!important;height:300px!important;
+  margin:0!important;padding:26px!important;border-radius:0!important;background:transparent!important;
+  display:grid!important;place-items:center!important;box-shadow:none!important}
+.vc-ficha .foto img,.vc-ficha.dos.dorada .foto.fajo img{position:static!important;width:auto!important;height:auto!important;
+  max-width:100%!important;max-height:100%!important;object-fit:contain!important;transform:none!important;
+  border-radius:10px!important;box-shadow:0 26px 40px rgba(0,0,0,.22)!important;filter:none!important}
+.vc-ficha .et{order:0!important;margin:18px 22px 0!important;align-self:flex-start!important;border:0!important;
+  background:transparent!important;color:rgba(0,0,0,.55)!important;font-size:10px!important;letter-spacing:.16em!important}
+.vc-ficha .txt{order:1!important;padding:6px 22px 0!important}
+.vc-ficha .txt h2{font-size:1.6rem!important;font-weight:700!important;letter-spacing:-.02em!important;color:#1d1d1f!important;margin:0!important}
+.vc-ficha .txt p{font-size:.92rem!important;color:rgba(0,0,0,.6)!important;margin:6px 0 0!important;line-height:1.35!important}
+.vc-ficha .vc-linea,.vc-ficha.dos .vc-linea{order:2!important;margin-top:auto!important;
+  padding:16px 22px 22px!important;border:0!important;display:flex!important;align-items:baseline!important;gap:16px!important}
+.vc-ficha .vc-precio{font-size:1.05rem!important;font-weight:600!important;color:#1d1d1f!important}
+.vc-ficha.dorada .vc-precio{font-size:1.05rem!important}
+.vc-ficha .vc-precio::before{content:"Desde ";font-weight:400;color:rgba(0,0,0,.5)}
+.vc-ficha .vc-cta,.vc-ficha .vc-cta.dorada{background:transparent!important;border:0!important;padding:0!important;
+  color:#0066cc!important;font-size:1rem!important;font-weight:500!important}
+.vc-ficha .vc-cta:hover{text-decoration:underline}
+@media (max-width:900px){.vc-tres{grid-template-columns:1fr!important}.vc-ficha .foto{height:260px!important}}
