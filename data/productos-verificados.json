@@ -1,7 +1,7 @@
 {
   "_doc": "Verificación de producto en Amazon.es: fecha, título, estado de compra y si se enlaza. Sin buy box o 'Currently unavailable' = no se enlaza.",
-  "comprobado": "2026-11-16",
-  "fuente": "amazon.es (navegador invisible) — 45 ASIN, 2026-11-16",
+  "comprobado": "2026-11-17",
+  "fuente": "amazon.es (navegador invisible) — 0 ASIN, 2026-11-17",
   "productos": {
     "B0BTRN9FT5": {
       "titulo": "Pokémon TCG, Scarlet & Violet Booster Display Box (36 Booster Packs)",
