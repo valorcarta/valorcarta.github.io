@@ -164,7 +164,7 @@ const sugerenciasHtml = () => {
   if (!lista.length) return '';
   const filas = lista.map((p) => {
     const img = IMGS_SITE.has(p.asin)
-      ? `<span class="sug-thumb"><img src="/productos/producto-${esc(p.asin)}.jpg" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>`
+      ? `<span class="sug-thumb"><img src="/productos/producto-${esc(p.asin)}.webp" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>`
       : `<span class="sug-thumb"></span>`;
     return `<a class="sug-fila" href="${amazonDp(p.asin)}" rel="sponsored nofollow noopener" target="_blank">${img}<span class="sug-txt"><b>${esc(p.nombre)}</b><small>${p.precio ? eur(p.precio) : ''} · Amazon ↗</small></span></a>`;
   }).join('');
@@ -324,7 +324,7 @@ const ventaHtml = ventaProd
   ? `<aside class="dia venta" aria-labelledby="venta-titulo">
   <p class="kicker dia-kicker">Lo que sí se vende · enlace de afiliado</p>
   <a class="dia-arte venta-arte" href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank" aria-label="Ver ${esc(ventaProd.nombre)} en Amazon">
-    <span class="venta-foto"><img src="/productos/producto-${esc(ventaProd.asin)}.jpg" alt="${esc(ventaProd.nombre)}" width="480" height="458" loading="eager" fetchpriority="high" decoding="async"></span>
+    <span class="venta-foto"><img src="/productos/producto-${esc(ventaProd.asin)}.webp" alt="${esc(ventaProd.nombre)}" width="480" height="458" loading="eager" fetchpriority="high" decoding="async"></span>
   </a>
   <div class="dia-ficha">
     <h2 id="venta-titulo"><a href="${amzProd(ventaProd)}" rel="sponsored nofollow noopener" target="_blank">${esc(ventaProd.nombre)}</a></h2>
@@ -380,8 +380,8 @@ await mkdir(OUT('data'), { recursive: true });
 const IMGS_SITE = new Set();
 await mkdir(OUT('productos'), { recursive: true }).catch(() => {});
 for (const f of await readdir(path.join(ROOT, 'site')).catch(() => [])) {
-  if (!/^producto-.*\.jpg$/i.test(f)) continue;
-  IMGS_SITE.add(f.replace(/^producto-/i, '').replace(/\.jpg$/i, ''));
+  if (!/^producto-.*\.webp$/i.test(f)) continue;
+  IMGS_SITE.add(f.replace(/^producto-/i, '').replace(/\.webp$/i, ''));
   try {
     await writeFile(OUT('productos/' + f), await readFile(path.join(ROOT, 'site', f)));
   } catch {}
@@ -390,7 +390,7 @@ const dispConImagen = () => DISPONIBLES_PROD.filter((x) => IMGS_SITE.has(x.asin)
 const stockTexto = (x) => (/left in stock/i.test(x.estado || '') ? 'Solo ' + (String(x.estado).match(/\d+/)?.[0] || '2') + ' uds.' : 'En stock');
 const precioTexto = (x) => (typeof x.precio === 'number' ? eur(x.precio) : 'Precio en Amazon');
 const dispCard = (x) => `<article class="dprod">
-    <div class="dimg"><img src="/productos/producto-${esc(x.asin)}.jpg" alt="${esc(x.nombre)}" loading="lazy" decoding="async"></div>
+    <div class="dimg"><img src="/productos/producto-${esc(x.asin)}.webp" alt="${esc(x.nombre)}" loading="lazy" decoding="async"></div>
     <span class="dbadge">${esc(stockTexto(x))}</span>
     <h3>${esc(x.nombre)}</h3>
     <p class="dmotivo">${esc(x.motivo || '')}</p>
@@ -453,7 +453,7 @@ const bloqueProteccion = () => `<section class="bloque proteccion">
 </section>`;
 
 const imgProducto = (asin) => IMGS_SITE.has(asin)
-  ? `<img class="reco-img" src="/productos/producto-${esc(asin)}.jpg" alt="${esc((prodInfo(asin) || {}).nombre || 'Producto')}" loading="lazy" decoding="async">`
+  ? `<img class="reco-img" src="/productos/producto-${esc(asin)}.webp" alt="${esc((prodInfo(asin) || {}).nombre || 'Producto')}" loading="lazy" decoding="async">`
   : '';
 
 // GitHub Pages: sin Jekyll, si no ignora carpetas que empiezan por _
@@ -545,7 +545,7 @@ const vcEtiqueta = (nombre) => {
 };
 const vcShelfHtml = (lista) => lista.map((p, i) => `<a class="vc-prod" href="${vcBoton(p)}" rel="sponsored nofollow noopener" target="_blank">
       ${vcSello(p)}
-      <span class="placa"><img src="/productos/producto-${esc(p.asin)}.jpg" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>
+      <span class="placa"><img src="/productos/producto-${esc(p.asin)}.webp" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>
       <span class="num">[ ${String(i + 1).padStart(2, '0')} ] ${esc(vcEtiqueta(p.nombre))}</span>
       <h3>${esc(p.nombre)}</h3>
       <p class="micro">${esc(p.motivo || 'Producto verificado y en stock hoy.')}</p>
@@ -585,13 +585,13 @@ const homeBody = `<div class="vc-ancho">
     ${vcLupa ? `<a class="vc-ficha dos azul" href="${vcBoton(vcLupa)}" rel="sponsored nofollow noopener" target="_blank">
       <span class="et">Cazafalsas</span>
       <span class="txt"><h2>La linterna que delata una falsa</h2><p>365 nm: lo que el ojo no ve.</p></span>
-      <span class="foto"><img src="/productos/producto-${esc(vcLupa.asin)}.jpg" alt="${esc(vcLupa.nombre)}" loading="lazy"></span>
+      <span class="foto"><img src="/productos/producto-${esc(vcLupa.asin)}.webp" alt="${esc(vcLupa.nombre)}" loading="lazy"></span>
       <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcLupa)}</span><span class="vc-cta dorada">Comprar</span></span>
     </a>` : ''}
     ${vcMazo ? `<a class="vc-ficha dos roja" href="${vcBoton(vcMazo)}" rel="sponsored nofollow noopener" target="_blank">
       <span class="et">Lo que sí se vende</span>
       <span class="txt"><h2>Mazo listo para jugar</h2><p>60 cartas, sin montar nada.</p></span>
-      <span class="foto"><img src="/productos/producto-${esc(vcMazo.asin)}.jpg" alt="${esc(vcMazo.nombre)}" loading="lazy"></span>
+      <span class="foto"><img src="/productos/producto-${esc(vcMazo.asin)}.webp" alt="${esc(vcMazo.nombre)}" loading="lazy"></span>
       <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcMazo)}</span><span class="vc-cta dorada">Comprar</span></span>
     </a>` : ''}
   </div>
@@ -2224,7 +2224,7 @@ const vcBuscador = Object.entries(VERIF_PROD)
       nombre: nombre.replace(/\s+/g, ' ').trim(),
       precio: typeof v.precio === 'number' ? v.precio : (info.precio ?? null),
       categoria: vcCatFija[asin] || vcCategoria(`${info.nombre || ''} ${v.titulo || ''}`),
-      foto: IMGS_SITE.has(asin) ? `/productos/producto-${asin}.jpg` : null,
+      foto: IMGS_SITE.has(asin) ? `/productos/producto-${asin}.webp` : null,
       ultimas: /left in stock|queda/i.test(v.estado || ''),
       url: `https://www.amazon.es/dp/${asin}?tag=${encodeURIComponent(config.amazonTag)}&ascsubtag=${encodeURIComponent('vc-buscador-' + asin)}`,
     };
