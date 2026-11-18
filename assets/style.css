@@ -1438,3 +1438,19 @@ a:hover{color:var(--oro-tinta)}
 .v3-azul .v3-k,.v3-rosa .v3-k{background:#faf6ec}
 .v3-azul .v3-b,.v3-rosa .v3-b{background:#14120f;color:#fff;border-color:transparent}
 .v3-img::after{opacity:.55}
+
+/* ===== CARTA EN FUNDA RÍGIDA (18-11): plástico, brillo y un poco ladeada ===== */
+.v3-dark .v3-img{perspective:900px}
+.v3-dark .v3-img img{transform:rotateY(-8deg) rotateZ(-3.5deg) translateY(-4px);
+  border-radius:9px!important;box-shadow:
+    0 0 0 1px rgba(255,255,255,.14),
+    0 0 0 7px rgba(255,255,255,.06),
+    0 30px 60px rgba(0,0,0,.62),
+    0 10px 20px rgba(0,0,0,.45)!important;
+  transition:transform .3s ease}
+.v3-dark .v3-img{position:relative}
+.v3-dark .v3-img::before{content:"";position:absolute;left:50%;top:46%;width:58%;height:76%;
+  transform:translate(-50%,-50%) rotate(-3.5deg);border-radius:11px;pointer-events:none;z-index:3;
+  background:linear-gradient(118deg,rgba(255,255,255,.30) 0%,rgba(255,255,255,.05) 26%,rgba(255,255,255,0) 48%,rgba(255,255,255,.10) 72%,rgba(255,255,255,.24) 100%);
+  mix-blend-mode:screen}
+.v3-dark:hover .v3-img img{transform:rotateY(-4deg) rotateZ(-2deg) translateY(-6px)}
