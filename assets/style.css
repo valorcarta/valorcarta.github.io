@@ -1227,30 +1227,9 @@ h1,h2,h3{color:#1d1d1f}
 .top .figura img{animation:none!important}
 .top .figura{margin:0 auto 0 10px}
 
-/* ===== PASE VISUAL 2 (18-11): la carta de la semana, grande de verdad ===== */
-.vc-tres .vc-ficha:first-child{
-  grid-column:1/-1;
-  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(240px,340px);
-  grid-template-rows:auto 1fr;grid-template-areas:"et foto" "txt foto";
-  gap:12px 32px;align-items:center;min-height:380px;padding:26px 24px;
-}
-.vc-tres .vc-ficha:first-child .et{grid-area:et;justify-self:start;margin:0}
-.vc-tres .vc-ficha:first-child .txt{grid-area:txt;align-self:start;min-width:0}
-.vc-tres .vc-ficha:first-child .foto{grid-area:foto;width:100%!important;height:auto!important;
-  justify-self:end;align-self:center!important;box-shadow:0 18px 44px rgba(17,17,26,.20)!important;
-  background:#fff!important;display:block!important}
-.vc-tres .vc-ficha:first-child h2{font-size:2rem;line-height:1.04;max-width:20ch;margin:0 0 8px}
-.vc-tres .vc-ficha:first-child p{font-size:.9rem;max-width:42ch}
-.vc-tres .vc-ficha:first-child .vc-precio{font-size:1.3rem}
+/* ===== rejilla de las dos tarjetas pequeñas ===== */
 @media (min-width:761px){.vc-tres{grid-template-columns:1fr 1fr}}
-@media (max-width:760px){
-  .vc-tres{display:grid;grid-template-columns:1fr}
-  .vc-tres .vc-ficha:first-child{grid-template-columns:1fr;grid-template-areas:"et" "foto" "txt";
-    min-height:0;gap:14px;padding:18px}
-  .vc-tres .vc-ficha:first-child .foto{width:70%!important;justify-self:center;max-width:280px}
-  .vc-tres .vc-ficha:first-child h2{font-size:1.5rem}
-}
-
+@media (max-width:760px){.vc-tres{display:grid;grid-template-columns:1fr}}
 /* ===== HÉROE 18-11: la carta de la semana, grande y con aire ===== */
 .vc-hero{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;
   background:#fff;border:1px solid var(--line,#e5e5ea);border-top:4px solid #f2b705;border-radius:16px;
@@ -1262,8 +1241,10 @@ h1,h2,h3{color:#1d1d1f}
 .vc-hero .vc-linea{display:flex;align-items:center;gap:16px}
 .vc-hero .vc-precio{font-size:1.5rem;font-weight:800}
 .vc-hero .vc-cta{background:#111;color:#fff;border-color:transparent}
-.vh-foto{display:block}
-.vh-foto img{width:100%;max-width:420px;border-radius:12px;box-shadow:0 20px 50px rgba(17,17,26,.22)}
+.vh-foto{display:flex;justify-content:center}
+/* la fuente del scan es 600 px: por encima de 340 se ve blanda en pantalla retina */
+.vh-foto img{width:100%;max-width:340px;padding:9px;background:#fff;border:1px solid #e5e5ea;
+  border-radius:14px;box-shadow:0 22px 55px rgba(17,17,26,.22)}
 @media (max-width:760px){
   .vc-hero{grid-template-columns:1fr;gap:18px;padding:20px}
   .vc-hero h2{font-size:1.9rem}
