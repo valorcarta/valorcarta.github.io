@@ -1461,3 +1461,35 @@ a:hover{color:var(--oro-tinta)}
 .v3-azul .v3-k,.v3-rosa .v3-k{background:#f7f5f0}
 .v3-dark .v3-img img{transform:rotateY(-10deg) rotateZ(-5.5deg) translateY(-2px)!important}
 .v3-dark .v3-img::before{width:60%;height:78%;background:linear-gradient(118deg,rgba(255,255,255,.42) 0%,rgba(255,255,255,.08) 24%,rgba(255,255,255,0) 46%,rgba(255,255,255,.14) 70%,rgba(255,255,255,.32) 100%)!important}
+
+/* ===== CHARIZARD VINTAGE DORADO + FUNDA MÁS REAL (18-11) ===== */
+.v3-dark{background:
+  radial-gradient(520px 300px at 50% 72%,rgba(217,163,0,.20),transparent 68%),
+  radial-gradient(300px 200px at 15% 8%,rgba(255,215,120,.10),transparent 70%),
+  linear-gradient(160deg,#171009 0%,#241809 52%,#3a2711 100%)!important;
+  border:1px solid rgba(217,163,0,.55)!important;border-top:0!important;
+  box-shadow:0 0 0 1px rgba(255,215,120,.14),0 26px 60px rgba(30,18,4,.45)!important}
+.v3-dark::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;z-index:4;
+  background:linear-gradient(90deg,#8a6400,#f6d98a 22%,#fff3cf 48%,#e0b257 72%,#8a6400)}
+.v3-dark::after{content:"";position:absolute;inset:9px;border:1px solid rgba(217,163,0,.22);
+  border-radius:16px;pointer-events:none}
+.v3-dark h2{font-family:"Iowan Old Style",Palatino,Georgia,serif!important;font-weight:600;
+  color:#f6e3b4!important;letter-spacing:-.01em}
+.v3-dark .v3-k{color:#e8c877!important;border-color:rgba(232,200,119,.45)!important}
+.v3-dark .v3-t p{color:#cbb894!important}
+.v3-dark .v3-p{color:#f6e3b4!important}
+.v3-dark .v3-b{background:linear-gradient(180deg,#f2cd6b,#d9a300)!important;color:#231704!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 8px 18px rgba(0,0,0,.35)}
+/* funda rígida: canto grueso, bisel y reflejo doble */
+.v3-dark .v3-img img{border-radius:12px!important;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.20),
+    0 0 0 6px rgba(255,255,255,.10),
+    0 0 0 8px rgba(255,255,255,.18),
+    0 0 0 15px rgba(255,255,255,.05),
+    0 34px 70px rgba(0,0,0,.66),
+    0 12px 24px rgba(0,0,0,.45)!important}
+.v3-dark .v3-img::before{width:62%;height:80%;
+  background:
+    linear-gradient(118deg,rgba(255,255,255,.46) 0%,rgba(255,255,255,.10) 20%,rgba(255,255,255,0) 44%,rgba(255,255,255,.16) 68%,rgba(255,255,255,.38) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.22),rgba(255,255,255,0) 18%)!important}
