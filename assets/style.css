@@ -1675,3 +1675,16 @@ footer a:hover{color:#f6d98a!important}
 .v3-dark .v3-img img{max-height:280px!important;max-width:82%!important}
 .v3-img::after{bottom:4px!important}
 @media (max-width:900px){.vc3{grid-template-columns:1fr}.v3-img{height:240px!important}.v3-card{padding-bottom:20px!important}}
+
+/* ===== CTA ANCHO EN TINTA, NO EN AMARILLO (18-11) ===== */
+.btn-todos{display:inline-flex;align-items:center;gap:10px;background:#14120f;color:#fdf7e8!important;
+  border:1px solid #14120f;border-radius:999px;padding:13px 22px;font-weight:700;font-size:.9rem;
+  box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 10px 24px rgba(20,18,15,.22);
+  transition:transform .16s ease,box-shadow .16s ease,background .16s ease}
+.btn-todos:hover{background:#241f16;transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.2) inset,0 14px 30px rgba(20,18,15,.28)}
+.btn-todos::after{content:"→";color:#f6d98a}
+.btn-todos{font-variant-numeric:tabular-nums}
+.vc-pie .btn-todos{background:#14120f!important;color:#fdf7e8!important;border:1px solid #14120f!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 10px 24px rgba(20,18,15,.22)!important}
+.vc-pie .btn-todos:hover{background:#241f16!important}
+.btn-todos::after{content:none!important}
