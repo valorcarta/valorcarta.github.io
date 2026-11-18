@@ -1200,3 +1200,29 @@ h1,h2,h3{color:#1d1d1f}
   color:#0066cc!important;font-size:1rem!important;font-weight:500!important}
 .vc-ficha .vc-cta:hover{text-decoration:underline}
 @media (max-width:900px){.vc-tres{grid-template-columns:1fr!important}.vc-ficha .foto{height:260px!important}}
+
+/* ===== PASE VISUAL 18-11: tarjetas de portada en neutro, un solo acento ===== */
+.vc-tres .vc-ficha.dorada,
+.vc-tres .vc-ficha.azul,
+.vc-tres .vc-ficha.roja{
+  background:var(--surface,#fff)!important;
+  border:1px solid var(--line,#e5e5ea)!important;
+  border-top:3px solid var(--acento-tarjeta,#e5e5ea)!important;
+  box-shadow:0 1px 2px rgba(17,17,26,.05),0 10px 30px rgba(17,17,26,.06)!important;
+}
+.vc-tres .vc-ficha.dorada{--acento-tarjeta:#f2b705}
+.vc-tres .vc-ficha.azul{--acento-tarjeta:#4c7fd6}
+.vc-tres .vc-ficha.roja{--acento-tarjeta:#c2566d}
+.vc-tres .vc-ficha::after{display:none!important}
+.vc-tres .vc-ficha .et{color:var(--muted,#6e6e73)!important;border-color:var(--line,#e5e5ea)!important;background:transparent!important}
+.vc-tres .vc-ficha h2{color:var(--text,#1d1d1f)!important}
+.vc-tres .vc-ficha p{color:var(--muted,#6e6e73)!important}
+.vc-tres .vc-ficha .foto{background:#f4f4f6!important}
+/* la mascota: sin doble sombra negra ni aura, tamaño de cabecera */
+.figura{width:64px;height:78px;margin:-8px auto -8px 4px}
+.figura::before{display:none}
+.figura img{filter:drop-shadow(0 6px 10px rgba(17,17,26,.16))!important}
+/* mascota dentro de la cabecera, sin desbordar por arriba */
+.top .figura{width:44px;height:52px;margin:0}
+.top .figura img{animation:none!important}
+.top .figura{margin:0 auto 0 10px}
