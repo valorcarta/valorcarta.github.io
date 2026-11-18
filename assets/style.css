@@ -1613,3 +1613,14 @@ footer{background:linear-gradient(165deg,#14110c,#241c10)!important;color:#e8ded
 footer a{color:#e8ded0!important}
 footer a:hover{color:#f6d98a!important}
 @media (max-width:760px){.bloque h2{font-size:1.25rem}}
+
+/* ===== RECORTE PRECISO (18-11): nada de cortar la carta ni el producto por el borde ===== */
+.v3-card{overflow:visible!important;border-radius:22px}
+.v3-img{margin:16px auto 0!important;padding-bottom:24px!important;flex:1;display:flex;align-items:flex-end;justify-content:center}
+.v3-img img{max-height:280px!important;max-width:100%!important;object-fit:contain!important}
+.v3-dark .v3-img img{max-height:310px!important}
+.v3-card::before,.v3-card::after{border-radius:16px}
+/* el carrusel de la tienda: la ficha respira abajo, sin cortar el producto */
+.st-prod{padding-bottom:0!important}
+.st-img{height:210px!important;margin-top:auto;padding-bottom:6px}
+.st-img img{max-height:100%!important;object-fit:contain!important}
