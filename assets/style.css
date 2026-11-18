@@ -1663,3 +1663,15 @@ footer a:hover{color:#f6d98a!important}
 .vc-estante .vc-prod .placa img{height:168px!important;width:auto!important;object-fit:contain!important;
   filter:drop-shadow(0 14px 20px rgba(20,18,15,.26))}
 .vc-estante .vc-prod .sello{top:14px!important;left:14px!important}
+
+/* ===== PROPORCIÓN REAL DE LA FILA DE TRES (18-11) ===== */
+.vc3{align-items:stretch}
+.v3-card{min-height:0!important;height:100%;padding:24px 24px 0!important}
+.v3-t{margin-top:12px}
+.v3-l{margin-top:12px}
+.v3-img{height:290px!important;margin:14px 0 0!important;padding-bottom:0!important;flex:0 0 auto!important;
+  display:flex!important;align-items:flex-end!important;justify-content:center!important;overflow:visible!important}
+.v3-img img{max-height:100%!important;max-width:86%!important;object-fit:contain!important}
+.v3-dark .v3-img img{max-height:280px!important;max-width:82%!important}
+.v3-img::after{bottom:4px!important}
+@media (max-width:900px){.vc3{grid-template-columns:1fr}.v3-img{height:240px!important}.v3-card{padding-bottom:20px!important}}
