@@ -1688,3 +1688,5 @@ footer a:hover{color:#f6d98a!important}
   box-shadow:0 1px 0 rgba(255,255,255,.18) inset,0 10px 24px rgba(20,18,15,.22)!important}
 .vc-pie .btn-todos:hover{background:#241f16!important}
 .btn-todos::after{content:none!important}
+.brand .wm{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:1.06rem;color:var(--text)}
+.brand .wm i{font-style:normal;font-weight:600;color:var(--oro-tinta)}
