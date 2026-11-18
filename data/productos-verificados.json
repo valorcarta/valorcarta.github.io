@@ -1,7 +1,7 @@
 {
   "_doc": "Verificación de producto en Amazon.es: fecha, título, estado de compra y si se enlaza. Sin buy box o 'Currently unavailable' = no se enlaza.",
   "comprobado": "2026-11-17",
-  "fuente": "amazon.es (navegador invisible) — 45 ASIN, 2026-11-17",
+  "fuente": "amazon.es (navegador invisible) — 52 ASIN, 2026-11-17",
   "productos": {
     "B0BTRN9FT5": {
       "titulo": "Pokémon TCG, Scarlet & Violet Booster Display Box (36 Booster Packs)",
@@ -23,7 +23,7 @@
       "titulo": "Pokémon TCG: Ampharos ex Battle Deck (60 Card Ready-to-Play Deck)",
       "estado": "In stock",
       "disponible": true,
-      "precio": 29.61,
+      "precio": 29.56,
       "vendedor": "Amazon UK",
       "comprobado": "2026-11-17"
     },
@@ -167,15 +167,15 @@
       "titulo": "Ultra Pro Penny 400 Standard Soft Card Sleeves for Trading Cards Like Pokemon Magic Standard Size Clear",
       "estado": "In stock",
       "disponible": true,
-      "precio": 8.29,
-      "vendedor": "MOLOKA STORE",
+      "precio": 8.23,
+      "vendedor": "ecotrade-GmbH",
       "comprobado": "2026-11-17"
     },
     "B000Q5ZMM0": {
       "titulo": "Ultra Pro Regular Toploader 2.5\" x 3.5\" (3' x 4') Cardboard - Pack of 25",
       "estado": "In stock",
       "disponible": true,
-      "precio": 7.35,
+      "precio": 8.29,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-17"
     },
@@ -183,7 +183,7 @@
       "titulo": "Ultra Pro 3x4 Clear Regular, 100 Count Thick Toploaders, Trading Card Sleeves Like Pokemon Magic, Clear Standard Size",
       "estado": "In stock",
       "disponible": true,
-      "precio": 15.12,
+      "precio": 15.11,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-17"
     },
@@ -372,7 +372,7 @@
       "comprobado": "2026-11-17"
     },
     "B0C64LR9BS": {
-      "titulo": "Pokémon: Scarlet & Purple-Evolutions Combat Stadium in Paldea (2 Decks, 11 Upgrade Packs)",
+      "titulo": "Pokémon: Scarlet & Purple-Evolutions Combat Stadium in Paldea (2 Decks, 11 Upgrade Packs and more)",
       "estado": "In stock",
       "disponible": true,
       "precio": 69.99,
@@ -384,19 +384,19 @@
       "estado": "In stock",
       "disponible": true,
       "precio": 51.28,
-      "vendedor": "",
+      "vendedor": "TradeINN",
       "comprobado": "2026-11-17"
     },
     "B0CF9RR296": {
       "titulo": "Pokemon Scarlet & Violet 3 Obsidian Flames Build & Battle Box",
       "estado": "In stock",
       "disponible": true,
-      "precio": 69.99,
-      "vendedor": "",
+      "precio": 191.0,
+      "vendedor": "P.C.B MAX",
       "comprobado": "2026-11-17"
     },
     "B0C7MVZCWZ": {
-      "titulo": "Pokémon JCC - Scarlet & Violet - Pack of 3 Obsidian Flame Boosters",
+      "titulo": "Pokémon JCC - Scarlet & Violet - Pack of 3 Obsidian Flame Boosters Evoli and Tomberro (1 Random Booster)",
       "estado": "In stock",
       "disponible": true,
       "precio": 24.99,
@@ -408,11 +408,11 @@
       "estado": "In stock",
       "disponible": true,
       "precio": 57.01,
-      "vendedor": "",
+      "vendedor": "TradeINN",
       "comprobado": "2026-11-17"
     },
     "B0CWV7ZMN8": {
-      "titulo": "Pokémon Scarlet & Violet Expansion World Class Trainer Set - Masked Twilight",
+      "titulo": "Pokémon Scarlet & Violet Expansion World Class Trainer Set - GCC Masked Twilight (1 Ogerpon Turquoise Mask Promo Card, 9",
       "estado": "In stock",
       "disponible": true,
       "precio": 69.99,
