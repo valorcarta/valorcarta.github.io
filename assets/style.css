@@ -1397,3 +1397,37 @@ h1{font-weight:800}
 h2{font-weight:700}
 .st-cta{margin:12px 0 18px;font-size:.82rem;font-weight:700;color:#0b63ce}
 .st-prod{padding-bottom:0}
+
+/* ===== PALETA COHERENTE (18-11): papel cálido, tinta y un solo dorado ===== */
+:root{
+  --bg:#f6f4ef; --surface:#fffdf9; --line:#e7e1d6;
+  --text:#14120f; --muted:#6d675e;
+  --oro:#d9a300; --oro-tinta:#8a6400; --oro-suave:#fbf1d4;
+}
+body{background:
+  radial-gradient(1100px 480px at 50% -200px,rgba(217,163,0,.10),transparent 70%),
+  radial-gradient(800px 400px at 88% 300px,rgba(20,18,15,.05),transparent 70%),
+  var(--bg)!important;color:var(--text)}
+a:hover{color:var(--oro-tinta)}
+.vc-tit,.st-hero{background:linear-gradient(180deg,#fdf7e8,#f8f3e9 70%,var(--surface))!important}
+.vc-tit h1,.st-hero h1{color:var(--text)}
+.st-hero h1{color:#7a4a00!important}
+.st-hero .st-links a,.st-cab a,.st-cta{color:var(--oro-tinta)!important}
+.st-cab h2 span{color:#7a4a00!important}
+/* baldosas: cuatro pasos del mismo papel */
+.st-prod{background:#f4efe4!important}
+.st-prod:nth-child(4n+2){background:#efe9dc!important}
+.st-prod:nth-child(4n+3){background:#f7f2e7!important}
+.st-prod:nth-child(4n+4){background:#ebe4d6!important}
+.st-prod:nth-child(4n+5){background:#f2ecdf!important}
+.v3-azul{background:linear-gradient(160deg,#f6f1e6,#efe8da)!important;border-top:3px solid var(--oro)!important}
+.v3-rosa{background:linear-gradient(160deg,#f1ebdf,#e8e0d1)!important;border-top:3px solid #b8894a!important}
+.v3-k{color:var(--muted)!important;border-color:var(--line)!important}
+.v3-b{border-color:#cfc6b6!important;color:var(--text)}
+.v3-dark{border-top:4px solid var(--oro)!important}
+.v3-dark .v3-k{color:var(--oro)!important;border-color:rgba(217,163,0,.45)!important}
+.v3-dark .v3-b{background:var(--oro)!important;color:#14120f!important}
+.v3-p{color:var(--text)}
+.v3-dark .v3-p{color:#fff}
+.top{background:color-mix(in srgb,var(--bg) 92%,transparent)!important;border-bottom:1px solid var(--line)}
+.vc-aviso,.nota.small{color:var(--muted)}
