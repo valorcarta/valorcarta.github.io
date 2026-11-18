@@ -1299,3 +1299,30 @@ h1,h2,h3{color:#1d1d1f}
   .st-hero{padding:34px 22px;border-radius:18px}
   .st-prod{flex:0 0 82%;min-height:420px}
 }
+
+/* ===== PORTADA PREMIUM (18-11): banda de tienda + Charizard destacado ===== */
+.vc-tit{background:linear-gradient(180deg,#e8f0fb,#f7f9fd 72%,#fff);border-radius:24px;
+  padding:46px 32px 38px;margin:6px 0 22px}
+.vc-tit h1,.vc-tit .sub,.vc-tit .kicker,.vc-tit .micro{text-align:center}
+.vc-tit .vc-buscador{margin:18px auto 0;max-width:520px}
+.vc-hero{background:linear-gradient(155deg,#15141a 0%,#241f2b 55%,#3a2f3d 100%);
+  border:1px solid rgba(242,183,5,.30);border-top:4px solid #f2b705;color:#fff;
+  box-shadow:0 24px 60px rgba(17,17,26,.28)}
+.vc-hero h2{color:#fff}
+.vc-hero p{color:#c9c4d2}
+.vc-hero .et{color:#f2b705;border-color:rgba(242,183,5,.45)}
+.vc-hero .vc-precio{color:#fff}
+.vc-hero .vc-cta{background:#f2b705;color:#111;border-color:transparent;font-weight:700}
+.vc-hero .vh-foto img{border-color:rgba(255,255,255,.14);box-shadow:0 30px 70px rgba(0,0,0,.6)}
+.vc-tres .vc-ficha{border-radius:22px;min-height:300px;padding:24px 22px}
+.vc-tres .vc-ficha .et{background:rgba(17,17,26,.04)}
+@media (max-width:760px){
+  .vc-tit{padding:28px 18px 26px;border-radius:18px}
+  .vc-tres .vc-ficha{min-height:260px}
+}
+/* ===== las dos secundarias: exclusivas, con tinte y más foto ===== */
+.vc-tres .vc-ficha.azul{background:linear-gradient(160deg,#eef2f9,#e4eaf4)!important;border-top:3px solid #4c7fd6!important}
+.vc-tres .vc-ficha.roja{background:linear-gradient(160deg,#f9eff2,#f3e3e9)!important;border-top:3px solid #c2566d!important}
+.vc-tres .vc-ficha .foto{width:170px}
+.vc-tres .vc-ficha h2{font-size:1.4rem}
+.vc-tres .vc-ficha .et{border:1px solid rgba(17,17,26,.14);background:rgba(255,255,255,.6)}
