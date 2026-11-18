@@ -1231,7 +1231,7 @@ h1,h2,h3{color:#1d1d1f}
 @media (min-width:761px){.vc-tres{grid-template-columns:1fr 1fr}}
 @media (max-width:760px){.vc-tres{display:grid;grid-template-columns:1fr}}
 /* ===== HÉROE 18-11: la carta de la semana, grande y con aire ===== */
-.vc-hero{display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:center;
+.vc-hero{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:32px;align-items:center;
   background:#fff;border:1px solid var(--line,#e5e5ea);border-top:4px solid #f2b705;border-radius:16px;
   padding:30px 32px;margin:0 0 14px;box-shadow:0 1px 2px rgba(17,17,26,.05),0 14px 40px rgba(17,17,26,.07)}
 .vc-hero .et{display:inline-block;border:1px solid var(--line,#e5e5ea);border-radius:999px;padding:6px 10px;
@@ -1243,10 +1243,10 @@ h1,h2,h3{color:#1d1d1f}
 .vc-hero .vc-cta{background:#111;color:#fff;border-color:transparent}
 .vh-foto{display:flex;justify-content:center}
 /* la fuente del scan es 600 px: por encima de 340 se ve blanda en pantalla retina */
-.vh-foto img{width:100%;max-width:340px;padding:9px;background:#fff;border:1px solid #e5e5ea;
-  border-radius:14px;box-shadow:0 22px 55px rgba(17,17,26,.22)}
+.vh-foto img{width:100%;max-width:560px;padding:10px;background:#fff;border:1px solid #e5e5ea;
+  border-radius:14px;box-shadow:0 26px 70px rgba(17,17,26,.26)}
 @media (max-width:760px){
   .vc-hero{grid-template-columns:1fr;gap:18px;padding:20px}
   .vc-hero h2{font-size:1.9rem}
-  .vh-foto img{max-width:100%}
+  .vh-foto img{max-width:100%;padding:8px}
 }
