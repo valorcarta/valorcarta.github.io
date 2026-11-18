@@ -128,13 +128,16 @@ ${image ? `<meta property="og:image" content="${esc(image)}">` : ''}
 <meta name="twitter:card" content="summary_large_image">
 ${config.googleVerification ? `<meta name="google-site-verification" content="${esc(config.googleVerification)}">` : ''}
 ${config.pinterestVerify ? `<meta name="p:domain_verify" content="${esc(config.pinterestVerify)}"/>` : ''}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="icon" href="/assets/icon.svg" type="image/svg+xml">
 ${jsonld ? `<script type="application/ld+json">${JSON.stringify(jsonld)}</script>` : ''}
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="${home}"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="8" fill="#0f0e14"/><g transform="rotate(-8 16 16)"><rect x="7.4" y="4.4" width="17.2" height="23.2" rx="3.2" fill="none" stroke="#ffcb05" stroke-width="1.7"/><circle cx="16" cy="13.2" r="4.8" fill="#0f0e14" stroke="#ffcb05" stroke-width="1.5"/><path d="M11.2 13.2h9.6" stroke="#ffcb05" stroke-width="1.2"/><circle cx="16" cy="13.2" r="1.6" fill="#ffcb05"/><path d="M10.8 24.4h10.4" stroke="#35e0d0" stroke-width="1.9" stroke-linecap="round"/></g></svg>${esc(config.brand)}</a>
+  <a class="brand" href="${home}"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#14120f"/><rect x="9" y="6" width="14" height="20" rx="2.6" fill="none" stroke="#ffd75e" stroke-width="1.6"/><circle cx="16" cy="13" r="3.6" fill="none" stroke="#ffd75e" stroke-width="1.5"/><path d="M12.4 13h7.2" stroke="#ffd75e" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="13" r="0.9" fill="#ffd75e"/><path d="M12.6 21.4h6.8" stroke="#ffd75e" stroke-width="1.4" stroke-linecap="round" opacity=".65"/></svg><span class="wm">Valor<i>Carta</i></span></a>
   <span class="figura" aria-hidden="true"><img id="figura-img" src="/assets/mascotas/fig1.svg" width="76" height="90" alt="Pokémon decorativo" decoding="async"></span>
   <nav>
     ${nav}
