@@ -1552,3 +1552,22 @@ a:hover{color:var(--oro-tinta)}
 .btn,button.btn{border-radius:999px;font-weight:700}
 .bloque a:not(.btn){color:var(--oro-tinta)}
 @media (max-width:760px){.ficha2{padding:18px}.bloque{padding:18px}}
+
+/* ===== BOTONES Y LISTADOS CON LA MISMA CALIDAD (18-11) ===== */
+.btn{background:linear-gradient(180deg,#f4d07a,#d9a300)!important;color:#231704!important;
+  border:1px solid rgba(138,100,0,.35)!important;border-radius:999px!important;font-weight:700!important;
+  padding:11px 18px!important;box-shadow:0 1px 0 rgba(255,255,255,.55) inset,0 8px 18px rgba(120,90,10,.18)!important;
+  transition:transform .16s ease,box-shadow .16s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 1px 0 rgba(255,255,255,.6) inset,0 12px 24px rgba(120,90,10,.24)!important}
+.btn.ghost{background:transparent!important;color:var(--text)!important;border:1px solid var(--line)!important;
+  box-shadow:none!important;font-weight:600!important}
+.btn.ghost:hover{background:rgba(217,163,0,.07)!important}
+.set-card{background:#fff!important;border:1px solid var(--line)!important;border-radius:18px!important;
+  padding:18px 20px!important;box-shadow:var(--sh-1)!important;transition:transform .16s ease,box-shadow .16s ease}
+.set-card:hover{transform:translateY(-2px);box-shadow:var(--sh-2)!important;border-color:#d8cfbe!important}
+.set-name{font-family:"Inter Tight",sans-serif;font-weight:700;letter-spacing:-.02em}
+.set-total{color:var(--oro-tinta);font-weight:700}
+.muneco{background:#fff!important;border:1px solid var(--line)!important;border-radius:16px!important;
+  box-shadow:var(--sh-1)!important;transition:transform .16s ease,box-shadow .16s ease}
+.muneco:hover{transform:translateY(-2px);box-shadow:var(--sh-2)!important}
+.m-price{color:var(--oro-tinta);font-weight:700}
