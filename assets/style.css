@@ -1571,3 +1571,23 @@ a:hover{color:var(--oro-tinta)}
   box-shadow:var(--sh-1)!important;transition:transform .16s ease,box-shadow .16s ease}
 .muneco:hover{transform:translateY(-2px);box-shadow:var(--sh-2)!important}
 .m-price{color:var(--oro-tinta);font-weight:700}
+
+/* ===== CABECERA Y BANDA CON MÁS OFICIO (18-11) ===== */
+.top{
+  max-width:1120px;margin:10px auto 0;padding:12px 18px;border-radius:18px;
+  background:rgba(255,253,249,.86)!important;backdrop-filter:blur(14px) saturate(140%);
+  border:1px solid rgba(231,225,214,.9)!important;
+  box-shadow:0 1px 0 rgba(255,255,255,.7) inset,0 10px 30px rgba(20,18,15,.06)!important;
+  top:10px}
+.top .figura{display:none!important}
+.brand{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:1.06rem;gap:10px}
+.brand .logo-mark{width:30px;height:30px;border-radius:9px;box-shadow:0 1px 0 rgba(255,255,255,.25) inset,0 6px 14px rgba(20,18,15,.16)}
+.top nav{gap:2px;font-size:.9rem}
+.top nav a,.top nav summary{padding:8px 12px;border-radius:10px;color:#4b463d}
+.top nav a:hover,.top nav summary:hover{background:rgba(217,163,0,.10);color:#14120f}
+.top nav .cta-mini{color:#8a6400;font-weight:700}
+.vc-tit{position:relative;overflow:hidden}
+.vc-tit::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;
+  background:linear-gradient(90deg,#8a6400,#f6d98a 25%,#fff3cf 50%,#e0b257 75%,#8a6400)}
+@media (max-width:760px){.top{margin:8px 10px 0;padding:10px 12px;border-radius:14px}}
+.v3-azul .v3-k,.v3-rosa .v3-k{background:transparent!important}
