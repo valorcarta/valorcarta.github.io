@@ -1269,3 +1269,33 @@ h1,h2,h3{color:#1d1d1f}
   .vc-estante{margin:0 -16px;padding:0 16px 14px}
   .vc-estante .vc-prod{flex:0 0 78%;min-height:400px}
 }
+
+/* ===== TIENDA tipo Apple Store (18-11) ===== */
+.st-hero{background:linear-gradient(180deg,#e8f0fb,#f6f9fd 70%,#fff);border-radius:24px;
+  padding:56px 40px 46px;margin:8px 0 26px;text-align:center}
+.st-hero h1{font-size:clamp(2.6rem,6vw,4.4rem);line-height:.98;letter-spacing:-.04em;margin:0 0 12px;color:#8a1c3c}
+.st-hero p{color:#3b3742;margin:0 auto 10px;max-width:56ch}
+.st-hero .st-links{display:flex;gap:22px;justify-content:center;margin-top:14px}
+.st-hero .st-links a{color:#0b63ce;font-weight:600}
+.st-cab{display:flex;align-items:baseline;justify-content:space-between;gap:18px;margin:0 0 16px}
+.st-cab h2{font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:-.02em;margin:0}
+.st-cab h2 span{color:#8a1c3c}
+.st-cab a{color:#0b63ce;font-size:.9rem;font-weight:600}
+.st-carro{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;
+  margin:0 -24px 10px;padding:0 24px 20px;scrollbar-width:none}
+.st-carro::-webkit-scrollbar{display:none}
+.st-prod{flex:0 0 340px;scroll-snap-align:start;position:relative;display:flex;flex-direction:column;
+  min-height:460px;padding:26px 24px 0;border-radius:24px;background:#f1efe9;overflow:hidden;color:inherit}
+.st-prod:nth-child(4n+2){background:#e7eef8}
+.st-prod:nth-child(4n+3){background:#eee8f6}
+.st-prod:nth-child(4n+4){background:#e9f1ea}
+.st-prod:nth-child(4n+5){background:#f8ecef}
+.st-kicker{font:600 10px/1 ui-monospace,monospace;letter-spacing:.13em;text-transform:uppercase;color:#6b6672}
+.st-prod h3{font-size:1.32rem;line-height:1.12;letter-spacing:-.02em;margin:12px 0 8px;max-width:22ch}
+.st-precio{font-size:1rem;font-weight:700;margin:0}
+.st-img{display:block;margin-top:auto;height:230px;display:flex;align-items:flex-end;justify-content:center}
+.st-img img{max-height:100%;max-width:88%;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(17,17,26,.18))}
+@media (max-width:760px){
+  .st-hero{padding:34px 22px;border-radius:18px}
+  .st-prod{flex:0 0 82%;min-height:420px}
+}
