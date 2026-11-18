@@ -545,7 +545,7 @@ const vcEtiqueta = (nombre) => {
 };
 const vcShelfHtml = (lista) => lista.map((p, i) => `<a class="vc-prod" href="${vcBoton(p)}" rel="sponsored nofollow noopener" target="_blank">
       ${vcSello(p)}
-      <span class="placa"><img src="/productos/producto-${esc(p.asin)}.webp" alt="${esc(p.nombre)}" loading="lazy" decoding="async"></span>
+      <span class="placa"><img src="/productos/producto-${esc(p.asin)}.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ ${String(i + 1).padStart(2, '0')} ] ${esc(vcEtiqueta(p.nombre))}</span>
       <h3>${esc(p.nombre)}</h3>
       <p class="micro">${esc(p.motivo || 'Producto verificado y en stock hoy.')}</p>
@@ -553,12 +553,6 @@ const vcShelfHtml = (lista) => lista.map((p, i) => `<a class="vc-prod" href="${v
     </a>`).join('\n      ');
 
 const homeBody = `<div class="vc-ancho">
-<div class="vc-barra">
-  <span class="nombre">Mercado</span>
-  <span class="migas">Inicio</span>
-  <span class="der"><a href="/mercado/">Resumen</a><a href="/cartas/">Fichas</a><a class="comprar" href="/comprar/">Comprar</a></span>
-</div>
-
 <div class="vc-tit">
   <p class="kicker">Precio real de Cardmarket · ${priced.length.toLocaleString('es-ES')} cartas</p>
   <h1>Cuánto valen tus cartas. De verdad.</h1>
@@ -571,41 +565,44 @@ const homeBody = `<div class="vc-ancho">
 </div>
 
 <section class="vc-unidad">
-  <p class="vc-aviso">Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti. Los precios los pone Amazon; el stock se comprueba antes de mostrarlo.</p>
+  
+  <section class="cta-band">
+    <div>
+      <h2>¿Cuánto vale tu colección?</h2>
+      <p>Dos minutos, gratis y sin registro. Guardas el enlace y el valor se actualiza solo cada día.</p>
+    </div>
+    <a class="btn-todos" data-funnel="1-valorar" href="/valorar/">Valorar mi colección</a>
+  </section>
 
-  <div class="vc-tres">
-    ${vcDia ? `<a class="vc-ficha dos dorada" href="/carta/${cardSlug(vcDia.c)}/">
-      <span class="et">La carta de la semana</span>
-      <span class="txt"><h2>${esc(vcDia.c.name)}</h2><p>Precio medio real de Cardmarket, con su mínimo de 30 días al lado.</p></span>
-      <span class="foto fajo">
-        <img class="c1" src="${esc(vcDia.c.image)}/high.webp" alt="${esc(vcDia.c.name)}" loading="eager">
-      </span>
-      <span class="vc-linea"><span class="vc-precio">${eur(vcDia.v?.precio ?? 0)}</span><span class="vc-cta">Ver la ficha</span></span>
+  <div class="vc3">
+    ${vcDia ? `<a class="v3-card v3-dark" href="/carta/${cardSlug(vcDia.c)}/">
+      <span class="v3-k">La carta de la semana</span>
+      <span class="v3-t"><h2>${esc(vcDia.c.name)}</h2><p>Precio medio real de Cardmarket, con su mínimo de 30 días al lado.</p></span>
+      <span class="v3-l"><span class="v3-p">${eur(vcDia.v?.precio ?? 0)}</span><span class="v3-b">Ver la ficha</span></span>
+      <span class="v3-img"><img src="${esc(vcDia.c.image)}/high.webp" alt="${esc(vcDia.c.name)}" loading="eager"></span>
     </a>` : ''}
-    ${vcLupa ? `<a class="vc-ficha dos azul" href="${vcBoton(vcLupa)}" rel="sponsored nofollow noopener" target="_blank">
-      <span class="et">Cazafalsas</span>
-      <span class="txt"><h2>La linterna que delata una falsa</h2><p>365 nm: lo que el ojo no ve.</p></span>
-      <span class="foto"><img src="/productos/producto-${esc(vcLupa.asin)}.webp" alt="${esc(vcLupa.nombre)}" loading="lazy"></span>
-      <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcLupa)}</span><span class="vc-cta dorada">Comprar</span></span>
+    ${vcLupa ? `<a class="v3-card v3-azul" href="${vcBoton(vcLupa)}" rel="sponsored nofollow noopener" target="_blank">
+      <span class="v3-k">Cazafalsas</span>
+      <span class="v3-t"><h2>La linterna que delata una falsa</h2><p>365 nm: lo que el ojo no ve.</p></span>
+      <span class="v3-l"><span class="v3-p">${vcPrecio(vcLupa)}</span><span class="v3-b">Comprar</span></span>
+      <span class="v3-img"><img src="/productos/producto-${esc(vcLupa.asin)}.webp" alt="${esc(vcLupa.nombre)}" loading="lazy"></span>
     </a>` : ''}
-    ${vcMazo ? `<a class="vc-ficha dos roja" href="${vcBoton(vcMazo)}" rel="sponsored nofollow noopener" target="_blank">
-      <span class="et">Lo que sí se vende</span>
-      <span class="txt"><h2>Mazo listo para jugar</h2><p>60 cartas, sin montar nada.</p></span>
-      <span class="foto"><img src="/productos/producto-${esc(vcMazo.asin)}.webp" alt="${esc(vcMazo.nombre)}" loading="lazy"></span>
-      <span class="vc-linea" style="grid-column:1/-1"><span class="vc-precio">${vcPrecio(vcMazo)}</span><span class="vc-cta dorada">Comprar</span></span>
+    ${vcMazo ? `<a class="v3-card v3-rosa" href="${vcBoton(vcMazo)}" rel="sponsored nofollow noopener" target="_blank">
+      <span class="v3-k">Lo que sí se vende</span>
+      <span class="v3-t"><h2>Mazo listo para jugar</h2><p>60 cartas, sin montar nada.</p></span>
+      <span class="v3-l"><span class="v3-p">${vcPrecio(vcMazo)}</span><span class="v3-b">Comprar</span></span>
+      <span class="v3-img"><img src="/productos/producto-${esc(vcMazo.asin)}.webp" alt="${esc(vcMazo.nombre)}" loading="lazy"></span>
     </a>` : ''}
   </div>
+  <p class="vc-aviso">Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti. Los precios los pone Amazon; el stock se comprueba antes de mostrarlo.</p>
 
   <div class="vc-compra-cab">
     <div><h2>Lo que está a la venta hoy</h2><p>Solo entra lo que el vigilante ha visto comprable hoy. El sello es el estado real.</p></div>
     <span class="vc-pill">${DISPONIBLES.size} productos verificados</span>
   </div>
   <div class="vc-estante">
-      ${vcShelfHtml(vcShelf.slice(0, 4))}
+      ${vcShelfHtml(vcShelf.slice(0, 8))}
   </div>
-  ${vcShelf.length > 4 ? `<div class="vc-estante">
-      ${vcShelfHtml(vcShelf.slice(4, 8))}
-  </div>` : ''}
 
   ${vcMueven.length ? `<div class="vc-ribbon">
     <span class="et">Mientras miras</span>
@@ -2313,12 +2310,34 @@ await put(
       'Qué formato conviene comprar según lo que busques, cuánto cuesta cada uno por sobre y dónde encontrarlo. Sin humo y sin promesas de revalorización.',
     url: '/comprar/',
     body: `
-<h1>Dónde comprar sin pagar de más</h1>
-<p class="lede">El formato cambia el precio por sobre más que la tienda. Antes de comprar, mira qué te llevas
-y cuánto estás pagando por cada sobre; luego compara.</p>
-${disponiblesHtml('Disponible ahora')}
+<section class="st-hero">
+  <h1>Tienda</h1>
+  <p>Precio real de Cardmarket y productos comprobados hoy en Amazon. Si uno se agota, sale solo.</p>
+  <p class="st-links"><a href="/comprar/lote-30/">Qué comprar con 50 €</a><a href="/alertas/">Avísame cuando baje</a></p>
+</section>
+${(() => {
+  const prot = /funda|toploader|álbum|album|linterna|lupa|báscula|bascula|guantes|sleeve|sleeves|manga/i;
+  const todos = Object.entries(VERIF_PROD)
+    .filter(([a, v]) => v && v.disponible && IMGS_SITE.has(a))
+    .map(([a, v]) => ({asin: a, nombre: (prodInfo(a) || {}).nombre || v.titulo || a, precio: v.precio, estado: v.estado}));
+  const cartas = todos.filter((x) => !prot.test(x.nombre));
+  const otros = todos.filter((x) => prot.test(x.nombre));
+  const tile = (x) => `<a class="st-prod" href="${amazonDp(x.asin)}" rel="sponsored nofollow noopener" target="_blank">
+    <span class="st-kicker">Comprobado hoy · ${esc(stockTexto(x))}</span>
+    <h3>${esc(x.nombre)}</h3>
+    <p class="st-precio">${precioTexto(x)}</p>
+    <span class="st-img"><img src="/productos/producto-${esc(x.asin)}.webp" alt="" loading="lazy" decoding="async"></span>
+    <span class="st-cta">Ver en Amazon ↗</span>
+  </a>`;
+  return `<div class="st-cab"><h2>Cartas y sobres. <span>Lo que sí se puede comprar hoy.</span></h2><a href="/productos/">Ver todos →</a></div>
+  <div class="st-carro">${cartas.map(tile).join('')}</div>
+  <p class="nota small">Precio y stock de Amazon comprobados hoy · el envío y la devolución los gestiona Amazon.</p>
+  ${otros.length ? `<div class="st-cab" style="margin-top:26px"><h2>Protección. <span>Para que la carta llegue como salió.</span></h2></div>
+  <div class="st-carro">${otros.map(tile).join('')}</div>
+  <p class="nota small">Enlaces de afiliado: la comisión no cambia lo que pagas.</p>` : ''}`;
+})()}
 
-// fichas de producto con página propia: enlazarlas aquí para que no queden huérfanas
+
 <div class="grid">
   <a class="set-card" href="/comprar/etb-30/"><span class="set-name">ETB 30.º aniversario</span><span class="muted">La nº1 en ventas de Amazon · 52,99 €</span><span class="set-total">Ver análisis</span></a>
   <a class="set-card" href="/comprar/lote-30/"><span class="set-name">Lote de 6 sobres del 30.º</span><span class="muted">4,99 € por sobre: la referencia</span><span class="set-total">Ver análisis</span></a>
