@@ -1326,3 +1326,33 @@ h1,h2,h3{color:#1d1d1f}
 .vc-tres .vc-ficha .foto{width:170px}
 .vc-tres .vc-ficha h2{font-size:1.4rem}
 .vc-tres .vc-ficha .et{border:1px solid rgba(17,17,26,.14);background:rgba(255,255,255,.6)}
+
+/* ===== TRES EN LÍNEA (18-11) ===== */
+.vc3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin:0 0 16px}
+.v3-card{position:relative;display:flex;flex-direction:column;min-height:430px;padding:26px 24px 24px;
+  border-radius:22px;overflow:hidden;color:inherit;background:#f2f1ee;
+  box-shadow:0 1px 2px rgba(17,17,26,.05),0 12px 34px rgba(17,17,26,.07)}
+.v3-card:hover{transform:translateY(-2px);transition:transform .18s ease}
+.v3-k{align-self:flex-start;border:1px solid rgba(17,17,26,.14);border-radius:999px;padding:6px 10px;
+  font:600 10px/1 ui-monospace,monospace;letter-spacing:.13em;text-transform:uppercase;color:#6b6672}
+.v3-t{margin-top:14px}
+.v3-t h2{font-size:1.45rem;line-height:1.08;letter-spacing:-.02em;margin:0 0 8px;max-width:18ch}
+.v3-t p{font-size:.88rem;line-height:1.4;margin:0;color:#6b6672;max-width:32ch}
+.v3-l{display:flex;align-items:center;gap:14px;margin-top:16px}
+.v3-p{font-size:1.22rem;font-weight:800;letter-spacing:-.01em}
+.v3-b{border:1px solid rgba(17,17,26,.18);border-radius:999px;padding:8px 14px;font-size:.78rem;font-weight:700}
+.v3-img{display:block;margin:14px auto 0;flex:1;display:flex;align-items:flex-end;justify-content:center;width:100%}
+.v3-img img{max-height:230px;max-width:100%;object-fit:contain;filter:drop-shadow(0 16px 26px rgba(17,17,26,.18))}
+/* el Charizard manda: negro con dorado */
+.v3-dark{background:linear-gradient(155deg,#15141a,#241f2b 55%,#3a2f3d);color:#fff;
+  border-top:4px solid #f2b705;box-shadow:0 24px 60px rgba(17,17,26,.3)}
+.v3-dark .v3-k{color:#f2b705;border-color:rgba(242,183,5,.45)}
+.v3-dark .v3-t p{color:#c9c4d2}
+.v3-dark .v3-b{background:#f2b705;color:#111;border-color:transparent}
+.v3-dark .v3-img img{max-height:300px;border-radius:10px;
+  box-shadow:0 30px 70px rgba(0,0,0,.6);border:6px solid #fff}
+.v3-azul{background:linear-gradient(160deg,#eef2f9,#e2e9f3);border-top:3px solid #4c7fd6}
+.v3-rosa{background:linear-gradient(160deg,#f9eff2,#f2e2e8);border-top:3px solid #c2566d}
+@media (max-width:900px){.vc3{grid-template-columns:1fr}.v3-card{min-height:360px}}
+.v3-dark h2,.v3-dark .v3-t h2{color:#fff!important}
+.v3-card h2{color:#17171a}
