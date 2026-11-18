@@ -1591,3 +1591,25 @@ a:hover{color:var(--oro-tinta)}
   background:linear-gradient(90deg,#8a6400,#f6d98a 25%,#fff3cf 50%,#e0b257 75%,#8a6400)}
 @media (max-width:760px){.top{margin:8px 10px 0;padding:10px 12px;border-radius:14px}}
 .v3-azul .v3-k,.v3-rosa .v3-k{background:transparent!important}
+
+/* ===== RESTO DE LA PORTADA CON EL MISMO OFICIO (18-11) ===== */
+.bloque h2,.vc-compra-cab h2{position:relative;padding-top:16px;font-size:clamp(1.3rem,2.2vw,1.75rem)}
+.bloque h2::before,.vc-compra-cab h2::before{content:"";position:absolute;top:0;left:0;width:44px;height:3px;
+  border-radius:2px;background:linear-gradient(90deg,#8a6400,#f6d98a)}
+.tile{background:#fff!important;border:1px solid var(--line)!important;border-radius:16px!important;
+  box-shadow:var(--sh-1)!important;transition:transform .16s ease,box-shadow .16s ease}
+.tile:hover{transform:translateY(-2px);box-shadow:var(--sh-2)!important;border-color:#d8cfbe!important}
+.tile-name{font-family:"Inter Tight",sans-serif;font-weight:700;letter-spacing:-.02em;color:var(--text)}
+.tile-price{color:var(--oro-tinta);font-weight:800}
+.tile-set{color:var(--muted)}
+.vc-ribbon{background:var(--surface,#fffdf9)!important;border:1px solid var(--line)!important;border-radius:16px!important;
+  box-shadow:var(--sh-1)!important;padding:12px 16px!important}
+.vc-ribbon .sube{color:#2f7d4f;font-weight:700}
+.vc-prod .boton{background:linear-gradient(180deg,#f4d07a,#d9a300)!important;color:#231704!important;
+  border:1px solid rgba(138,100,0,.3)!important;box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 6px 14px rgba(120,90,10,.16)!important}
+.vc-prod .num{color:var(--muted);font-family:ui-monospace,monospace;font-size:.72rem;letter-spacing:.1em}
+.vc-pie{border-top:1px solid var(--line);margin-top:26px;padding-top:18px;color:var(--muted);font-size:.86rem}
+footer{background:linear-gradient(165deg,#14110c,#241c10)!important;color:#e8ded0!important;margin-top:26px}
+footer a{color:#e8ded0!important}
+footer a:hover{color:#f6d98a!important}
+@media (max-width:760px){.bloque h2{font-size:1.25rem}}
