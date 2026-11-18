@@ -354,6 +354,21 @@
   // a pelo al endpoint /count con sendBeacon.
   // El canal se saca de utm_source y, si no viene, del referrer (YouTube y
   // Pinterest no siempre conservan la query al abrir el enlace).
+  // embudo (18-11): cada paso cuenta como evento para saber dónde se cae la gente
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest && e.target.closest('[data-funnel]');
+    if (!el) return;
+    const ruta = 'embudo/' + (el.getAttribute('data-funnel') || 'sin-paso');
+    try {
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: ruta, title: location.pathname, event: true });
+      } else {
+        const u = 'https://valorcarta.goatcounter.com/count?p=' + encodeURIComponent(ruta) + '&e=1&t=' + encodeURIComponent(location.pathname);
+        if (navigator.sendBeacon) navigator.sendBeacon(u);
+      }
+    } catch (err) {}
+  }, true);
+
   document.addEventListener('click', (e) => {
     const a = e.target.closest && e.target.closest('a[href*="amazon.es"]');
     if (!a) return;
