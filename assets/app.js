@@ -367,7 +367,7 @@
       }
       const boton = f.querySelector('button');
       // Sin servicio de formularios configurado no se promete nada: se abre el correo.
-      const ENDPOINT = 'https://formsubmit.co/ajax/carlespeadel@gmail.com';
+      const ENDPOINT = '';
       if (!ENDPOINT) {
         location.href = 'mailto:carlespeadel@gmail.com'
           + '?subject=' + encodeURIComponent('Alta en el Círculo')
