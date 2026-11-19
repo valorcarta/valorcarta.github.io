@@ -1730,3 +1730,28 @@ footer a:hover{color:#f6d98a!important}
 .pr-grid h3{margin:0 0 6px;font-size:1.05rem}
 .pr-grid p{margin:0;color:var(--muted);font-size:.9rem}
 @media (max-width:760px){.pr-hero{padding:30px 22px}.pr-grid{grid-template-columns:1fr}}
+
+/* ===== PUERTA A MEDIAS EN LA FICHA (18-11) ===== */
+.puerta{position:relative;margin:14px 0 18px}
+.puerta-bloque{filter:blur(7px) saturate(.7);opacity:.45;pointer-events:none;user-select:none;max-height:260px;overflow:hidden}
+.puerta-cta{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;text-align:center;padding:18px;background:radial-gradient(closest-side,rgba(255,253,249,.96),rgba(255,253,249,.75) 70%,transparent)}
+.puerta-et{font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--oro-tinta);margin:0}
+.puerta-txt{margin:0;max-width:44ch;color:var(--text);font-size:.92rem}
+.puerta-min{margin:0;font-size:.74rem;color:var(--muted)}
+@media (max-width:760px){.puerta-bloque{max-height:210px}}
+/* ajuste: la puerta tiene que leerse limpia, sin solaparse con el texto */
+.puerta{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--surface);
+  box-shadow:var(--sh-1);padding:0}
+.puerta-bloque{filter:blur(8px) saturate(.6);opacity:.35;max-height:190px;overflow:hidden;padding:16px 18px;margin:0}
+.puerta-cta{position:absolute;inset:0;background:rgba(255,253,249,.94);padding:20px 22px;gap:6px}
+.puerta-txt{font-size:.9rem;line-height:1.45}
+/* la puerta, en limpio: tarjeta con el candado, sin cristal encima */
+.puerta{border:1px solid var(--line);border-radius:18px;background:var(--surface);box-shadow:var(--sh-1);
+  margin:14px 0 18px;padding:0;position:relative}
+.puerta-bloque{display:none!important}
+.puerta-cta{position:static!important;inset:auto!important;background:none!important;
+  padding:22px 24px!important;align-items:flex-start!important;text-align:left!important;gap:8px!important}
+.puerta-et{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#faf6ec}
+.puerta-txt{font-size:.95rem;max-width:52ch;color:var(--text);margin:0}
+.puerta-min{font-size:.76rem;color:var(--muted);margin:0}
