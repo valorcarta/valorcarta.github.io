@@ -354,6 +354,44 @@
   // a pelo al endpoint /count con sendBeacon.
   // El canal se saca de utm_source y, si no viene, del referrer (YouTube y
   // Pinterest no siempre conservan la query al abrir el enlace).
+  // alta del Círculo (19-11): envía el correo a FormSubmit y muestra confirmación
+  (() => {
+    const f = document.getElementById('alta-circulo');
+    if (!f) return;
+    f.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = (f.querySelector('#alta-email').value || '').trim();
+      if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) {
+        f.querySelector('#alta-email').focus();
+        return;
+      }
+      const boton = f.querySelector('button');
+      boton.disabled = true;
+      try {
+        const r = await fetch('https://formsubmit.co/ajax/valorcartaalertas@gmail.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify({
+            email,
+            _subject: 'Alta en el Círculo — ValorCarta',
+            origen: location.pathname,
+            fecha: new Date().toISOString(),
+            _template: 'table',
+          }),
+        });
+        if (!r.ok) throw new Error('no');
+        f.querySelector('.alta-fila').hidden = true;
+        f.querySelector('.alta-ok').hidden = false;
+        if (window.goatcounter && window.goatcounter.count) {
+          window.goatcounter.count({ path: 'embudo/alta-circulo', title: location.pathname, event: true });
+        }
+      } catch (err) {
+        boton.disabled = false;
+        boton.textContent = 'No ha ido; prueba otra vez';
+      }
+    });
+  })();
+
   // embudo (18-11): cada paso cuenta como evento para saber dónde se cae la gente
   document.addEventListener('click', (e) => {
     const el = e.target.closest && e.target.closest('[data-funnel]');
