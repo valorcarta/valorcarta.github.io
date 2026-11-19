@@ -1714,3 +1714,19 @@ footer a:hover{color:#f6d98a!important}
 .cta-band p{margin:0;color:var(--muted);font-size:.9rem;max-width:56ch}
 .cta-band .btn-todos{flex:none}
 @media (max-width:760px){.cta-band{padding:16px 18px}.cta-band h2{font-size:1.15rem}}
+
+/* ===== EL CÍRCULO (18-11) ===== */
+.pr-hero{background:linear-gradient(160deg,#14110c,#241c10 55%,#3a2c14);color:#f6efdf;border-radius:24px;
+  padding:48px 40px;margin:8px 0 22px;border:1px solid rgba(217,163,0,.35);
+  box-shadow:0 24px 60px rgba(20,18,15,.30)}
+.pr-hero h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1;letter-spacing:-.04em;margin:10px 0 12px;color:#f6efdf}
+.pr-hero .st-kicker{color:#f2cd6b}
+.pr-sub{color:#cfc3a8;max-width:52ch;margin:0 0 16px}
+.pr-precio{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:1.5rem;margin:0 0 20px;color:#f6d98a}
+.pr-precio span{font-weight:500;font-size:.86rem;color:#b8ab8c}
+.pr-hero .btn-todos{background:linear-gradient(180deg,#f4d07a,#d9a300);color:#231704!important;border:0}
+.pr-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:0 0 18px}
+.pr-grid article{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:20px 22px;box-shadow:var(--sh-1)}
+.pr-grid h3{margin:0 0 6px;font-size:1.05rem}
+.pr-grid p{margin:0;color:var(--muted);font-size:.9rem}
+@media (max-width:760px){.pr-hero{padding:30px 22px}.pr-grid{grid-template-columns:1fr}}
