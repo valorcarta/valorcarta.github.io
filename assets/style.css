@@ -1781,3 +1781,19 @@ footer a:hover{color:#f6d98a!important}
 .pr-faq summary::after{content:"+";float:right;color:var(--oro-tinta)}
 .pr-faq details[open] summary::after{content:"–"}
 .pr-faq p{margin:10px 0 0;color:var(--muted);font-size:.9rem;line-height:1.55}
+
+/* ===== CÍRCULO EN MÓVIL (19-11) ===== */
+@media (max-width:760px){
+  .pr-hero{padding:28px 20px 26px;border-radius:18px}
+  .pr-hero h1{font-size:2.05rem;line-height:1.02;margin:16px 0 12px;letter-spacing:-.035em}
+  .pr-hero .st-kicker{display:block;margin-bottom:2px}
+  .pr-sub{font-size:.95rem;line-height:1.5}
+  .pr-precio{font-size:1.25rem;line-height:1.35;margin:14px 0 18px}
+  .pr-precio span{display:block;font-size:.8rem;margin-top:4px}
+  .alta-fila{flex-direction:column;gap:10px}
+  .alta input{flex:1 1 auto;width:100%}
+  .alta .btn-todos{width:100%;justify-content:center;text-align:center}
+  .pr-h{margin:28px 0 10px}
+  .pr-pasos,.pr-lista{padding-left:18px;font-size:.92rem}
+  .pr-faq details{padding:12px 14px}
+}
