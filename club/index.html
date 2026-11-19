@@ -1,0 +1,53 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Tu colección · ValorCarta</title>
+<style>
+body{margin:0;background:#f6f4ef;color:#14120f;font:16px/1.5 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.w{max-width:820px;margin:0 auto;padding:34px 20px 70px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#8a6400}
+h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(1.6rem,4vw,2.3rem);margin:10px 0 4px}
+.meta{color:#6d675e;font-size:.88rem;margin:0 0 18px}
+.tot{background:#fffdf9;border:1px solid #e7e1d6;border-radius:20px;padding:22px 24px;margin:0 0 16px;box-shadow:0 1px 2px rgba(20,18,15,.05),0 14px 34px rgba(20,18,15,.07)}
+.n{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:2.3rem;letter-spacing:-.04em;margin:6px 0 0}
+table{width:100%;border-collapse:collapse;background:#fffdf9;border:1px solid #e7e1d6;border-radius:16px;overflow:hidden}
+th{font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#6d675e;text-align:left;padding:12px 14px;border-bottom:1px solid #e7e1d6}
+td{padding:12px 14px;border-bottom:1px solid #efe9dd;font-size:.92rem}tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}td small{display:block;color:#8d8474;font-size:.74rem}
+.pie{margin-top:16px;font-size:.78rem;color:#8d8474}
+a{color:#8a6400}
+</style></head><body><div class="w">
+<p class="s">El Círculo · tu colección</p>
+<h1>Tu colección, con los precios de hoy</h1>
+<p class="meta">Precios de Cardmarket del día · se recalcula al abrir el enlace.</p>
+<div class="tot"><span class="s">Valor de mercado hoy</span><p class="n" id="total">—</p><p class="meta" id="cuenta" style="margin:6px 0 0"></p></div>
+<table><thead><tr><th>Carta</th><th class="n">Uds</th><th class="n">Hoy</th><th class="n">Total</th></tr></thead><tbody id="filas"></tbody></table>
+<p class="pie">Enlace privado: no lo compartas. No es una tasación. © ValorCart</p>
+</div><script>
+  (async () => {
+    const h = location.hash.slice(1);
+    const raw = h.startsWith('c=') ? h.slice(2) : h;
+    const dec = (s) => {
+      s = s.replace(/-/g, '+').replace(/_/g, '/');
+      s += '='.repeat((4 - s.length % 4) % 4);
+      try { return JSON.parse(decodeURIComponent(escape(atob(s)))); } catch (e) { return null; }
+    };
+    const lista = raw ? dec(raw) : null;
+    const caja = document.getElementById('club');
+    if (!lista || !lista.length) { caja.innerHTML = '<p class="vacio">Este enlace no trae ninguna colección. <a href="/valorar/">Crea la tuya aquí</a>.</p>'; return; }
+    const precios = await (await fetch('/data/precios-hoy.json')).json();
+    const filas = []; let total = 0;
+    for (const x of lista) {
+      const d = precios[x.s]; const q = parseInt(x.q || 0, 10);
+      if (!d || !q) continue;
+      total += d.p * q;
+      filas.push({ n: d.n, s: d.s, q, p: d.p, t: d.p * q });
+    }
+    filas.sort((a, b) => b.t - a.t);
+    const eur = (v) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    document.getElementById('total').textContent = eur(total);
+    document.getElementById('cuenta').textContent = filas.length + (filas.length === 1 ? ' carta' : ' cartas');
+    document.getElementById('filas').innerHTML = filas.map((f) =>
+      '<tr><td>' + f.n + '<small>' + f.s + '</small></td><td class="n">' + f.q + '</td><td class="n">' +
+      eur(f.p) + '</td><td class="n">' + eur(f.t) + '</td></tr>').join('');
+  })();
+  </script></body></html>
