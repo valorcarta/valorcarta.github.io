@@ -557,7 +557,7 @@ const puertaCírculo = (html, que) => `<div class="puerta">
   <div class="puerta-cta">
     <p class="puerta-et">Solo socios</p>
     <p class="puerta-txt">${que}</p>
-    <a class="btn-todos" data-funnel="puerta-carta" href="/premium/">Ver con el Círculo · 4 €/mes</a>
+    <a class="btn-todos" data-funnel="puerta-carta" href="${config.paymentUrl || '/premium/'}">Ver con el Círculo · 4 €/mes</a>
     <p class="puerta-min">El precio de hoy sigue gratis: no cobramos por lo que ya es público.</p>
   </div>
 </div>`;
@@ -1412,46 +1412,66 @@ Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
 await put(
   OUT('premium/index.html'),
   layout({
-    title: `Alertas de precio de cartas Pokémon | ${config.brand} Premium`,
-    description:
-      'Avisos cuando una carta de tu lista baja de precio, historial completo y seguimiento del valor de tu colección. 4,99 €/mes, sin permanencia.',
+    title: `El Círculo · avisos, colección y venta real | ${config.brand}`,
+    description: 'Lo que Cardmarket no te da: aviso cuando tu carta baja, evolución de tu colección, precio de venta real en España y detección de falsas. 4 €/mes, sin permanencia.',
     url: '/premium/',
     body: `
-<h1>Enterarte antes de que suba</h1>
-<p class="lede">El valorador es gratis y lo seguirá siendo. Lo de pago es el aviso: cuando una carta de tu lista
-baja de precio, cuando un set se agota y cuando tu colección cambia de valor.</p>
-<div class="grid planes">
-  <div class="plan">
-    <h2>Gratis</h2>
-    <p class="precio">0 €</p>
-    <ul>
-      <li>Valorar la colección sin límite</li>
-      <li>Precio y tendencia de 30 días de cada carta</li>
-      <li>Enlace para compartir y CSV</li>
-      <li>Catálogo completo en español</li>
-    </ul>
-    <a class="btn ghost" href="/valorar/">Empezar</a>
-  </div>
-  <div class="plan destacado">
-    <h2>Premium</h2>
-    <p class="precio">${config.precio.mes}<span class="muted">/mes</span></p>
-    <ul>
-      <li><b>Alertas</b> cuando una carta de tu lista baja de precio</li>
-      <li>Historial completo de precios (no solo 30 días)</li>
-      <li>Aviso mensual del valor de tu colección</li>
-      <li>Watchlist ilimitada y CSV con historial</li>
-    </ul>
-    <a class="btn" href="${esc(config.premiumUrl)}">Suscribirme</a>
-    <p class="nota small">Cobro con Lemon Squeezy (IVA de la UE incluido). Cancelas cuando quieras, sin llamadas.</p>
-  </div>
+<section class="pr-hero">
+  <p class="st-kicker">El Círculo</p>
+  <h1>Lo que no te da Cardmarket.</h1>
+  <p class="pr-sub">El precio lo tienes gratis en todas partes; esto es lo que no: el aviso, tu histórico, el precio de venta real en España y saber si una carta es falsa.</p>
+  <p class="pr-precio">4 €/mes <span>· IVA incluido · sin permanencia · primeros 100 socios</span></p>
+  <form class="alta" id="alta-circulo" novalidate>
+    <label class="alta-et" for="alta-email">Tu correo, y te aviso cuando abra</label>
+    <div class="alta-fila">
+      <input id="alta-email" name="email" type="email" required placeholder="tu@correo.com" autocomplete="email">
+      <button class="btn-todos" type="submit" data-funnel="premium">Entrar en la lista</button>
+    </div>
+    <p class="alta-min">Solo te escribo por el Círculo. Sin boletín y sin ceder tus datos a terceros. Te das de baja con un clic.</p>
+    <p class="alta-ok" hidden>Apuntado. Te escribo al abrir, sin más correos hasta entonces.</p>
+  </form>
+</section>
+
+<h2 class="pr-h">Qué incluye, con detalle</h2>
+<div class="pr-grid">
+  <article><h3>Aviso cuando baja</h3><p>Pones el precio al que comprarías una carta y te aviso el día que el mercado baja de ahí. Un correo al día como máximo, con el precio de ese día y el enlace a la ficha; sin avisos de madrugada ni resúmenes que no has pedido.</p></article>
+  <article><h3>La evolución de tu colección</h3><p>Tu cartera guardada en el servidor, no en el navegador: total de hoy, cuánto ha cambiado en 7 y 30 días, qué cartas tiran de ella y cuáles se han quedado quietas. Sobrevive a cambiar de móvil o de navegador.</p></article>
+  <article><h3>Venta real en España</h3><p>Lo que se ha pagado de verdad por la carta aquí, no el anuncio que lleva meses sin venderse. Se construye con operaciones contrastadas y solo se publica cuando hay suficientes; mientras no las haya, lo dice en vez de inventar una cifra.</p></article>
+  <article><h3>Falsa o buena</h3><p>Subes fotos de la carta (anverso, reverso, esquina y detalle) y recibes un veredicto con el porqué: gramaje, linterna UV, patrón de puntos y borde. Si no se puede asegurar con esas fotos, se dice «no concluyente» en vez de arriesgar tu dinero.</p></article>
 </div>
-<section class="bloque">
-  <h2>Qué NO es esto</h2>
-  <p>No es una tasación oficial ni una promesa de revalorización. Es el precio al que se están vendiendo
-  cartas parecidas esta semana, con la fuente a la vista. Si algo no tiene datos, lo decimos.</p>
-</section>`,
+
+<h2 class="pr-h">Cómo funciona, paso a paso</h2>
+<ol class="pr-pasos">
+  <li><b>Pagas</b> 4 €/mes con tarjeta. El cobro es mensual y se renueva solo; puedes cancelar cuando quieras desde el recibo.</li>
+  <li><b>Recibes un correo</b> con tu enlace privado: una dirección larga y aleatoria, solo para ti, sin contraseña que recordar.</li>
+  <li><b>Tu panel se actualiza cada día</b> con los precios de esa mañana, tus avisos y la evolución de tu colección. Si algo no se puede medir, lo dice.</li>
+</ol>
+
+<h2 class="pr-h">Precio, facturación y cancelación</h2>
+<ul class="pr-lista">
+  <li><b>4 €/mes, IVA incluido</b> (3,31 € + 21 % de IVA). Sin alta, sin permanencia y sin subida a los primeros 100 socios.</li>
+  <li><b>Factura</b> a tu nombre o al de tu empresa, por correo, cada mes.</li>
+  <li><b>Cancelas cuando quieras</b>: deja de renovarse y mantienes el acceso hasta el final del mes pagado. No hay penalización.</li>
+  <li><b>Garantía de 30 días</b>: si no te sirve, escribes y te devuelvo el primer mes sin preguntas.</li>
+  <li><b>Pago seguro</b>: la tarjeta la gestiona la pasarela; aquí no se guarda ningún dato de pago.</li>
+</ul>
+
+<h2 class="pr-h">Tus datos</h2>
+<p class="pr-txt">Guardo tu correo y tu colección para prestarte el servicio, nada más. Base legal: el contrato que aceptas al suscribirte. No se venden ni se ceden a terceros ajenos a la pasarela de pago y al envío de correo. Puedes pedir una copia o el borrado escribiendo a <a href="mailto:${esc(config.contactEmail)}">${esc(config.contactEmail)}</a>; el borrado elimina tu colección y tus avisos, y la baja del cobro se hace desde el recibo.</p>
+
+<h2 class="pr-h">Preguntas frecuentes</h2>
+<div class="pr-faq">
+  <details><summary>¿Qué sigue siendo gratis?</summary><p>Buscar cualquier carta, ver su precio de hoy, el catálogo entero y valorar tu colección con enlace. El Círculo no cierra nada de eso.</p></details>
+  <details><summary>¿Puedo cancelar el primer día?</summary><p>Sí, y con la garantía de 30 días te devuelvo el primer mes.</p></details>
+  <details><summary>¿Los avisos llegan al móvil?</summary><p>Por correo; si el correo es el del móvil, te salta la notificación. El canal de Telegram llegará después, para quien lo prefiera.</p></details>
+  <details><summary>¿De dónde salen los precios?</summary><p>De Cardmarket, vía la API de TCGdex, con la media de 30 días y el mínimo. La venta real en España es dato propio y se publica solo con operaciones suficientes.</p></details>
+  <details><summary>¿Qué pasa si una carta no tiene datos?</summary><p>Se dice «sin datos suficientes» y no se estima. Prefiero un hueco a una cifra inventada.</p></details>
+  <details><summary>¿Y si no tengo tarjeta?</summary><p>Déjame tu correo en la lista y te aviso cuando esté abierto; también estudiaré pago por transferencia para quien lo pida.</p></details>
+</div>
+<p class="nota small">El Círculo es un servicio de información: no es una tasación, no garantiza precios futuros y no compra ni vende cartas.</p>`,
   }),
 );
+
 
 // ---------- círculo: liga gratis por provincias (captación de la temporada 1) ----------
 const ALTA_CIRCULO = 'mailto:valorcartaalertas@gmail.com?subject=' + encodeURIComponent('Alta en CÍRCULO') +
@@ -2308,29 +2328,7 @@ ${lista.map((p) => `    <a class="prod-card" href="${p.url}" rel="sponsored nofo
   }),
 );
 
-await put(
-  OUT('premium/index.html'),
-  layout({
-    title: `El Círculo · avisos, colección y venta real | ${config.brand}`,
-    description: 'Lo que Cardmarket no te da: aviso cuando tu carta baja, evolución de tu colección, precio de venta real en España y detección de falsas.',
-    url: '/premium/',
-    body: `
-<section class="pr-hero">
-  <p class="st-kicker">El Círculo</p>
-  <h1>Lo que no te da Cardmarket.</h1>
-  <p class="pr-sub">El precio lo tienes gratis en todas partes; esto es lo que no: el aviso, tu histórico, el precio de venta real en España y saber si una carta es falsa.</p>
-  <p class="pr-precio">4 €/mes <span>· sin permanencia · primeros 100 socios</span></p>
-  <a class="btn-todos" data-funnel="premium" href="${esc(config.premiumUrl)}">Entrar en la lista</a>
-</section>
-<div class="pr-grid">
-  <article><h3>Aviso cuando baja</h3><p>Dices el precio al que comprarías y te llega el aviso. Una vez al día, sin ruido.</p></article>
-  <article><h3>La evolución de tu colección</h3><p>Tu cartera día a día, cuánto sube o baja cada mes y qué cartas tiran de ella.</p></article>
-  <article><h3>Venta real en España</h3><p>Lo que se paga de verdad por la carta aquí, no el anuncio que lleva meses sin venderse.</p></article>
-  <article><h3>Falsa o buena</h3><p>Tu foto, un veredicto y el porqué: la linterna, el gramaje y el patrón de puntos, sin humo.</p></article>
-</div>
-<p class="nota small">El Círculo no cambia lo que ya es gratis: consultar cualquier carta y valorar tu colección sigue abierto y sin registro.</p>`,
-  }),
-);
+
 
 await put(
   OUT('comprar/index.html'),
