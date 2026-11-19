@@ -1766,3 +1766,4 @@ footer a:hover{color:#f6d98a!important}
 .alta input:focus{outline:2px solid rgba(246,217,138,.55);outline-offset:1px}
 .alta-min{font-size:.74rem;color:#a99d84;margin:10px 0 0;line-height:1.5}
 .alta-ok{margin:10px 0 0;color:#f6d98a;font-weight:600}
+.alta-fila[hidden]{display:none!important}
