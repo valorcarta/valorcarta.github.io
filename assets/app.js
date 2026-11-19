@@ -296,6 +296,30 @@
         try { await navigator.clipboard.writeText(url); toast('Enlace copiado'); }
         catch { prompt('Copia este enlace:', url); }
       });
+      $('#alcirculo')?.addEventListener('click', async () => {
+        if (!leer().length) { toast('Añade alguna carta primero'); return; }
+        const email = prompt('Tu correo, y te mando el panel:');
+        if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return;
+        try {
+          const r = await fetch('https://formspree.io/f/xdegdajy', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({
+              email,
+              coleccion: enc(leer()),
+              _subject: 'Colección enviada al Círculo',
+              origen: 'valorar',
+              fecha: new Date().toISOString(),
+              _autoresponse: 'Recibido. En 24 horas te mando tu panel privado con tu colección valorada y lo que ha subido o bajado en 7 y 30 días. Precio: 4 €/mes con IVA, sin permanencia; cancelas cuando quieras. — ValorCarta',
+            }),
+          });
+          if (!r.ok) throw new Error('no');
+          toast('Enviado. Te llega el panel en 24 h');
+          if (window.goatcounter && window.goatcounter.count) {
+            window.goatcounter.count({ path: 'embudo/coleccion-enviada', title: location.pathname, event: true });
+          }
+        } catch (err) { toast('No ha ido; prueba otra vez'); }
+      });
       $('#csv')?.addEventListener('click', () => {
         const rows = [['carta', 'set', 'unidades', 'precio', 'subtotal']];
         for (const it of leer()) {
@@ -384,21 +408,11 @@
             _subject: 'Alta en el Círculo — ValorCarta',
             _subject: 'Falta un paso para tu Círculo (1 minuto)',
             _autoresponse: [
-              'Hola:',
+              'Ya estás dentro.',
               '',
-              'Estás en la lista del Círculo. Falta UNA cosa, y es un minuto:',
+              'No tienes que hacer nada más. En 24 horas te llega tu panel privado con tu colección valorada y lo que ha subido o bajado en 7 y 30 días.',
               '',
-              '>>> RESPONDE A ESTE CORREO pegando el enlace de tu colección. <<<',
-              '',
-              'Ese enlace se saca así: entras en valorcarta.github.io/valorar, añades tus cartas y pulsas el botón «Copiar enlace para compartir». Copias lo que salga y me lo pegas en la respuesta.',
-              '',
-              'Con eso, en 24 horas te mando tu panel privado: tu colección valorada y lo que ha subido o bajado en 7 y 30 días, actualizado cada mañana.',
-              '',
-              '- Precio: 4 €/mes con IVA incluido, sin permanencia.',
-              '- Cancelas cuando quieras desde el recibo y mantienes el acceso hasta final de mes.',
-              '- No hay boletín ni cesión de datos: solo te escribo por esto.',
-              '',
-              'Si no te has apuntado tú, ignora este correo y no volveré a escribirte.',
+              '4 €/mes con IVA incluido, sin permanencia. Cancelas cuando quieras desde el recibo.',
               '',
               '— ValorCarta',
             ].join('\n'),
