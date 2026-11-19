@@ -1755,3 +1755,55 @@ footer a:hover{color:#f6d98a!important}
 .puerta-et{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 10px;background:#faf6ec}
 .puerta-txt{font-size:.95rem;max-width:52ch;color:var(--text);margin:0}
 .puerta-min{font-size:.76rem;color:var(--muted);margin:0}
+
+/* ===== ALTA DEL CÍRCULO (19-11) ===== */
+.alta{max-width:520px}
+.alta-et{display:block;font-size:.82rem;color:#cfc3a8;margin:0 0 8px}
+.alta-fila{display:flex;gap:10px;flex-wrap:wrap}
+.alta input{flex:1 1 240px;min-width:0;padding:13px 16px;border-radius:999px;border:1px solid rgba(246,217,138,.35);
+  background:rgba(255,255,255,.06);color:#f6efdf;font-size:.95rem}
+.alta input::placeholder{color:#9a8f76}
+.alta input:focus{outline:2px solid rgba(246,217,138,.55);outline-offset:1px}
+.alta-min{font-size:.74rem;color:#a99d84;margin:10px 0 0;line-height:1.5}
+.alta-ok{margin:10px 0 0;color:#f6d98a;font-weight:600}
+.alta-fila[hidden]{display:none!important}
+
+/* ===== CÍRCULO: detalle completo (19-11) ===== */
+.pr-h{font-size:clamp(1.4rem,2.6vw,1.9rem);letter-spacing:-.02em;margin:34px 0 12px;position:relative;padding-top:14px}
+.pr-h::before{content:"";position:absolute;top:0;left:0;width:44px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,#8a6400,#f6d98a)}
+.pr-pasos,.pr-lista{margin:0 0 8px;padding-left:22px;color:var(--text);font-size:.95rem;line-height:1.6}
+.pr-pasos li,.pr-lista li{margin:0 0 8px}
+.pr-txt{font-size:.95rem;line-height:1.6;color:var(--text);max-width:70ch}
+.pr-faq details{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin:0 0 8px}
+.pr-faq summary{cursor:pointer;font-weight:600;list-style:none}
+.pr-faq summary::-webkit-details-marker{display:none}
+.pr-faq summary::after{content:"+";float:right;color:var(--oro-tinta)}
+.pr-faq details[open] summary::after{content:"–"}
+.pr-faq p{margin:10px 0 0;color:var(--muted);font-size:.9rem;line-height:1.55}
+
+/* ===== CÍRCULO EN MÓVIL (19-11) ===== */
+@media (max-width:760px){
+  .pr-hero{padding:28px 20px 26px;border-radius:18px}
+  .pr-hero h1{font-size:2.05rem;line-height:1.02;margin:16px 0 12px;letter-spacing:-.035em}
+  .pr-hero .st-kicker{display:block;margin-bottom:2px}
+  .pr-sub{font-size:.95rem;line-height:1.5}
+  .pr-precio{font-size:1.25rem;line-height:1.35;margin:14px 0 18px}
+  .pr-precio span{display:block;font-size:.8rem;margin-top:4px}
+  .alta-fila{flex-direction:column;gap:10px}
+  .alta input{flex:1 1 auto;width:100%}
+  .alta .btn-todos{width:100%;justify-content:center;text-align:center}
+  .pr-h{margin:28px 0 10px}
+  .pr-pasos,.pr-lista{padding-left:18px;font-size:.92rem}
+  .pr-faq details{padding:12px 14px}
+}
+
+/* ===== TRES BALDOSAS EN MÓVIL (19-11): la carta no se sale ===== */
+@media (max-width:900px){
+  .v3-card{overflow:hidden!important;padding-bottom:18px!important}
+  .v3-img{height:210px!important;margin-top:10px!important}
+  .v3-img img{max-height:190px!important;max-width:70%!important}
+  .v3-dark .v3-img img{max-height:200px!important;max-width:64%!important;
+    transform:rotateY(-6deg) rotateZ(-4deg)!important}
+  .v3-t h2{font-size:1.3rem!important}
+}
