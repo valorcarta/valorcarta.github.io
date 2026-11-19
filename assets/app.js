@@ -367,7 +367,7 @@
       }
       const boton = f.querySelector('button');
       // Sin servicio de formularios configurado no se promete nada: se abre el correo.
-      const ENDPOINT = '';
+      const ENDPOINT = 'https://formspree.io/f/xdegdajy';
       if (!ENDPOINT) {
         location.href = 'mailto:carlespeadel@gmail.com'
           + '?subject=' + encodeURIComponent('Alta en el Círculo')
@@ -381,8 +381,7 @@
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             email,
-            access_key: 'PON_AQUI_LA_CLAVE',
-            subject: 'Alta en el Círculo — ValorCarta',
+            _subject: 'Alta en el Círculo — ValorCarta',
             origen: location.pathname,
             fecha: new Date().toISOString(),
           }),
