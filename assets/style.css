@@ -1814,3 +1814,5 @@ footer a:hover{color:#f6d98a!important}
 .pr-cuenta b{display:block;font-family:"Inter Tight",sans-serif;font-size:1.6rem;letter-spacing:-.03em;color:var(--oro-tinta);margin-bottom:4px}
 .pr-cuenta span{font-size:.82rem;color:var(--muted);line-height:1.4}
 @media (max-width:760px){.pr-cuenta{grid-template-columns:1fr}}
+.alta-ok ol{margin:8px 0 0;padding-left:18px;color:#cfc3a8;font-size:.82rem;line-height:1.5}
+.alta-ok p{margin:0;font-weight:600;color:#f6d98a}

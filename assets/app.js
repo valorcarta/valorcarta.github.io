@@ -382,7 +382,17 @@
           body: JSON.stringify({
             email,
             _subject: 'Alta en el Círculo — ValorCarta',
-            _autoresponse: 'Estás en la lista del Círculo (ValorCarta).\n\nTe escribo a este mismo correo el día que abra, con el enlace para entrar y el precio de socio fundador: 4 €/mes, sin permanencia.\n\nSi no te has apuntado tú, ignora este mensaje y no volveré a escribirte.\n\n— ValorCarta · valorcarta.github.io',
+            _autoresponse: [
+              'Estás en la lista del Círculo de ValorCarta. Te cuento qué pasa ahora, sin letra pequeña:',
+              '',
+              '1. Te doy de alta cuando abras, y te llega un enlace privado: tu colección valorada, con lo que ha subido o bajado en 7 y 30 días, actualizada cada mañana.',
+              '2. Para tenerla lista desde el primer día, responde a este correo con el enlace de \'Copiar enlace para compartir\' de valorcarta.github.io/valorar.',
+              '3. El precio de socio fundador es 4 €/mes con IVA incluido, sin permanencia. Cancelas cuando quieras desde el recibo y mantienes el acceso hasta el final del mes pagado.',
+              '',
+              'Qué NO vas a recibir: boletines, correos de promoción ni tu dirección cedida a nadie. Si no te has apuntado tú, ignora este mensaje y no volveré a escribirte.',
+              '',
+              '— ValorCarta · valorcarta.github.io/premium',
+            ].join('\n'),
             origen: location.pathname,
             fecha: new Date().toISOString(),
           }),
