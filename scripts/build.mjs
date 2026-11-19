@@ -552,6 +552,16 @@ const vcShelfHtml = (lista) => lista.map((p, i) => `<a class="vc-prod" href="${v
       <span class="linea"><span class="p">${vcPrecio(p)}</span><span class="boton">Comprar</span></span>
     </a>`).join('\n      ');
 
+const puertaCírculo = (html, que) => `<div class="puerta">
+  <div class="puerta-bloque" aria-hidden="true">${html}</div>
+  <div class="puerta-cta">
+    <p class="puerta-et">Solo socios</p>
+    <p class="puerta-txt">${que}</p>
+    <a class="btn-todos" data-funnel="puerta-carta" href="/premium/">Ver con el Círculo · 4 €/mes</a>
+    <p class="puerta-min">El precio de hoy sigue gratis: no cobramos por lo que ya es público.</p>
+  </div>
+</div>`;
+
 const homeBody = `<div class="vc-ancho">
 <div class="vc-tit">
   <p class="kicker">Precio real de Cardmarket · ${priced.length.toLocaleString('es-ES')} cartas</p>
@@ -569,7 +579,7 @@ const homeBody = `<div class="vc-ancho">
   <section class="cta-band">
     <div>
       <h2>¿Cuánto vale tu colección?</h2>
-      <p>Dos minutos, gratis y sin registro. Guardas el enlace y el valor se actualiza solo cada día.</p>
+      <p>Dos minutos, gratis y sin registro. Guardas el enlace y el valor se actualiza solo cada día. <a href="/premium/">Ver el Círculo →</a></p>
     </div>
     <a class="btn-todos" data-funnel="1-valorar" href="/valorar/">Valorar mi colección</a>
   </section>
@@ -604,11 +614,7 @@ const homeBody = `<div class="vc-ancho">
       ${vcShelfHtml(vcShelf.slice(0, 8))}
   </div>
 
-  ${vcMueven.length ? `<div class="vc-ribbon">
-    <span class="et">Mientras miras</span>
-    ${vcMueven.map((m) => `<a href="/carta/${cardSlug(m.c)}/">${esc(m.c.name)} <span class="sube">${m.pct >= 0 ? '+' : ''}${m.pct.toFixed(1)} %</span></a>`).join('\n    ')}
-    <a class="mas" href="/mercado/">ver las 20 que más se mueven →</a>
-  </div>` : ''}
+  ${vcMueven.length ? puertaCírculo('', 'Las cartas que más se mueven esta semana y cuánto ha cambiado cada una: el radar completo, solo para socios.') : ''}
 
   <div class="vc-pie">
     <p class="nota">Precios de Amazon de hoy; el stock se comprueba antes de mostrarlo. Si un producto se agota, desaparece de aquí solo.</p>
@@ -1204,12 +1210,12 @@ for (let i = 0; i < priced.length; i += BATCH) {
       return `<p class="precio-grande">desde ${eur(listingPrice(vHero))}</p>
       <p class="muted small">${precios.length} variantes, de ${eur(min)} a ${eur(max)}. La versión cambia el precio: mírala en la tabla antes de fiarte de una cifra.</p>`;
     })()}
-    ${trendLine(c)}
+    ${puertaCírculo(trendLine(c), 'La variación de los últimos 7 y 30 días y la gráfica de la carta.')}
     ${ctaAmazon}
     ${bloqueProteccion()}
     ${bloqueAutenticidad()}
     <p class="muted">${esc(descripcion)}. Número ${esc(c.localId ?? '—')}/${total}.</p>
-    ${priceTable(c)}
+    ${puertaCírculo(priceTable(c), 'El histórico por versión e idioma: lo que se ha pagado por cada una, no solo el precio de hoy.')}
     <p class="muted small">La versión y el idioma cambian lo que vale: la misma carta en otra edición o en japonés puede costar la mitad o el doble. Compara la fila de la tabla antes de decidir.</p>
     <p><a class="btn ghost" href="/set/${c.setId}/">Ver el set completo${total ? ` (${total} cartas)` : ''}</a></p>
     <p><a class="btn" href="/comprar/" rel="nofollow">Ver dónde comprar esta carta →</a>
@@ -1586,7 +1592,7 @@ await put(
 <p class="lede">Comparación de la media de 7 días frente a la de 30, sobre ${radar.length.toLocaleString('es-ES')} cartas.
 Precios de Cardmarket actualizados el ${fechaLarga}. Esto no es un artículo: es el mercado de hoy.</p>
 
-${vitrinaHtml}
+${puertaCírculo(vitrinaHtml, 'El radar completo: las que más suben y bajan, con su variación de 7 y 30 días. Solo para socios.')}
 
 ${munecosHtml}
 
@@ -2299,6 +2305,30 @@ ${lista.map((p) => `    <a class="prod-card" href="${p.url}" rel="sponsored nofo
   }));
 })();
 </script>`,
+  }),
+);
+
+await put(
+  OUT('premium/index.html'),
+  layout({
+    title: `El Círculo · avisos, colección y venta real | ${config.brand}`,
+    description: 'Lo que Cardmarket no te da: aviso cuando tu carta baja, evolución de tu colección, precio de venta real en España y detección de falsas.',
+    url: '/premium/',
+    body: `
+<section class="pr-hero">
+  <p class="st-kicker">El Círculo</p>
+  <h1>Lo que no te da Cardmarket.</h1>
+  <p class="pr-sub">El precio lo tienes gratis en todas partes; esto es lo que no: el aviso, tu histórico, el precio de venta real en España y saber si una carta es falsa.</p>
+  <p class="pr-precio">4 €/mes <span>· sin permanencia · primeros 100 socios</span></p>
+  <a class="btn-todos" data-funnel="premium" href="${esc(config.premiumUrl)}">Entrar en la lista</a>
+</section>
+<div class="pr-grid">
+  <article><h3>Aviso cuando baja</h3><p>Dices el precio al que comprarías y te llega el aviso. Una vez al día, sin ruido.</p></article>
+  <article><h3>La evolución de tu colección</h3><p>Tu cartera día a día, cuánto sube o baja cada mes y qué cartas tiran de ella.</p></article>
+  <article><h3>Venta real en España</h3><p>Lo que se paga de verdad por la carta aquí, no el anuncio que lleva meses sin venderse.</p></article>
+  <article><h3>Falsa o buena</h3><p>Tu foto, un veredicto y el porqué: la linterna, el gramaje y el patrón de puntos, sin humo.</p></article>
+</div>
+<p class="nota small">El Círculo no cambia lo que ya es gratis: consultar cualquier carta y valorar tu colección sigue abierto y sin registro.</p>`,
   }),
 );
 
