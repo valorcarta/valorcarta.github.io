@@ -21,8 +21,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=fd49b298c3e0b2479bb85f0fd85eb2">
-<link rel="icon" href="/assets/icon.svg?v=fd49b298c3e0b2479bb85f0fd85eb2" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=d867e1a10e43425079c85f0fd85eb2">
+<link rel="icon" href="/assets/icon.svg?v=d867e1a10e43425079c85f0fd85eb2" type="image/svg+xml">
 
 </head>
 <body>
@@ -71,6 +71,7 @@
 <section class="pr-hero">
   <p class="st-kicker">El Círculo</p>
   <h1>Que no te paguen de menos por tus cartas.</h1>
+  <p class="pr-cole" id="pr-cole" hidden></p>
   <p class="pr-sub">El precio de hoy lo tienes gratis en todas partes. Lo que no: saber cuándo vender, cuánto se paga de verdad en España y si esa carta que te ofrecen es falsa. Eso es el Círculo, por 4 €/mes.</p>
   <p class="pr-precio">4 €/mes <span>· IVA incluido · sin permanencia · primeros 100 socios</span></p>
   <form class="alta" id="alta-circulo" novalidate>
@@ -134,6 +135,29 @@
   <details><summary>¿Qué pasa si una carta no tiene datos?</summary><p>Se dice «sin datos suficientes» y no se estima. Prefiero un hueco a una cifra inventada.</p></details>
   <details><summary>¿Y si no tengo tarjeta?</summary><p>Déjame tu correo en la lista y te aviso cuando esté abierto; también estudiaré pago por transferencia para quien lo pida.</p></details>
 </div>
+<script>
+(() => {
+  const h = location.hash.slice(1);
+  const raw = h.startsWith('c=') ? h.slice(2) : '';
+  const caja = document.getElementById('pr-cole');
+  if (!raw || !caja) return;
+  let lista = null;
+  try {
+    let s = raw.replace(/-/g, '+').replace(/_/g, '/');
+    s += '='.repeat((4 - s.length % 4) % 4);
+    lista = JSON.parse(decodeURIComponent(escape(atob(s))));
+  } catch (e) { return; }
+  if (!Array.isArray(lista) || !lista.length) return;
+  fetch('/data/precios-hoy.json').then((r) => r.json()).then((p) => {
+    let total = 0, n = 0;
+    for (const x of lista) { const d = p[x.s]; const q = parseInt(x.q || 0, 10); if (d && q) { total += d.p * q; n += q; } }
+    if (!n) return;
+    caja.innerHTML = 'Tu colección (<b>' + n + '</b> cartas) vale hoy <b>' +
+      total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €</b>. El Círculo te la guarda y te dice cuánto cambia cada semana.';
+    caja.hidden = false;
+  }).catch(() => {});
+})();
+</script>
 <p class="nota small">El Círculo es un servicio de información: no es una tasación, no garantiza precios futuros y no compra ni vende cartas.</p></main>
 <footer>
   <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
@@ -143,7 +167,7 @@
   </p>
   <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
 </footer>
-<script src="/assets/app.js?v=fd49b298c3e0b2479bb85f0fd85eb2" defer></script>
+<script src="/assets/app.js?v=d867e1a10e43425079c85f0fd85eb2" defer></script>
 
 <script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";

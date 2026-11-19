@@ -1836,3 +1836,6 @@ footer a:hover{color:#f6d98a!important}
     margin:6px auto 0!important;max-width:34ch}
   .vc-tit .micro{display:none!important}
 }
+.pr-cole{background:rgba(246,217,138,.12);border:1px solid rgba(246,217,138,.35);border-radius:14px;
+  padding:12px 16px;color:#f1e6cd;font-size:.92rem;margin:0 0 14px}
+.pr-cole b{color:#f6d98a}

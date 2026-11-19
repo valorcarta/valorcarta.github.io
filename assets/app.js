@@ -296,36 +296,10 @@
         try { await navigator.clipboard.writeText(url); toast('Enlace copiado'); }
         catch { prompt('Copia este enlace:', url); }
       });
-      $('#alcirculo')?.addEventListener('click', async () => {
+      // El botón lleva al Círculo con la colección dentro: el total ya se ve gratis aquí.
+      $('#alcirculo')?.addEventListener('click', () => {
         if (!leer().length) { toast('Añade alguna carta primero'); return; }
-        const email = prompt('Tu correo, y te mando el panel:');
-        if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return;
-        // el panel vive en un token derivado del correo: se calcula aquí y se manda en el correo
-        let token = '';
-        try {
-          const buf = await crypto.subtle.digest('SHA-1', new TextEncoder().encode(email.trim().toLowerCase()));
-          token = [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('').slice(0, 14);
-        } catch (err) { token = ''; }
-        const enlacePanel = token ? `https://valorcarta.github.io/club/${token}/` : 'https://valorcarta.github.io/valorar/';
-        try {
-          const r = await fetch('https://formspree.io/f/xdegdajy', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({
-              email,
-              coleccion: enc(leer()),
-              _subject: 'Colección enviada al Círculo',
-              origen: 'valorar',
-              fecha: new Date().toISOString(),
-              _autoresponse: 'Ya está. Tu panel es este: ' + enlacePanel + '\n\nSe pone al día cada mañana con los precios de ese día. Si lo abres ahora y tarda un par de minutos, es que se está generando.\n\n4 €/mes con IVA incluido, sin permanencia; cancelas cuando quieras desde el recibo.\n\n— ValorCarta',
-            }),
-          });
-          if (!r.ok) throw new Error('no');
-          location.href = '/club/#c=' + enc(leer());
-          if (window.goatcounter && window.goatcounter.count) {
-            window.goatcounter.count({ path: 'embudo/coleccion-enviada', title: location.pathname, event: true });
-          }
-        } catch (err) { toast('No ha ido; prueba otra vez'); }
+        location.href = '/premium/#c=' + enc(leer());
       });
       $('#csv')?.addEventListener('click', () => {
         const rows = [['carta', 'set', 'unidades', 'precio', 'subtotal']];
