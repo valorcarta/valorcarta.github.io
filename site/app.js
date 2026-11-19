@@ -296,6 +296,11 @@
         try { await navigator.clipboard.writeText(url); toast('Enlace copiado'); }
         catch { prompt('Copia este enlace:', url); }
       });
+      // El botón lleva al Círculo con la colección dentro: el total ya se ve gratis aquí.
+      $('#alcirculo')?.addEventListener('click', () => {
+        if (!leer().length) { toast('Añade alguna carta primero'); return; }
+        location.href = '/premium/#c=' + enc(leer());
+      });
       $('#csv')?.addEventListener('click', () => {
         const rows = [['carta', 'set', 'unidades', 'precio', 'subtotal']];
         for (const it of leer()) {
@@ -367,7 +372,7 @@
       }
       const boton = f.querySelector('button');
       // Sin servicio de formularios configurado no se promete nada: se abre el correo.
-      const ENDPOINT = '';
+      const ENDPOINT = 'https://formspree.io/f/xdegdajy';
       if (!ENDPOINT) {
         location.href = 'mailto:carlespeadel@gmail.com'
           + '?subject=' + encodeURIComponent('Alta en el Círculo')
@@ -381,8 +386,17 @@
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             email,
-            access_key: 'PON_AQUI_LA_CLAVE',
-            subject: 'Alta en el Círculo — ValorCarta',
+            _subject: 'Alta en el Círculo — ValorCarta',
+            _subject: 'Falta un paso para tu Círculo (1 minuto)',
+            _autoresponse: [
+              'Ya estás dentro.',
+              '',
+              'No tienes que hacer nada más. En 24 horas te llega tu panel privado con tu colección valorada y lo que ha subido o bajado en 7 y 30 días.',
+              '',
+              '4 €/mes con IVA incluido, sin permanencia. Cancelas cuando quieras desde el recibo.',
+              '',
+              '— ValorCarta',
+            ].join('\n'),
             origen: location.pathname,
             fecha: new Date().toISOString(),
           }),
