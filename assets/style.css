@@ -1797,3 +1797,13 @@ footer a:hover{color:#f6d98a!important}
   .pr-pasos,.pr-lista{padding-left:18px;font-size:.92rem}
   .pr-faq details{padding:12px 14px}
 }
+
+/* ===== TRES BALDOSAS EN MÓVIL (19-11): la carta no se sale ===== */
+@media (max-width:900px){
+  .v3-card{overflow:hidden!important;padding-bottom:18px!important}
+  .v3-img{height:210px!important;margin-top:10px!important}
+  .v3-img img{max-height:190px!important;max-width:70%!important}
+  .v3-dark .v3-img img{max-height:200px!important;max-width:64%!important;
+    transform:rotateY(-6deg) rotateZ(-4deg)!important}
+  .v3-t h2{font-size:1.3rem!important}
+}
