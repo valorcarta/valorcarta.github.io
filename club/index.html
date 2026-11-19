@@ -8,19 +8,24 @@ body{margin:0;background:#f6f4ef;color:#14120f;font:16px/1.5 "Inter",-apple-syst
 h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(1.6rem,4vw,2.3rem);margin:10px 0 4px}
 .meta{color:#6d675e;font-size:.88rem;margin:0 0 18px}
 .tot{background:#fffdf9;border:1px solid #e7e1d6;border-radius:20px;padding:22px 24px;margin:0 0 16px;box-shadow:0 1px 2px rgba(20,18,15,.05),0 14px 34px rgba(20,18,15,.07)}
-.n{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:2.3rem;letter-spacing:-.04em;margin:6px 0 0}
+.cifra{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:2.3rem;letter-spacing:-.04em;margin:6px 0 0}
 table{width:100%;border-collapse:collapse;background:#fffdf9;border:1px solid #e7e1d6;border-radius:16px;overflow:hidden}
 th{font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#6d675e;text-align:left;padding:12px 14px;border-bottom:1px solid #e7e1d6}
 td{padding:12px 14px;border-bottom:1px solid #efe9dd;font-size:.92rem}tr:last-child td{border-bottom:0}
 td.n{text-align:right;font-variant-numeric:tabular-nums}td small{display:block;color:#8d8474;font-size:.74rem}
 .pie{margin-top:16px;font-size:.78rem;color:#8d8474}
+.evo{display:flex;gap:22px;margin:0 0 14px;font-size:.86rem;color:#6d675e;flex-wrap:wrap}
+.evo b{font-weight:800}
+.sube{color:#2f7d4f}.baja{color:#b3402f}.plano{color:#8d8474}
+td.sube,td.baja{font-weight:700}
 a{color:#8a6400}
 </style></head><body><div class="w">
 <p class="s">El Círculo · tu colección</p>
 <h1>Tu colección, con los precios de hoy</h1>
 <p class="meta">Precios de Cardmarket del día · se recalcula al abrir el enlace.</p>
-<div class="tot"><span class="s">Valor de mercado hoy</span><p class="n" id="total">—</p><p class="meta" id="cuenta" style="margin:6px 0 0"></p></div>
-<table><thead><tr><th>Carta</th><th class="n">Uds</th><th class="n">Hoy</th><th class="n">Total</th></tr></thead><tbody id="filas"></tbody></table>
+<div class="tot"><span class="s">Valor de mercado hoy</span><p class="cifra" id="total">—</p><p class="meta" id="cuenta" style="margin:6px 0 0"></p></div>
+<div class="evo" id="evo"></div>
+<table><thead><tr><th>Carta</th><th class="n">Uds</th><th class="n">Hoy</th><th class="n">7 d</th><th class="n">30 d</th><th class="n">Total</th></tr></thead><tbody id="filas"></tbody></table>
 <p class="pie">Enlace privado: no lo compartas. No es una tasación. © ValorCart</p>
 </div><script>
   (async () => {
@@ -35,19 +40,36 @@ a{color:#8a6400}
     const caja = document.getElementById('club');
     if (!lista || !lista.length) { caja.innerHTML = '<p class="vacio">Este enlace no trae ninguna colección. <a href="/valorar/">Crea la tuya aquí</a>.</p>'; return; }
     const precios = await (await fetch('/data/precios-hoy.json')).json();
-    const filas = []; let total = 0;
+    let pasado = {};
+    try { pasado = await (await fetch('/data/precios-pasado.json')).json(); } catch (e) {}
+    const preciosDe = (dias) => (pasado[dias] && pasado[dias].precios) || null;
+    const p7 = preciosDe(7), p30 = preciosDe(30), p90 = preciosDe(90);
+    const filas = []; let total = 0, t7 = 0, t30 = 0, t90 = 0;
     for (const x of lista) {
       const d = precios[x.s]; const q = parseInt(x.q || 0, 10);
       if (!d || !q) continue;
-      total += d.p * q;
-      filas.push({ n: d.n, s: d.s, q, p: d.p, t: d.p * q });
+      const a7 = (p7 && p7[x.s]) || d.p, a30 = (p30 && p30[x.s]) || d.p, a90 = (p90 && p90[x.s]) || d.p;
+      total += d.p * q; t7 += a7 * q; t30 += a30 * q; t90 += a90 * q;
+      filas.push({ n: d.n, s: d.s, q, p: d.p, t: d.p * q,
+                   v7: a7 ? (d.p / a7 - 1) * 100 : 0,
+                   v30: a30 ? (d.p / a30 - 1) * 100 : 0 });
     }
     filas.sort((a, b) => b.t - a.t);
+    const pct = (a, b) => (b ? ((a / b - 1) * 100) : 0);
+    const color = (v) => v > 0 ? 'sube' : (v < 0 ? 'baja' : 'plano');
+    const fmt = (v) => (v > 0 ? '+' : '') + v.toFixed(1).replace('.', ',') + ' %';
+    const evo = document.getElementById('evo');
+    if (evo) {
+      evo.innerHTML = [
+        ['7 días', pct(total, t7)], ['30 días', pct(total, t30)], ['90 días', pct(total, t90)],
+      ].map(([k, v]) => '<span>' + k + ' <b class="' + color(v) + '">' + (t7 ? fmt(v) : '—') + '</b></span>').join('');
+    }
     const eur = (v) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
     document.getElementById('total').textContent = eur(total);
     document.getElementById('cuenta').textContent = filas.length + (filas.length === 1 ? ' carta' : ' cartas');
     document.getElementById('filas').innerHTML = filas.map((f) =>
       '<tr><td>' + f.n + '<small>' + f.s + '</small></td><td class="n">' + f.q + '</td><td class="n">' +
-      eur(f.p) + '</td><td class="n">' + eur(f.t) + '</td></tr>').join('');
+      eur(f.p) + '</td><td class="n ' + color(f.v7) + '">' + fmt(f.v7) + '</td><td class="n ' + color(f.v30) + '">' +
+      fmt(f.v30) + '</td><td class="n">' + eur(f.t) + '</td></tr>').join('');
   })();
   </script></body></html>
