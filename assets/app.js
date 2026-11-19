@@ -366,17 +366,25 @@
         return;
       }
       const boton = f.querySelector('button');
+      // Sin servicio de formularios configurado no se promete nada: se abre el correo.
+      const ENDPOINT = '';
+      if (!ENDPOINT) {
+        location.href = 'mailto:valorcartaalertas@gmail.com'
+          + '?subject=' + encodeURIComponent('Alta en el Círculo')
+          + '&body=' + encodeURIComponent('Quiero entrar en el Círculo. Mi correo: ' + email);
+        return;
+      }
       boton.disabled = true;
       try {
-        const r = await fetch('https://formsubmit.co/ajax/valorcartaalertas@gmail.com', {
+        const r = await fetch(ENDPOINT, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
           body: JSON.stringify({
             email,
-            _subject: 'Alta en el Círculo — ValorCarta',
+            access_key: 'PON_AQUI_LA_CLAVE',
+            subject: 'Alta en el Círculo — ValorCarta',
             origen: location.pathname,
             fecha: new Date().toISOString(),
-            _template: 'table',
           }),
         });
         if (!r.ok) throw new Error('no');
