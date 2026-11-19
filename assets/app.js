@@ -382,6 +382,7 @@
           body: JSON.stringify({
             email,
             _subject: 'Alta en el Círculo — ValorCarta',
+            _autoresponse: 'Estás en la lista del Círculo (ValorCarta).\n\nTe escribo a este mismo correo el día que abra, con el enlace para entrar y el precio de socio fundador: 4 €/mes, sin permanencia.\n\nSi no te has apuntado tú, ignora este mensaje y no volveré a escribirte.\n\n— ValorCarta · valorcarta.github.io',
             origen: location.pathname,
             fecha: new Date().toISOString(),
           }),
