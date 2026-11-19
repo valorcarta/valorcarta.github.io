@@ -1398,7 +1398,9 @@ Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
     <p class="muted">Valor de mercado hoy</p>
     <p id="total" class="total">0,00 €</p>
     <p id="delta" class="muted"></p>
-    <button id="compartir" class="btn">Copiar enlace para compartir</button>
+    <p class="nota small" style="margin:6px 0 10px">El total de hoy es gratis y siempre lo será. Si quieres que se guarde y ver cuánto sube o baja cada semana, eso es el Círculo: 4 €/mes.</p>
+    <button id="compartir" class="btn ghost">Copiar enlace para compartir</button>
+    <button id="alcirculo" class="btn">Seguir mi colección · Círculo 4 €/mes</button>
     <button id="csv" class="btn ghost">Descargar CSV</button>
     <button id="vaciar" class="btn ghost">Vaciar</button>
     <p class="nota small">Los precios son de referencia (Cardmarket) y no incluyen estado ni gastos de envío.</p>
@@ -1419,6 +1421,7 @@ await put(
 <section class="pr-hero">
   <p class="st-kicker">El Círculo</p>
   <h1>Que no te paguen de menos por tus cartas.</h1>
+  <p class="pr-cole" id="pr-cole" hidden></p>
   <p class="pr-sub">El precio de hoy lo tienes gratis en todas partes. Lo que no: saber cuándo vender, cuánto se paga de verdad en España y si esa carta que te ofrecen es falsa. Eso es el Círculo, por 4 €/mes.</p>
   <p class="pr-precio">4 €/mes <span>· IVA incluido · sin permanencia · primeros 100 socios</span></p>
   <form class="alta" id="alta-circulo" novalidate>
@@ -1428,7 +1431,14 @@ await put(
       <button class="btn-todos" type="submit" data-funnel="premium">Entrar en la lista</button>
     </div>
     <p class="alta-min">Solo te escribo por el Círculo. Sin boletín y sin ceder tus datos a terceros. Te das de baja con un clic.</p>
-    <p class="alta-ok" hidden>Apuntado. Te escribo al abrir, sin más correos hasta entonces.</p>
+    <div class="alta-ok" hidden>
+      <p><b>Apuntado.</b> Te acabo de mandar un correo con lo que sigue.</p>
+      <ol>
+        <li>Cuando abra, recibes tu enlace privado con tu colección valorada, actualizada cada mañana.</li>
+        <li>Si quieres tenerla lista el primer día, responde a ese correo con tu enlace de «compartir colección».</li>
+        <li>4 €/mes con IVA, sin permanencia; cancelas cuando quieras desde el recibo.</li>
+      </ol>
+    </div>
   </form>
 </section>
 
@@ -1475,6 +1485,29 @@ await put(
   <details><summary>¿Qué pasa si una carta no tiene datos?</summary><p>Se dice «sin datos suficientes» y no se estima. Prefiero un hueco a una cifra inventada.</p></details>
   <details><summary>¿Y si no tengo tarjeta?</summary><p>Déjame tu correo en la lista y te aviso cuando esté abierto; también estudiaré pago por transferencia para quien lo pida.</p></details>
 </div>
+<script>
+(() => {
+  const h = location.hash.slice(1);
+  const raw = h.startsWith('c=') ? h.slice(2) : '';
+  const caja = document.getElementById('pr-cole');
+  if (!raw || !caja) return;
+  let lista = null;
+  try {
+    let s = raw.replace(/-/g, '+').replace(/_/g, '/');
+    s += '='.repeat((4 - s.length % 4) % 4);
+    lista = JSON.parse(decodeURIComponent(escape(atob(s))));
+  } catch (e) { return; }
+  if (!Array.isArray(lista) || !lista.length) return;
+  fetch('/data/precios-hoy.json').then((r) => r.json()).then((p) => {
+    let total = 0, n = 0;
+    for (const x of lista) { const d = p[x.s]; const q = parseInt(x.q || 0, 10); if (d && q) { total += d.p * q; n += q; } }
+    if (!n) return;
+    caja.innerHTML = 'Tu colección (<b>' + n + '</b> cartas) vale hoy <b>' +
+      total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €</b>. El Círculo te la guarda y te dice cuánto cambia cada semana.';
+    caja.hidden = false;
+  }).catch(() => {});
+})();
+</script>
 <p class="nota small">El Círculo es un servicio de información: no es una tasación, no garantiza precios futuros y no compra ni vende cartas.</p>`,
   }),
 );
@@ -3294,4 +3327,116 @@ function cardTileEn(c) {
   <span class="tile-set muted">≈ ${usdEn(c.price)} · ${gbpEn(c.price)}</span>
   <span class="tile-set muted">${esc(setNameEn(c))}</span>
 </a>`;
+}
+
+// ---------- CÍRCULO instantáneo: precios de hoy + panel que se pinta en el navegador ----------
+try {
+  const precioHoy = {};
+  for (const c of priced) {
+    precioHoy[c.id] = { n: c.name, s: c.setName ?? '', p: c.price };
+  }
+  await put(OUT('data/precios-hoy.json'), JSON.stringify(precioHoy));
+
+  // fotos del pasado para que el panel pueda decir cuánto ha cambiado (lo que el validador no da)
+  const fs = await import('node:fs/promises');
+  const histDir = path.join(ROOT, 'data', 'history');
+  let archivos = [];
+  try { archivos = (await fs.readdir(histDir)).filter((f) => f.endsWith('.json')).sort(); } catch {}
+  const hoyISO = new Date().toISOString().slice(0, 10);
+  const fotos = {};
+  for (const dias of [7, 30, 90]) {
+    const objetivo = new Date(Date.now() - dias * 86400000).toISOString().slice(0, 10);
+    let mejor = null, dist = 1e9;
+    for (const f of archivos) {
+      const d = f.slice(0, 10);
+      const delta = Math.abs((new Date(d) - new Date(objetivo)) / 86400000);
+      if (delta < dist) { dist = delta; mejor = f; }
+    }
+    if (!mejor) continue;
+    try {
+      const raw = JSON.parse(await fs.readFile(path.join(histDir, mejor), 'utf8'));
+      fotos[dias] = { fecha: mejor.slice(0, 10), precios: raw };
+    } catch {}
+  }
+  await put(OUT('data/precios-pasado.json'), JSON.stringify(fotos));
+
+  const clubJs = `
+  (async () => {
+    const h = location.hash.slice(1);
+    const raw = h.startsWith('c=') ? h.slice(2) : h;
+    const dec = (s) => {
+      s = s.replace(/-/g, '+').replace(/_/g, '/');
+      s += '='.repeat((4 - s.length % 4) % 4);
+      try { return JSON.parse(decodeURIComponent(escape(atob(s)))); } catch (e) { return null; }
+    };
+    const lista = raw ? dec(raw) : null;
+    const caja = document.getElementById('club');
+    if (!lista || !lista.length) { caja.innerHTML = '<p class="vacio">Este enlace no trae ninguna colección. <a href="/valorar/">Crea la tuya aquí</a>.</p>'; return; }
+    const precios = await (await fetch('/data/precios-hoy.json')).json();
+    let pasado = {};
+    try { pasado = await (await fetch('/data/precios-pasado.json')).json(); } catch (e) {}
+    const preciosDe = (dias) => (pasado[dias] && pasado[dias].precios) || null;
+    const p7 = preciosDe(7), p30 = preciosDe(30), p90 = preciosDe(90);
+    const filas = []; let total = 0, t7 = 0, t30 = 0, t90 = 0;
+    for (const x of lista) {
+      const d = precios[x.s]; const q = parseInt(x.q || 0, 10);
+      if (!d || !q) continue;
+      const a7 = (p7 && p7[x.s]) || d.p, a30 = (p30 && p30[x.s]) || d.p, a90 = (p90 && p90[x.s]) || d.p;
+      total += d.p * q; t7 += a7 * q; t30 += a30 * q; t90 += a90 * q;
+      filas.push({ n: d.n, s: d.s, q, p: d.p, t: d.p * q,
+                   v7: a7 ? (d.p / a7 - 1) * 100 : 0,
+                   v30: a30 ? (d.p / a30 - 1) * 100 : 0 });
+    }
+    filas.sort((a, b) => b.t - a.t);
+    const pct = (a, b) => (b ? ((a / b - 1) * 100) : 0);
+    const color = (v) => v > 0 ? 'sube' : (v < 0 ? 'baja' : 'plano');
+    const fmt = (v) => (v > 0 ? '+' : '') + v.toFixed(1).replace('.', ',') + ' %';
+    const evo = document.getElementById('evo');
+    if (evo) {
+      evo.innerHTML = [
+        ['7 días', pct(total, t7)], ['30 días', pct(total, t30)], ['90 días', pct(total, t90)],
+      ].map(([k, v]) => '<span>' + k + ' <b class="' + color(v) + '">' + (t7 ? fmt(v) : '—') + '</b></span>').join('');
+    }
+    const eur = (v) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
+    document.getElementById('total').textContent = eur(total);
+    document.getElementById('cuenta').textContent = filas.length + (filas.length === 1 ? ' carta' : ' cartas');
+    document.getElementById('filas').innerHTML = filas.map((f) =>
+      '<tr><td>' + f.n + '<small>' + f.s + '</small></td><td class="n">' + f.q + '</td><td class="n">' +
+      eur(f.p) + '</td><td class="n ' + color(f.v7) + '">' + fmt(f.v7) + '</td><td class="n ' + color(f.v30) + '">' +
+      fmt(f.v30) + '</td><td class="n">' + eur(f.t) + '</td></tr>').join('');
+  })();
+  `;
+
+  await put(OUT('club/index.html'), `<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Tu colección · ValorCarta</title>
+<style>
+body{margin:0;background:#f6f4ef;color:#14120f;font:16px/1.5 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.w{max-width:820px;margin:0 auto;padding:34px 20px 70px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#8a6400}
+h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(1.6rem,4vw,2.3rem);margin:10px 0 4px}
+.meta{color:#6d675e;font-size:.88rem;margin:0 0 18px}
+.tot{background:#fffdf9;border:1px solid #e7e1d6;border-radius:20px;padding:22px 24px;margin:0 0 16px;box-shadow:0 1px 2px rgba(20,18,15,.05),0 14px 34px rgba(20,18,15,.07)}
+.cifra{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:2.3rem;letter-spacing:-.04em;margin:6px 0 0}
+table{width:100%;border-collapse:collapse;background:#fffdf9;border:1px solid #e7e1d6;border-radius:16px;overflow:hidden}
+th{font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#6d675e;text-align:left;padding:12px 14px;border-bottom:1px solid #e7e1d6}
+td{padding:12px 14px;border-bottom:1px solid #efe9dd;font-size:.92rem}tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}td small{display:block;color:#8d8474;font-size:.74rem}
+.pie{margin-top:16px;font-size:.78rem;color:#8d8474}
+.evo{display:flex;gap:22px;margin:0 0 14px;font-size:.86rem;color:#6d675e;flex-wrap:wrap}
+.evo b{font-weight:800}
+.sube{color:#2f7d4f}.baja{color:#b3402f}.plano{color:#8d8474}
+td.sube,td.baja{font-weight:700}
+a{color:#8a6400}
+</style></head><body><div class="w">
+<p class="s">El Círculo · tu colección</p>
+<h1>Tu colección, con los precios de hoy</h1>
+<p class="meta">Precios de Cardmarket del día · se recalcula al abrir el enlace.</p>
+<div class="tot"><span class="s">Valor de mercado hoy</span><p class="cifra" id="total">—</p><p class="meta" id="cuenta" style="margin:6px 0 0"></p></div>
+<div class="evo" id="evo"></div>
+<table><thead><tr><th>Carta</th><th class="n">Uds</th><th class="n">Hoy</th><th class="n">7 d</th><th class="n">30 d</th><th class="n">Total</th></tr></thead><tbody id="filas"></tbody></table>
+<p class="pie">Enlace privado: no lo compartas. No es una tasación. © ValorCart</p>
+</div><script>${clubJs}</script></body></html>`);
+} catch (e) {
+  console.log('aviso: panel del Círculo no generado', String(e).slice(0, 80));
 }
