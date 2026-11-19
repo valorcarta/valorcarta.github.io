@@ -1418,8 +1418,8 @@ await put(
     body: `
 <section class="pr-hero">
   <p class="st-kicker">El Círculo</p>
-  <h1>Lo que no te da Cardmarket.</h1>
-  <p class="pr-sub">El precio lo tienes gratis en todas partes; esto es lo que no: el aviso, tu histórico, el precio de venta real en España y saber si una carta es falsa.</p>
+  <h1>Que no te paguen de menos por tus cartas.</h1>
+  <p class="pr-sub">El precio de hoy lo tienes gratis en todas partes. Lo que no: saber cuándo vender, cuánto se paga de verdad en España y si esa carta que te ofrecen es falsa. Eso es el Círculo, por 4 €/mes.</p>
   <p class="pr-precio">4 €/mes <span>· IVA incluido · sin permanencia · primeros 100 socios</span></p>
   <form class="alta" id="alta-circulo" novalidate>
     <label class="alta-et" for="alta-email">Tu correo, y te aviso cuando abra</label>
@@ -1440,6 +1440,13 @@ await put(
   <article><h3>Falsa o buena</h3><p>Subes fotos de la carta (anverso, reverso, esquina y detalle) y recibes un veredicto con el porqué: gramaje, linterna UV, patrón de puntos y borde. Si no se puede asegurar con esas fotos, se dice «no concluyente» en vez de arriesgar tu dinero.</p></article>
 </div>
 
+<h2 class="pr-h">La cuenta que decide</h2>
+<div class="pr-cuenta">
+  <div><b>−20 €</b><span>lo que pierdes vendiendo una carta de 200 € un 10 % por debajo de su precio real</span></div>
+  <div><b>5 meses</b><span>de Círculo pagados con esa sola venta (20 € ÷ 4 €)</span></div>
+  <div><b>0 €</b><span>de comisión por vender: aquí no cobramos por operar, solo la cuota</span></div>
+</div>
+<p class="pr-txt">No es una promesa de ganar: es lo que cuesta decidir a ciegas. Si el aviso te evita una venta mala al año, ya ha salido gratis.</p>
 <h2 class="pr-h">Cómo funciona, paso a paso</h2>
 <ol class="pr-pasos">
   <li><b>Pagas</b> 4 €/mes con tarjeta. El cobro es mensual y se renueva solo; puedes cancelar cuando quieras desde el recibo.</li>
