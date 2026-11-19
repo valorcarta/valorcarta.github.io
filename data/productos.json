@@ -51,26 +51,28 @@
     "asin": "B0C4V8F77B",
     "nombre": "Estadio Combina y Combate",
     "gancho": "Dos barajas para jugar",
-    "precio": 61.49,
+    "precio": 54.4,
     "imagen_local": "pines/producto-b0c4v8f77b.png",
     "enlace_amazon": "https://www.amazon.es/dp/B0C4V8F77B?tag=valorcarta-21&ascsubtag=pin-b0c4v8f77b",
-    "precio_anterior": 60.99
+    "precio_anterior": 61.49
   },
   {
     "asin": "B0BMGR3QZW",
     "nombre": "Baraja de liga Mew VMAX",
     "gancho": "Lista para jugar",
-    "precio": 34.99,
+    "precio": 29.7,
     "imagen_local": "pines/producto-b0bmgr3qzw.png",
-    "enlace_amazon": "https://www.amazon.es/dp/B0BMGR3QZW?tag=valorcarta-21&ascsubtag=pin-b0bmgr3qzw"
+    "enlace_amazon": "https://www.amazon.es/dp/B0BMGR3QZW?tag=valorcarta-21&ascsubtag=pin-b0bmgr3qzw",
+    "precio_anterior": 34.99
   },
   {
     "asin": "B0G5YX5XVQ",
     "nombre": "Baraja de liga Mewtwo ex",
     "gancho": "Team Rocket, lista para jugar",
-    "precio": 49.49,
+    "precio": 48.99,
     "imagen_local": "pines/producto-b0g5yx5xvq.png",
-    "enlace_amazon": "https://www.amazon.es/dp/B0G5YX5XVQ?tag=valorcarta-21&ascsubtag=pin-b0g5yx5xvq"
+    "enlace_amazon": "https://www.amazon.es/dp/B0G5YX5XVQ?tag=valorcarta-21&ascsubtag=pin-b0g5yx5xvq",
+    "precio_anterior": 49.49
   },
   {
     "asin": "B0CJYK29Y9",
@@ -128,28 +130,28 @@
     "asin": "B0CSVWMDK5",
     "nombre": "Fundas perfect fit (600)",
     "gancho": "Funda interior fina",
-    "precio": 16.99,
+    "precio": 16.14,
     "imagen_local": null,
     "enlace_amazon": "https://www.amazon.es/dp/B0CSVWMDK5?tag=valorcarta-21&ascsubtag=vc-accesorio-B0CSVWMDK5",
-    "precio_anterior": null
+    "precio_anterior": 16.99
   },
   {
     "asin": "B0F5B2B3F2",
     "nombre": "Caja para 160 toploaders",
     "gancho": "Caja rígida de almacenamiento",
-    "precio": 36.99,
+    "precio": 35.14,
     "imagen_local": null,
     "enlace_amazon": "https://www.amazon.es/dp/B0F5B2B3F2?tag=valorcarta-21&ascsubtag=vc-accesorio-B0F5B2B3F2",
-    "precio_anterior": null
+    "precio_anterior": 36.99
   },
   {
     "asin": "B0GCJVSFV5",
     "nombre": "Linterna UV 365 nm",
     "gancho": "Delata cartas falsas",
-    "precio": 32.99,
+    "precio": 29.77,
     "imagen_local": null,
     "enlace_amazon": "https://www.amazon.es/dp/B0GCJVSFV5?tag=valorcarta-21&ascsubtag=vc-accesorio-B0GCJVSFV5",
-    "precio_anterior": null
+    "precio_anterior": 32.99
   },
   {
     "asin": "B09MG1FV1V",
@@ -164,10 +166,10 @@
     "asin": "B0FCLWGYQJ",
     "nombre": "Báscula 0,1 g",
     "gancho": "Peso de la carta",
-    "precio": 7.59,
+    "precio": 6.64,
     "imagen_local": null,
     "enlace_amazon": "https://www.amazon.es/dp/B0FCLWGYQJ?tag=valorcarta-21&ascsubtag=vc-accesorio-B0FCLWGYQJ",
-    "precio_anterior": 7.99
+    "precio_anterior": 7.59
   },
   {
     "asin": "B07T8TR863",
