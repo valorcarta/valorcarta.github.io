@@ -367,9 +367,9 @@
       }
       const boton = f.querySelector('button');
       // Sin servicio de formularios configurado no se promete nada: se abre el correo.
-      const ENDPOINT = '';
+      const ENDPOINT = 'https://formsubmit.co/ajax/carlespeadel@gmail.com';
       if (!ENDPOINT) {
-        location.href = 'mailto:valorcartaalertas@gmail.com'
+        location.href = 'mailto:carlespeadel@gmail.com'
           + '?subject=' + encodeURIComponent('Alta en el Círculo')
           + '&body=' + encodeURIComponent('Quiero entrar en el Círculo. Mi correo: ' + email);
         return;
