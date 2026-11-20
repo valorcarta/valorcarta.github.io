@@ -2,5 +2,3 @@ User-agent: *
 Allow: /
 Sitemap: https://valorcarta.github.io/sitemap.xml
 Sitemap: https://valorcarta.github.io/sitemap-en.xml
-Sitemap: https://valorcarta.github.io/ygo/sitemap.xml
-Sitemap: https://valorcarta.github.io/magic/sitemap.xml
