@@ -1,107 +1,17 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Dataset: precios de cartas Pokémon (descarga libre) | ValorCarta</title>
-<meta name="description" content="Volcado diario y gratuito con el precio de referencia de 9.830 cartas Pokémon en EUR. Licencia CC BY 4.0, en JSON, listo para analizar.">
-<link rel="canonical" href="https://valorcarta.github.io/datos/">
-
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ValorCarta">
-<meta property="og:locale" content="es_ES">
-<meta property="og:title" content="Dataset: precios de cartas Pokémon (descarga libre) | ValorCarta">
-<meta property="og:description" content="Volcado diario y gratuito con el precio de referencia de 9.830 cartas Pokémon en EUR. Licencia CC BY 4.0, en JSON, listo para analizar.">
-<meta property="og:url" content="https://valorcarta.github.io/datos/">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<meta name="p:domain_verify" content="c1afa454d89ee36b16de2142c50827fb"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=d867e1a10e43425079c85f0fd85eb2">
-<link rel="icon" href="/assets/icon.svg?v=d867e1a10e43425079c85f0fd85eb2" type="image/svg+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Dataset","name":"Precios de cartas Pokémon (volcado diario)","description":"Precio de referencia en EUR de 9.830 cartas Pokémon, generado a diario desde Cardmarket vía TCGdex.","license":"https://creativecommons.org/licenses/by/4.0/","creator":{"@type":"Organization","name":"ValorCarta","url":"https://valorcarta.github.io"},"url":"https://valorcarta.github.io/datos/","dateModified":"2026-11-20","distribution":[{"@type":"DataDownload","contentUrl":"https://raw.githubusercontent.com/valorcarta/precios-cartas-datos/master/precios.json","encodingFormat":"application/json"}]}</script>
-</head>
-<body>
-<header class="top">
-  <a class="brand" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#14120f"/><rect x="9" y="6" width="14" height="20" rx="2.6" fill="none" stroke="#ffd75e" stroke-width="1.6"/><circle cx="16" cy="13" r="3.6" fill="none" stroke="#ffd75e" stroke-width="1.5"/><path d="M12.4 13h7.2" stroke="#ffd75e" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="13" r="0.9" fill="#ffd75e"/><path d="M12.6 21.4h6.8" stroke="#ffd75e" stroke-width="1.4" stroke-linecap="round" opacity=".65"/></svg><span class="wm">Valor<i>Carta</i></span></a>
-  <span class="figura" aria-hidden="true"><img id="figura-img" src="/assets/mascotas/fig1.svg" width="76" height="90" alt="Pokémon decorativo" decoding="async"></span>
-  <nav>
-    <div class="nav-desktop">
-      <details class="menu" name="nav-menu">
-        <summary>Cartas</summary>
-        <div class="menu-panel">
-          <a href="/cartas/"><span class="mi" style="--c:#ffcb05"></span>Todas las cartas</a>
-          <a href="/sets/"><span class="mi" style="--c:#ff9d5c"></span>Todos los sets</a>
-          <a href="/caras/"><span class="mi" style="--c:#35e0d0"></span>Las 100 más caras</a>
-          <a href="/mercado/"><span class="mi" style="--c:#b98cff"></span>Qué se mueve esta semana</a>
-        </div>
-      </details>
-      <details class="menu" name="nav-menu">
-        <summary>Herramientas</summary>
-        <div class="menu-panel">
-          <a href="/valorar/"><span class="mi" style="--c:#ffcb05"></span>Valorar colección</a>
-          <a href="/alertas/"><span class="mi" style="--c:#35e0d0"></span>Alertas de precio</a>
-          <a href="/guardar-cartas/"><span class="mi" style="--c:#b98cff"></span>Guardar cartas</a>
-          <a href="/guias/"><span class="mi" style="--c:#ff9d5c"></span>Guías de compra</a>
-        </div>
-      </details>
-      <a href="/comprar/">Comprar</a>
-      <a href="/productos/">Productos</a>
-      <a href="/alertas/" class="cta-mini">Alertas</a>
-    </div>
-    <div class="nav-movil">
-      <details class="menu" name="nav-menu">
-        <summary>Menú</summary>
-        <div class="menu-panel">
-          <a href="/cartas/">Cartas</a>
-          <a href="/mercado/">Mercado</a>
-          <a href="/comprar/">Comprar</a>
-          <a href="/productos/">Productos</a>
-          <a href="/alertas/">Alertas de precio</a>
-        </div>
-      </details>
-    </div>
-  </nav>
-</header>
-<main>
-<h1>Precios de cartas Pokémon, en abierto</h1>
-<p class="lede">Un fichero JSON con el precio de referencia de <b>10.648 cartas</b>, actualizado a diario.
-Licencia <b>CC BY 4.0</b>: úsalo, publícalo o mételo en tu modelo, citando la fuente.</p>
-<p><a class="btn" href="https://raw.githubusercontent.com/valorcarta/precios-cartas-datos/master/precios.json" rel="noopener">Descargar JSON</a>
-<a class="btn ghost" href="https://github.com/valorcarta/precios-cartas-datos" rel="noopener">Ver el repositorio</a></p>
-<table class="listado"><tbody>
-<tr><td class="muted">Última actualización</td><td>2026-11-20</td></tr>
-<tr><td class="muted">Cartas con precio</td><td>10.648</td></tr>
-<tr><td class="muted">Formato</td><td>JSON (id, nombre, set, precio en EUR)</td></tr>
-<tr><td class="muted">Fuente del precio</td><td>Cardmarket, vía la API pública de TCGdex</td></tr>
-<tr><td class="muted">Licencia</td><td>CC BY 4.0</td></tr>
-</tbody></table>
-<section class="bloque">
-  <h2>Qué puedes hacer con esto</h2>
-  <ul class="pasos">
-    <li>Comparar la evolución de un set entre semanas.</li>
-    <li>Detectar cartas cuyo precio se ha movido más de un 20 %.</li>
-    <li>Montar tu propio valorador o una hoja de cálculo para tu colección.</li>
-  </ul>
-  <p class="muted">Los precios son de referencia de mercado y no distinguen estado de conservación. No son una tasación.</p>
-</section></main>
-<footer>
-  <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
-  <p class="foot-links">
-    <a href="/valorar/">Valorar colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/productos/">Productos</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
-    <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
-  </p>
-  <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
-</footer>
-<script src="/assets/app.js?v=d867e1a10e43425079c85f0fd85eb2" defer></script>
-
-<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";
-fetch("https://abacus.jasoncameron.dev/hit/valorcarta/"+k,{mode:"cors",keepalive:true});
-fetch("https://abacus.jasoncameron.dev/hit/valorcarta/total",{mode:"cors",keepalive:true});}catch(e){}})();</script>
-</body>
-</html>
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Datos abiertos · ValorCarta</title>
+<style>body{margin:0;background:#f6f4ef;color:#14120f;font:16px/1.6 -apple-system,sans-serif}
+.w{max-width:760px;margin:0 auto;padding:48px 22px 80px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#8a6400}
+h1{font-family:-apple-system,sans-serif;font-weight:800;letter-spacing:-.03em;font-size:2rem;margin:10px 0}
+a{color:#8a6400}code{background:#efe9dd;padding:2px 6px;border-radius:6px;font-size:.9em}</style></head>
+<body><div class="w"><p class="s">ValorCarta · datos abiertos</p>
+<h1>El archivo de precios, en CSV</h1>
+<p>10648 cartas con precio de hoy, mínimo de todo el archivo y fecha de la foto.
+Fuente: Cardmarket vía TCGdex. Archivo propio desde el 2 de noviembre de 2026.</p>
+<p><a href="/datos/precios.csv">Descargar precios.csv</a></p>
+<h2>Cómo citarlo</h2>
+<p>«Datos de ValorCarta (valorcarta.github.io), archivo propio desde el 02-11-2026, consultado el
+2026-11-20.» Con enlace a esta página o al CSV.</p>
+<p>Licencia: uso libre citando la fuente. No es una tasación.</p>
+</div></body></html>
