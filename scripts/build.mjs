@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Genera la web estatica en dist/ a partir de data/cards.json.
 import { mkdir, writeFile, readFile, rm, readdir } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import path from 'node:path';
 import config from '../config.json' with { type: 'json' };
 import {
@@ -121,6 +122,15 @@ let BRIEFS = {};
 try { BRIEFS = JSON.parse(await readFile(path.join(ROOT, "data", "briefs.json"), "utf8")); } catch { BRIEFS = {}; }
 const TOP_INDEXABLE = 1000000; // 09-11: indexar todas las cartas con precio (antes 300)
 const indexables = new Set(priced.slice(0, TOP_INDEXABLE).map((c) => c.id));
+// PODA (20-11): el divergente demostró que Google rechaza el sitio entero (2 de 10.945).
+// Con VC_PODA=1 solo se indexan las 40 elegidas (22 con ficha propia + núcleo) y el sitemap
+// se reduce a esas: se señaliza calidad y se pide rastreo de lo que sí queremos. Reversible.
+const PODA = existsSync(path.join(ROOT, "data", "poda.json")) &&
+  !existsSync(path.join(ROOT, "data", "poda-off.json"));   // para deshacer: crear data/poda-off.json
+let PODA_IDS = [];
+try {
+  PODA_IDS = JSON.parse(await readFile(path.join(ROOT, "data", "poda.json"), "utf8"));
+} catch { PODA_IDS = []; }
 
 // ---------- edición inglesa: 100 cartas más caras y páginas núcleo ----------
 const TOP_EN = 100;
@@ -1270,7 +1280,7 @@ ${(() => {
           : `¿Cuánto vale ${c.name}, carta Pokémon de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
         url: `/carta/${slug}/`,
         alternates: enSlugFor ? altPair(`/carta/${slug}/`, `/en/card/${enSlugFor}/`) : undefined,
-        noindex: !indexables.has(c.id),
+        noindex: PODA ? !PODA_IDS.includes(c.id) : !indexables.has(c.id),
         image: c.image ? `${c.image}/high.webp` : undefined,
         body,
         jsonld: [
@@ -3242,7 +3252,7 @@ try {
 } catch (e) {}
 
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml
-Sitemap: ${SITE}/sitemap-en.xml\nSitemap: ${SITE}/ygo/sitemap.xml\nSitemap: ${SITE}/magic/sitemap.xml\n`);
+Sitemap: ${SITE}/sitemap-en.xml\n`);
 
 // sitemap
 const urls = ['/', '/cartas/', '/sets/', '/valorar/', '/premium/', '/circulo/', '/guias/', '/datos/', '/comprar/', '/productos/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
@@ -3269,7 +3279,22 @@ await put(
     .map((u) => `<url><loc>${SITE}${u}</loc><lastmod>${lastmod}</lastmod></url>`)
     .join('\n')}\n</urlset>`,
 );
-await put(
+if (PODA && PODA_IDS.length) {
+  const urlsPoda = [
+    `${SITE}/`, `${SITE}/valorar/`, `${SITE}/indice/`, `${SITE}/datos/`, `${SITE}/cartas/`,
+    `${SITE}/comprar/`, `${SITE}/productos/`, `${SITE}/precios/`,
+    ...PODA_IDS.map((id) => {
+      const c = cards.find((x) => x.id === id);
+      return c ? `${SITE}/carta/${cardSlug(c)}/` : null;
+    }).filter(Boolean),
+  ];
+  await put('sitemap.xml',
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${
+      [...new Set(urlsPoda)].map((u) => `<url><loc>${u}</loc><lastmod>${lastmod}</lastmod></url>`).join('\n')
+    }\n</urlset>`);
+  await put('sitemap-40.xml', await readFile(path.join(DIST, 'sitemap.xml'), 'utf8'));
+}
+if (!PODA) await put(
   'sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls
     .map((u) => `<url><loc>${u}</loc><lastmod>${lastmod}</lastmod></url>`)
