@@ -117,6 +117,8 @@ let CARDS_EN = {};
 try { CARDS_EN = JSON.parse(await readFile(path.join(ROOT, 'data', 'cards-en.json'), 'utf8')); } catch {}
 
 const priced = cards.filter((c) => c.price > 0);
+let BRIEFS = {};
+try { BRIEFS = JSON.parse(await readFile(path.join(ROOT, "data", "briefs.json"), "utf8")); } catch { BRIEFS = {}; }
 const TOP_INDEXABLE = 1000000; // 09-11: indexar todas las cartas con precio (antes 300)
 const indexables = new Set(priced.slice(0, TOP_INDEXABLE).map((c) => c.id));
 
@@ -1260,8 +1262,12 @@ ${(() => {
 
       const enSlugFor = enSlugById.get(c.id);
       const html = layout({
-        title: `${c.name} ${c.localId ?? ''} — ${nombreSet(c)}: precio y valor | Carta Pokémon | ${config.brand}`,
-        description: `¿Cuánto vale ${c.name}, carta Pokémon de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
+        title: BRIEFS[c.id]
+          ? `${BRIEFS[c.id].title} (${BRIEFS[c.id].precio_txt ?? eur(c.price)}) | ${config.brand}`
+          : `${c.name} ${c.localId ?? ''} — ${nombreSet(c)}: precio y valor | Carta Pokémon | ${config.brand}`,
+        description: BRIEFS[c.id]
+          ? BRIEFS[c.id].description
+          : `¿Cuánto vale ${c.name}, carta Pokémon de ${c.setName}? Precio de mercado hoy: ${eur(c.price)}. Media de 30 días y mínimo, actualizado a diario.`,
         url: `/carta/${slug}/`,
         alternates: enSlugFor ? altPair(`/carta/${slug}/`, `/en/card/${enSlugFor}/`) : undefined,
         noindex: !indexables.has(c.id),
