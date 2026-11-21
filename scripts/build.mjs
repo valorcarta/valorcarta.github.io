@@ -3254,8 +3254,11 @@ try {
 await put(OUT('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE}/sitemap.xml
 Sitemap: ${SITE}/sitemap-en.xml\n`);
 
+// llms.txt: lo que leen los buscadores con IA (GPTBot ya entra y nos manda visitas)
+await put('llms.txt', await readFile(path.join(ROOT,'site','llms.txt'),'utf8'));
+
 // sitemap
-const urls = ['/', '/cartas/', '/sets/', '/valorar/', '/premium/', '/circulo/', '/guias/', '/datos/', '/comprar/', '/productos/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
+const urls = ['/', '/indice/', '/precios/', '/cartas/', '/sets/', '/valorar/', '/premium/', '/circulo/', '/guias/', '/datos/', '/comprar/', '/productos/', '/comprar/sobres/', '/comprar/caja-36/', '/comprar/etb/', '/comprar/etb-30/', '/comprar/lote-30/', '/comprar/etb-dominio-delta/', '/comprar/regalos/', '/comprar/lata/', '/comprar/blister/', '/mercado/', '/caras/', '/alertas/', '/guardar-cartas/', '/tiendas/', '/informe-muestra/', '/aviso-legal/', '/privacidad/']
   .map((u) => `${SITE}${u}`)
   .concat([...bySet.keys()].map((id) => `${SITE}/set/${id}/`))
   .concat(priced.filter((c) => indexables.has(c.id)).map((c) => `${SITE}/carta/${cardSlug(c)}/`))
