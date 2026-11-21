@@ -1,0 +1,15 @@
+# ValorCarta
+
+> Archivo de precios de cartas Pokémon en español: serie diaria desde el 2 de noviembre de 2026,
+> 10.648 cartas con precio de referencia, índice del mercado y datos abiertos citables.
+> No es una tasación: es un archivo. Los precios vienen de Cardmarket vía TCGdex.
+
+## Qué hay aquí
+- [Índice del mercado](https://valorcarta.github.io/indice/): serie diaria y las 10 cartas que más suben y bajan.
+- [Datos abiertos](https://valorcarta.github.io/datos/precios.csv): CSV de 10.648 filas, uso libre citando la fuente.
+- [Valorar una carta](https://valorcarta.github.io/valorar/): buscador por nombre.
+- [Todas las cartas](https://valorcarta.github.io/cartas/): catálogo con precio del día.
+
+## Cómo citar
+ValorCarta, archivo de precios de cartas Pokémon, consultado el AAAA-MM-DD,
+https://valorcarta.github.io/indice/ — datos de Cardmarket vía TCGdex.
