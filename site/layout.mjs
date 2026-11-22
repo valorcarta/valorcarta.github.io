@@ -103,8 +103,8 @@ export function layout({
     : 'En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.';
   const footLinks = en
     ? `<a href="/en/price-check/">Price check</a> · <a href="/en/most-expensive/">Top 100</a> · <a href="/en/market/">Market</a> · <a href="/en/about/">About &amp; privacy</a> · <a href="/">Versión en español</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Open data</a>`
-    : `<a href="/indice/">Índice del mercado</a> · <a href="/datos/">Datos abiertos (CSV)</a> · <a href="/valorar/">Valorar colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/productos/">Productos</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
-    <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>`;
+    : `<a href="/indice/">Índice del mercado</a> · <a href="/datos/">Datos abiertos (CSV)</a> · <a href="/valorar-coleccion/">Valorar mi colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/productos/">Productos</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
+    <a href="/informe-muestra/">Informe de muestra</a> · <a href="/contacto/">Contacto</a> · <a href="/circulo/">Círculo</a> · <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>`;
   const footNote = en
     ? 'Reference prices from Cardmarket, updated daily. Not an appraisal: condition decides the real value.'
     : 'Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda.';
