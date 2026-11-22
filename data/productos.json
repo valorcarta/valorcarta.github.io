@@ -51,10 +51,10 @@
     "asin": "B0C4V8F77B",
     "nombre": "Estadio Combina y Combate",
     "gancho": "Dos barajas para jugar",
-    "precio": 23.6,
+    "precio": 67.95,
     "imagen_local": "pines/producto-b0c4v8f77b.png",
     "enlace_amazon": "https://www.amazon.es/dp/B0C4V8F77B?tag=valorcarta-21&ascsubtag=pin-b0c4v8f77b",
-    "precio_anterior": 39.85
+    "precio_anterior": 23.6
   },
   {
     "asin": "B0BMGR3QZW",
@@ -78,10 +78,10 @@
     "asin": "B0CJYK29Y9",
     "nombre": "Baraja de liga Miraidon ex",
     "gancho": "Lista para jugar",
-    "precio": 28.34,
+    "precio": 28.69,
     "imagen_local": "pines/producto-b0cjyk29y9.png",
     "enlace_amazon": "https://www.amazon.es/dp/B0CJYK29Y9?tag=valorcarta-21&ascsubtag=pin-b0cjyk29y9",
-    "precio_anterior": 30.56
+    "precio_anterior": 28.34
   },
   {
     "asin": "B0GSSQYPK3",
@@ -175,9 +175,9 @@
     "asin": "B07T8TR863",
     "nombre": "Guantes nitrilo (100)",
     "gancho": "No marcar la carta",
-    "precio": 5.97,
+    "precio": 4.87,
     "imagen_local": null,
     "enlace_amazon": "https://www.amazon.es/dp/B07T8TR863?tag=valorcarta-21&ascsubtag=vc-accesorio-B07T8TR863",
-    "precio_anterior": null
+    "precio_anterior": 5.97
   }
 ]
