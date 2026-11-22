@@ -1,7 +1,7 @@
 {
   "_doc": "Verificación de producto en Amazon.es: fecha, título, estado de compra y si se enlaza. Sin buy box o 'Currently unavailable' = no se enlaza.",
   "comprobado": "2026-11-22",
-  "fuente": "amazon.es (navegador invisible) — 36 ASIN, 2026-11-22",
+  "fuente": "amazon.es (navegador invisible) — 52 ASIN, 2026-11-22",
   "productos": {
     "B0BTRN9FT5": {
       "titulo": "Pokémon TCG, Scarlet & Violet Booster Display Box (36 Booster Packs)",
@@ -41,7 +41,7 @@
       "disponible": true,
       "precio": 49.49,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0DM6HQ8X5": {
       "titulo": "Pokémon JCC Pokémon Scarlet Purple Elite Trainer Box-Prismatic Evolutions (1 Card with Expanded Illustration, 9 Upgrade ",
@@ -57,7 +57,7 @@
       "disponible": false,
       "precio": 89.82,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0HMJ88KGX": {
       "titulo": "Pokémon Autumn Collection Tin EX",
@@ -143,9 +143,9 @@
       "titulo": "Pokémon Pokemon TCG Scarlet & Violet 3.5 Pokemon 151 Booster Bundle",
       "estado": "últimas unidades",
       "disponible": true,
-      "precio": 265.53,
-      "vendedor": "lanius_trading",
-      "comprobado": "2026-11-21"
+      "precio": 158.02,
+      "vendedor": "",
+      "comprobado": "2026-11-22"
     },
     "B0BCPRFMQH": {
       "titulo": "Pokemon - Silver Tempest Booster Pack",
@@ -167,7 +167,7 @@
       "titulo": "Ultra Pro Penny 400 Standard Soft Card Sleeves for Trading Cards Like Pokemon Magic Standard Size Clear",
       "estado": "In stock",
       "disponible": true,
-      "precio": 7.88,
+      "precio": 7.6,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-22"
     },
@@ -175,7 +175,7 @@
       "titulo": "Ultra Pro Regular Toploader 2.5\" x 3.5\" (3' x 4') Cardboard - Pack of 25",
       "estado": "In stock",
       "disponible": true,
-      "precio": 8.64,
+      "precio": 8.73,
       "vendedor": "ReCard GmbH",
       "comprobado": "2026-11-22"
     },
@@ -209,7 +209,7 @@
       "disponible": false,
       "precio": 24.99,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0DSGDJP6Q": {
       "titulo": "Pokémon Premium Collection Ogerpon ex by JCC Pokémon (3 Holographic Cards & 6 Upgrade Packs)",
@@ -225,7 +225,7 @@
       "disponible": true,
       "precio": 29.77,
       "vendedor": "SHADOWHAWK",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0F7RK529B": {
       "titulo": "Darkbeam UV Flashlight 365nm LED Black Light, Powerful Ultraviolet Lamp",
@@ -241,7 +241,7 @@
       "disponible": true,
       "precio": 6.99,
       "vendedor": "CUNAOUK",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0DK52XPMV": {
       "titulo": "10pcs Jewelry Magnifier with UV and LED Lights 10X Rechargeable Magnifier 22mm Triplet Optical Glass Jewelry Magnifier M",
@@ -281,7 +281,7 @@
       "disponible": true,
       "precio": 10.44,
       "vendedor": "GLOBAL PERPETUAL LINK LIMITED",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0F5B2B3F2": {
       "titulo": "Qualified Card Storage Box, Sports Card Box, Trading Card Storage Box for 160 Top Loaders, 40 One Touch, 40 Qualified Ca",
@@ -289,7 +289,7 @@
       "disponible": true,
       "precio": 35.14,
       "vendedor": "Wild Spring International",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B00GKT1B94": {
       "titulo": "Ultimate Guard 10050 Sleeves, 64 x 89 mm, 10050",
@@ -305,7 +305,7 @@
       "disponible": true,
       "precio": 15.99,
       "vendedor": "qingjstore",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0H8SX832W": {
       "titulo": "Pokémon: JCC Pokémon 30th Anniversary Celebration Collection Album (1 Album and 5 Upgrade Envelopes)",
@@ -327,9 +327,9 @@
       "titulo": "Pokemon-trading-card-game",
       "estado": "In stock",
       "disponible": true,
-      "precio": 28.69,
+      "precio": 28.94,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0GSSQYPK3": {
       "titulo": "Pokémon: Increasing Megaevolution-Caos Enhancement Pack (6 Upgrade Envelopes)",
@@ -337,7 +337,7 @@
       "disponible": false,
       "precio": 29.94,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0DSGB5Q6B": {
       "titulo": "Pokémon Ursaluna Crimson Moon Collection (4 Holographic Cards and 4 Upgrade Packs)",
@@ -345,7 +345,7 @@
       "disponible": false,
       "precio": 24.99,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0HGG226FP": {
       "titulo": "Pokémon: Megaevolution-Delta Domain Elite Trainer Box (1 Promo Card with Expanded Illustration, 9 Upgrade Envelopes and ",
@@ -353,7 +353,7 @@
       "disponible": false,
       "precio": 52.99,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0D6WLBJKX": {
       "titulo": "Pokémon: JCC Scarlet & Purple Elite Trainer Box-Shadow Fable Pokémon",
@@ -361,7 +361,7 @@
       "disponible": false,
       "precio": 83.6,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0BZVX7883": {
       "titulo": "Pokemon TCG: Scarlet & Violet-Paldea Evolved - 8 Booster Packs",
@@ -401,7 +401,7 @@
       "disponible": true,
       "precio": 24.99,
       "vendedor": "",
-      "comprobado": "2026-11-21"
+      "comprobado": "2026-11-22"
     },
     "B0HG695MZV": {
       "titulo": "Pokémon TCG Twilight Masquerade Booster Pack - 6 Envelopes",
