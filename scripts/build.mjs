@@ -560,7 +560,8 @@ const vcShelfHtml = (lista) => lista.map((p, i) => `<a class="vc-prod" href="${v
       <span class="placa"><img src="/productos/producto-${esc(p.asin)}.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ ${String(i + 1).padStart(2, '0')} ] ${esc(vcEtiqueta(p.nombre))}</span>
       <h3>${esc(p.nombre)}</h3>
-      <p class="micro">${esc(p.motivo || 'Producto verificado y en stock hoy.')}</p>
+    <p style="margin:22px 0 6px"><a class="btn-todos" data-funnel="1-valorar" href="/valorar-coleccion/" style="display:inline-block;background:#14120f;color:#fff;text-decoration:none;padding:15px 24px;border-radius:12px;font-weight:700">Valorar mi colección, gratis</a></p>
+  <p class="micro">${esc(p.motivo || 'Producto verificado y en stock hoy.')}</p>
       <span class="linea"><span class="p">${vcPrecio(p)}</span><span class="boton">Comprar</span></span>
     </a>`).join('\n      ');
 
@@ -577,9 +578,9 @@ const puertaCírculo = (html, que) => `<div class="puerta">
 const homeBody = `<div class="vc-ancho">
 <div class="vc-tit">
   <p class="kicker">Precio real de Cardmarket · ${priced.length.toLocaleString('es-ES')} cartas</p>
-  <h1>Cuánto valen tus cartas. De verdad.</h1>
-  <p class="sub">Actualizado a diario. Gratis y sin registro.</p>
-  <p class="micro"><span>Media de 30 días</span><i></i><span>Mínimo de cada carta</span><i></i><span>Stock comprobado hoy</span></p>
+  <h1>3.364 de 10.648 cartas han caído un 10 % en 19 días</h1>
+  <p class="sub">Mira si las tuyas están entre ellas: pega tu lista y te decimos lo que valían el 2 de noviembre, lo que valen hoy y cuánto has perdido. Gratis y sin registro.</p>
+  <p class="micro"><span>10.648 cartas</span><i></i><span>20 días de archivo</span><i></i><span>Actualizado hoy</span></p>
   <div id="buscador" class="buscador vc-buscador">
     <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
     <div id="resultados" class="resultados"></div>
@@ -588,12 +589,11 @@ const homeBody = `<div class="vc-ancho">
 
 <section class="vc-unidad">
   
-  <section class="cta-band">
+  <section class="cta-band" style="display:block">
     <div>
-      <h2>¿Cuánto vale tu colección?</h2>
-      <p>Dos minutos, gratis y sin registro. Guardas el enlace y el valor se actualiza solo cada día. <a href="/premium/">Ver el Círculo →</a></p>
+      <p class="kicker">Lo que no te cuenta la pantalla de precios</p>
+      <p style="font-size:17px;margin:6px 0 0"><b>Una de cada tres cartas ha bajado</b> un 10 % o más · <b>una de cada cinco</b> no se ha movido en 19 días · <b>el 40,6 %</b> tocó su precio máximo en los tres primeros días. Quien compró «lo nuevo» compró en el techo, y el precio de mañana no avisa.</p>
     </div>
-    <a class="btn-todos" data-funnel="1-valorar" href="/valorar/">Valorar mi colección</a>
   </section>
 
   <div class="vc3">
