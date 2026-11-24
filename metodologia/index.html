@@ -1,0 +1,49 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cómo calculamos · ValorCarta</title>
+<meta name="description" content="Los pesos, las reglas y lo que se descarta para calcular lo que se paga de verdad por una carta en España.">
+<style>
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e;--linea:#e7e1d6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.w{max-width:860px;margin:0 auto;padding:40px 22px 80px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
+h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(1.9rem,4.6vw,2.8rem);margin:12px 0 8px;line-height:1.03}
+h2{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:1.2rem;margin:34px 0 8px}
+p{color:#2c2822}
+table{width:100%;border-collapse:collapse;background:#fffdf9;border:1px solid var(--linea);border-radius:12px;overflow:hidden;margin:12px 0}
+th,td{padding:10px 12px;border-bottom:1px solid #efe9dd;font-size:.9rem;text-align:left}
+th{font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.regla{border-left:3px solid var(--oro);padding:4px 0 4px 14px;margin:14px 0;color:#3a352c}
+</style></head><body><div class="w">
+<p class="s">ValorCarta · método</p>
+<h1>Cómo calculamos</h1>
+<p>Todo lo que hay en esta web sale de operaciones con fecha. Esto es el método entero, para que se pueda comprobar y discutir.</p>
+
+<h2>Qué pesa cada fuente</h2>
+<table><thead><tr><th>Fuente</th><th class="n">Peso</th><th>Por qué</th></tr></thead><tbody>
+<tr><td>Cierre con prueba (ticket, captura, chat)</td><td class="n">1,0</td><td>Es una venta, con fecha y precio</td></tr>
+<tr><td>Cierre en grupo público</td><td class="n">0,7</td><td>Es una venta, pero sin comprobante</td></tr>
+<tr><td>Cierre declarado por privado, sin prueba</td><td class="n">0,5</td><td>Lo dice alguien, no lo demuestra</td></tr>
+<tr><td>Tarifa de compra publicada por la tienda</td><td class="n">0,4</td><td>Regla escrita, no operación</td></tr>
+<tr><td>Anuncio de tienda</td><td class="n">0,3</td><td>Es lo que pide, no lo que cobra</td></tr>
+<tr><td>Referencia Cardmarket / eBay</td><td class="n">0,15</td><td>Ancla de nivel; nunca entra en la mediana</td></tr>
+</tbody></table>
+
+<h2>Caducidad</h2>
+<p>Menos de 7 días, ×1,0 · menos de 30, ×0,8 · menos de 90, ×0,5 · más de 90 días no cuenta. Un precio de hace tres meses no es un precio.</p>
+
+<h2>Qué no entra</h2>
+<div class="regla">Sellado, cajas, lotes y minilatas: no son una carta suelta. Graduadas (PSA, CGC, BGS): van aparte, porque la nota cambia el precio.</div>
+<div class="regla">Menciones sin carta identificable (set, número, versión): no se publican. Si no se sabe qué carta es, no hay cifra.</div>
+<div class="regla">Nada que no tenga fecha. Y nada por debajo de tres operaciones de la misma carta.</div>
+
+<h2>Las tres series</h2>
+<p><b>Pide</b> (anuncios y referencias), <b>vende</b> (cierres) y <b>compra</b> (lo que paga una tienda) se calculan por separado y nunca se suman. La cifra que publicamos es la mediana de <b>vende</b> con su n; las otras dos se enseñan al lado como contexto.</p>
+
+<h2>Cómo se comprueba</h2>
+<p>Si «vende» está a ±25 % de «pide», la carta cuadra. Si se va más, no cuadra y se revisa: casi siempre son versiones o estados mezclados. Cuando no hay muestra, se dice «sin referencia».</p>
+
+<p style="margin-top:26px;color:var(--gris);font-size:.86rem">Este método se puede discutir y se puede copiar. Lo que no se copia son las operaciones.</p>
+</div></body></html>
