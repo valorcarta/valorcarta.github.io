@@ -25,7 +25,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 <p class="meta">Una carta por línea, con cantidad si quieres (<b>Charizard x2</b>). El precio es el de hoy, con su fecha al lado. Sin registro.</p>
 <textarea id="t" placeholder="Charizard x1&#10;Pikachu x2&#10;Mew ex"></textarea>
 <p class="huecos" id="huecos">0 de 20 huecos usados</p>
-<div class="caja"><span class="cifra" id="total">— €</span><span class="fecha" id="fecha">24/11, 02:35</span>
+<div class="caja"><span class="cifra" id="total">— €</span><span class="fecha" id="fecha">24/11, 02:37</span>
 <p class="meta" id="cuenta" style="margin:6px 0 0"></p>
 <div id="filas"></div>
 <a class="btn" id="guardar" href="/club/" style="display:none">Guardar esta foto</a>
@@ -55,7 +55,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
       total += c.p * q; lista.push({ s: c.slug, q });
       filas.push('<tr><td>' + c.n + '<br><small style="color:#8d8474">' + c.set + (q > 1 ? ' · x' + q : '') + '</small></td><td class="n">' + eur(c.p * q) + '</td></tr>');
     }
-    document.getElementById('filas').innerHTML = filas.join('');
+    document.getElementById('filas').innerHTML = filas.length ? '<table>' + filas.join('') + '</table>' : '';
     document.getElementById('total').textContent = usadas ? eur(total) : '— €';
     document.getElementById('huecos').textContent = usadas + ' de 20 huecos usados';
     document.getElementById('cuenta').textContent = usadas ? usadas + (usadas === 1 ? ' carta valorada' : ' cartas valoradas') : 'Pega al menos una carta para ver tu cifra.';
