@@ -1,0 +1,92 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿Vendo o espero? · ValorCarta</title>
+<meta name="description" content="Pon la carta, el estado y lo que te ofrecen. Te digo si vendes, si negocias o si no vendas, con el motivo y la fecha del dato.">
+<style>
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.w{max-width:820px;margin:0 auto;padding:40px 22px 80px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
+h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(1.9rem,4.6vw,2.8rem);margin:12px 0 8px;line-height:1.03}
+.sub{color:var(--gris);max-width:46ch;margin:0 0 24px}
+.campos{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:10px}
+@media(max-width:720px){.campos{grid-template-columns:1fr}}
+label{display:block;font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin:0 0 6px}
+input,select{width:100%;padding:13px 14px;border:1px solid #ddd7c9;border-radius:12px;background:#fff;font:15px inherit}
+input:focus,select:focus{outline:2px solid rgba(217,163,0,.45);border-color:var(--oro)}
+.btn{display:inline-block;margin-top:14px;background:var(--tinta);color:#fff;border:0;border-radius:12px;padding:14px 22px;font:700 15px/1 inherit;cursor:pointer}
+.res{margin-top:22px;border-radius:20px;padding:22px;background:#14120f;color:#f6f4ef;display:none}
+.res.on{display:block}
+.veredicto{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:2rem;line-height:1;margin:0 0 8px}
+.res .motivo{margin:0;color:#d7d1c6}
+.res .datos{margin:14px 0 0;font-size:.85rem;color:#b9b3a7}
+.res .datos b{color:#f6f4ef}
+.nota{color:var(--gris);font-size:.8rem;margin-top:16px}
+</style></head><body><div class="w">
+<p class="s">ValorCarta</p>
+<h1>¿Vendo o espero?</h1>
+<p class="sub">Pon la carta, el estado y lo que te ofrecen. Te digo qué hacer, con el motivo y la fecha del dato. Sin registro.</p>
+<div class="campos">
+  <div><label for="c">Carta</label><input id="c" placeholder="Charizard"></div>
+  <div><label for="e">Estado</label><select id="e"><option>Como nueva</option><option>Excelente</option><option>Buena</option><option>Jugada</option></select></div>
+  <div><label for="o">Te ofrecen (€)</label><input id="o" inputmode="decimal" placeholder="40"></div>
+</div>
+<button class="btn" id="go">¿Vendo?</button>
+<div class="res" id="res">
+  <p class="veredicto" id="v">—</p>
+  <p class="motivo" id="m"></p>
+  <p class="datos" id="d"></p>
+</div>
+<p class="nota">Se calcula con el precio de referencia de hoy y las últimas fotos del archivo. No es una tasación: estado, versión e idioma cambian el precio final. Si no hay dato, te lo digo en vez de inventarlo.</p>
+</div>
+<script>
+(function(){
+  var idx=null, mapa=new Map(), pasado=null;
+  var norm=function(s){return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').trim();};
+  var eur=function(v){return v.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';};
+  Promise.all([
+    fetch('/data/cartas.json').then(function(r){return r.json();}),
+    fetch('/data/precios-pasado.json').then(function(r){return r.json();}).catch(function(){return {};})
+  ]).then(function(res){
+    idx=res[0]; pasado=res[1];
+    idx.forEach(function(x){var k=norm(x[1]); if(!mapa.has(k))mapa.set(k,[]); mapa.get(k).push(x);});
+  });
+  function variacion(id, precio){
+    if(!pasado) return null;
+    var ks=Object.keys(pasado).filter(function(k){return pasado[k] && pasado[k].precios;});
+    if(!ks.length) return null;
+    ks.sort(function(a,b){return (pasado[b].dias||0)-(pasado[a].dias||0);});
+    var p=pasado[ks[0]], base=p.precios[id];
+    if(!base||base<=0.1||precio<=0.1) return null;
+    return {pct:(precio/base-1)*100, dias:p.dias||ks[0], fecha:p.fecha};
+  }
+  document.getElementById('go').addEventListener('click', function(){
+    var q=norm(document.getElementById('c').value);
+    var oferta=parseFloat(document.getElementById('o').value.replace(',','.'));
+    var estado=document.getElementById('e').value;
+    var res=document.getElementById('res'), v=document.getElementById('v'), m=document.getElementById('m'), d=document.getElementById('d');
+    if(!idx){ v.textContent='Cargando…'; res.classList.add('on'); return; }
+    var hits=mapa.get(q);
+    if(!hits){ mapa.forEach(function(val,k){ if(!hits && q.length>3 && (k.indexOf(q)===0||q.indexOf(k)===0)) hits=val; }); }
+    if(!hits||!hits.length||!hits[0][3]){
+      v.textContent='Sin dato'; m.textContent='No tengo referencia fiable de esa carta. No te invento una cifra: búscala en la ficha y, si no aparece, dímela y la miro.';
+      d.textContent=''; res.classList.add('on'); return;
+    }
+    hits.sort(function(a,b){return (b[3]||0)-(a[3]||0);});
+    var c=hits[0], precio=c[3], var30=variacion(c[0],precio);
+    var ratio=oferta>0? oferta/precio : null;
+    var txt, mot;
+    if(!oferta || isNaN(oferta)){ txt='Falta el precio'; mot='Dime cuánto te ofrecen y te digo si es poco o está bien.'; }
+    else if(ratio<0.75){ txt='No vendas'; mot='Te ofrecen un '+Math.round((1-ratio)*100)+' % por debajo de la referencia. A ese precio lo barato eres tú.'; }
+    else if(ratio<0.95){ txt='Negocia'; mot='Estás a '+eur(precio-oferta)+' de la referencia. Con ese margen, pide más o espera.'; }
+    else { txt='Vende'; mot='Estás en precio de mercado o por encima. Si necesitas el dinero, es buen momento.'; }
+    if(var30 && var30.pct<-10 && ratio<0.95){ txt='Vende ya'; mot='La carta ha caído un '+Math.abs(var30.pct).toFixed(1)+' % en '+var30.dias+' días y te ofrecen poco: esperar te va a costar más.'; }
+    if(var30 && var30.pct>10 && ratio<0.95){ txt='Espera'; mot='La carta ha subido un '+var30.pct.toFixed(1)+' % en '+var30.dias+' días. Si no tienes prisa, el precio va a tu favor.'; }
+    v.textContent=txt; m.textContent=mot;
+    d.innerHTML='Referencia: <b>'+eur(precio)+'</b> · '+c[2]+(var30?' · variación <b>'+var30.pct.toFixed(1)+' %</b> en '+var30.dias+' días (foto del '+var30.fecha+')':'')+' · estado declarado: '+estado+'. <a href="/carta/'+c[0]+'/" style="color:#d9a300">Ver la ficha</a>';
+    res.classList.add('on');
+  });
+})();
+</script>
+</body></html>
