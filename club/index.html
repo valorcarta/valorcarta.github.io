@@ -23,9 +23,9 @@ a{color:#8a6400}
 <p class="s">El Círculo · tu colección</p>
 <h1>Tu colección, con los precios de hoy</h1>
 <p class="meta">Precios de Cardmarket del día · se recalcula al abrir el enlace.</p>
-<div class="tot"><span class="s">Valor de mercado hoy</span><p class="cifra" id="total">—</p><p class="meta" id="cuenta" style="margin:6px 0 0"></p></div>
+<div class="tot"><span class="s">Valor de mercado hoy</span><p class="cifra" id="total">—</p><p class="meta" id="fechafoto" style="margin:2px 0 0;font:600 11px/1 ui-monospace,monospace;color:#8d8474"></p><p class="meta" id="cuenta" style="margin:6px 0 0"></p></div>
 <div class="evo" id="evo"></div>
-<table><thead><tr><th>Carta</th><th class="n">Uds</th><th class="n">Hoy</th><th class="n">7 d</th><th class="n">30 d</th><th class="n">Total</th></tr></thead><tbody id="filas"></tbody></table>
+<table><thead><tr><th>Carta</th><th class="n">Uds</th><th class="n">Hoy</th><th class="n" id="d7">7 d</th><th class="n" id="d30">30 d</th><th class="n">Total</th></tr></thead><tbody id="filas"></tbody></table>
 <p class="pie">Enlace privado: no lo compartas. No es una tasación. © ValorCart</p>
 </div><script>
   (async () => {
@@ -67,6 +67,11 @@ a{color:#8a6400}
     const eur = (v) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
     document.getElementById('total').textContent = eur(total);
     document.getElementById('cuenta').textContent = filas.length + (filas.length === 1 ? ' carta' : ' cartas');
+    const ff = document.getElementById('fechafoto');
+    if (ff) ff.textContent = 'Foto guardada el ' + new Date().toLocaleDateString('es-ES');
+    const d7 = document.getElementById('d7'), d30 = document.getElementById('d30');
+    if (d7) d7.textContent = (pasado[7] && pasado[7].dias ? pasado[7].dias : 7) + ' d';
+    if (d30) d30.textContent = (pasado[30] && pasado[30].dias ? pasado[30].dias : 30) + ' d';
     document.getElementById('filas').innerHTML = filas.map((f) =>
       '<tr><td>' + f.n + '<small>' + f.s + '</small></td><td class="n">' + f.q + '</td><td class="n">' +
       eur(f.p) + '</td><td class="n ' + (f.v7 == null ? 'plano' : color(f.v7)) + '">' + (f.v7 == null ? '—' : fmt(f.v7)) + '</td><td class="n ' + (f.v30 == null ? 'plano' : color(f.v30)) + '">' +
