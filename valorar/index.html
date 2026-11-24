@@ -74,91 +74,40 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
   </nav>
 </header>
 <main>
-<style>
-/* /valorar/ (24-11): misma piel que la portada, una sola llamada a la acción */
-.vz{max-width:1080px;margin:0 auto;padding:26px 20px 44px}
-.vz-hero{background:linear-gradient(180deg,#fffdf9,#f8f3e9);border:1px solid var(--line);
-  border-radius:24px;padding:34px 34px 26px;box-shadow:var(--sh-2),var(--inner)}
-.vz-k{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--oro-tinta);font-weight:700;margin:0 0 10px}
-.vz h1{font-size:clamp(2rem,3.4vw,3rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 14px;max-width:22ch}
-.vz-lede{color:var(--muted);font-size:1.02rem;line-height:1.6;margin:0 0 18px;max-width:62ch}
-.vz .buscador{margin:6px 0 4px}
-.vz .buscador input{background:#fff;border-color:#ded6c6;box-shadow:var(--sh-1),var(--inner)}
-.vz-fecha{font-size:.78rem;color:var(--muted);margin:10px 0 0}
-.vz-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;margin-top:22px;align-items:start}
-.vz-panel{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px;
-  box-shadow:var(--sh-1),var(--inner)}
-.vz h2{font-size:1.12rem;margin:0 0 14px;letter-spacing:-.01em}
-.vz-vacio{border:1px dashed #ddd4c2;border-radius:14px;padding:22px;text-align:center;background:#fcfaf5}
-.vz-vacio p{margin:0 0 6px}
-.vz-vacio .muted{font-size:.9rem;line-height:1.5;margin:0}
-.vz .modo-frase{margin-top:16px}
-.vz .frase-fila{display:flex;gap:10px}
-.vz .frase-fila input{flex:1}
-.vz .frase-fila .btn{background:var(--oro);border-color:var(--oro);color:#241a00}
-.vz-total{position:sticky;top:96px}
-.vz-total .total{font-size:2.7rem;letter-spacing:-.02em;margin:.08em 0}
-.vz-total .btn.oro{background:var(--oro);border-color:var(--oro);color:#241a00;
-  font-weight:750;min-height:48px;margin-top:12px}
-.vz-nota{font-size:.8rem;color:var(--muted);line-height:1.5;margin:10px 0 0}
-.vz-links{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;padding-top:12px;border-top:1px solid var(--line)}
-.vz-links button{background:none;border:0;padding:0;font:inherit;font-size:.84rem;color:var(--oro-tinta);
-  cursor:pointer;text-decoration:underline;text-underline-offset:3px}
-.vz-total .muted{font-size:.84rem}
-@media(max-width:860px){
-  .vz-grid{grid-template-columns:1fr}
-  .vz-hero{padding:26px 22px 22px;border-radius:18px}
-  .vz-total{position:static}
-  .vz .frase-fila{flex-direction:column}
-}
-</style>
-<div class="vz">
-  <header class="vz-hero">
-    <p class="vz-k">Gratis · sin registro · 20 cartas</p>
-    <h1>¿Cuánto vale mi carta de Pokémon?</h1>
-    <p class="vz-lede">Busca la carta, pon cuántas tienes y el total sale con el precio de mercado de hoy:
-      referencia de Cardmarket, media de los últimos 30 días y mínimo, para que sepas si ese número es de verdad
-      o es de un día raro. Se guarda en tu navegador y puedes compartirlo con un enlace.</p>
-    <div class="buscador grande">
-      <input id="q" type="search" placeholder="Busca por nombre: Charizard, Pikachu, Mew ex…" autocomplete="off" aria-label="Buscar carta">
-      <div id="resultados" class="resultados"></div>
-    </div>
-    <p class="vz-fecha">Precios de Cardmarket actualizados a 2026-11-24.</p>
-  </header>
-  <div class="vz-grid">
-    <section class="vz-panel">
-      <h2>Tu colección <span id="n-cartas" class="muted"></span></h2>
-      <div id="coleccion" class="coleccion-lista">
-        <div class="vz-vacio">
-          <p><strong>Todavía no has añadido cartas.</strong></p>
-          <p class="muted">Busca arriba por nombre o escríbelo como lo dirías: «2 charizard base y un pikachu de 151».</p>
-        </div>
-      </div>
-      <div class="modo-frase">
-        <label for="frase" class="muted small">O escríbela como la dirías</label>
-        <div class="frase-fila">
-          <input id="frase" type="text" placeholder="2 charizard base, pikachu 151…" autocomplete="off">
-          <button id="interpretar" class="btn">Añadir</button>
-        </div>
-        <p id="frase-out" class="nota small"></p>
-      </div>
-    </section>
-    <aside class="vz-panel vz-total total-caja">
-      <p class="muted">Valor de mercado hoy</p>
-      <p id="total" class="total">0,00 €</p>
-      <p id="delta" class="muted"></p>
-      <p class="vz-nota">El total de hoy es gratis y siempre lo será. Si quieres que se guarde y ver cuánto sube o baja
-        cada semana, eso es el Círculo, 9 €/mes.</p>
-      <button id="alcirculo" class="btn oro" data-funnel="seguir-coleccion">Seguir mi colección · 9 €/mes</button>
-      <div class="vz-links">
-        <button id="compartir" type="button">Copiar enlace</button>
-        <button id="csv" type="button">Descargar CSV</button>
-        <button id="vaciar" type="button">Vaciar</button>
-      </div>
-      <p class="vz-nota muted">Precios de referencia (Cardmarket): no incluyen estado ni gastos de envío.
-        <a href="/circulo/">Qué es el Círculo</a></p>
-    </aside>
+<h1>¿Cuánto vale mi carta de Pokémon?</h1>
+<p class="nota small">Precios de Cardmarket actualizados a 2026-11-24.</p>
+<p class="lede">Escribe el nombre de tu carta y te digo cuánto vale hoy. Precio de referencia de Cardmarket, media de los últimos 30 días y mínimo, para que sepas si ese número es de verdad o es de un día raro.</p>
+<p class="lede">Busca cada carta, pon cuántas tienes y el total se calcula con el precio de mercado de hoy.
+Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
+<div class="buscador grande">
+  <input id="q" type="search" placeholder="Busca por nombre: Charizard, Pikachu, Mew ex…" autocomplete="off" aria-label="Buscar carta">
+  <div id="resultados" class="resultados"></div>
+</div>
+<div class="modo-frase">
+  <label for="frase" class="muted small">O escríbela como la dirías: «2 charizard base y un pikachu de 151»</label>
+  <div class="frase-fila">
+    <input id="frase" type="text" placeholder="2 charizard base, pikachu 151…" autocomplete="off">
+    <button id="interpretar" class="btn">Añadir</button>
   </div>
+  <p id="frase-out" class="nota small"></p>
+</div>
+<div class="dos-col coleccion">
+  <div>
+    <h2>Tu colección <span id="n-cartas" class="muted"></span></h2>
+    <div id="coleccion" class="coleccion-lista"><p class="muted">Todavía no has añadido cartas.</p></div>
+  </div>
+  <aside class="total-caja">
+    <p class="muted">Valor de mercado hoy</p>
+    <p id="total" class="total">0,00 €</p>
+    <p id="delta" class="muted"></p>
+    <p class="nota small" style="margin:6px 0 10px">El total de hoy es gratis y siempre lo será. Si quieres que se guarde y ver cuánto sube o baja cada semana, eso es el Círculo: 4 €/mes.</p>
+    <button id="compartir" class="btn ghost">Copiar enlace para compartir</button>
+    <button id="alcirculo" class="btn">Seguir mi colección · Círculo 4 €/mes</button>
+    <button id="csv" class="btn ghost">Descargar CSV</button>
+    <button id="vaciar" class="btn ghost">Vaciar</button>
+    <p class="nota small">Los precios son de referencia (Cardmarket) y no incluyen estado ni gastos de envío.</p>
+    <a class="btn ghost" href="/premium/">Quiero alertas cuando bajen</a>
+  </aside>
 </div></main>
 <footer>
   <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>

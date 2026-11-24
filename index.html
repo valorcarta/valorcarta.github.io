@@ -74,148 +74,45 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
   </nav>
 </header>
 <main><div class="vc-ancho">
-<div class="hero2">
-<style>
-  .hero2{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;align-items:center}
-  @media(max-width:860px){.hero2{grid-template-columns:1fr}.hero2 .fan{display:none}}
-  .fan{position:relative;height:330px;perspective:900px}
-  .fan a{position:absolute;top:12px;left:50%;width:172px;border-radius:12px;overflow:hidden;
-    box-shadow:0 18px 34px rgba(20,18,15,.22),0 2px 6px rgba(20,18,15,.14);
-    transition:transform .35s cubic-bezier(.2,.8,.3,1),box-shadow .35s;background:#fff}
-  .fan a img{display:block;width:100%;height:auto}
-  .fan a:nth-child(1){transform:translateX(-50%) translateX(-150px) rotate(-13deg) translateY(26px);z-index:1}
-  .fan a:nth-child(2){transform:translateX(-50%) translateX(-78px) rotate(-6deg) translateY(10px);z-index:2}
-  .fan a:nth-child(3){transform:translateX(-50%) translateY(-6px) scale(1.06);z-index:4}
-  .fan a:nth-child(4){transform:translateX(-50%) translateX(78px) rotate(6deg) translateY(10px);z-index:2}
-  .fan a:nth-child(5){transform:translateX(-50%) translateX(150px) rotate(13deg) translateY(26px);z-index:1}
-  .fan a:hover{transform:translateX(-50%) translateY(-16px) scale(1.1) rotate(0);z-index:9;
-    box-shadow:0 26px 50px rgba(20,18,15,.30)}
-  .fan:before{content:"";position:absolute;inset:6% 4% 8%;border-radius:50%;
-    background:radial-gradient(closest-side,rgba(217,163,0,.20),transparent 70%);filter:blur(18px)}
-</style>
 <div class="vc-tit">
   <p class="kicker">Precio real de Cardmarket · 10.648 cartas</p>
-  <h1>¿Cuánto vale tu colección hoy?</h1>
-  <p class="sub">Pega tu lista y lo sabes en un minuto: la cifra, la fecha y qué se ha movido. 20 cartas gratis, sin registro.</p>
-  <p><a class="btn-todos" href="/valorar-coleccion/">Valorar mi colección</a></p>
-  <p class="micro"><span>10.648 cartas</span><i></i><span>23 días de archivo</span><i></i><span>Actualizado hoy</span></p>
+  <h1>Cuánto valen tus cartas. De verdad.</h1>
+  <p class="sub">Actualizado a diario. Gratis y sin registro.</p>
+  <p class="micro"><span>Media de 30 días</span><i></i><span>Mínimo de cada carta</span><i></i><span>Stock comprobado hoy</span></p>
   <div id="buscador" class="buscador vc-buscador">
     <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
     <div id="resultados" class="resultados"></div>
   </div>
 </div>
-<div class="fan" aria-hidden="true">
-  <a href="/carta/base1-4-charizard/" tabindex="-1"><img src="https://assets.tcgdex.net/en/base/base1/4/high.webp" alt="" loading="eager" fetchpriority="high"></a>
-  <a href="/carta/ru1-7-pikachu/" tabindex="-1"><img src="https://assets.tcgdex.net/en/pl/ru1/7/high.webp" alt="" loading="eager" fetchpriority="high"></a>
-  <a href="/carta/swsh7-215-umbreon-vmax/" tabindex="-1"><img src="https://assets.tcgdex.net/es/swsh/swsh7/215/high.webp" alt="" loading="eager" fetchpriority="high"></a>
-  <a href="/carta/sv08.5-161-umbreon-ex/" tabindex="-1"><img src="https://assets.tcgdex.net/es/sv/sv08.5/161/high.webp" alt="" loading="eager" fetchpriority="high"></a>
-  <a href="/carta/neo1-9-lugia/" tabindex="-1"><img src="https://assets.tcgdex.net/en/neo/neo1/9/high.webp" alt="" loading="eager" fetchpriority="high"></a>
-</div>
-</div>
-
-<section class="verdad">
-<style>
-  .verdad{background:linear-gradient(180deg,#efece4,#f6f4ef);border:1px solid #e4dfd3;border-radius:24px;
-    padding:34px 30px 30px;margin:28px 0 6px}
-  @media(max-width:760px){.verdad{padding:24px 18px}}
-  .verdad .e{font:600 10px/1 ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase;color:#8a6400}
-  .verdad h2{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(1.5rem,3.4vw,2.2rem);
-    margin:10px 0 6px;max-width:22ch;line-height:1.02}
-  .verdad .intro{color:#5a554c;margin:0 0 22px;max-width:60ch}
-  .vp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  @media(max-width:760px){.vp{grid-template-columns:1fr}}
-  .vp .p{position:relative;overflow:hidden;background:#fffdf9;border:1px solid #e7e1d6;border-radius:14px;padding:15px 17px;
-    display:grid;grid-template-columns:104px 1fr;gap:14px;align-items:center}
-  .vp .tg{position:relative;border:1px dashed #d7cfbe;border-radius:10px;padding:10px 8px;text-align:center;background:#faf7f0}
-  .vp .tg s{display:block;font-size:.8rem;color:#9a938629;color:#a39c8f;text-decoration-thickness:2px}
-  .vp .tg b{display:block;font-family:"Inter Tight",sans-serif;font-weight:800;font-size:1.05rem;letter-spacing:-.02em;color:#8a6400;margin-top:2px}
-  .vp .tg .lbl{display:block;font:600 8px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#a39c8f;margin-bottom:4px}
-  @media(max-width:760px){.vp .p{grid-template-columns:88px 1fr}}
-  .vp .wm{position:absolute;right:-6px;bottom:-26px;width:92px;opacity:.12;transform:rotate(-7deg);pointer-events:none}
-  .vp .p>span{position:relative;z-index:1}
-  .vp .d{display:block;font-size:.88rem;color:#8d8474;text-decoration:line-through;text-decoration-color:#d3ccc0;margin:0 0 7px}
-  .vp .h{margin:0;font-size:.95rem;line-height:1.42;color:#14120f}
-  .vp .h b{font-weight:700}
-  .verdad .cierre{margin:20px 0 0;font-size:.92rem;color:#3a352c}
-</style>
-<p class="e">Lo que oyes cuando vas a vender</p>
-<h2>Siempre te cuentan lo mismo</h2>
-<p class="intro">Poca información y prisa por parte del que compra. Cambian las cartas, no el guion.</p>
-<div class="vp">
-  <div class="p"><img class="wm" alt="" loading="lazy" src="https://assets.tcgdex.net/en/base/base1/4/low.webp"><span class="tg"><span class="lbl">anuncio</span><s>120 €</s><b>74-82 €</b></span><span><span class="d">«Esa carta está a 120 €»</span><p class="h">120 es el anuncio. Los cierres de esa misma carta están <b>entre 74 y 82 €</b>, y ese anuncio lleva meses sin venderse.</p></span></div>
-  <div class="p"><img class="wm" alt="" loading="lazy" src="https://assets.tcgdex.net/en/pl/ru1/7/low.webp"><span class="tg"><span class="lbl">te ofrecen</span><s>40 €</s><b>95 €</b></span><span><span class="d">«Te la dejo en 40, es lo que hay»</span><p class="h">El último cierre público fue <b>95 €</b>. Te faltan 55 y nadie te dice por qué.</p></span></div>
-  <div class="p"><img class="wm" alt="" loading="lazy" src="https://assets.tcgdex.net/en/base/base1/10/low.webp"><span class="tg"><span class="lbl">otra versión</span><s>200 €</s><b>la tuya</b></span><span><span class="d">«En Cardmarket está a 200»</span><p class="h">Ese precio es de la versión japonesa o de una graduada. <b>La tuya es otra</b> y tiene otro precio.</p></span></div>
-  <div class="p"><img class="wm" alt="" loading="lazy" src="https://assets.tcgdex.net/es/bw/bw5/60/low.webp"><span class="tg"><span class="lbl">ajuste</span><s>valor</s><b>-15 %</b></span><span><span class="d">«Está rayada, no vale nada»</span><p class="h">El estado ajusta el precio, no lo borra. Con versión y una foto se ve <b>cuánto baja de verdad</b>.</p></span></div>
-  <div class="p"><img class="wm" alt="" loading="lazy" src="https://assets.tcgdex.net/es/me/me03/050/low.webp"><span class="tg"><span class="lbl">cierres/mes</span><s>cero</s><b>14</b></span><span><span class="d">«Ahora no se vende nada»</span><p class="h">Esa carta se ha cerrado <b>varias veces este mes</b>. Que a él no le interese no significa que no se venda.</p></span></div>
-  <div class="p"><img class="wm" alt="" loading="lazy" src="https://assets.tcgdex.net/es/bw/bw6/128/low.webp"><span class="tg"><span class="lbl">faltan</span><s>rango</s><b>datos</b></span><span><span class="d">«Entre 80 y 200, según»</span><p class="h">Un rango sin fecha ni estado no es un dato. Damos <b>versión, estado, fecha y precio de cierre</b>; y si no hay dato, lo decimos.</p></span></div>
-</div>
-<p class="cierre">Si te ha pasado alguna, ya sabes por qué existe esto.</p>
-</section>
-
-<nav aria-label="Explorar" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:20px 0 6px">
-  <a href="/valorar-coleccion/" style="display:block;padding:14px 16px;border-radius:14px;background:#14120f;color:#fff;text-decoration:none;font-weight:600">Valorar mi colección →</a>
-  <a href="/cartas/" style="display:block;padding:14px 16px;border-radius:14px;background:#fffdf9;border:1px solid #e7e1d6;text-decoration:none;color:#14120f">Todas las cartas</a>
-  <a href="/sets/" style="display:block;padding:14px 16px;border-radius:14px;background:#fffdf9;border:1px solid #e7e1d6;text-decoration:none;color:#14120f">Todos los sets</a>
-  <a href="/caras/" style="display:block;padding:14px 16px;border-radius:14px;background:#fffdf9;border:1px solid #e7e1d6;text-decoration:none;color:#14120f">Las 100 más caras</a>
-  <a href="/mercado/" style="display:block;padding:14px 16px;border-radius:14px;background:#fffdf9;border:1px solid #e7e1d6;text-decoration:none;color:#14120f">Qué se mueve</a>
-  <a href="/guias/" style="display:block;padding:14px 16px;border-radius:14px;background:#fffdf9;border:1px solid #e7e1d6;text-decoration:none;color:#14120f">Guías</a>
-  <a href="/circulo/" style="display:block;padding:14px 16px;border-radius:14px;background:#fff8e6;border:1px solid #efdfae;text-decoration:none;color:#5a4a12">El Círculo · 9 €/mes</a>
-</nav>
 
 <section class="vc-unidad">
   
-  <section class="cta-band" style="display:block">
+  <section class="cta-band">
     <div>
-      <p class="kicker">Lo que ha hecho el mercado desde el 02/11/2026</p>
-      <p style="font-size:17px;margin:6px 0 0"><b>28,5 %</b> de las cartas con precio real han caído más de un 10 % · <b>10.648</b> cartas con precio · <b>126.332,75 €</b> vale el catálogo entero.</p>
+      <h2>¿Cuánto vale tu colección?</h2>
+      <p>Dos minutos, gratis y sin registro. Guardas el enlace y el valor se actualiza solo cada día. <a href="/premium/">Ver el Círculo →</a></p>
     </div>
+    <a class="btn-todos" data-funnel="1-valorar" href="/valorar/">Valorar mi colección</a>
   </section>
 
-  <div class="vc3b">
-    <style>
-      .vc3b{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:14px;margin:26px 0 6px}
-      @media(max-width:820px){.vc3b{grid-template-columns:1fr}}
-      .c3{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:18px;
-          border-radius:18px;padding:22px 22px 18px;text-decoration:none;overflow:hidden;
-          box-shadow:0 1px 2px rgba(20,18,15,.05),0 10px 26px rgba(20,18,15,.06)}
-      .c3 .k{display:block;font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.65}
-      .c3 .t{display:block;font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:26px;line-height:1.05;margin:10px 0 6px}
-      .c3 .d{display:block;font-size:14px;line-height:1.45;opacity:.75;margin:0}
-      .c3 .f{display:flex;align-items:baseline;gap:10px;margin-top:14px}
-      .c3 .p{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:22px;letter-spacing:-.02em}
-      .c3 .b{font-size:13px;font-weight:600;border-bottom:1px solid currentColor;padding-bottom:1px}
-      .c3-ink{background:#14120f;color:#f6f4ef}
-      .c3-ink .b{color:#d9a300;border-color:#d9a300}
-      .c3-pap{background:#fffdf9;border:1px solid #e7e1d6;color:#14120f}
-      .c3-pap:before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:linear-gradient(90deg,#d9a300,#e8c95a 60%,transparent)}
-      .c3-img{position:absolute;right:10px;bottom:10px;width:92px;opacity:.92;transform:rotate(-5deg);pointer-events:none}
-      .c3.has-img .t,.c3.has-img .d{padding-right:96px}
-      .c3-img img{width:100%;height:auto;display:block}
-    </style>
-    <a class="c3 c3-ink" href="/valorar-coleccion/">
-      <span>
-        <span class="k">Empieza aquí</span>
-        <span class="t">Tu colección,<br>con fecha de hoy</span>
-        <span class="d">Pega la lista. 20 cartas gratis y la cifra con el día al lado.</span>
-      </span>
-      <span class="f"><span class="b">Valorar ahora →</span></span>
+  <div class="vc3">
+    <a class="v3-card v3-dark" href="/carta/base1-4-charizard/">
+      <span class="v3-k">La carta de la semana</span>
+      <span class="v3-t"><h2>Charizard</h2><p>Precio medio real de Cardmarket, con su mínimo de 30 días al lado.</p></span>
+      <span class="v3-l"><span class="v3-p">3489,25 €</span><span class="v3-b">Ver la ficha</span></span>
+      <span class="v3-img"><img src="https://assets.tcgdex.net/en/base/base1/4/high.webp" alt="Charizard" loading="eager"></span>
     </a>
-    <a class="c3 c3-pap has-img" href="/carta/base1-4-charizard/">
-      <span>
-        <span class="k">La carta de la semana</span>
-        <span class="t">Charizard</span>
-        <span class="d">Edición Básica</span>
-      </span>
-      <span class="f"><span class="p">3489,25 €</span><span class="b">Ver la ficha</span></span>
-      <span class="c3-img"><img src="https://assets.tcgdex.net/en/base/base1/4/high.webp" alt="Charizard" loading="lazy"></span>
+    <a class="v3-card v3-azul" href="https://www.amazon.es/dp/B0GCJVSFV5?tag=valorcarta-21&ascsubtag=vc-portada-B0GCJVSFV5" rel="sponsored nofollow noopener" target="_blank">
+      <span class="v3-k">Cazafalsas</span>
+      <span class="v3-t"><h2>La linterna que delata una falsa</h2><p>365 nm: lo que el ojo no ve.</p></span>
+      <span class="v3-l"><span class="v3-p">29,77 €</span><span class="v3-b">Comprar</span></span>
+      <span class="v3-img"><img src="/productos/producto-B0GCJVSFV5.webp" alt="Linterna UV 365 nm" loading="lazy"></span>
     </a>
-    <a class="c3 c3-pap" href="/mercado/">
-      <span>
-        <span class="k">El mercado, en una línea</span>
-        <span class="t">28,5 %</span>
-        <span class="d">de las cartas con precio real han caído más de un 10 % desde el 02/11/2026 (23 días).</span>
-      </span>
-      <span class="f"><span class="b">Ver qué se mueve →</span></span>
+    <a class="v3-card v3-rosa" href="https://www.amazon.es/dp/B0BMGR3QZW?tag=valorcarta-21&ascsubtag=vc-portada-B0BMGR3QZW" rel="sponsored nofollow noopener" target="_blank">
+      <span class="v3-k">Lo que sí se vende</span>
+      <span class="v3-t"><h2>Mazo listo para jugar</h2><p>60 cartas, sin montar nada.</p></span>
+      <span class="v3-l"><span class="v3-p">29,70 €</span><span class="v3-b">Comprar</span></span>
+      <span class="v3-img"><img src="/productos/producto-B0BMGR3QZW.webp" alt="Baraja de liga Mew VMAX" loading="lazy"></span>
     </a>
   </div>
   <p class="vc-aviso">Enlaces de afiliado de Amazon: ValorCarta recibe una comisión sin coste para ti. Los precios los pone Amazon; el stock se comprueba antes de mostrarlo.</p>
@@ -230,6 +127,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B0BMGR3QZW.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 01 ] MAZO</span>
       <h3>Baraja de liga Mew VMAX</h3>
+      <p class="micro">60 cartas listas para jugar</p>
       <span class="linea"><span class="p">29,70 €</span><span class="boton">Comprar</span></span>
     </a>
       <a class="vc-prod" href="https://www.amazon.es/dp/B0G5YX5XVQ?tag=valorcarta-21&ascsubtag=vc-portada-B0G5YX5XVQ" rel="sponsored nofollow noopener" target="_blank">
@@ -237,6 +135,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B0G5YX5XVQ.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 02 ] MAZO</span>
       <h3>Baraja de liga Mewtwo ex</h3>
+      <p class="micro">60 cartas listas para jugar</p>
       <span class="linea"><span class="p">49,04 €</span><span class="boton">Comprar</span></span>
     </a>
       <a class="vc-prod" href="/comprar/" rel="sponsored nofollow noopener" target="_blank">
@@ -244,6 +143,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B078NBBQXQ.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 03 ] MAZO</span>
       <h3>Mazo Ampharos ex</h3>
+      <p class="micro">Baraja de 60 cartas, sin abrir sobres</p>
       <span class="linea"><span class="p">123,12 €</span><span class="boton">Comprar</span></span>
     </a>
       <a class="vc-prod" href="https://www.amazon.es/dp/B0HMJ88KGX?tag=valorcarta-21&ascsubtag=vc-portada-B0HMJ88KGX" rel="sponsored nofollow noopener" target="_blank">
@@ -251,6 +151,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B0HMJ88KGX.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 04 ] LATA</span>
       <h3>Lata Otoño EX</h3>
+      <p class="micro">Promo asegurada dentro</p>
       <span class="linea"><span class="p">39,95 €</span><span class="boton">Comprar</span></span>
     </a>
       <a class="vc-prod" href="https://www.amazon.es/dp/B0C8YBXDYQ?tag=valorcarta-21&ascsubtag=vc-portada-B0C8YBXDYQ" rel="sponsored nofollow noopener" target="_blank">
@@ -258,6 +159,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B0C8YBXDYQ.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 05 ] SOBRE</span>
       <h3>Booster Bundle 151</h3>
+      <p class="micro">6 sobres del 151</p>
       <span class="linea"><span class="p">158,02 €</span><span class="boton">Comprar</span></span>
     </a>
       <a class="vc-prod" href="/comprar/" rel="sponsored nofollow noopener" target="_blank">
@@ -265,6 +167,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B0BCPRFMQH.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 06 ] SOBRE</span>
       <h3>Sobre Silver Tempest</h3>
+      <p class="micro">Sobre suelto para probar</p>
       <span class="linea"><span class="p">21,55 €</span><span class="boton">Comprar</span></span>
     </a>
       <a class="vc-prod" href="https://www.amazon.es/dp/B085DNDLC1?tag=valorcarta-21&ascsubtag=vc-portada-B085DNDLC1" rel="sponsored nofollow noopener" target="_blank">
@@ -272,6 +175,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B085DNDLC1.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 07 ] FUNDAS</span>
       <h3>Ultra Pro Penny Sleeve, 400 fundas blandas</h3>
+      <p class="micro">Lo primero antes de tocar la carta</p>
       <span class="linea"><span class="p">7,60 €</span><span class="boton">Comprar</span></span>
     </a>
       <a class="vc-prod" href="https://www.amazon.es/dp/B000Q5ZMM0?tag=valorcarta-21&ascsubtag=vc-portada-B000Q5ZMM0" rel="sponsored nofollow noopener" target="_blank">
@@ -279,6 +183,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
       <span class="placa"><img src="/productos/producto-B000Q5ZMM0.webp" alt="" loading="lazy" decoding="async"></span>
       <span class="num">[ 08 ] TOPLOADER</span>
       <h3>Ultra Pro Toploader 3x4, pack de 25</h3>
+      <p class="micro">La esquina deja de doblarse</p>
       <span class="linea"><span class="p">8,28 €</span><span class="boton">Comprar</span></span>
     </a>
   </div>
@@ -288,7 +193,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
   <div class="puerta-cta">
     <p class="puerta-et">Solo socios</p>
     <p class="puerta-txt">Las cartas que más se mueven esta semana y cuánto ha cambiado cada una: el radar completo, solo para socios.</p>
-    <a class="btn-todos" data-funnel="puerta-carta" href="https://buy.stripe.com/test_bJe00i5Znbq9aMycvw48000">Ver con el Círculo · 9 €/mes</a>
+    <a class="btn-todos" data-funnel="puerta-carta" href="https://buy.stripe.com/test_bJe00i5Znbq9aMycvw48000">Ver con el Círculo · 4 €/mes</a>
     <p class="puerta-min">El precio de hoy sigue gratis: no cobramos por lo que ya es público.</p>
   </div>
 </div>
