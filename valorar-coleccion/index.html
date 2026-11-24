@@ -49,7 +49,7 @@ footer{margin-top:34px;color:var(--gris);font-size:.8rem}
   <div class="card negro">
     <p class="s">Valor de mercado</p>
     <p class="cifra" id="total">—</p>
-    <p class="fecha" id="fecha">24/11, 04:18</p>
+    <p class="fecha" id="fecha">24/11, 04:20</p>
     <ul class="filas" id="filas"></ul>
     <a class="btn" id="guardar" href="/club/" hidden>Guardar esta foto</a>
     <p class="nota" id="estado">Pega al menos una carta para ver tu cifra.</p>
@@ -65,7 +65,7 @@ footer{margin-top:34px;color:var(--gris);font-size:.8rem}
   var huecosEl = document.getElementById('huecos'), estadoEl = document.getElementById('estado');
   var guardarEl = document.getElementById('guardar');
 
-  var norm = function (s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim(); };
+  var norm = function (s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); };
   var eur = function (v) { return v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'; };
 
   function cargar() {
@@ -93,12 +93,11 @@ footer{margin-top:34px;color:var(--gris);font-size:.8rem}
 
   function render() {
     if (!idx) return;
-    var lineas = t.value.split('
-').map(function (x) { return x.trim(); }).filter(Boolean);
+    var lineas = t.value.split('\n').map(function (x) { return x.trim(); }).filter(Boolean);
     var total = 0, usadas = 0, filas = [], lista = [];
     for (var i = 0; i < lineas.length; i++) {
       if (usadas >= 20) break;
-      var m = lineas[i].match(/^(.*?)(?:s*[x×*]s*(d+))?$/i);
+      var m = lineas[i].match(/^(.*?)(?:\s*[x×*]\s*(\d+))?$/i);
       var nombre = norm(m[1] || '');
       var q = parseInt(m[2] || '1', 10) || 1;
       if (!nombre) continue;
@@ -117,7 +116,7 @@ footer{margin-top:34px;color:var(--gris);font-size:.8rem}
     estadoEl.textContent = usadas ? usadas + (usadas === 1 ? ' carta valorada' : ' cartas valoradas') + '. Cuando pasen 20, la 21 pide cuenta.' : 'Pega al menos una carta para ver tu cifra.';
     if (usadas) {
       guardarEl.hidden = false;
-      var b64 = btoa(unescape(encodeURIComponent(JSON.stringify(lista)))).replace(/+/g, '-').replace(///g, '_').replace(/=+$/, '');
+      var b64 = btoa(unescape(encodeURIComponent(JSON.stringify(lista)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
       guardarEl.href = '/club/#c=' + b64;
     } else { guardarEl.hidden = true; }
   }
