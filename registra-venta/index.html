@@ -1,0 +1,50 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Registra una venta · ValorCarta</title>
+<meta name="robots" content="noindex,follow">
+<style>
+body{margin:0;background:#f6f4ef;color:#14120f;font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.w{max-width:680px;margin:0 auto;padding:34px 20px 80px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
+h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(1.7rem,4.5vw,2.4rem);margin:10px 0 6px}
+p{color:#3a352c}
+label{display:block;font-weight:600;font-size:.9rem;margin:18px 0 6px}
+input,textarea{width:100%;padding:13px;border:1px solid #ddd7c9;border-radius:12px;font:15px/1.4 inherit;background:#fffdf9}
+.fila{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.btn{display:inline-block;margin-top:22px;background:#14120f;color:#fff;border:0;border-radius:12px;padding:15px 22px;font:600 15px/1 inherit;cursor:pointer}
+small{color:#6d675e}
+.aviso{background:#fff8e6;border:1px solid #efdfae;border-radius:14px;padding:14px 16px;margin-top:24px;color:#5a4a12;font-size:.9rem}
+</style></head><body><div class="w">
+<p class="s">ValorCarta · registro de ventas</p>
+<h1>Registra una venta</h1>
+<p>Una carta, un precio pedido, un precio de cierre y la fecha. Con la foto del chat o del anuncio cerrado, vale. 20 segundos.</p>
+<label>Carta (nombre y set, si lo sabes)</label><input id="carta" placeholder="Charizard — Edición Básica">
+<div class="fila">
+  <div><label>Precio anunciado (€)</label><input id="pedido" inputmode="decimal" placeholder="120"></div>
+  <div><label>Precio de cierre (€)</label><input id="cierre" inputmode="decimal" placeholder="95"></div>
+</div>
+<div class="fila">
+  <div><label>Fecha de la venta</label><input id="fecha" type="date"></div>
+  <div><label>Dónde</label><input id="donde" placeholder="Wallapop, tienda, Cardmarket…"></div>
+</div>
+<label>Tu email (para avisarte de la publicación; opcional)</label><input id="email" placeholder="tucorreo@ejemplo.com">
+<label>Enlace o nota con la prueba</label><textarea id="prueba" rows="3" placeholder="Pega el enlace del anuncio cerrado o describe la captura que tienes"></textarea>
+<button class="btn" id="enviar">Enviar el caso</button>
+<div class="aviso">Al enviar se abre tu correo con el caso ya escrito. Si prefieres, mándalo por WhatsApp: el texto es el mismo.<br><br>
+<b>Qué hacemos con esto:</b> se publica como caso con tu nombre solo si tú lo autorizas; si no, sale como «venta verificada en España» sin datos personales.</div>
+<script>
+document.getElementById('enviar').addEventListener('click', () => {
+  const v = (id) => (document.getElementById(id).value || '').trim();
+  const cuerpo = [
+    'Carta: ' + v('carta'),
+    'Precio anunciado: ' + v('pedido') + ' EUR',
+    'Precio de cierre: ' + v('cierre') + ' EUR',
+    'Fecha: ' + v('fecha'),
+    'Dónde: ' + v('donde'),
+    'Email: ' + v('email'),
+    'Prueba: ' + v('prueba'),
+  ].join('\n');
+  location.href = 'mailto:carlespeadel@gmail.com?subject=' + encodeURIComponent('Caso de venta: ' + v('carta')) + '&body=' + encodeURIComponent(cuerpo);
+});
+</script>
+</div></body></html>
