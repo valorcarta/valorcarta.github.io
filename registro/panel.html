@@ -66,6 +66,22 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .caja small{color:var(--gris)}
 .flecha{text-align:center;color:#c9c3b5;font-size:1.2rem;line-height:1}
 .pie{margin-top:26px;color:var(--gris);font-size:.78rem}
+html,body{margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font-family:Arial,Helvetica,sans-serif}
+.w{max-width:none;margin:0;padding:0}
+.app{display:flex;flex-direction:column;height:100dvh;max-width:720px;margin:0 auto;background:var(--papel)}
+.top{flex:0 0 auto;padding:14px 16px 10px;border-bottom:1px solid var(--linea);background:var(--papel)}
+.top h1{font-size:1.05rem;margin:2px 0 4px}
+.top .sub{margin:0;font-size:.76rem}
+.pantallas{flex:1 1 auto;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 16px 90px}
+.pantalla{display:none} .pantalla.on{display:block}
+.tabsbar{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;gap:0;
+ background:#fffdf9;border-top:1px solid var(--linea);padding-bottom:env(safe-area-inset-bottom);z-index:9}
+.tabsbar button{flex:1 1 0;max-width:180px;border:0;background:none;padding:10px 4px 12px;cursor:pointer;
+ font:600 10px/1.3 ui-monospace,monospace;letter-spacing:.06em;text-transform:uppercase;color:var(--gris)}
+.tabsbar button.on{color:var(--tinta);box-shadow:inset 0 2px 0 var(--oro)}
+.tabsbar button b{display:block;font-size:15px;line-height:1.1}
+
 .pest{border:1px solid var(--linea);border-radius:14px;background:#fffdf9;margin:0 0 12px;overflow:hidden}
 .pest>summary{cursor:pointer;list-style:none;padding:14px 16px;font:600 12px/1 ui-monospace,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta);display:flex;justify-content:space-between;align-items:center}
 .pest>summary::-webkit-details-marker{display:none}
@@ -75,13 +91,16 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 .pest .cuerpo{padding:14px 16px}
 
 
-</style></head><body><div class="w">
+</style></head><body><div class="w"><div class="app">
+<header class="top">
 <p class="s">Registro de cierres · panel interno</p>
 <h1>Lo que estamos haciendo y con quién</h1>
-<p class="sub">Actualizado 24/11/2026 22:21. Todo lo que sale aquí viene de <code>datos/senales.csv</code> y <code>datos/tiendas.csv</code>.</p>
+<p class="sub">Actualizado 24/11/2026 22:30. Todo lo que sale aquí viene de <code>datos/senales.csv</code> y <code>datos/tiendas.csv</code>.</p>
+</header>
+<div class="pantallas">
+<section class="pantalla on" id="p-resumen">
 
 
-<details class="pest" open><summary>Resumen · lo que hay hoy</summary><div class="cuerpo">
 <div class="presion">
   <div class="pcab">
     <div>
@@ -130,12 +149,12 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
     <p class="s" style="margin-top:14px">Registro, últimos 14 días</p><svg viewBox="0 0 660 120" width="100%" height="auto"><rect x="6.0" y="53.7" width="27.4" height="46.3" rx="2" fill="#d9a300"/><text x="19.7" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">11</text><rect x="51.7" y="82.0" width="27.4" height="18.0" rx="2" fill="#d9a300"/><text x="65.4" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">12</text><rect x="97.4" y="66.6" width="27.4" height="33.4" rx="2" fill="#d9a300"/><text x="111.1" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">13</text><rect x="143.1" y="89.7" width="27.4" height="10.3" rx="2" fill="#d9a300"/><text x="156.9" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">14</text><rect x="188.9" y="84.6" width="27.4" height="15.4" rx="2" fill="#d9a300"/><text x="202.6" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">15</text><rect x="234.6" y="74.3" width="27.4" height="25.7" rx="2" fill="#d9a300"/><text x="248.3" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">16</text><rect x="280.3" y="56.3" width="27.4" height="43.7" rx="2" fill="#d9a300"/><text x="294.0" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">17</text><rect x="326.0" y="43.4" width="27.4" height="56.6" rx="2" fill="#d9a300"/><text x="339.7" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">18</text><rect x="371.7" y="10.0" width="27.4" height="90.0" rx="2" fill="#d9a300"/><text x="385.4" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">19</text><rect x="417.4" y="43.4" width="27.4" height="56.6" rx="2" fill="#d9a300"/><text x="431.1" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">20</text><rect x="463.1" y="66.6" width="27.4" height="33.4" rx="2" fill="#d9a300"/><text x="476.9" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">21</text><rect x="508.9" y="76.9" width="27.4" height="23.1" rx="2" fill="#d9a300"/><text x="522.6" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">22</text><rect x="554.6" y="69.1" width="27.4" height="30.9" rx="2" fill="#d9a300"/><text x="568.3" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">23</text><rect x="600.3" y="76.9" width="27.4" height="23.1" rx="2" fill="#d9a300"/><text x="614.0" y="112" text-anchor="middle" font-family="ui-monospace,monospace" font-size="7" fill="#8d8474">24</text></svg></div>
 </div>
 
-</div></details>
-<details class="pest"><summary>Registro · las operaciones</summary><div class="cuerpo">
+</section>
+<section class="pantalla" id="p-registro">
 <div class="carta"><div class="ccab"><div><b>Charizard</b><span> 8 operaciones · mediana 72.50 € · rango 39-575 € · fiabilidad media · no cuadra: revisar</span></div><a href="registro/base1-4.html">ficha completa →</a></div><svg viewBox="0 0 760 150" width="100%"><polyline points="26.0,121.1 90.4,122.2 154.7,122.9 219.1,122.7 283.5,114.7 347.8,124.0 412.2,26.0 476.5,26.0 540.9,26.0 605.3,26.0 669.6,76.3 734.0,76.3" fill="none" stroke="#14120f" stroke-width="2"/><circle cx="26.0" cy="121.1" r="2.4" fill="#14120f"/><circle cx="90.4" cy="122.2" r="2.4" fill="#14120f"/><circle cx="154.7" cy="122.9" r="2.4" fill="#14120f"/><circle cx="219.1" cy="122.7" r="2.4" fill="#14120f"/><circle cx="283.5" cy="114.7" r="2.4" fill="#14120f"/><circle cx="347.8" cy="124.0" r="2.4" fill="#14120f"/><circle cx="412.2" cy="26.0" r="2.4" fill="#14120f"/><circle cx="476.5" cy="26.0" r="2.4" fill="#14120f"/><circle cx="540.9" cy="26.0" r="2.4" fill="#14120f"/><circle cx="605.3" cy="26.0" r="2.4" fill="#14120f"/><circle cx="669.6" cy="76.3" r="2.4" fill="#14120f"/><circle cx="734.0" cy="76.3" r="2.4" fill="#14120f"/></svg><table><thead><tr><th>Fecha</th><th class="n">Precio</th><th>Tipo</th><th>Origen</th><th>Estado</th><th>Mensaje</th></tr></thead><tbody><tr><td>2026-10-13</td><td class='n'>55.00 €</td><td>venta</td><td>grupo</td><td>—</td><td>SE VENDE Charizard Lvl. X 🇯🇵  Precio: 55€ (Escucho ofertas)  Est</td></tr><tr><td>2026-10-14</td><td class='n'>49.00 €</td><td>venta</td><td>grupo</td><td>—</td><td>SE VENDE Charizard Lvl. X 🇯🇵  Precio: 49€ (Escucho ofertas)  Est</td></tr><tr><td>2026-10-16</td><td class='n'>45.00 €</td><td>venta</td><td>grupo</td><td>—</td><td>SE VENDE Charizard Lvl. X 🇯🇵  Precio: 45€ (Escucho ofertas)  Est</td></tr><tr><td>2026-10-18</td><td class='n'>46.00 €</td><td>?</td><td>grupo</td><td>—</td><td>Charizard: 37€ Pochyena reverse: 10€ Lote de WOTC español jugado</td></tr><tr><td>2026-10-24</td><td class='n'>90.00 €</td><td>?</td><td>grupo</td><td>—</td><td>En venta! Charizard 90€ Mew 28€</td></tr><tr><td>2026-10-26</td><td class='n'>39.00 €</td><td>?</td><td>grupo</td><td>PL</td><td>Charizard Lvl. X PL 🇯🇵 39€</td></tr><tr><td>2026-11-17</td><td class='n'>575.00 €</td><td>?</td><td>grupo</td><td>EX</td><td>Mega Charizard X EX 575€</td></tr><tr><td>2026-11-17</td><td class='n'>575.00 €</td><td>?</td><td>grupo</td><td>EX</td><td>Mega Charizard X EX 575€</td></tr><tr><td>2026-11-20</td><td class='n'>575.00 €</td><td>?</td><td>grupo</td><td>EX</td><td>Mega Charizard X EX 575€</td></tr><tr><td>2026-11-20</td><td class='n'>575.00 €</td><td>?</td><td>grupo</td><td>EX</td><td>Mega Charizard X EX 575€</td></tr><tr><td>2026-11-23</td><td class='n'>300.00 €</td><td>compra</td><td>grupo</td><td>EX</td><td>Charizard Base Set - Español  Precio: 300€  Estado: GD-EX  Acept</td></tr><tr><td>2026-11-24</td><td class='n'>300.00 €</td><td>?</td><td>privado</td><td>EX</td><td>Hola. Vi tu Charizard Base Set en GD-EX a 300 € en el grupo. Lle</td></tr></tbody></table></div>
 <h2>Nivel B · orientativo (31 cartas)</h2><p class="cnota">Mediana de cartas sueltas sin exigir estado, quitando disparates (1,5 × IQR). Sirve para valorar una colección; no para un informe.</p><table><thead><tr><th>Carta</th><th class="n">n</th><th class="n">Mediana</th><th class="n">Rango</th><th class="n">Quitados</th><th>Disperso &gt;3×</th></tr></thead><tbody><tr><td>Ursaluna Luna Carmesí</td><td class='n'>29</td><td class='n'>24.99 €</td><td class='n'>24.99–24.99 €</td><td class='n'>5</td><td>no</td></tr><tr><td>Cyclizar ex</td><td class='n'>14</td><td class='n'>24.99 €</td><td class='n'>22.36–24.99 €</td><td class='n'>0</td><td>no</td></tr><tr><td>Palkia</td><td class='n'>12</td><td class='n'>46.09 €</td><td class='n'>37.49–52.85 €</td><td class='n'>0</td><td>no</td></tr><tr><td>Charizard</td><td class='n'>11</td><td class='n'>300.00 €</td><td class='n'>39.00–575.00 €</td><td class='n'>0</td><td>sí</td></tr><tr><td>Houndstone ex</td><td class='n'>10</td><td class='n'>24.99 €</td><td class='n'>24.99–24.99 €</td><td class='n'>2</td><td>no</td></tr><tr><td>Palafin ex</td><td class='n'>8</td><td class='n'>24.99 €</td><td class='n'>24.99–28.44 €</td><td class='n'>1</td><td>no</td></tr><tr><td>Cambio</td><td class='n'>7</td><td class='n'>220.00 €</td><td class='n'>5.00–400.00 €</td><td class='n'>0</td><td>sí</td></tr><tr><td>Erin</td><td class='n'>6</td><td class='n'>67.17 €</td><td class='n'>19.00–77.50 €</td><td class='n'>1</td><td>sí</td></tr><tr><td>Grafaiai ex</td><td class='n'>6</td><td class='n'>32.55 €</td><td class='n'>28.00–32.95 €</td><td class='n'>0</td><td>no</td></tr><tr><td>Pikachu</td><td class='n'>5</td><td class='n'>60.00 €</td><td class='n'>5.00–550.00 €</td><td class='n'>0</td><td>sí</td></tr><tr><td>Greninja Radiante</td><td class='n'>5</td><td class='n'>108.70 €</td><td class='n'>108.70–245.00 €</td><td class='n'>0</td><td>no</td></tr><tr><td>Umbreon ex</td><td class='n'>5</td><td class='n'>24.99 €</td><td class='n'>24.99–24.99 €</td><td class='n'>1</td><td>no</td></tr></tbody></table>
-</div></details>
-<details class="pest"><summary>Reglas · cómo se mide</summary><div class="cuerpo">
+</section>
+<section class="pantalla" id="p-reglas">
 
 <div class="metodo">
   <p class="s">Las reglas, en llano</p>
@@ -174,8 +193,8 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
       <p class="mini2">Pide, vende y compra se calculan por separado y nunca se suman. Se publica la mediana de vende con su n.</p></div>
   </div>
 </div>
-</div></details>
-<details class="pest"><summary>Fuentes y cartas</summary><div class="cuerpo">
+</section>
+<section class="pantalla" id="p-fuentes">
 
 <h2>Quién hace qué</h2>
 <div class="org">
@@ -214,7 +233,22 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 <table><thead><tr><th>Agente</th><th>Qué hace</th><th>Cuándo</th><th>Estado</th></tr></thead><tbody><tr><td><b>telegram</b></td><td>Lee grupos y privados, procesa y publica</td><td>09:00 · 14:00 · 20:00</td><td style='color:#b3402f;font-weight:700'>parado</td></tr><tr><td><b>canal</b></td><td>Publica la carta del día en el canal</td><td>10:00 · 19:00</td><td style='color:#b3402f;font-weight:700'>parado</td></tr><tr><td><b>snapshot</b></td><td>Foto diaria del archivo de precios</td><td>12:30 · 20:30</td><td style='color:#b3402f;font-weight:700'>parado</td></tr><tr><td><b>socios</b></td><td>Correo semanal a los suscriptores</td><td>lunes 09:05</td><td style='color:#b3402f;font-weight:700'>parado</td></tr></tbody></table>
 
 <p class="pie">Las cartas con n&lt;3 no se publican. Las que mezclan versiones o estados se marcan y no entran en la mediana.</p>
-</div></details>
+</section>
 </div>
-
+<nav class="tabsbar">
+  <button class="on" data-p="p-resumen"><b>◎</b>Resumen</button>
+  <button data-p="p-registro"><b>≡</b>Registro</button>
+  <button data-p="p-reglas"><b>§</b>Reglas</button>
+  <button data-p="p-fuentes"><b>▤</b>Fuentes</button>
+</nav>
+</div></div>
+<script>
+document.querySelectorAll(".tabsbar button").forEach(function(b){ b.onclick = function(){
+  document.querySelectorAll(".tabsbar button").forEach(function(x){ x.classList.remove("on"); });
+  document.querySelectorAll(".pantalla").forEach(function(x){ x.classList.remove("on"); });
+  b.classList.add("on");
+  document.getElementById(b.dataset.p).classList.add("on");
+  var c = document.querySelector(".pantallas"); if (c) c.scrollTop = 0;
+}; });
+</script>
 </body></html>
