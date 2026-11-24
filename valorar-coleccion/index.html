@@ -1,81 +1,130 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Valora tu colección · ValorCarta</title>
-<meta name="description" content="Pega tu lista y ve cuánto vale tu colección de cartas Pokémon hoy. Hasta 20 cartas gratis, sin registro, con la fecha del dato al lado.">
+<title>¿Cuánto vale tu colección? · ValorCarta</title>
+<meta name="description" content="Pega tu lista y ve cuánto vale tu colección de cartas Pokémon hoy, con la fecha del dato al lado. 20 cartas gratis, sin registro.">
 <style>
-body{margin:0;background:#f6f4ef;color:#14120f;font:16px/1.5 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.w{max-width:820px;margin:0 auto;padding:34px 20px 70px}
-.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;color:#8a6400}
-h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:clamp(1.7rem,4.4vw,2.5rem);margin:10px 0 6px}
-.meta{color:#6d675e;font-size:.9rem;margin:0 0 18px}
-textarea{width:100%;min-height:150px;padding:14px;border:1px solid #ddd7c9;border-radius:14px;font:15px/1.6 inherit;background:#fffdf9;resize:vertical}
-.caja{background:#fffdf9;border:1px solid #e7e1d6;border-radius:20px;padding:20px 22px;margin:18px 0 0;box-shadow:0 1px 2px rgba(20,18,15,.05),0 14px 34px rgba(20,18,15,.07)}
-.cifra{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:2.4rem;letter-spacing:-.04em;margin:4px 0 0}
-.fecha{font:600 11px/1 ui-monospace,monospace;color:#8d8474;margin-left:10px}
-.btn{display:inline-block;margin-top:16px;background:#14120f;color:#fff;border:0;border-radius:12px;padding:14px 20px;font:600 15px/1 inherit;cursor:pointer;text-decoration:none}
-.btn.ghost{background:transparent;color:#14120f;border:1px solid #d8d1c2}
-.huecos{color:#6d675e;font-size:.88rem;margin:10px 0 0}
-table{width:100%;border-collapse:collapse;margin-top:14px}
-td{padding:9px 0;border-bottom:1px solid #efe9dd;font-size:.94rem}tr:last-child td{border:0}
-td.n{text-align:right;font-variant-numeric:tabular-nums}
-.falta{color:#b3402f}
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e;--linea:#e7e1d6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.w{max-width:1080px;margin:0 auto;padding:40px 22px 80px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
+h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(1.9rem,4.6vw,3rem);margin:12px 0 8px;line-height:1.03}
+.sub{color:var(--gris);max-width:46ch;margin:0 0 26px}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}
+@media(max-width:860px){.cols{grid-template-columns:1fr}}
+.card{background:#fffdf9;border:1px solid var(--linea);border-radius:20px;padding:20px;
+  box-shadow:0 1px 2px rgba(20,18,15,.05),0 12px 30px rgba(20,18,15,.06)}
+label{display:block;font:600 11px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin:0 0 8px}
+textarea{width:100%;min-height:210px;padding:14px 16px;border:1px solid #ddd7c9;border-radius:14px;
+  font:15px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace;background:#fff;resize:vertical}
+textarea:focus{outline:2px solid rgba(217,163,0,.45);outline-offset:1px;border-color:var(--oro)}
+.hint{color:var(--gris);font-size:.82rem;margin:8px 0 0}
+.huecos{margin:14px 0 0;font:600 12px/1 ui-monospace,monospace;color:var(--gris)}
+.negro{background:var(--tinta);color:var(--papel);border:0}
+.negro .s{color:var(--oro)}
+.cifra{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.045em;font-size:clamp(2.4rem,6vw,3.6rem);line-height:1;margin:10px 0 0}
+.fecha{font:600 11px/1 ui-monospace,monospace;color:#b9b3a7;margin:10px 0 0}
+.filas{list-style:none;margin:18px 0 0;padding:0}
+.filas li{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid rgba(246,244,239,.14)}
+.filas img{width:34px;height:auto;border-radius:4px;background:#fff}
+.filas .n{flex:1;min-width:0;font-size:.9rem;line-height:1.25}
+.filas .n small{display:block;color:#b9b3a7;font-size:.72rem}
+.filas .p{font-variant-numeric:tabular-nums;font-weight:700;font-size:.92rem}
+.falta{color:#ffb4a2}
+.btn{display:inline-block;margin-top:20px;background:var(--oro);color:var(--tinta);border:0;border-radius:12px;
+  padding:14px 20px;font:700 15px/1 inherit;text-decoration:none;cursor:pointer}
+.nota{color:#b9b3a7;font-size:.8rem;margin:14px 0 0}
+footer{margin-top:34px;color:var(--gris);font-size:.8rem}
 </style></head><body><div class="w">
 <p class="s">ValorCarta</p>
-<h1>Pega tu lista. 20 cartas gratis.</h1>
-<p class="meta">Una carta por línea, con cantidad si quieres (<b>Charizard x2</b>). El precio es el de hoy, con su fecha al lado. Sin registro.</p>
-<textarea id="t" placeholder="Charizard x1&#10;Pikachu x2&#10;Mew ex"></textarea>
-<p class="huecos" id="huecos">0 de 20 huecos usados</p>
-<div class="caja"><span class="cifra" id="total">— €</span><span class="fecha" id="fecha">24/11, 04:11</span>
-<p class="meta" id="cuenta" style="margin:6px 0 0"></p>
-<div id="filas"></div>
-<a class="btn" id="guardar" href="/club/" style="display:none">Guardar esta foto</a>
-<p class="meta" style="margin:14px 0 0;font-size:.8rem">Cuando pasen 20 cartas, la 21 pide cuenta: ahí empieza El Círculo.</p>
+<h1>¿Cuánto vale tu colección hoy?</h1>
+<p class="sub">Pega la lista y sale la cifra con su fecha. Las 20 primeras cartas, gratis y sin registro.</p>
+<div class="cols">
+  <div class="card">
+    <label for="t">Tu lista</label>
+    <textarea id="t" placeholder="Charizard x2&#10;Pikachu&#10;Mew ex"></textarea>
+    <p class="hint">Una carta por línea. Si tienes varias, pon <b>x2</b> al lado.</p>
+    <p class="huecos" id="huecos">0 de 20 huecos usados</p>
+  </div>
+  <div class="card negro">
+    <p class="s">Valor de mercado</p>
+    <p class="cifra" id="total">—</p>
+    <p class="fecha" id="fecha">24/11, 04:18</p>
+    <ul class="filas" id="filas"></ul>
+    <a class="btn" id="guardar" href="/club/" hidden>Guardar esta foto</a>
+    <p class="nota" id="estado">Pega al menos una carta para ver tu cifra.</p>
+  </div>
+</div>
+<footer>Precios de referencia de Cardmarket. No es una tasación: el estado y la versión cambian el precio final.</footer>
 </div>
 <script>
-(async () => {
-  const idx = await (await fetch('/data/cartas.json')).json();
-  const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
-  const mapa = new Map();
-  for (const [slug, n, set, p] of idx) { const k = norm(n); if (!mapa.has(k)) mapa.set(k, []); mapa.get(k).push({ slug, n, set, p }); }
-  // 24-11: «Charizard base» tiene que encontrar Charizard. Exacto primero; si no, por inclusión.
-  const buscar = (n) => {
-    const exacto = mapa.get(n);
+(function () {
+  var idx = null, mapa = new Map(), timer = null;
+  var t = document.getElementById('t');
+  var totalEl = document.getElementById('total'), filasEl = document.getElementById('filas');
+  var huecosEl = document.getElementById('huecos'), estadoEl = document.getElementById('estado');
+  var guardarEl = document.getElementById('guardar');
+
+  var norm = function (s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').trim(); };
+  var eur = function (v) { return v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €'; };
+
+  function cargar() {
+    return fetch('/data/cartas.json').then(function (r) { return r.json(); }).then(function (rows) {
+      idx = rows;
+      rows.forEach(function (row) {
+        var k = norm(row[1]);
+        if (!mapa.has(k)) mapa.set(k, []);
+        mapa.get(k).push(row);
+      });
+      render();
+    }).catch(function () {
+      estadoEl.textContent = 'No he podido cargar el catálogo. Recarga la página.';
+    });
+  }
+
+  function buscar(n) {
+    var exacto = mapa.get(n);
     if (exacto) return exacto;
     if (n.length < 4) return [];
-    const cands = [];
-    for (const [k, v] of mapa) { if (k.startsWith(n) || n.startsWith(k)) cands.push(...v); }
-    return cands;
-  };
-  const eur = (v) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
-  const t = document.getElementById('t');
-  const render = () => {
-    const lineas = t.value.split('\n').map((x) => x.trim()).filter(Boolean);
-    let total = 0, usadas = 0; const filas = []; const lista = [];
-    for (const linea of lineas) {
+    var out = [];
+    mapa.forEach(function (v, k) { if (k.indexOf(n) === 0 || n.indexOf(k) === 0) out = out.concat(v); });
+    return out;
+  }
+
+  function render() {
+    if (!idx) return;
+    var lineas = t.value.split('
+').map(function (x) { return x.trim(); }).filter(Boolean);
+    var total = 0, usadas = 0, filas = [], lista = [];
+    for (var i = 0; i < lineas.length; i++) {
       if (usadas >= 20) break;
-      const m = linea.match(/^(.*?)(?:\s*[x×*]\s*(\d+))?$/i);
-      const nombre = norm(m[1] || ''); const q = parseInt(m[2] || '1', 10) || 1;
+      var m = lineas[i].match(/^(.*?)(?:s*[x×*]s*(d+))?$/i);
+      var nombre = norm(m[1] || '');
+      var q = parseInt(m[2] || '1', 10) || 1;
       if (!nombre) continue;
-      const hits = buscar(nombre);
-      if (!hits.length) { filas.push('<tr><td class="falta">' + m[1] + ' · sin referencia</td><td class="n">—</td></tr>'); continue; }
-      const c = hits.sort((a, b) => (b.p || 0) - (a.p || 0))[0];
-      if (!c.p) { filas.push('<tr><td class="falta">' + c.n + ' · sin precio</td><td class="n">—</td></tr>'); continue; }
-      usadas++;
-      total += c.p * q; lista.push({ s: c.slug, q });
-      filas.push('<tr><td>' + c.n + '<br><small style="color:#8d8474">' + c.set + (q > 1 ? ' · x' + q : '') + '</small></td><td class="n">' + eur(c.p * q) + '</td></tr>');
+      var hits = buscar(nombre);
+      if (!hits.length) { filas.push('<li><span class="n falta">' + m[1] + '<small>sin referencia</small></span></li>'); continue; }
+      hits.sort(function (a, b) { return (b[3] || 0) - (a[3] || 0); });
+      var c = hits[0];
+      if (!c[3]) { filas.push('<li><span class="n falta">' + c[1] + '<small>sin precio</small></span></li>'); continue; }
+      usadas++; total += c[3] * q; lista.push({ s: c[0], q: q });
+      var img = c[5] ? '<img src="' + c[5] + '/low.webp" alt="" loading="lazy">' : '';
+      filas.push('<li>' + img + '<span class="n">' + c[1] + '<small>' + c[2] + (q > 1 ? ' · ×' + q : '') + '</small></span><span class="p">' + eur(c[3] * q) + '</span></li>');
     }
-    document.getElementById('filas').innerHTML = filas.length ? '<table>' + filas.join('') + '</table>' : '';
-    document.getElementById('total').textContent = usadas ? eur(total) : '— €';
-    document.getElementById('huecos').textContent = usadas + ' de 20 huecos usados';
-    document.getElementById('cuenta').textContent = usadas ? usadas + (usadas === 1 ? ' carta valorada' : ' cartas valoradas') : 'Pega al menos una carta para ver tu cifra.';
-    const g = document.getElementById('guardar');
+    filasEl.innerHTML = filas.join('');
+    totalEl.textContent = usadas ? eur(total) : '—';
+    huecosEl.textContent = usadas + ' de 20 huecos usados';
+    estadoEl.textContent = usadas ? usadas + (usadas === 1 ? ' carta valorada' : ' cartas valoradas') + '. Cuando pasen 20, la 21 pide cuenta.' : 'Pega al menos una carta para ver tu cifra.';
     if (usadas) {
-      g.style.display = 'inline-block';
-      const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(lista)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-      g.href = '/club/#c=' + b64;
-    }
-  };
-  t.addEventListener('input', render);
+      guardarEl.hidden = false;
+      var b64 = btoa(unescape(encodeURIComponent(JSON.stringify(lista)))).replace(/+/g, '-').replace(///g, '_').replace(/=+$/, '');
+      guardarEl.href = '/club/#c=' + b64;
+    } else { guardarEl.hidden = true; }
+  }
+
+  t.addEventListener('input', function () { clearTimeout(timer); timer = setTimeout(render, 120); });
+  t.addEventListener('paste', function () { clearTimeout(timer); timer = setTimeout(render, 30); });
+  cargar();
 })();
 </script>
-</div></body></html>
+</body></html>
