@@ -25,19 +25,45 @@ p{color:#2c2822}
 .anti{border-left:3px solid var(--oro);padding:6px 0 6px 16px;color:#3a352c;margin-top:22px}
 .pend{background:#fff8e6;border:1px solid #efdfae;border-radius:14px;padding:16px 18px;margin-top:16px;color:#5a4a12}
 footer{margin-top:60px;color:var(--gris);font-size:.82rem}
+.barra{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 20px;
+  padding:10px 14px 10px 18px;background:#fffdf9;border:1px solid #e7e1d6;border-radius:999px;
+  box-shadow:0 1px 2px rgba(20,18,15,.05)}
+.barra a{color:#4a443a;text-decoration:none;font-size:.9rem;padding:8px 10px;border-radius:999px}
+.barra a:hover{background:#f4efe4;color:#14120f}
+.barra .marca{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.02em;font-size:1.02rem;color:#14120f;padding-left:0}
+.barra .marca span{color:#d9a300}
+.barra>span{display:flex;gap:2px;flex-wrap:wrap}
+.hero{background:#14120f;color:#f6f4ef;border-radius:24px;padding:42px 40px 34px;margin:0 0 10px;
+  box-shadow:0 30px 70px -30px rgba(20,18,15,.55),inset 0 1px 0 rgba(255,255,255,.06)}
+.hero .s{color:#e6b84a}
+.hero h1{color:#fff;max-width:20ch;margin-top:10px}
+.hero .lead{color:#d9d3c7;max-width:54ch}
+.hero .precio{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:2.1rem;margin:24px 0 4px;color:#fff}
+.hero .precio small{font-family:"Inter",sans-serif;font-size:.86rem;font-weight:500;color:#b9b3a7}
+.hero .btn{background:#e6b84a;color:#241a00;font-weight:750;border-radius:999px;padding:15px 26px;margin-top:14px}
+.hero .nota{color:#b9b3a7;font-size:.85rem;margin:14px 0 0}
+.hero .nota a{color:#e6b84a}
+.grid.dos{grid-template-columns:repeat(2,1fr)}
+@media(max-width:760px){.grid.dos{grid-template-columns:1fr}.hero{padding:28px 22px 24px;border-radius:18px}}
 </style></head><body><div class="w">
-<p class="s">ValorCarta · El Círculo</p>
-<h1>El precio al que se venden.<br>No el que se anuncian.</h1>
-<p class="lead">Tu colección valorada con precios de venta real en España, actualizada cada día y con la fecha del dato al lado.</p>
-<a class="btn gold" href="/valorar-coleccion/">Valorar mi colección</a>
-<p class="s" style="margin-top:10px">20 cartas gratis · sin registro</p>
+<nav class="barra"><a class="marca" href="/">Valor<span>Carta</span></a>
+  <span><a href="/mercado/">Mercado</a><a href="/valorar/">Valorar gratis</a><a href="/pagar/">Entrar</a></span></nav>
+<section class="hero">
+  <p class="s">El Círculo · 9 €/mes</p>
+  <h1>Tu colección, con el precio de hoy y su fecha.</h1>
+  <p class="lead">La referencia de Cardmarket de cada carta con su media de 30 días, dicha con la versión y el día.
+    Si no hay dato, se dice «sin referencia»: nunca se rellena el hueco con un número bonito.</p>
+  <p class="precio">9 €/mes <small>· IVA incluido · sin permanencia</small></p>
+  <a class="btn gold" href="/pagar/">Entrar en El Círculo</a>
+  <p class="nota">Antes de pagar, el valorador es gratis y sin registro: <a href="/valorar/">20 cartas, aquí</a>.</p>
+</section>
 
 <h2>Por dentro</h2>
 <p>Esto es lo que ves cuando pegas tu lista: la cifra, la fecha y el detalle carta a carta.</p>
-<div class="shot"><img src="/img/valorar-coleccion.jpg" alt="Pantalla de valoración de colección con el total y la fecha"></div>
+<div class="shot"><img src="/img/circulo-demo.png" alt="Valorador de colección con el total del día y la fecha del precio"></div>
 
 <h2>Cómo funciona</h2>
-<div class="grid">
+<div class="grid dos">
   <div class="card"><b>Causa, no humo</b><small>Cada cifra sale de un precio registrado. Si no hay referencia, se dice: «sin referencia».</small></div>
   <div class="card"><b>Con fecha</b><small>Todo número lleva su día al lado. Un precio sin fecha no es un dato, es una opinión.</small></div>
   <div class="card"><b>Al día</b><small>Se recalcula cada madrugada. Si tu carta se mueve, lo ves al entrar.</small></div>
@@ -120,7 +146,7 @@ Estamos recogiendo las primeras ventas verificadas con su recibo. Cuando haya tr
 <h2>Preguntas</h2>
 <div class="faq">
   <b>¿En qué se diferencia de Cardmarket?</b>
-  <p>En que allí ves lo que piden y aquí lo que se paga. Cuando no hay venta registrada, lo decimos en vez de rellenar el hueco.</p>
+  <p>En que allí ves lo que piden y aquí el precio de referencia con su fecha; y cuando hay venta registrada, lo que se pagó. Si no hay dato, se dice en vez de rellenar el hueco.</p>
   <b>¿Esto me hace rico?</b>
   <p>No. Es un registro de precios. Sirve para no vender a ciegas, no para adivinar el futuro.</p>
   <b>¿Por qué cobráis?</b>
