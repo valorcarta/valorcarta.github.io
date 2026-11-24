@@ -296,10 +296,10 @@
         try { await navigator.clipboard.writeText(url); toast('Enlace copiado'); }
         catch { prompt('Copia este enlace:', url); }
       });
-      // El botón lleva al Círculo con la colección dentro: el total ya se ve gratis aquí.
+      // El botón lleva al cobro real (/pagar/): el precio vive en una sola página.
       $('#alcirculo')?.addEventListener('click', () => {
         if (!leer().length) { toast('Añade alguna carta primero'); return; }
-        location.href = '/premium/#c=' + enc(leer());
+        location.href = '/pagar/#c=' + enc(leer());
       });
       $('#csv')?.addEventListener('click', () => {
         const rows = [['carta', 'set', 'unidades', 'precio', 'subtotal']];
