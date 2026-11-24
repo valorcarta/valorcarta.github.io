@@ -1,0 +1,122 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Registro de cierres — panel</title>
+<style>
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e;--linea:#e7e1d6}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font:15px/1.5 "Inter",-apple-system,sans-serif}
+.w{max-width:1100px;margin:0 auto;padding:34px 22px 70px}
+h1{font-size:clamp(1.6rem,3.4vw,2.2rem);margin:0 0 4px;letter-spacing:-.02em}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
+p.sub{color:var(--gris);margin:0 0 22px}
+.presion{background:#fffdf9;border:1px solid var(--linea);border-radius:16px;padding:20px 22px;margin:0 0 22px;box-shadow:0 10px 26px rgba(20,18,15,.06)}
+.presion .pcab{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:6px}
+.presion .pcifra{font-size:2.7rem;font-weight:800;letter-spacing:-.04em;color:var(--oro);line-height:1}
+.presion .ptxt{color:var(--gris);font-size:.82rem;margin:6px 0 0}
+.presion .pmini{font-size:.74rem;color:var(--gris);display:flex;gap:14px}
+.presion .pmini i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:middle}
+.reparto{background:#fffdf9;border:1px solid var(--linea);border-radius:16px;padding:20px 22px;margin:0 0 22px;box-shadow:0 10px 26px rgba(20,18,15,.06)}
+.reparto .rcab{margin-bottom:8px}
+.reparto .rtxt{color:var(--gris);font-size:.8rem;margin:2px 0 0}
+.reparto .rcuerpo{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.reparto .rleyenda{display:grid;gap:8px}
+.reparto .lo{display:grid;grid-template-columns:14px 1fr auto;gap:8px;align-items:baseline;font-size:.86rem}
+.reparto .lo i{display:inline-block;width:10px;height:10px;border-radius:3px}
+.reparto .lo small{grid-column:2/4;color:var(--gris);font-size:.74rem}
+.mb{display:inline-block;height:9px;border-radius:2px;vertical-align:middle;margin-right:2px}
+.cob{background:#fffdf9;border:1px solid var(--linea);border-radius:16px;padding:18px 22px;margin:0 0 22px}
+.cob .cb{display:flex;align-items:baseline;gap:12px;margin:4px 0 8px}
+.cob .cb b{font-size:2rem;letter-spacing:-.03em}
+.cob .cb span{color:var(--gris);font-size:.84rem}
+.cob .cbarra{height:10px;background:#efe9dd;border-radius:99px;overflow:hidden}
+.cob .cbarra i{display:block;height:100%;background:var(--oro)}
+.cob .cnota{color:var(--gris);font-size:.78rem;margin:8px 0 0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:0 0 28px}
+.kpi{background:#fffdf9;border:1px solid var(--linea);border-radius:14px;padding:12px 14px}
+.kpi span{display:block;font-size:.72rem;color:var(--gris);text-transform:uppercase;letter-spacing:.08em}
+.kpi b{font-size:1.5rem;letter-spacing:-.02em}
+h2{font-size:1.15rem;margin:30px 0 10px}
+table{width:100%;border-collapse:collapse;background:#fffdf9;border:1px solid var(--linea);border-radius:12px;overflow:hidden}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid #efe9dd;font-size:.86rem}
+th{font:600 10px/1 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+tr:last-child td{border-bottom:0}
+td.n{text-align:right;font-variant-numeric:tabular-nums}
+.org{display:grid;gap:10px}
+.nivel{display:flex;gap:10px;flex-wrap:wrap}
+.caja{flex:1;min-width:180px;background:#fffdf9;border:1px solid var(--linea);border-radius:12px;padding:12px 14px}
+.caja b{display:block;margin-bottom:3px}
+.caja small{color:var(--gris)}
+.flecha{text-align:center;color:#c9c3b5;font-size:1.2rem;line-height:1}
+.pie{margin-top:26px;color:var(--gris);font-size:.78rem}
+</style></head><body><div class="w">
+<p class="s">Registro de cierres · panel interno</p>
+<h1>Lo que estamos haciendo y con quién</h1>
+<p class="sub">Actualizado 24/11/2026 16:41. Todo lo que sale aquí viene de <code>datos/senales.csv</code> y <code>datos/tiendas.csv</code>.</p>
+
+<div class="presion">
+  <div class="pcab">
+    <div>
+      <p class="s">Presión de mercado · últimos 14 días con datos</p>
+      <div class="pcifra">64%</div>
+      <p class="ptxt">presión vendedora · 16 quieren vender frente a 9 que quieren comprar</p>
+    </div>
+    <div class="pmini">
+      <span><i style="background:#14120f"></i>quieren comprar</span>
+      <span><i style="background:#d9a300"></i>quieren vender</span>
+    </div>
+  </div>
+  <svg viewBox="0 0 1080 240" width="100%" height="auto"><line x1="40" y1="120.0" x2="1070" y2="120.0" stroke="#c9c3b5"/><text x="1070" y="115.0" text-anchor="end" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">equilibrio</text><rect x="53.1" y="34.5" width="46.6" height="85.5" fill="#14120f" rx="2"/><rect x="53.1" y="120.0" width="46.6" height="42.8" fill="#d9a300" rx="2"/><text x="76.4" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">11/11</text><text x="149.3" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">12/11</text><text x="222.1" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">13/11</text><text x="295.0" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">14/11</text><text x="367.9" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">15/11</text><rect x="417.4" y="120.0" width="46.6" height="42.8" fill="#d9a300" rx="2"/><text x="440.7" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">16/11</text><rect x="490.3" y="120.0" width="46.6" height="42.8" fill="#d9a300" rx="2"/><text x="513.6" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">17/11</text><rect x="563.1" y="77.2" width="46.6" height="42.8" fill="#14120f" rx="2"/><rect x="563.1" y="120.0" width="46.6" height="85.5" fill="#d9a300" rx="2"/><text x="586.4" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">18/11</text><rect x="636.0" y="-8.2" width="46.6" height="128.2" fill="#14120f" rx="2"/><rect x="636.0" y="120.0" width="46.6" height="85.5" fill="#d9a300" rx="2"/><text x="659.3" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">19/11</text><rect x="708.8" y="34.5" width="46.6" height="85.5" fill="#14120f" rx="2"/><rect x="708.8" y="120.0" width="46.6" height="85.5" fill="#d9a300" rx="2"/><text x="732.1" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">20/11</text><rect x="781.7" y="120.0" width="46.6" height="85.5" fill="#d9a300" rx="2"/><text x="805.0" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">21/11</text><text x="877.9" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">22/11</text><rect x="927.4" y="77.2" width="46.6" height="42.8" fill="#14120f" rx="2"/><rect x="927.4" y="120.0" width="46.6" height="171.0" fill="#d9a300" rx="2"/><text x="950.7" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">23/11</text><rect x="1000.3" y="120.0" width="46.6" height="42.8" fill="#d9a300" rx="2"/><text x="1023.6" y="230" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">24/11</text></svg>
+</div>
+
+<div class="reparto">
+  <div class="rcab"><p class="s">De dónde sale la información</p><p class="rtxt">Una mención cuenta una vez, por el sitio del que se sacó.</p></div>
+  <div class="rcuerpo"><svg viewBox="0 0 220 220" width="220" height="220"><path d="M110.0,20.0 A90,90 0 1 1 104.6,20.2 L106.9,58.1 A52,52 0 1 0 110.0,58.0 Z" fill="#14120f"/><path d="M104.6,20.2 A90,90 0 0 1 110.0,20.0 L110.0,58.0 A52,52 0 0 0 106.9,58.1 Z" fill="#d9a300"/><text x="110" y="106" text-anchor="middle" font-size="22" font-weight="800" fill="#14120f">316</text><text x="110" y="124" text-anchor="middle" font-family="ui-monospace,monospace" font-size="8" fill="#8d8474">MENCIONES</text></svg><div class="rleyenda"><div class="lo"><i style="background:#14120f"></i><b>Grupo de compraventa</b><span>99 %</span><small>313 menciones</small></div><div class="lo"><i style="background:#d9a300"></i><b>Chat privado</b><span>1 %</span><small>3 menciones</small></div><div class="lo"><i style="background:#7a8c6f"></i><b>Tienda</b><span>0 %</span><small>0 menciones</small></div></div></div>
+</div>
+
+<div class="cob">
+  <p class="s">Cobertura para valorar una colección</p>
+  <div class="cb"><b>21 %</b><span>22 de las 106 cartas con más movimiento tienen n≥3</span></div>
+  <div class="cbarra"><i style="width:21%"></i></div>
+  <p class="cnota">Una colección se puede valorar de verdad cuando la cobertura pasa del 60 %. Hoy, con 22 cartas publicables, cualquier lista larga tiene huecos.</p>
+</div>
+
+<div class="kpis"><div class='kpi'><span>Menciones en el registro</span><b>316</b></div><div class='kpi'><span>Cartas distintas</span><b>106</b></div><div class='kpi'><span>Con n≥3</span><b>22</b></div><div class='kpi'><span>En línea (±25 %)</span><b>2</b></div><div class='kpi'><span>Con estado declarado</span><b>109</b></div><div class='kpi'><span>Grupos leídos</span><b>8</b></div><div class='kpi'><span>Privados leídos</span><b>69</b></div><div class='kpi'><span>Tiendas/vendedores</span><b>14</b></div><div class='kpi'><span>Cartas publicadas</span><b>3</b></div></div>
+
+<h2>Quién hace qué</h2>
+<div class="org">
+  <div class="nivel">
+    <div class="caja"><b>Agentes locales (0 tokens)</b><small>Leen, procesan, publican y avisan. No negocian.</small></div>
+    <div class="caja"><b>Carles</b><small>La cara: contesta, da el informe, decide a quién se cita.</small></div>
+  </div>
+  <div class="flecha">↓</div>
+  <div class="nivel">
+    <div class="caja"><b>Grupos de Telegram</b><small>8 leídos · de aquí sale el precio publicado</small></div>
+    <div class="caja"><b>Privados</b><small>69 conversaciones · de aquí sale el cierre y el trato</small></div>
+    <div class="caja"><b>Tiendas</b><small>14 fichas · 3 han contestado</small></div>
+  </div>
+  <div class="flecha">↓</div>
+  <div class="nivel">
+    <div class="caja"><b>CSV común</b><small>fecha · fuente · tipo · carta · idioma · estado · grado · set · precio · confianza · texto</small></div>
+    <div class="caja"><b>Estadística</b><small>n · mediana · rango · fuentes · desvío contra nuestra referencia</small></div>
+    <div class="caja"><b>Canal</b><small>una carta al día, sin CTA ni enlaces</small></div>
+  </div>
+</div>
+
+<h2>Fuentes y lo que reportan al CSV</h2>
+<table><thead><tr><th>Fuente</th><th class="n">Menciones</th><th class="n">Cartas</th><th>Periodo</th></tr></thead><tbody><tr><td>telegram:RofertoTCG</td><td class='n'>175</td><td class='n'>52</td><td class='n'>2026-10-12 → 2026-11-24</td></tr><tr><td>telegram:la_casa_de_kartus</td><td class='n'>46</td><td class='n'>25</td><td class='n'>2026-10-13 → 2026-11-24</td></tr><tr><td>telegram:pokehache</td><td class='n'>37</td><td class='n'>30</td><td class='n'>2026-11-18 → 2026-11-24</td></tr><tr><td>telegram:ventapokemontcg</td><td class='n'>34</td><td class='n'>22</td><td class='n'>2026-10-19 → 2026-11-23</td></tr><tr><td>telegram:CartasPokemonESP</td><td class='n'>10</td><td class='n'>7</td><td class='n'>2026-11-17 → 2026-11-23</td></tr><tr><td>telegram:Pokemoncartastradeo</td><td class='n'>5</td><td class='n'>5</td><td class='n'>2026-11-11 → 2026-11-22</td></tr><tr><td>telegram:ChatCartasPokemon</td><td class='n'>2</td><td class='n'>2</td><td class='n'>2026-10-21 → 2026-11-17</td></tr><tr><td>telegram:TCGMX</td><td class='n'>2</td><td class='n'>1</td><td class='n'>2026-11-17 → 2026-11-20</td></tr><tr><td>telegram:CartasPokemonJapon</td><td class='n'>1</td><td class='n'>1</td><td class='n'>2026-11-11 → 2026-11-11</td></tr><tr><td>telegram:ComprayVentaCartasDePokemon</td><td class='n'>1</td><td class='n'>1</td><td class='n'>2026-11-19 → 2026-11-19</td></tr><tr><td>telegram:dm_254506970</td><td class='n'>1</td><td class='n'>1</td><td class='n'>2026-11-24 → 2026-11-24</td></tr><tr><td>telegram:dm_6827019111</td><td class='n'>1</td><td class='n'>1</td><td class='n'>2026-11-24 → 2026-11-24</td></tr><tr><td>telegram:dm_175977613</td><td class='n'>1</td><td class='n'>1</td><td class='n'>2026-11-24 → 2026-11-24</td></tr></tbody></table>
+
+<h2>Por carta: cuántas y de dónde</h2>
+<table><thead><tr><th>Carta</th><th class="n">n</th><th class="n">Mediana</th><th>Origen (grupos · privados · tiendas)</th><th>Desvío</th><th>Fiabilidad</th><th>Lectura</th></tr></thead><tbody><tr><td>Ursaluna Luna Carmesí</td><td class='n'>15</td><td class='n'>24.99 €</td><td><span class="mb" style="width:60px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>49880.0 %</td><td>baja</td><td>sospechoso (varias versiones)</td></tr><tr><td>Charizard</td><td class='n'>11</td><td class='n'>300.00 €</td><td><span class="mb" style="width:40px;background:#14120f"></span> <span class="mb" style="width:4px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>-23.7 %</td><td>media</td><td>en línea</td></tr><tr><td>Palafin ex</td><td class='n'>8</td><td class='n'>24.99 €</td><td><span class="mb" style="width:32px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>-45.1 %</td><td>baja</td><td>referencia por encima</td></tr><tr><td>Cambio</td><td class='n'>7</td><td class='n'>220.00 €</td><td><span class="mb" style="width:28px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>7460.1 %</td><td>media</td><td>sospechoso (varias versiones)</td></tr><tr><td>Houndstone ex</td><td class='n'>6</td><td class='n'>24.99 €</td><td><span class="mb" style="width:24px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>2739.8 %</td><td>baja</td><td>sospechoso (varias versiones)</td></tr><tr><td>Pikachu</td><td class='n'>5</td><td class='n'>60.00 €</td><td><span class="mb" style="width:20px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>-96.4 %</td><td>media</td><td>referencia por encima</td></tr><tr><td>Greninja Radiante</td><td class='n'>5</td><td class='n'>108.70 €</td><td><span class="mb" style="width:20px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>5151.2 %</td><td>baja</td><td>sospechoso (varias versiones)</td></tr><tr><td>Armarouge</td><td class='n'>5</td><td class='n'>29.99 €</td><td><span class="mb" style="width:20px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>920.1 %</td><td>baja</td><td>sospechoso (varias versiones)</td></tr><tr><td>Cyclizar ex</td><td class='n'>5</td><td class='n'>24.99 €</td><td><span class="mb" style="width:20px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>4135.6 %</td><td>baja</td><td>sospechoso (varias versiones)</td></tr><tr><td>Grafaiai ex</td><td class='n'>5</td><td class='n'>32.55 €</td><td><span class="mb" style="width:20px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>4550.0 %</td><td>baja</td><td>sospechoso (varias versiones)</td></tr><tr><td>Gardevoir</td><td class='n'>4</td><td class='n'>500.00 €</td><td><span class="mb" style="width:16px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>105.5 %</td><td>baja</td><td>sospechoso (varias versiones)</td></tr><tr><td>Rayquaza</td><td class='n'>4</td><td class='n'>65.00 €</td><td><span class="mb" style="width:16px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>-86.3 %</td><td>baja</td><td>referencia por encima</td></tr><tr><td>Gengar ex</td><td class='n'>4</td><td class='n'>75.00 €</td><td><span class="mb" style="width:12px;background:#14120f"></span> <span class="mb" style="width:4px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>22.6 %</td><td>baja</td><td>en línea</td></tr><tr><td>Hydreigon</td><td class='n'>4</td><td class='n'>190.00 €</td><td><span class="mb" style="width:16px;background:#14120f"></span> <span class="mb" style="width:0px;background:#d9a300"></span> <span class="mb" style="width:0px;background:#7a8c6f"></span></td><td>73.9 %</td><td>baja</td><td>referencia por debajo</td></tr></tbody></table>
+
+<h2>Por comunidad</h2>
+<table><thead><tr><th>Comunidad</th><th class="n">Tiendas</th><th class="n">Han contestado</th><th>Ciudades</th></tr></thead><tbody><tr><td>Cataluña</td><td class='n'>5</td><td class='n'>1</td><td>Barcelona, Mollet, Parets, Sant Just Desvern</td></tr><tr><td>Madrid</td><td class='n'>2</td><td class='n'>0</td><td>Madrid</td></tr><tr><td>Castilla y León</td><td class='n'>1</td><td class='n'>0</td><td>Burgos</td></tr><tr><td>Castilla-La Mancha</td><td class='n'>1</td><td class='n'>0</td><td>Toledo</td></tr><tr><td>Aragón</td><td class='n'>1</td><td class='n'>0</td><td>Zaragoza</td></tr></tbody></table>
+<p class="cnota" style="margin-top:8px">Solo tiendas: las menciones no dicen de dónde viene quien vende, así que por ahora no se puede partir el precio por comunidad.</p>
+
+<h2>Tiendas y vendedores</h2>
+<table><thead><tr><th>Nombre</th><th>Canal</th><th>Contacto</th><th>Estado</th><th>Último</th></tr></thead><tbody><tr><td>Monsters Collectors</td><td>email</td><td>info@monsterscollectors.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>Universe TCG</td><td>email</td><td>info@universetcg.com</td><td>respondio</td><td>2026-11-24</td></tr><tr><td>Sunnystore</td><td>email</td><td>contacto@sunnystore.es</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>Iberian Collect</td><td>email</td><td>info@iberiancollect.es</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>PokeElite TCG</td><td>email</td><td>tcgpokeelite@gmail.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>Frikea</td><td>email</td><td>frikea@gmail.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>Kadoplay</td><td>email</td><td>info@kadoplay.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>Metamorph Center</td><td>email</td><td>info@metamorphcenter.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>SuperCollectors</td><td>email</td><td>info@supercollectors.es</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>TCG Factory</td><td>email</td><td>soporte@tcgfactory.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>Pokezilla</td><td>email</td><td>contact@pokezilla.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>TCG Fusion</td><td>email</td><td>info@tcgfusion.com</td><td>contactado</td><td>2026-11-24</td></tr><tr><td>Bardeck</td><td>email</td><td>tcgbardeck@gmail.com</td><td>respondio</td><td>2026-11-24</td></tr><tr><td>Ernesto</td><td>telegram</td><td>8988417892</td><td>respondio</td><td>2026-11-24</td></tr></tbody></table>
+
+<h2>Agentes</h2>
+<table><thead><tr><th>Agente</th><th>Qué hace</th><th>Cuándo</th><th>Estado</th></tr></thead><tbody><tr><td><b>telegram</b></td><td>Lee grupos y privados, procesa y publica</td><td>09:00 · 14:00 · 20:00</td><td style='color:#2f7d4f;font-weight:700'>corriendo</td></tr><tr><td><b>canal</b></td><td>Publica la carta del día en el canal</td><td>10:00 · 19:00</td><td style='color:#2f7d4f;font-weight:700'>corriendo</td></tr><tr><td><b>snapshot</b></td><td>Foto diaria del archivo de precios</td><td>12:30 · 20:30</td><td style='color:#2f7d4f;font-weight:700'>corriendo</td></tr><tr><td><b>socios</b></td><td>Correo semanal a los suscriptores</td><td>lunes 09:05</td><td style='color:#2f7d4f;font-weight:700'>corriendo</td></tr></tbody></table>
+
+<p class="pie">Las cartas con n&lt;3 no se publican. Las que mezclan versiones o estados se marcan y no entran en la mediana.</p>
+</div></body></html>
