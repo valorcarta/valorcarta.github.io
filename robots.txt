@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://valorcarta.github.io/sitemap.xml
-Sitemap: https://valorcarta.github.io/sitemap-en.xml
+Sitemap: https://valorcarta.es/sitemap.xml
+Sitemap: https://valorcarta.es/sitemap-en.xml
