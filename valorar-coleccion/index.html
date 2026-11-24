@@ -25,7 +25,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
 <p class="meta">Una carta por línea, con cantidad si quieres (<b>Charizard x2</b>). El precio es el de hoy, con su fecha al lado. Sin registro.</p>
 <textarea id="t" placeholder="Charizard x1&#10;Pikachu x2&#10;Mew ex"></textarea>
 <p class="huecos" id="huecos">0 de 20 huecos usados</p>
-<div class="caja"><span class="cifra" id="total">— €</span><span class="fecha" id="fecha">24/11, 03:25</span>
+<div class="caja"><span class="cifra" id="total">— €</span><span class="fecha" id="fecha">24/11, 03:37</span>
 <p class="meta" id="cuenta" style="margin:6px 0 0"></p>
 <div id="filas"></div>
 <a class="btn" id="guardar" href="/club/" style="display:none">Guardar esta foto</a>
@@ -37,6 +37,15 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
   const norm = (s) => String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
   const mapa = new Map();
   for (const [slug, n, set, p] of idx) { const k = norm(n); if (!mapa.has(k)) mapa.set(k, []); mapa.get(k).push({ slug, n, set, p }); }
+  // 24-11: «Charizard base» tiene que encontrar Charizard. Exacto primero; si no, por inclusión.
+  const buscar = (n) => {
+    const exacto = mapa.get(n);
+    if (exacto) return exacto;
+    if (n.length < 4) return [];
+    const cands = [];
+    for (const [k, v] of mapa) { if (k.startsWith(n) || n.startsWith(k)) cands.push(...v); }
+    return cands;
+  };
   const eur = (v) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
   const t = document.getElementById('t');
   const render = () => {
@@ -47,7 +56,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums}
       const m = linea.match(/^(.*?)(?:\s*[x×*]\s*(\d+))?$/i);
       const nombre = norm(m[1] || ''); const q = parseInt(m[2] || '1', 10) || 1;
       if (!nombre) continue;
-      const hits = mapa.get(nombre) || [];
+      const hits = buscar(nombre);
       if (!hits.length) { filas.push('<tr><td class="falta">' + m[1] + ' · sin referencia</td><td class="n">—</td></tr>'); continue; }
       const c = hits.sort((a, b) => (b.p || 0) - (a.p || 0))[0];
       if (!c.p) { filas.push('<tr><td class="falta">' + c.n + ' · sin precio</td><td class="n">—</td></tr>'); continue; }
