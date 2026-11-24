@@ -51,8 +51,8 @@ a{color:#8a6400}
       const a7 = (p7 && p7[x.s]) || d.p, a30 = (p30 && p30[x.s]) || d.p, a90 = (p90 && p90[x.s]) || d.p;
       total += d.p * q; t7 += a7 * q; t30 += a30 * q; t90 += a90 * q;
       filas.push({ n: d.n, s: d.s, q, p: d.p, t: d.p * q,
-                   v7: a7 ? (d.p / a7 - 1) * 100 : 0,
-                   v30: a30 ? (d.p / a30 - 1) * 100 : 0 });
+                   v7: p7 ? (a7 ? (d.p / a7 - 1) * 100 : 0) : null,
+                   v30: p30 ? (a30 ? (d.p / a30 - 1) * 100 : 0) : null });
     }
     filas.sort((a, b) => b.t - a.t);
     const pct = (a, b) => (b ? ((a / b - 1) * 100) : 0);
@@ -60,16 +60,16 @@ a{color:#8a6400}
     const fmt = (v) => (v > 0 ? '+' : '') + v.toFixed(1).replace('.', ',') + ' %';
     const evo = document.getElementById('evo');
     if (evo) {
-      evo.innerHTML = [
-        ['7 días', pct(total, t7)], ['30 días', pct(total, t30)], ['90 días', pct(total, t90)],
-      ].map(([k, v]) => '<span>' + k + ' <b class="' + color(v) + '">' + (t7 ? fmt(v) : '—') + '</b></span>').join('');
+      evo.innerHTML = [[7, t7], [30, t30], [90, t90]]
+        .filter(([d]) => pasado[d])
+        .map(([d, v]) => '<span>' + (pasado[d].dias || d) + ' días <b class="' + color(pct(total, v)) + '">' + fmt(pct(total, v)) + '</b></span>').join('');
     }
     const eur = (v) => v.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €';
     document.getElementById('total').textContent = eur(total);
     document.getElementById('cuenta').textContent = filas.length + (filas.length === 1 ? ' carta' : ' cartas');
     document.getElementById('filas').innerHTML = filas.map((f) =>
       '<tr><td>' + f.n + '<small>' + f.s + '</small></td><td class="n">' + f.q + '</td><td class="n">' +
-      eur(f.p) + '</td><td class="n ' + color(f.v7) + '">' + fmt(f.v7) + '</td><td class="n ' + color(f.v30) + '">' +
-      fmt(f.v30) + '</td><td class="n">' + eur(f.t) + '</td></tr>').join('');
+      eur(f.p) + '</td><td class="n ' + (f.v7 == null ? 'plano' : color(f.v7)) + '">' + (f.v7 == null ? '—' : fmt(f.v7)) + '</td><td class="n ' + (f.v30 == null ? 'plano' : color(f.v30)) + '">' +
+      (f.v30 == null ? '—' : fmt(f.v30)) + '</td><td class="n">' + eur(f.t) + '</td></tr>').join('');
   })();
   </script></body></html>
