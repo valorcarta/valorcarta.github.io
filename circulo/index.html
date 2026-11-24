@@ -62,6 +62,33 @@ footer{margin-top:60px;color:var(--gris);font-size:.82rem}
 <h2>Quién está detrás</h2>
 <p>Soy Carles, y empecé esto porque no encontraba en España un sitio que dijera <b>a cuánto se vende</b> una carta, solo a cuánto se anuncia. No hay equipo, ni curso, ni señales: hay un catálogo que se recalcula cada noche y una regla que no rompo — si el dato no está, se dice.</p>
 
+<h2>Lo que te dicen, y lo que hay</h2>
+<p>Esto es lo que le pasa a casi todo el que vende cartas en España. Siempre es lo mismo: poca información y mucha prisa por parte del que compra.</p>
+<style>
+  .duelo{display:grid;gap:10px;margin:18px 0 0}
+  .par{display:grid;grid-template-columns:1fr 1.25fr;gap:10px}
+  @media(max-width:760px){.par{grid-template-columns:1fr}}
+  .par>div{border-radius:14px;padding:14px 16px}
+  .dicen{background:#efece5;color:#5a554c;border:1px solid #e2ddd2}
+  .hay{background:#fffdf9;border:1px solid #e7e1d6}
+  .par .k{display:block;font:600 9px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.6;margin-bottom:6px}
+  .par p{margin:0;font-size:.95rem;line-height:1.4}
+  .hay p b{font-weight:700}
+</style>
+<div class="duelo">
+  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Esa carta está a 120 €»</p></div>
+  <div class="hay"><span class="k">Lo que hay</span><p>120 € es el anuncio. Los cierres de esa misma carta están <b>entre 74 y 82 €</b>. El anuncio lleva meses sin venderse.</p></div></div>
+  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Es la misma carta, da igual la versión»</p></div>
+  <div class="hay"><span class="k">Lo que hay</span><p>Cuatro versiones, cuatro precios. Te decimos <b>cuál es la tuya</b> y qué se ha pagado por ella, no por la más cara.</p></div></div>
+  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Está rayada, no vale nada»</p></div>
+  <div class="hay"><span class="k">Lo que hay</span><p>El estado ajusta el precio, no lo borra. Con la versión y una foto se ve <b>cuánto baja de verdad</b>.</p></div></div>
+  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Te la dejo en 40, es lo que hay»</p></div>
+  <div class="hay"><span class="k">Lo que hay</span><p>El último cierre público fue <b>95 €</b>. Te faltan 55 y no te están diciendo por qué.</p></div></div>
+  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Entre 80 y 200, según»</p></div>
+  <div class="hay"><span class="k">Lo que hay</span><p>Un rango sin fecha ni estado no es un dato. Nosotros damos <b>versión, estado, fecha y precio de cierre</b>. Y cuando no hay dato, lo decimos.</p></div></div>
+</div>
+<p style="margin-top:18px;color:#3a352c">No tenemos todas las respuestas. Tenemos el detalle, la fecha y la manía de no rellenar los huecos con una cifra que suene bien.</p>
+
 <h2>Qué incluye</h2>
 <div class="grid">
   <div class="card"><b>Seguimiento diario</b><small>Tu colección, actualizada cada día.</small></div>
