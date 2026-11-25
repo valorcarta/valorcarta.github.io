@@ -1,50 +1,131 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>¿Vendo o espero? · ValorCarta</title>
-<meta name="description" content="Pon la carta, el estado y lo que te ofrecen. Te digo si vendes, si negocias o si no vendas, con el motivo y la fecha del dato.">
+<title>Informe de venta · 20 cartas con su precio y su fecha | ValorCarta</title>
+<meta name="description" content="Te digo a cuánto se vende cada carta de tu lista, con fecha y fuente, y el mínimo por el que no deberías venderla. 29 € hasta 20 cartas, entrega en 24 h, o te devuelvo el dinero.">
 <style>
-:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e}
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e;--linea:#e7e1d6;--blanco:#fffdf9}
 *{box-sizing:border-box}
-body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.w{max-width:820px;margin:0 auto;padding:40px 22px 80px}
-.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
-h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(1.9rem,4.6vw,2.8rem);margin:12px 0 8px;line-height:1.03}
-.sub{color:var(--gris);max-width:46ch;margin:0 0 24px}
-.campos{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:10px}
-@media(max-width:720px){.campos{grid-template-columns:1fr}}
-label{display:block;font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin:0 0 6px}
-input,select{width:100%;padding:13px 14px;border:1px solid #ddd7c9;border-radius:12px;background:#fff;font:15px inherit}
-input:focus,select:focus{outline:2px solid rgba(217,163,0,.45);border-color:var(--oro)}
-.btn{display:inline-block;margin-top:14px;background:var(--tinta);color:#fff;border:0;border-radius:12px;padding:14px 22px;font:700 15px/1 inherit;cursor:pointer}
-.res{margin-top:22px;border-radius:20px;padding:22px;background:#14120f;color:#f6f4ef;display:none}
-.res.on{display:block}
-.veredicto{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:2rem;line-height:1;margin:0 0 8px}
-.res .motivo{margin:0;color:#d7d1c6}
-.res .datos{margin:14px 0 0;font-size:.85rem;color:#b9b3a7}
-.res .datos b{color:#f6f4ef}
-.nota{color:var(--gris);font-size:.8rem;margin-top:16px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.6 Arial,Helvetica,sans-serif}
+a{color:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gris)}
+/* cabecera */
+header{border-bottom:1px solid var(--linea);background:var(--papel)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;letter-spacing:-.02em;font-size:1.05rem;text-decoration:none}
+.logo i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--oro);margin-right:9px;vertical-align:middle}
+header nav a{text-decoration:none;color:var(--gris);font-size:.9rem;margin-left:22px}
+header nav a:hover{color:var(--tinta)}
+/* hero */
+.hero{padding:64px 0 34px}
+.hero h1{font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.08;letter-spacing:-.03em;margin:14px 0 16px;max-width:20ch}
+.hero p.lead{font-size:1.12rem;color:#3d3831;max-width:52ch;margin:0 0 26px}
+.pill{display:inline-flex;align-items:center;gap:10px;background:var(--blanco);border:1px solid var(--linea);border-radius:999px;padding:7px 14px;font-size:.86rem;color:var(--gris)}
+.pill b{color:var(--tinta)}
+.botones{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-block;border-radius:12px;padding:14px 22px;font-weight:700;text-decoration:none;font-size:.98rem}
+.btn.oro{background:var(--oro);color:#1a1508;border:1px solid #c69300;box-shadow:0 1px 0 #e9c25a inset,0 8px 20px rgba(217,163,0,.22),0 1px 2px rgba(20,18,15,.12)}
+.btn.oro:hover{filter:brightness(1.04)}
+.btn.ghost{background:transparent;border:1px solid var(--linea);color:var(--tinta)}
+.nota{font-size:.84rem;color:var(--gris);margin-top:12px}
+/* secciones */
+section{padding:34px 0}
+h2{font-size:1.35rem;letter-spacing:-.02em;margin:0 0 16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{background:var(--blanco);border:1px solid var(--linea);border-radius:16px;padding:18px 18px 16px;box-shadow:0 1px 0 #fff inset,0 10px 24px rgba(20,18,15,.05),0 1px 2px rgba(20,18,15,.06)}
+.card h3{font-size:1rem;margin:0 0 6px}
+.card p{margin:0;color:#4a443c;font-size:.94rem}
+.num{font-family:ui-monospace,monospace;color:var(--oro);font-weight:700;font-size:.8rem;letter-spacing:.1em}
+/* ejemplo */
+.doc{background:var(--blanco);border:1px solid var(--linea);border-left:4px solid var(--oro);border-radius:14px;padding:18px 20px;box-shadow:0 10px 26px rgba(20,18,15,.06)}
+.doc .fila{display:flex;justify-content:space-between;gap:14px;padding:7px 0;border-bottom:1px dashed #eee7d9;font-size:.92rem}
+.doc .fila:last-child{border-bottom:0}
+.doc .k{color:var(--gris)}
+.doc .v{font-weight:700;font-variant-numeric:tabular-nums}
+.doc .min{margin-top:12px;padding-top:12px;border-top:1px solid var(--linea);display:flex;justify-content:space-between;align-items:baseline}
+.doc .min b{font-size:1.6rem;color:var(--oro)}
+/* garantía */
+.banda{background:#14120f;color:#f6f4ef;border-radius:18px;padding:22px 24px;display:flex;gap:16px;align-items:flex-start}
+.banda b{color:#ffd75e}
+/* precios */
+.precios{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.precio{background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:16px}
+.precio.dest{border-color:var(--oro);box-shadow:0 0 0 3px rgba(217,163,0,.12)}
+.precio .cifra{font-size:1.7rem;font-weight:800;letter-spacing:-.02em}
+.precio .que{color:var(--gris);font-size:.86rem}
+/* faq */
+details{background:var(--blanco);border:1px solid var(--linea);border-radius:12px;padding:14px 16px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--gris)}
+details[open] summary::after{content:"–"}
+details p{margin:10px 0 0;color:#4a443c;font-size:.94rem}
+footer{border-top:1px solid var(--linea);margin-top:30px;padding:22px 0 60px;color:var(--gris);font-size:.82rem}
+@media(max-width:520px){.hero{padding:40px 0 24px}.banda{flex-direction:column}}
 </style></head><body>
-<main style="max-width:760px;margin:0 auto;padding:32px 20px 80px">
-<p style="font-family:ui-monospace,monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#6d675e">Informe de venta · 29 €</p>
-<h1 style="font-size:2rem;line-height:1.15;margin:10px 0 14px">Tus 20 cartas, con lo que se paga por ellas y su fecha</h1>
-<p style="font-size:1.05rem;color:#3d3831">Me pasas la lista. Te devuelvo un informe con la cifra de cada carta, el rango de cierres y el mínimo por el que no deberías venderla. Una carta por línea, con su enlace cuando exista.</p>
-<h2 style="margin-top:28px">Qué incluye</h2>
-<ul style="line-height:1.8">
-<li><b>El mínimo por el que vender</b> de cada carta: si te ofrecen menos, te están comprando barato.</li>
-<li><b>Las dos que deberías vender ahora</b>, con la regla a la vista (cuántos cierres y a qué distancia del último).</li>
-<li><b>Sin referencia</b> cuando no haya datos suficientes: no relleno huecos con una cifra que suene bien.</li>
-</ul>
-<h2>Un ejemplo, sin adornos</h2>
-<pre style="background:#fffdf9;border:1px solid #e7e1d6;border-radius:12px;padding:14px;font-size:.86rem;overflow:auto">Charizard · Edición Básica 4/102 · holo · inglés
-Último cierre: 380 € · 14-11-2026 · eBay.es · n=3 · rango 342-410 €
-No vender por menos de 340 €
-= el mínimo de los 3 cierres, redondeado a la baja</pre>
-<h2>Precio y garantía</h2>
-<p><b>29 €</b> hasta 20 cartas · 49 € hasta 50 · 99 € la colección entera.</p>
-<p>Entrega por correo en menos de 24 h. <b>Si una línea no lleva enlace o la cifra no cuadra con el cierre, te devuelvo el dinero.</b></p>
-<h2>Pedirlo</h2>
-<p>El cobro automático estará abierto en unos días. Mientras tanto: <a href="mailto:carlespeadel@gmail.com?subject=Quiero%20el%20informe%20de%2020%20cartas">escríbeme con tu lista</a> y te contesto con el importe y el plazo. Pagas cuando lo recibes.</p>
-<p style="margin-top:28px"><a class="btn oro" href="mailto:carlespeadel@gmail.com?subject=Quiero%20el%20informe%20de%2020%20cartas">Pedir mi informe · 29 €</a></p>
-<p style="font-size:.8rem;color:#6d675e;margin-top:26px">Precios de referencia de cierre con fecha y fuente. No es una tasación: el estado de la carta manda.</p>
-<p><a href="/">← Volver a ValorCarta</a></p>
-</main></body></html>
+<header><div class="wrap">
+  <a class="logo" href="/"><i></i>ValorCarta</a>
+  <nav><a href="/vender/">Vender</a><a href="/mercado/">Mercado</a><a href="/informe/">Informe</a></nav>
+</div></header>
+
+<main class="wrap">
+  <div class="hero">
+    <p class="mono">Informe de venta · entrega en 24 h</p>
+    <h1>Tus 20 cartas, con lo que se paga por ellas y su fecha.</h1>
+    <p class="lead">Me pasas la lista. Te devuelvo la cifra de cada carta con su fecha y su fuente, el rango de cierres y el mínimo por el que no deberías venderla. Si una línea no lleva enlace, te devuelvo el dinero.</p>
+    <div class="botones">
+      <a class="btn oro" href="mailto:carlespeadel@gmail.com?subject=Quiero%20el%20informe%20de%2020%20cartas&body=Hola%2C%20quiero%20el%20informe.%20Mi%20lista%3A%0A%0A1.%20">Pedir mi informe · 29 €</a>
+      <a class="btn ghost" href="#ejemplo">Ver un ejemplo</a>
+    </div>
+    <p class="nota">Sin registro. Pagas cuando lo recibes, mientras el cobro automático no esté abierto.</p>
+  </div>
+
+  <section>
+    <div class="grid">
+      <div class="card"><p class="num">01</p><h3>El mínimo por el que vender</h3><p>Cada carta con el precio por debajo del cual te están comprando barato. Con la resta a la vista.</p></div>
+      <div class="card"><p class="num">02</p><h3>Las dos que vender ya</h3><p>Elegidas por regla, no por opinión: cuántos cierres tienen y a qué distancia van del último.</p></div>
+      <div class="card"><p class="num">03</p><h3>Sin referencia, si no hay dato</h3><p>Cuando no hay cierres suficientes lo digo. No relleno huecos con una cifra que suene bien.</p></div>
+    </div>
+  </section>
+
+  <section id="ejemplo">
+    <h2>Un ejemplo, sin adornos</h2>
+    <div class="doc">
+      <div class="fila"><span class="k">Carta</span><span class="v">Charizard · Edición Básica 4/102 · holo · inglés</span></div>
+      <div class="fila"><span class="k">Último cierre</span><span class="v">380 € · 14-11-2026</span></div>
+      <div class="fila"><span class="k">Fuente y muestra</span><span class="v">eBay.es · 3 ventas · rango 342-410 €</span></div>
+      <div class="min"><span class="k">No vender por menos de</span><b>340 €</b></div>
+    </div>
+    <p class="nota">340 € es el mínimo de los 3 cierres (342 €), redondeado a la baja. Quien lo rebata, rebate una resta.</p>
+  </section>
+
+  <section>
+    <div class="banda">
+      <div><b>Garantía sin letra pequeña.</b><br>Si una línea del informe no lleva enlace a su cierre o la cifra no cuadra con él, te devuelvo el dinero. Sin preguntas.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Precio</h2>
+    <div class="precios">
+      <div class="precio dest"><div class="cifra">29 €</div><div class="que">hasta 20 cartas</div></div>
+      <div class="precio"><div class="cifra">49 €</div><div class="que">hasta 50 cartas</div></div>
+      <div class="precio"><div class="cifra">99 €</div><div class="que">la colección entera</div></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Preguntas</h2>
+    <details><summary>¿De dónde sale cada precio?</summary><p>De cierres con fecha: ventas en grupos y tiendas de España y, cuando no hay, cierres de eBay.es citados con su enlace. Cada línea lleva su fuente y su número de operaciones.</p></details>
+    <details><summary>¿Y si no hay datos de mi carta?</summary><p>Se escribe «sin referencia». Con menos de tres operaciones no doy una cifra: un precio con dos datos es una anécdota, no un dato.</p></details>
+    <details><summary>¿Cuánto tarda?</summary><p>Menos de 24 horas desde que me pasas la lista. Te contesto con el importe y el plazo antes de que pagues nada.</p></details>
+    <details><summary>¿Es una tasación?</summary><p>No. Es un informe de precios con fecha y fuente. El estado de la carta manda y eso solo se ve teniéndola delante.</p></details>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <p>Precios de referencia con fecha y fuente. No es una tasación: el estado de la carta manda.</p>
+  <p><a href="/">ValorCarta</a> · <a href="/vender/">Vender</a> · <a href="/informe/">Informe</a> · <a href="/contacto/">Contacto</a></p>
+</div></footer>
+</body></html>
