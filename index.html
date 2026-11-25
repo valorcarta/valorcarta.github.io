@@ -152,6 +152,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
   .verdad2 .real b{display:block;font:800 1.7rem/1 "Inter Tight",system-ui,sans-serif;letter-spacing:-.03em;color:#8a6400}
   .verdad2 .real span{display:block;margin-top:4px;font:600 9px/1 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#8d8474}
   .verdad2 .txt{margin:0;font-size:.94rem;line-height:1.45;color:#14120f}
+  .verdad2 .nm{display:block;margin-top:6px;font-size:.8rem;color:#8a6400;text-decoration:none;border-bottom:1px solid #e3d3a8;width:fit-content}
   .verdad2 .cierre{margin:20px 0 0;font-size:.95rem;color:#3a352c;border-top:1px solid #e0d9c9;padding-top:16px}
   .verdad2 .cta{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0 0}
   .verdad2 .btn{display:inline-block;padding:13px 18px;border-radius:12px;text-decoration:none;font-weight:700;font-size:.95rem;
@@ -161,23 +162,21 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
 <p class="e">Lo que oyes cuando vas a vender</p>
 <h2>Tres frases que te cuestan dinero</h2>
 <p class="intro">Casi nunca hay mala fe: repiten lo que oyeron. El problema es que no tienes el dato para contestar. Estas tres lo resuelven.</p>
-<div class="filas">
-  <div class="fila">
-    <div class="q">«Esa carta está a 120 €»<s>120 €</s><em>lo que pide</em></div>
-    <div class="real"><b>74–82 €</b><span>los cierres de esa carta</span></div>
-    <p class="txt">120 € es el anuncio, no el precio. Lleva meses sin venderse; lo que sí se ha pagado por la misma carta está entre 74 y 82 €.</p>
+<div class="filas" id="casos"><div class="fila">
+    <div class="q">«Unown está a 347,77 €»<s>347,77 €</s><em>lo que se pide hoy</em><a class="nm" href="/carta/exu-A-unown/">Unown</a></div>
+    <div class="real"><b>112,30 €</b><span>media 30 días · 2026-11-25</span></div>
+    <p class="txt">Ese es el precio que piden, no el que se paga. La media de lo vendido en 30 días está por debajo: si pagas la cifra del anuncio, pagas la prisa de otro.</p>
   </div>
   <div class="fila">
-    <div class="q">«Te la dejo en 40, es lo que hay»<s>40 €</s><em>lo que te ofrecen</em></div>
-    <div class="real"><b>95 €</b><span>el último cierre público</span></div>
-    <p class="txt">Te faltan 55 € y nadie te dice por qué. Un precio sin fecha ni fuente no es una oferta: es una opinión con prisa.</p>
+    <div class="q">«Mew V: te la dejo en 40,00 €»<s>40,00 €</s><em>lo más barato del mes</em><a class="nm" href="/carta/swsh8-251-mew-v/">Mew V · Golpe Fusión</a></div>
+    <div class="real"><b>114,13 €</b><span>media 30 días · 2026-11-25</span></div>
+    <p class="txt">Ese mínimo existe, pero es el suelo del mes, no el precio de la carta. La media está muy por encima: quien te ofrece el suelo te está comprando por lo que nadie pagó.</p>
   </div>
   <div class="fila">
-    <div class="q">«En Cardmarket está a 200»<s>200 €</s><em>otra versión</em></div>
-    <div class="real"><b>la tuya</b><span>otra carta, otro precio</span></div>
-    <p class="txt">Ese precio es de la japonesa o de una graduada. La tuya es otra: mismo dibujo, distinto mercado y distinto precio.</p>
-  </div>
-</div>
+    <div class="q">«Espeon ex está a 813,18 €»<s>813,18 €</s><em>la versión cara</em><a class="nm" href="/carta/ex10-102-espeon-ex/">Espeon ex · EX Fuerzas Ocultas</a></div>
+    <div class="real"><b>88,67 €</b><span>la otra versión del mismo número</span></div>
+    <p class="txt">Mismo dibujo y mismo número, dos cartas distintas. La de 813,18 € y la de 88,67 € no se comparan: antes de discutir el precio, mira cuál tienes.</p>
+  </div></div>
 <p class="cierre">El informe te da el precio de cierre, la fecha y la versión exacta. Y si no hay dato, lo dice en vez de inventarlo.</p>
 <p class="cta"><a class="btn" href="/valorar/">Valorar mi colección gratis →</a><a class="btn ghost" href="/informe-muestra/">Ver una muestra del informe</a></p>
 </section>
