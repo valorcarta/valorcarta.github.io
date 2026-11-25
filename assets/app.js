@@ -103,7 +103,7 @@
 
   // Con la colección vacía no se enseña lo que no hace nada (compartir, CSV, vaciar, suscripción).
   function accionesColeccion(hay) {
-    for (const id of ['compartir', 'alcirculo', 'csv', 'vaciar']) {
+    for (const id of ['alcirculo', 'vaciar']) {
       const b = document.getElementById(id);
       if (b) b.hidden = !hay;
     }
