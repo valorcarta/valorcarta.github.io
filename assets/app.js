@@ -150,6 +150,28 @@
       ? `Últimos 30 días: <b class="${d >= 0 ? 'up' : 'down'}">${d >= 0 ? '+' : ''}${eur(d)} (${pct >= 0 ? '+' : ''}${pct.toFixed(1).replace('.', ',')}%)</b>`
       : '';
 
+    // Las tres cartas de su lista que más se han movido contra su propia media de 30 días.
+    const movidas = list
+      .map((it) => {
+        const row = MAP.get(it.s);
+        if (!row) return null;
+        const [, name, , price, avg30] = row;
+        if (!avg30 || !price || price < 5) return null;
+        return { name, price, avg30, pct: ((price - avg30) / avg30) * 100 };
+      })
+      .filter(Boolean)
+      .filter((m) => Math.abs(m.pct) <= 60)
+      .sort((a, b) => Math.abs(b.pct) - Math.abs(a.pct))
+      .slice(0, 3);
+    const caja = document.getElementById('mueven');
+    if (caja) {
+      caja.innerHTML = movidas.length
+        ? `<p class="muted small" style="margin:12px 0 6px">Las que más se han movido de tu lista</p>` +
+          movidas.map((m) => `<div class="mov-fila"><span>${m.name}</span><span class="mov-p">${eur(m.price)} · ${m.pct >= 0 ? '+' : ''}${m.pct.toFixed(1).replace('.', ',')} %</span></div>`).join('') +
+          `<p class="nota small" style="margin:8px 0 0">El resto de tu lista, con la decisión de cada carta, está en el <a href="/pagar/">informe</a>.</p>`
+        : '';
+    }
+
     box.querySelectorAll('.fila').forEach((el) => {
       const slug = el.dataset.slug;
       el.querySelector('input').addEventListener('change', (e) => {

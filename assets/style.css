@@ -1843,3 +1843,5 @@ footer a:hover{color:#f6d98a!important}
 /* [hidden] tiene que ganar a display:inline-block de los botones */
 [hidden]{display:none !important}
 .btn[hidden],button[hidden],a[hidden]{display:none !important}
+.mov-fila{display:flex;justify-content:space-between;gap:10px;font-size:.86rem;padding:6px 0;border-bottom:1px solid #eee7d9}
+.mov-fila .mov-p{color:#8a6400;font-variant-numeric:tabular-nums;white-space:nowrap;font-weight:700}
