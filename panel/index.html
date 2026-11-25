@@ -1,99 +1,22 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Panel de visitas | ValorCarta</title>
-<meta name="description" content="Visitas de los últimos 30 días.">
-<link rel="canonical" href="https://valorcarta.es/panel/">
-<script>/* 24-11: si alguien entra por *.github.io, se va al dominio propio.
-   Google indexaba el github.io y la web buena es valorcarta.es. */
-if (location.hostname.endsWith('github.io')) location.replace('https://valorcarta.es' + location.pathname + location.search + location.hash);</script>
-
-<meta name="robots" content="noindex,follow">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="ValorCarta">
-<meta property="og:locale" content="es_ES">
-<meta property="og:title" content="Panel de visitas | ValorCarta">
-<meta property="og:description" content="Visitas de los últimos 30 días.">
-<meta property="og:url" content="https://valorcarta.es/panel/">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<meta name="p:domain_verify" content="c1afa454d89ee36b16de2142c50827fb"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=b74b9cfc63a2cbb698ef5f0fd85eb2">
-<link rel="icon" href="/assets/icon.svg?v=b74b9cfc63a2cbb698ef5f0fd85eb2" type="image/svg+xml">
-
-</head>
-<body>
-<header class="top">
-  <a class="brand" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#14120f"/><rect x="9" y="6" width="14" height="20" rx="2.6" fill="none" stroke="#ffd75e" stroke-width="1.6"/><circle cx="16" cy="13" r="3.6" fill="none" stroke="#ffd75e" stroke-width="1.5"/><path d="M12.4 13h7.2" stroke="#ffd75e" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="13" r="0.9" fill="#ffd75e"/><path d="M12.6 21.4h6.8" stroke="#ffd75e" stroke-width="1.4" stroke-linecap="round" opacity=".65"/></svg><span class="wm">Valor<i>Carta</i></span></a>
-  <span class="figura" aria-hidden="true"><img id="figura-img" src="/assets/mascotas/fig1.svg" width="76" height="90" alt="Pokémon decorativo" decoding="async"></span>
-  <nav>
-    <div class="nav-desktop">
-      <details class="menu" name="nav-menu">
-        <summary>Cartas</summary>
-        <div class="menu-panel">
-          <a href="/cartas/"><span class="mi" style="--c:#ffcb05"></span>Todas las cartas</a>
-          <a href="/sets/"><span class="mi" style="--c:#ff9d5c"></span>Todos los sets</a>
-          <a href="/caras/"><span class="mi" style="--c:#35e0d0"></span>Las 100 más caras</a>
-          <a href="/mercado/"><span class="mi" style="--c:#b98cff"></span>Qué se mueve esta semana</a>
-        </div>
-      </details>
-      <details class="menu" name="nav-menu">
-        <summary>Herramientas</summary>
-        <div class="menu-panel">
-          <a href="/valorar-coleccion/"><span class="mi" style="--c:#ffcb05"></span>Valorar colección</a>
-          <a href="/alertas/"><span class="mi" style="--c:#35e0d0"></span>Alertas de precio</a>
-          <a href="/guardar-cartas/"><span class="mi" style="--c:#b98cff"></span>Guardar cartas</a>
-          <a href="/guias/"><span class="mi" style="--c:#ff9d5c"></span>Guías de compra</a>
-        </div>
-      </details>
-      <a href="/comprar/">Comprar</a>
-      <a href="/pagar/">Informe</a>
-      <a href="/productos/">Productos</a>
-      <a href="/valorar/" class="cta-mini">Valorar gratis</a>
-    </div>
-    <div class="nav-movil">
-      <details class="menu" name="nav-menu">
-        <summary>Menú</summary>
-        <div class="menu-panel">
-          <a href="/cartas/">Cartas</a>
-          <a href="/mercado/">Mercado</a>
-          <a href="/valorar/">Valorar gratis</a>
-          <a href="/comprar/">Comprar</a>
-          <a href="/productos/">Productos</a>
-          <a href="/pagar/">Informe ValorCarta</a>
-          <a href="/circulo/">Liga</a>
-        </div>
-      </details>
-    </div>
-  </nav>
-</header>
-<main>
-<h1>Visitas · últimos 30 días</h1>
-<p class="lede"><b>100</b> visitas desde — hasta —. Actualizado: 2026-11-25 18:28.</p>
-<div class="grafico"></div>
-<div class="dos-col">
-  <div><h2>Páginas</h2><table class="listado"><tbody><tr><td class="muted">Sin datos</td></tr></tbody></table></div>
-  <div><h2>De dónde vienen</h2><table class="listado"><tbody><tr><td class="muted">Sin datos</td></tr></tbody></table></div>
-</div></main>
-<footer>
-  <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
-  <p class="foot-links">
-    <a href="/indice/">Índice del mercado</a> · <a href="/datos/">Datos abiertos (CSV)</a> · <a href="/valorar-coleccion/">Valorar mi colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/productos/">Productos</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
-    <a href="/informe-muestra/">Informe de muestra</a> · <a href="/pagar/">Informe ValorCarta</a> · <a href="/contacto/">Contacto</a> · <a href="/circulo/">Liga</a> · <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
-  </p>
-  <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
-</footer>
-<script src="/assets/app.js?v=b74b9cfc63a2cbb698ef5f0fd85eb2" defer></script>
-
-<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
-<script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";
-fetch("https://abacus.jasoncameron.dev/hit/valorcarta/"+k,{mode:"cors",keepalive:true});
-fetch("https://abacus.jasoncameron.dev/hit/valorcarta/total",{mode:"cors",keepalive:true});}catch(e){}})();</script>
-</body>
-</html>
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Panel · ValorCarta</title>
+<style>
+body{margin:0;font:16px/1.5 "Inter",-apple-system,sans-serif;background:#f6f4ef;color:#14120f}
+#puerta{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#f6f4ef;z-index:99}
+#puerta .c{background:#fffdf9;border:1px solid #e7e1d6;border-radius:16px;padding:26px 28px;box-shadow:0 20px 50px rgba(20,18,15,.10);max-width:360px}
+#puerta h1{font-size:1.2rem;margin:0 0 6px}
+#puerta p{color:#6d675e;font-size:.86rem;margin:0 0 14px}
+#puerta input{width:100%;padding:12px;border:1px solid #ddd7c9;border-radius:10px;font:15px inherit;margin-bottom:10px}
+#puerta button{width:100%;padding:12px;border:0;border-radius:10px;background:#14120f;color:#fff;font:700 15px/1 inherit;cursor:pointer}
+#puerta .e{color:#b3402f;font-size:.8rem;margin-top:8px;display:none}
+</style></head><body>
+<div id="puerta"><div class="c"><h1>Panel interno</h1><p>Esto es el registro en crudo. Clave:</p>
+<input id="k" type="password" placeholder="Clave" onkeydown="if(event.key==='Enter')abrir()">
+<button onclick="abrir()">Entrar</button><div class="e" id="e">No es esa.</div></div></div>
+<iframe id="cuerpo" style="display:none;border:0;width:100%;height:100vh" src="registro/panel.html"></iframe>
+<script>
+function abrir(){var k=document.getElementById('k').value.trim();
+ if(k==='valorcarta2026'){document.getElementById('puerta').style.display='none';document.getElementById('cuerpo').style.display='block';}
+ else{document.getElementById('e').style.display='block';}}
+</script></body></html>
