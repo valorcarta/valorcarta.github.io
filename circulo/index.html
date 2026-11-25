@@ -1,181 +1,130 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8">
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>El Círculo · ValorCarta</title>
-<meta name="description" content="El Círculo es el seguimiento de tu colección de cartas Pokémon: el precio al que se venden de verdad en España, no el que se anuncia.">
-<style>
-:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e}
-*{box-sizing:border-box}
-body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.w{max-width:860px;margin:0 auto;padding:34px 20px 80px}
-.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
-h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(2.1rem,6vw,3.4rem);margin:12px 0 8px;line-height:1.02}
-h2{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.02em;font-size:clamp(1.3rem,3vw,1.8rem);margin:54px 0 10px}
-p{color:#2c2822}
-.lead{font-size:1.12rem;max-width:38ch}
-.btn{display:inline-block;background:var(--tinta);color:#fff;border-radius:12px;padding:15px 22px;font:600 15px/1 inherit;text-decoration:none;margin-top:18px}
-.btn.gold{background:var(--oro);color:var(--tinta)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-top:18px}
-.card{background:#fffdf9;border:1px solid #e7e1d6;border-radius:16px;padding:16px 18px;box-shadow:0 1px 2px rgba(20,18,15,.05),0 10px 26px rgba(20,18,15,.05)}
-.card b{display:block;margin-bottom:4px}
-.card small{color:var(--gris)}
-.shot{border:1px solid #e7e1d6;border-radius:18px;overflow:hidden;margin-top:14px;box-shadow:0 18px 44px rgba(20,18,15,.10)}
-.shot img{display:block;width:100%;height:auto}
-.faq b{display:block;margin-top:16px}
-.faq p{margin:4px 0 0;color:#3a352c}
-.anti{border-left:3px solid var(--oro);padding:6px 0 6px 16px;color:#3a352c;margin-top:22px}
-.pend{background:#fff8e6;border:1px solid #efdfae;border-radius:14px;padding:16px 18px;margin-top:16px;color:#5a4a12}
-footer{margin-top:60px;color:var(--gris);font-size:.82rem}
-.barra{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 20px;
-  padding:10px 14px 10px 18px;background:#fffdf9;border:1px solid #e7e1d6;border-radius:999px;
-  box-shadow:0 1px 2px rgba(20,18,15,.05)}
-.barra a{color:#4a443a;text-decoration:none;font-size:.9rem;padding:8px 10px;border-radius:999px}
-.barra a:hover{background:#f4efe4;color:#14120f}
-.barra .marca{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.02em;font-size:1.02rem;color:#14120f;padding-left:0}
-.barra .marca span{color:#d9a300}
-.barra>span{display:flex;gap:2px;flex-wrap:wrap}
-.hero{background:#14120f;color:#f6f4ef;border-radius:24px;padding:42px 40px 34px;margin:0 0 10px;
-  box-shadow:0 30px 70px -30px rgba(20,18,15,.55),inset 0 1px 0 rgba(255,255,255,.06)}
-.hero .s{color:#e6b84a}
-.hero h1{color:#fff;max-width:20ch;margin-top:10px}
-.hero .lead{color:#d9d3c7;max-width:54ch}
-.hero .precio{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:2.1rem;margin:24px 0 4px;color:#fff}
-.hero .precio small{font-family:"Inter",sans-serif;font-size:.86rem;font-weight:500;color:#b9b3a7}
-.hero .btn{background:#e6b84a;color:#241a00;font-weight:750;border-radius:999px;padding:15px 26px;margin-top:14px}
-.hero .nota{color:#b9b3a7;font-size:.85rem;margin:14px 0 0}
-.hero .nota a{color:#e6b84a}
-.grid.dos{grid-template-columns:repeat(2,1fr)}
-@media(max-width:760px){.grid.dos{grid-template-columns:1fr}.hero{padding:28px 22px 24px;border-radius:18px}}
-</style></head><body><div class="w">
-<nav class="barra"><a class="marca" href="/">Valor<span>Carta</span></a>
-  <span><a href="/mercado/">Mercado</a><a href="/valorar/">Valorar gratis</a><a href="/pagar/" data-funnel="circulo-nav">Entrar</a></span></nav>
-<section class="hero">
-  <p class="s">El Círculo · 9 €/mes</p>
-  <h1>Tu colección, con el precio de hoy y su fecha.</h1>
-  <p class="lead">La referencia de Cardmarket de cada carta con su media de 30 días, dicha con la versión y el día.
-    Si no hay dato, se dice «sin referencia»: nunca se rellena el hueco con un número bonito.</p>
-  <p class="precio">9 €/mes <small>· IVA incluido · sin permanencia</small></p>
-  <a class="btn gold" href="/pagar/" data-funnel="circulo-portada">Entrar en El Círculo</a>
-  <p class="nota">Antes de pagar, el valorador es gratis y sin registro: <a href="/valorar/">20 cartas, aquí</a>.</p>
+<title>Liga ValorCarta · liga gratis de precios Pokémon por provincias</title>
+<meta name="description" content="Liga gratis de precios de cartas Pokémon por provincias: cada semana 3 cartas, aciertas si suben o bajan y compites por ser el campeón de tu provincia. Sin cuotas y sin apuestas de dinero.">
+<link rel="canonical" href="https://valorcarta.es/circulo/">
+<script>/* 24-11: si alguien entra por *.github.io, se va al dominio propio.
+   Google indexaba el github.io y la web buena es valorcarta.es. */
+if (location.hostname.endsWith('github.io')) location.replace('https://valorcarta.es' + location.pathname + location.search + location.hash);</script>
+
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ValorCarta">
+<meta property="og:locale" content="es_ES">
+<meta property="og:title" content="Liga ValorCarta · liga gratis de precios Pokémon por provincias | ValorCarta">
+<meta property="og:description" content="Liga gratis de precios de cartas Pokémon por provincias: cada semana 3 cartas, aciertas si suben o bajan y compites por ser el campeón de tu provincia. Sin cuotas y sin apuestas de dinero.">
+<meta property="og:url" content="https://valorcarta.es/circulo/">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="p:domain_verify" content="c1afa454d89ee36b16de2142c50827fb"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/style.css?v=7cdbfb3a02eff30272385f0fd85eb2">
+<link rel="icon" href="/assets/icon.svg?v=7cdbfb3a02eff30272385f0fd85eb2" type="image/svg+xml">
+
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/"><svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false"><rect width="32" height="32" rx="9" fill="#14120f"/><rect x="9" y="6" width="14" height="20" rx="2.6" fill="none" stroke="#ffd75e" stroke-width="1.6"/><circle cx="16" cy="13" r="3.6" fill="none" stroke="#ffd75e" stroke-width="1.5"/><path d="M12.4 13h7.2" stroke="#ffd75e" stroke-width="1.5" stroke-linecap="round"/><circle cx="16" cy="13" r="0.9" fill="#ffd75e"/><path d="M12.6 21.4h6.8" stroke="#ffd75e" stroke-width="1.4" stroke-linecap="round" opacity=".65"/></svg><span class="wm">Valor<i>Carta</i></span></a>
+  <span class="figura" aria-hidden="true"><img id="figura-img" src="/assets/mascotas/fig1.svg" width="76" height="90" alt="Pokémon decorativo" decoding="async"></span>
+  <nav>
+    <div class="nav-desktop">
+      <details class="menu" name="nav-menu">
+        <summary>Cartas</summary>
+        <div class="menu-panel">
+          <a href="/cartas/"><span class="mi" style="--c:#ffcb05"></span>Todas las cartas</a>
+          <a href="/sets/"><span class="mi" style="--c:#ff9d5c"></span>Todos los sets</a>
+          <a href="/caras/"><span class="mi" style="--c:#35e0d0"></span>Las 100 más caras</a>
+          <a href="/mercado/"><span class="mi" style="--c:#b98cff"></span>Qué se mueve esta semana</a>
+        </div>
+      </details>
+      <details class="menu" name="nav-menu">
+        <summary>Herramientas</summary>
+        <div class="menu-panel">
+          <a href="/valorar-coleccion/"><span class="mi" style="--c:#ffcb05"></span>Valorar colección</a>
+          <a href="/alertas/"><span class="mi" style="--c:#35e0d0"></span>Alertas de precio</a>
+          <a href="/guardar-cartas/"><span class="mi" style="--c:#b98cff"></span>Guardar cartas</a>
+          <a href="/guias/"><span class="mi" style="--c:#ff9d5c"></span>Guías de compra</a>
+        </div>
+      </details>
+      <a href="/comprar/">Comprar</a>
+      <a href="/pagar/">Informe</a>
+      <a href="/productos/">Productos</a>
+      <a href="/valorar/" class="cta-mini">Valorar gratis</a>
+    </div>
+    <div class="nav-movil">
+      <details class="menu" name="nav-menu">
+        <summary>Menú</summary>
+        <div class="menu-panel">
+          <a href="/cartas/">Cartas</a>
+          <a href="/mercado/">Mercado</a>
+          <a href="/valorar/">Valorar gratis</a>
+          <a href="/comprar/">Comprar</a>
+          <a href="/productos/">Productos</a>
+          <a href="/pagar/">Informe ValorCarta</a>
+          <a href="/circulo/">Liga</a>
+        </div>
+      </details>
+    </div>
+  </nav>
+</header>
+<main>
+<h1>La liga gratis de precios Pokémon por provincias</h1>
+<p class="lede">La Liga ValorCarta es un club gratis: juegas por tu provincia, sumas puntos acertando qué cartas suben o bajan
+y compites por ser el campeón de la tuya. Primera temporada gratis, sin cuotas y sin apuestas de dinero.</p>
+<div class="grid planes">
+  <div class="plan">
+    <h2>Cómo se jugará</h2>
+    <ul>
+      <li>Cada lunes se publican 3 cartas del radar de precios.</li>
+      <li>Dices si suben o bajan en 7 días.</li>
+      <li>El lunes siguiente el marcador se calcula con la serie diaria de precios de ValorCarta.</li>
+      <li>Puntos: 10 por acertar carta y dirección, 5 por acertar la dirección, 1 por participar.</li>
+    </ul>
+  </div>
+  <div class="plan destacado">
+    <h2>Tu provincia</h2>
+    <p>El campeonato provincial se decide por la <b>media</b> de puntos, no por la suma: así una provincia
+    pequeña puede ganar a Madrid o Barcelona.</p>
+    <ul>
+      <li>Ranking por puntos de la temporada</li>
+      <li>Campeón de cada provincia por la media</li>
+      <li>Cierre de mes con ascensos y descensos</li>
+      <li>Gratis para los 30 primeros</li>
+    </ul>
+  </div>
+</div>
+<section class="bloque">
+  <h2>Apúntate (gratis)</h2>
+  <p>Escríbeme con tu alias, tu provincia y un email. Cuando haya 10 personas en tu provincia, tu liga arranca.
+  Sin tarjeta, sin registro y sin apuestas.</p>
+  <p><a class="btn" href="mailto:valorcartaalertas@gmail.com?subject=Alta%20en%20la%20Liga%20ValorCarta&amp;body=Alias%3A%0AProvincia%3A%0AEmail%3A%0A%0AQuiero%20jugar%20la%20temporada%201%20gratis.">Apuntarme por correo</a></p>
+  <p class="nota small">Guardo solo alias, provincia y email para el ranking y para avisarte del arranque.
+  Baja con un correo. Nada de esto se usa para otra cosa.</p>
 </section>
+<section class="bloque">
+  <h2>Qué NO es esto</h2>
+  <p>No es una apuesta ni una promesa de revalorización. Los puntos salen del precio real de la serie diaria
+  de ValorCarta, no de votos ni de una bola de cristal. Si algo no tiene datos, lo decimos.</p>
+</section></main>
+<footer>
+  <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
+  <p class="foot-links">
+    <a href="/indice/">Índice del mercado</a> · <a href="/datos/">Datos abiertos (CSV)</a> · <a href="/valorar-coleccion/">Valorar mi colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/productos/">Productos</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
+    <a href="/informe-muestra/">Informe de muestra</a> · <a href="/pagar/">Informe ValorCarta</a> · <a href="/contacto/">Contacto</a> · <a href="/circulo/">Liga</a> · <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
+  </p>
+  <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
+</footer>
+<script src="/assets/app.js?v=7cdbfb3a02eff30272385f0fd85eb2" defer></script>
 
-<h2>Por dentro</h2>
-<p>Esto es lo que ves cuando pegas tu lista: la cifra, la fecha y el detalle carta a carta.</p>
-<div class="shot"><img src="/img/circulo-demo.png" alt="Valorador de colección con el total del día y la fecha del precio"></div>
-
-<h2>Cómo funciona</h2>
-<div class="grid dos">
-  <div class="card"><b>Causa, no humo</b><small>Cada cifra sale de un precio registrado. Si no hay referencia, se dice: «sin referencia».</small></div>
-  <div class="card"><b>Con fecha</b><small>Todo número lleva su día al lado. Un precio sin fecha no es un dato, es una opinión.</small></div>
-  <div class="card"><b>Al día</b><small>Se recalcula cada madrugada. Si tu carta se mueve, lo ves al entrar.</small></div>
-  <div class="card"><b>Tuya</b><small>Tu colección se guarda en un enlace. Sin instalar nada y exportable siempre.</small></div>
-</div>
-
-<h2>Lo que ha pasado este mes</h2>
-<p>Tres cifras medidas sobre nuestro propio catálogo, con su fecha. No son promesas: son lo que ha hecho el mercado en 22 días.</p>
-<div class="grid">
-  <div class="card"><b>29,4 %</b><small>de las cartas con precio real han caído más de un 10 % en 30 días.</small></div>
-  <div class="card"><b>8.222</b><small>cartas con precio real ahora mismo (de 10.648 del catálogo).</small></div>
-  <div class="card"><b>126.438 €</b><small>vale el catálogo entero con los precios de hoy.</small></div>
-</div>
-
-<h2>Un caso, con la trampa incluida</h2>
-<p>La misma carta puede tener cuatro versiones y cuatro precios. Por eso siempre decimos versión y fecha, y cuando un dato no es fiable, no lo damos.</p>
-<div class="grid">
-  <div class="card"><b>Gengar</b><small>128,47 € → 9,57 € en 22 días (−92,6 %). Ese salto casi nunca es el mercado: es un cambio de versión o de estado. Lo marcamos como «sin referencia» antes que publicarlo.</small></div>
-  <div class="card"><b>Ho-Oh Luminoso</b><small>27,97 € → 122,85 € (+339 %). Subida real de referencia, con fecha. Si te la ofrecen a 60, ya sabes qué está pasando.</small></div>
-</div>
-
-<h2>Quién está detrás</h2>
-<p>Soy Carles, y empecé esto porque no encontraba en España un sitio que dijera <b>a cuánto se vende</b> una carta, solo a cuánto se anuncia. No hay equipo, ni curso, ni señales: hay un catálogo que se recalcula cada noche y una regla que no rompo — si el dato no está, se dice.</p>
-
-<h2>Lo que te dicen, y lo que hay</h2>
-<p>Esto es lo que le pasa a casi todo el que vende cartas en España. Siempre es lo mismo: poca información y mucha prisa por parte del que compra.</p>
-<style>
-  .duelo{display:grid;gap:10px;margin:18px 0 0}
-  .par{display:grid;grid-template-columns:1fr 1.25fr;gap:10px}
-  @media(max-width:760px){.par{grid-template-columns:1fr}}
-  .par>div{border-radius:14px;padding:14px 16px}
-  .dicen{background:#efece5;color:#5a554c;border:1px solid #e2ddd2}
-  .hay{background:#fffdf9;border:1px solid #e7e1d6}
-  .par .k{display:block;font:600 9px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;opacity:.6;margin-bottom:6px}
-  .par p{margin:0;font-size:.95rem;line-height:1.4}
-  .hay p b{font-weight:700}
-</style>
-<div class="duelo">
-  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Esa carta está a 120 €»</p></div>
-  <div class="hay"><span class="k">Lo que hay</span><p>120 € es el anuncio. Los cierres de esa misma carta están <b>entre 74 y 82 €</b>. El anuncio lleva meses sin venderse.</p></div></div>
-  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Es la misma carta, da igual la versión»</p></div>
-  <div class="hay"><span class="k">Lo que hay</span><p>Cuatro versiones, cuatro precios. Te decimos <b>cuál es la tuya</b> y qué se ha pagado por ella, no por la más cara.</p></div></div>
-  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Está rayada, no vale nada»</p></div>
-  <div class="hay"><span class="k">Lo que hay</span><p>El estado ajusta el precio, no lo borra. Con la versión y una foto se ve <b>cuánto baja de verdad</b>.</p></div></div>
-  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Te la dejo en 40, es lo que hay»</p></div>
-  <div class="hay"><span class="k">Lo que hay</span><p>El último cierre público fue <b>95 €</b>. Te faltan 55 y no te están diciendo por qué.</p></div></div>
-  <div class="par"><div class="dicen"><span class="k">Te dicen</span><p>«Entre 80 y 200, según»</p></div>
-  <div class="hay"><span class="k">Lo que hay</span><p>Un rango sin fecha ni estado no es un dato. Nosotros damos <b>versión, estado, fecha y precio de cierre</b>. Y cuando no hay dato, lo decimos.</p></div></div>
-</div>
-<p style="margin-top:18px;color:#3a352c">No tenemos todas las respuestas. Tenemos el detalle, la fecha y la manía de no rellenar los huecos con una cifra que suene bien.</p>
-
-<h2>Qué incluye</h2>
-<div class="grid">
-  <div class="card"><b>Seguimiento diario</b><small>Tu colección, actualizada cada día.</small></div>
-  <div class="card"><b>Histórico</b><small>Lo que valía antes, no solo hoy.</small></div>
-  <div class="card"><b>Avisos</b><small>Cuando algo tuyo baja de verdad.</small></div>
-  <div class="card"><b>Informe</b><small>PDF con fecha para vender o asegurar.</small></div>
-</div>
-
-<h2>Casos reales</h2>
-<div class="pend"><b>Todavía no hay ninguno publicado, y no me lo voy a inventar.</b><br>
-Estamos recogiendo las primeras ventas verificadas con su recibo. Cuando haya tres, se publican aquí con nombre, carta, precio de anuncio y precio de cierre.</div>
-
-<h2>De dónde sale cada cosa</h2>
-<style>
-  .fuentes{display:grid;gap:10px;margin:16px 0 0}
-  .fuentes .f{background:#fffdf9;border:1px solid #e7e1d6;border-radius:14px;padding:14px 16px}
-  .fuentes .f b{display:block;margin-bottom:3px}
-  .fuentes .f span{font-size:.88rem;color:#5a554c}
-  .fuentes a{color:#8a6400}
-</style>
-<div class="fuentes">
-  <div class="f"><b>Los precios</b><span>Referencia de Cardmarket leída por la API pública de TCGdex (<a href="https://api.tcgdex.net/v2/es" rel="noopener" target="_blank">api.tcgdex.net</a>), recalculada cada día. La fecha va impresa al lado de cada cifra. No pedimos nada a Cardmarket directamente.</span></div>
-  <div class="f"><b>El mercado miente</b><span>En 2025 se interceptaron más de 200 M$ en cartas falsas; el 56,3 % de todas las falsificaciones fueron de Pokémon (<a href="https://www.si.com/collectibles/psa-report-reveals-200m-fake-cards" rel="noopener" target="_blank">informe de PSA</a>).</span></div>
-  <div class="f"><b>En España se paga</b><span>La OCU recoge reclamaciones de cajas japonesas abiertas para sacar los «hits» y de cartas falsas vendidas como originales (<a href="https://www.ocu.org/reclamar/lista-reclamaciones-publicas/he-sido-timado-al-comprar-en-w/4fb351f16e6d26ef37" rel="noopener" target="_blank">reclamaciones públicas</a>).</span></div>
-  <div class="f"><b>Nuestros cierres</b><span>Los que nos mandan tiendas y particulares, con prueba. Hoy son cero, y por eso no publicamos ninguno: <b>si no hay dato, se dice</b>.</span></div>
-</div>
-
-<h2>Nuestro compromiso</h2>
-<style>
-  .comp{display:grid;gap:10px;margin:16px 0 0}
-  .comp .c{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;
-    background:#fffdf9;border:1px solid #e7e1d6;border-radius:14px;padding:14px 16px}
-  .comp .n{font:700 12px/1.4 ui-monospace,monospace;color:#8a6400}
-  .comp p{margin:0;font-size:.95rem;line-height:1.45}
-</style>
-<div class="comp">
-  <div class="c"><span class="n">01</span><p><b>El precio de hoy de cualquier carta es gratis y sin registro.</b> No cobramos por lo que ya es público.</p></div>
-  <div class="c"><span class="n">02</span><p><b>Si no hay dato, se dice.</b> «Sin referencia» antes que un número que suene bien.</p></div>
-  <div class="c"><span class="n">03</span><p><b>Tus datos se exportan y se borran cuando quieras.</b> Nunca se retienen para que no puedas irte.</p></div>
-  <div class="c"><span class="n">04</span><p><b>No hay urgencias inventadas.</b> Los plazos que damos son los que son, y no se reinician.</p></div>
-  <div class="c"><span class="n">05</span><p><b>Decides tú.</b> Esto es información para que no te la cuelen; si no te sirve, te vas y no pasa nada.</p></div>
-</div>
-
-<h2>Preguntas</h2>
-<div class="faq">
-  <b>¿En qué se diferencia de Cardmarket?</b>
-  <p>En que allí ves lo que piden y aquí el precio de referencia con su fecha; y cuando hay venta registrada, lo que se pagó. Si no hay dato, se dice en vez de rellenar el hueco.</p>
-  <b>¿Esto me hace rico?</b>
-  <p>No. Es un registro de precios. Sirve para no vender a ciegas, no para adivinar el futuro.</p>
-  <b>¿Por qué cobráis?</b>
-  <p>Porque mantener 8.222 cartas cruzadas cada día cuesta trabajo. El precio de hoy de cualquier carta sigue siendo gratis.</p>
-  <b>¿Puedo irme?</b>
-  <p>Sí, en un clic, y tus datos se exportan. Lo que no puedo prometer es que tu seguimiento siga vivo sin pagar.</p>
-</div>
-
-<p class="anti">Una cosa honesta antes de entrar: esto no es una app para hacerse rico. Es un registro serio de lo que se paga por tus cartas.</p>
-
-<h2>Entrar</h2>
-<p>9 € al mes · 79 € al año · precio de lanzamiento hasta el 19 de diciembre.</p>
-<a class="btn" href="/pagar/" data-funnel="circulo-cierre">Entrar · desde 9 €/mes</a>
-<p style="margin-top:10px;font-size:.85rem;color:#6d675e">O <a href="/contacto/">al año, 79 €</a> · <a href="/contacto/">tiendas, 29 €/mes</a></p>
-<p style="margin-top:18px;font-size:.88rem;color:#6d675e">¿Has vendido una carta? <a href="/registra-venta/">Registra la venta</a> y ayúdanos a que el próximo precio deje de ser un anuncio.</p>
-<footer>ValorCarta · precios de referencia a partir del catálogo propio. Las cifras son de mercado, no una tasación: el estado decide el precio final.</footer>
-</div></body></html>
+<script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+<script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";
+fetch("https://abacus.jasoncameron.dev/hit/valorcarta/"+k,{mode:"cors",keepalive:true});
+fetch("https://abacus.jasoncameron.dev/hit/valorcarta/total",{mode:"cors",keepalive:true});}catch(e){}})();</script>
+</body>
+</html>
