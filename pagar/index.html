@@ -1,43 +1,131 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Entrar en El Círculo · ValorCarta</title>
-<meta name="robots" content="noindex,follow">
+<title>Informe ValorCarta · compra y vende con el dato delante</title>
+<meta name="description" content="El diagnóstico de tus cartas: si están caras o baratas, su media y mínimo de 30 días y cuándo comprar o vender. 9 €/mes o 79 €/año. El precio de hoy de cualquier carta sigue gratis.">
+<link rel="canonical" href="https://valorcarta.es/pagar/">
 <style>
-:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e}
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e;--linea:#e7e1d6;--blanco:#fffdf9}
 *{box-sizing:border-box}
-body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-.w{max-width:880px;margin:0 auto;padding:44px 22px 80px}
-.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
-h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(1.9rem,4.6vw,2.8rem);margin:12px 0 8px;line-height:1.03}
-.sub{color:var(--gris);max-width:44ch;margin:0 0 26px}
-.planes{display:grid;gap:12px}
-.p{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;background:#fffdf9;border:1px solid #e7e1d6;
-  border-radius:18px;padding:20px 22px;box-shadow:0 1px 2px rgba(20,18,15,.05),0 12px 30px rgba(20,18,15,.06)}
-.p.best{border-color:var(--oro);box-shadow:0 0 0 3px rgba(217,163,0,.14),0 12px 30px rgba(20,18,15,.06)}
-.p h2{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.02em;font-size:1.3rem;margin:0 0 4px}
-.p p{margin:0;color:var(--gris);font-size:.9rem}
-.precio{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:-.03em;white-space:nowrap}
-.btn{display:inline-block;background:var(--tinta);color:#fff;border-radius:12px;padding:13px 20px;font:700 14px/1 inherit;text-decoration:none;margin-top:8px}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+a{color:inherit}
+.w{max-width:880px;margin:0 auto;padding:0 22px}
+header{border-bottom:1px solid var(--linea)}
+header .w{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;letter-spacing:-.02em;font-size:1.05rem;text-decoration:none}
+.logo i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--oro);margin-right:9px;vertical-align:middle}
+header a.volver{color:var(--gris);font-size:.9rem;text-decoration:none}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400;margin:34px 0 0}
+h1{font-family:"Inter Tight",-apple-system,sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(1.9rem,4.6vw,2.9rem);margin:12px 0 10px;line-height:1.02;max-width:20ch}
+.sub{color:#3d3831;max-width:52ch;margin:0 0 22px;font-size:1.06rem}
+.libre{background:#fff8e6;border:1px solid #e7d9b0;padding:10px 14px;border-radius:10px;font-size:.9rem;margin:0 0 26px}
+.libre b{font-weight:700}
+h2{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:1.25rem;letter-spacing:-.02em;margin:34px 0 12px}
+.dentro{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.dentro li{background:var(--blanco);border:1px solid var(--linea);border-radius:14px;padding:14px 16px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 2px rgba(20,18,15,.05),0 8px 20px rgba(20,18,15,.05)}
+.dentro b{display:block;font-size:.98rem}
+.dentro span{color:var(--gris);font-size:.9rem}
+.planes{display:grid;gap:12px;margin-top:8px}
+.p{display:grid;grid-template-columns:1fr auto;align-items:center;gap:16px;background:var(--blanco);border:1px solid var(--linea);
+  border-radius:18px;padding:18px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 2px rgba(20,18,15,.05),0 12px 30px rgba(20,18,15,.06)}
+.p.best{border-color:var(--oro);box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 0 0 3px rgba(217,163,0,.14),0 12px 30px rgba(20,18,15,.06)}
+.p h3{font-family:"Inter Tight",sans-serif;font-size:1.1rem;margin:0 0 3px;letter-spacing:-.02em}
+.p p{margin:0;color:var(--gris);font-size:.88rem}
+.precio{font-family:"Inter Tight",sans-serif;font-weight:800;font-size:1.35rem;letter-spacing:-.03em;white-space:nowrap;text-align:right}
+.precio small{display:block;font-weight:500;font-size:.72rem;color:var(--gris);letter-spacing:0}
+.btn{display:inline-block;background:var(--tinta);color:#fff;border-radius:12px;padding:13px 20px;font:700 14px/1 inherit;text-decoration:none;margin-top:8px;border:0;cursor:pointer}
 .btn.oro{background:var(--oro);color:var(--tinta)}
-.fino{color:var(--gris);font-size:.82rem;margin-top:24px}
-</style></head><body><div class="w">
-<p class="s">ValorCarta · El Círculo</p>
-<p style='background:#fff8e6;border:1px solid #e7d9b0;padding:10px 14px;border-radius:10px;font-size:.9rem'>El cobro todavía no está abierto: déjanos tu correo en <a href='/contacto/'>contacto</a> y te aviso el día que abra. El precio de hoy de cualquier carta sigue gratis.</p>
-<h1>Elige cómo entras</h1>
-<p class="sub">Cobro con Stripe. Puedes cancelar cuando quieras y tus datos se exportan siempre.</p>
-<div class="planes">
-  <div class="p best">
-    <div><h2>Mensual</h2><p>Seguimiento diario, histórico completo y alertas ilimitadas.</p></div>
-    <div style="text-align:right"><div class="precio">9 €/mes</div><a class="btn" href="/contacto/">Avísame</a></div>
+form.alta{background:var(--blanco);border:1px solid var(--linea);border-radius:18px;padding:18px 20px;margin-top:22px;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 1px 2px rgba(20,18,15,.05),0 12px 30px rgba(20,18,15,.06)}
+form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px}
+.fila{display:flex;gap:10px;flex-wrap:wrap}
+.fila input{flex:1 1 240px;border:1px solid #d7d0c0;border-radius:12px;padding:13px 14px;font:16px/1 inherit;background:#fff;color:var(--tinta)}
+.fila button{flex:0 0 auto}
+.aviso{color:var(--gris);font-size:.82rem;margin:10px 0 0}
+.ok{color:#1d6b3a;font-weight:700;margin:10px 0 0}
+.fino{color:var(--gris);font-size:.82rem;margin-top:26px;border-top:1px solid var(--linea);padding-top:16px}
+.fino a{color:var(--tinta)}
+</style></head><body>
+<header><div class="w">
+  <a class="logo" href="/"><i></i>ValorCarta</a>
+  <a class="volver" href="/informe-muestra/">Ver una muestra gratis →</a>
+</div></header>
+<div class="w">
+  <p class="s">ValorCarta · Informe ValorCarta</p>
+  <h1>Compra y vende con el dato delante.</h1>
+  <p class="sub">El diagnóstico de tus cartas: si están caras o baratas, cuánto se han movido y cuándo conviene comprar o vender. Con la fecha de cada precio.</p>
+
+  <p class="libre"><b>El precio de hoy de cualquier carta es gratis</b> y seguirá siéndolo. El informe no cierra nada de eso: añade la decisión.</p>
+
+  <h2>Qué te da el informe</h2>
+  <ul class="dentro">
+    <li><b>¿Está cara o barata?</b><span>Cada carta contra su media y su mínimo de los últimos 30 días.</span></li>
+    <li><b>El movimiento, no la foto</b><span>Qué ha subido y qué ha bajado en 7 y 30 días, con la fecha del dato.</span></li>
+    <li><b>Comprar al precio bueno</b><span>El techo que no conviene pagar por esa carta, versión e idioma incluidos.</span></li>
+    <li><b>Vender sin regalar</b><span>El mínimo por el que no tiene sentido soltarla.</span></li>
+    <li><b>Aviso cuando cambie</b><span>Si tu carta se mueve, te llega el aviso: no la sorpresa.</span></li>
+  </ul>
+
+  <h2>Precio</h2>
+  <div class="planes">
+    <div class="p best">
+      <div><h3>Colección</h3><p>Tu colección guardada, el diagnóstico de cada carta y los avisos.</p></div>
+      <div><div class="precio">9 €/mes<small>o 79 €/año · dos meses gratis</small></div></div>
+    </div>
+    <div class="p">
+      <div><h3>Tiendas</h3><p>Lotes, stock y el precio de cierre para el escaparate.</p></div>
+      <div><div class="precio">29 €/mes<small>factura y API</small></div></div>
+    </div>
   </div>
-  <div class="p">
-    <div><h2>Anual</h2><p>Todo lo del mensual, dos meses gratis y el informe firmado.</p></div>
-    <div style="text-align:right"><div class="precio">79 €/año</div><a class="btn" href="/contacto/">Avísame</a></div>
-  </div>
-  <div class="p">
-    <div><h2>Tiendas</h2><p>API, lotes y precio de cierre para tu stock.</p></div>
-    <div style="text-align:right"><div class="precio">29 €/mes</div><a class="btn" href="/contacto/">Avísame</a></div>
-  </div>
+
+  <form class="alta" id="alta-informe" novalidate>
+    <label for="alta-email">Avísame el día que abra el cobro</label>
+    <div class="fila">
+      <input id="alta-email" type="email" name="email" placeholder="tu correo" autocomplete="email" required>
+      <button class="btn oro" type="submit">Avísame</button>
+    </div>
+    <p class="aviso">El cobro abre el 19 de diciembre. Te escribo ese día, una vez, y nada más. Sin tarjeta hoy y sin cobro automático.</p>
+    <p class="ok" id="alta-ok" hidden>Apuntado. Te escribo el día que abra, y solo ese día.</p>
+  </form>
+
+  <p class="fino">
+    El informe es información, no una tasación: no garantiza precios futuros y no compra ni vende cartas.
+    Mientras no haya un cierre registrado en España para una carta, el informe lo dice y usa la referencia de
+    Cardmarket con su fecha. <a href="/informe-muestra/">Ver una muestra</a> · <a href="/valorar/">Valorar mi colección gratis</a> ·
+    <a href="/aviso-legal/">Aviso legal</a>.
+  </p>
 </div>
-<p class="fino">Precio de lanzamiento hasta el 19 de diciembre. El precio de hoy de cualquier carta sigue siendo gratis para todos.</p>
-</div></body></html>
+<script>
+(() => {
+  const f = document.getElementById('alta-informe');
+  if (!f) return;
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (f.querySelector('#alta-email').value || '').trim();
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) { f.querySelector('#alta-email').focus(); return; }
+    const b = f.querySelector('button');
+    b.disabled = true;
+    try {
+      const r = await fetch('https://formspree.io/f/xdegdajy', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          email,
+          _subject: 'Alta en el Informe ValorCarta',
+          _autoresponse: ['Apuntado al Informe ValorCarta.', '', 'El cobro abre el 19 de diciembre y ese día te escribo una vez. Mientras tanto, el precio de hoy de cualquier carta sigue gratis en valorcarta.es.', '', '— ValorCarta'].join('\n'),
+          origen: location.pathname,
+          fecha: new Date().toISOString(),
+        }),
+      });
+      if (!r.ok) throw new Error('no');
+      f.querySelector('.fila').hidden = true;
+      f.querySelector('#alta-ok').hidden = false;
+    } catch (err) {
+      b.disabled = false;
+      b.textContent = 'No ha ido; prueba otra vez';
+    }
+  });
+})();
+</script>
+</body></html>

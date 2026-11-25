@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>El Círculo · avisos, colección y venta real | ValorCarta</title>
-<meta name="description" content="Lo que Cardmarket no te da: aviso cuando tu carta baja, evolución de tu colección, precio de venta real en España y detección de falsas. 4 €/mes, sin permanencia.">
+<title>Informe ValorCarta · el diagnóstico de compra y venta</title>
+<meta name="description" content="El diagnóstico de tus cartas: si están caras o baratas, su media y mínimo de 30 días y cuándo comprar o vender. 9 €/mes o 79 €/año. Muestra gratis.">
 <link rel="canonical" href="https://valorcarta.es/premium/">
 <script>/* 24-11: si alguien entra por *.github.io, se va al dominio propio.
    Google indexaba el github.io y la web buena es valorcarta.es. */
@@ -14,8 +14,8 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ValorCarta">
 <meta property="og:locale" content="es_ES">
-<meta property="og:title" content="El Círculo · avisos, colección y venta real | ValorCarta">
-<meta property="og:description" content="Lo que Cardmarket no te da: aviso cuando tu carta baja, evolución de tu colección, precio de venta real en España y detección de falsas. 4 €/mes, sin permanencia.">
+<meta property="og:title" content="Informe ValorCarta · el diagnóstico de compra y venta | ValorCarta">
+<meta property="og:description" content="El diagnóstico de tus cartas: si están caras o baratas, su media y mínimo de 30 días y cuándo comprar o vender. 9 €/mes o 79 €/año. Muestra gratis.">
 <meta property="og:url" content="https://valorcarta.es/premium/">
 
 <meta name="twitter:card" content="summary_large_image">
@@ -53,7 +53,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
         </div>
       </details>
       <a href="/comprar/">Comprar</a>
-      <a href="/circulo/">El Círculo</a>
+      <a href="/pagar/">Informe</a>
       <a href="/productos/">Productos</a>
       <a href="/valorar/" class="cta-mini">Valorar gratis</a>
     </div>
@@ -66,6 +66,8 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
           <a href="/valorar/">Valorar gratis</a>
           <a href="/comprar/">Comprar</a>
           <a href="/productos/">Productos</a>
+          <a href="/pagar/">Informe ValorCarta</a>
+          <a href="/circulo/">Liga</a>
         </div>
       </details>
     </div>
@@ -73,101 +75,19 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
 </header>
 <main>
 <section class="pr-hero">
-  <p class="st-kicker">El Círculo</p>
-  <h1>Que no te paguen de menos por tus cartas.</h1>
-  <p class="pr-cole" id="pr-cole" hidden></p>
-  <p class="pr-sub">El precio de hoy lo tienes gratis en todas partes. Lo que no: saber cuándo vender, cuánto se paga de verdad en España y si esa carta que te ofrecen es falsa. Eso es el Círculo, por 4 €/mes.</p>
-  <p class="pr-precio">4 €/mes <span>· IVA incluido · sin permanencia · primeros 100 socios</span></p>
-  <form class="alta" id="alta-circulo" novalidate>
-    <label class="alta-et" for="alta-email">Tu correo, y te aviso cuando abra</label>
-    <div class="alta-fila">
-      <input id="alta-email" name="email" type="email" required placeholder="tu@correo.com" autocomplete="email">
-      <button class="btn-todos" type="submit" data-funnel="premium">Entrar en la lista</button>
-    </div>
-    <p class="alta-min">Solo te escribo por el Círculo. Sin boletín y sin ceder tus datos a terceros. Te das de baja con un clic.</p>
-    <div class="alta-ok" hidden>
-      <p><b>Apuntado.</b> Te acabo de mandar un correo con lo que sigue.</p>
-      <ol>
-        <li>Cuando abra, recibes tu enlace privado con tu colección valorada, actualizada cada mañana.</li>
-        <li>Si quieres tenerla lista el primer día, responde a ese correo con tu enlace de «compartir colección».</li>
-        <li>4 €/mes con IVA, sin permanencia; cancelas cuando quieras desde el recibo.</li>
-      </ol>
-    </div>
-  </form>
-</section>
-
-<h2 class="pr-h">Qué incluye, con detalle</h2>
-<div class="pr-grid">
-  <article><h3>Aviso cuando baja</h3><p>Pones el precio al que comprarías una carta y te aviso el día que el mercado baja de ahí. Un correo al día como máximo, con el precio de ese día y el enlace a la ficha; sin avisos de madrugada ni resúmenes que no has pedido.</p></article>
-  <article><h3>La evolución de tu colección</h3><p>Tu cartera guardada en el servidor, no en el navegador: total de hoy, cuánto ha cambiado en 7 y 30 días, qué cartas tiran de ella y cuáles se han quedado quietas. Sobrevive a cambiar de móvil o de navegador.</p></article>
-  <article><h3>Venta real en España</h3><p>Lo que se ha pagado de verdad por la carta aquí, no el anuncio que lleva meses sin venderse. Se construye con operaciones contrastadas y solo se publica cuando hay suficientes; mientras no las haya, lo dice en vez de inventar una cifra.</p></article>
-  <article><h3>Falsa o buena</h3><p>Subes fotos de la carta (anverso, reverso, esquina y detalle) y recibes un veredicto con el porqué: gramaje, linterna UV, patrón de puntos y borde. Si no se puede asegurar con esas fotos, se dice «no concluyente» en vez de arriesgar tu dinero.</p></article>
-</div>
-
-<h2 class="pr-h">La cuenta que decide</h2>
-<div class="pr-cuenta">
-  <div><b>−20 €</b><span>lo que pierdes vendiendo una carta de 200 € un 10 % por debajo de su precio real</span></div>
-  <div><b>5 meses</b><span>de Círculo pagados con esa sola venta (20 € ÷ 4 €)</span></div>
-  <div><b>0 €</b><span>de comisión por vender: aquí no cobramos por operar, solo la cuota</span></div>
-</div>
-<p class="pr-txt">No es una promesa de ganar: es lo que cuesta decidir a ciegas. Si el aviso te evita una venta mala al año, ya ha salido gratis.</p>
-<h2 class="pr-h">Cómo funciona, paso a paso</h2>
-<ol class="pr-pasos">
-  <li><b>Pagas</b> 4 €/mes con tarjeta. El cobro es mensual y se renueva solo; puedes cancelar cuando quieras desde el recibo.</li>
-  <li><b>Recibes un correo</b> con tu enlace privado: una dirección larga y aleatoria, solo para ti, sin contraseña que recordar.</li>
-  <li><b>Tu panel se actualiza cada día</b> con los precios de esa mañana, tus avisos y la evolución de tu colección. Si algo no se puede medir, lo dice.</li>
-</ol>
-
-<h2 class="pr-h">Precio, facturación y cancelación</h2>
-<ul class="pr-lista">
-  <li><b>4 €/mes, IVA incluido</b> (3,31 € + 21 % de IVA). Sin alta, sin permanencia y sin subida a los primeros 100 socios.</li>
-  <li><b>Factura</b> a tu nombre o al de tu empresa, por correo, cada mes.</li>
-  <li><b>Cancelas cuando quieras</b>: deja de renovarse y mantienes el acceso hasta el final del mes pagado. No hay penalización.</li>
-  <li><b>Garantía de 30 días</b>: si no te sirve, escribes y te devuelvo el primer mes sin preguntas.</li>
-  <li><b>Pago seguro</b>: la tarjeta la gestiona la pasarela; aquí no se guarda ningún dato de pago.</li>
-</ul>
-
-<h2 class="pr-h">Tus datos</h2>
-<p class="pr-txt">Guardo tu correo y tu colección para prestarte el servicio, nada más. Base legal: el contrato que aceptas al suscribirte. No se venden ni se ceden a terceros ajenos a la pasarela de pago y al envío de correo. Puedes pedir una copia o el borrado escribiendo a <a href="mailto:valorcartaalertas@gmail.com">valorcartaalertas@gmail.com</a>; el borrado elimina tu colección y tus avisos, y la baja del cobro se hace desde el recibo.</p>
-
-<h2 class="pr-h">Preguntas frecuentes</h2>
-<div class="pr-faq">
-  <details><summary>¿Qué sigue siendo gratis?</summary><p>Buscar cualquier carta, ver su precio de hoy, el catálogo entero y valorar tu colección con enlace. El Círculo no cierra nada de eso.</p></details>
-  <details><summary>¿Puedo cancelar el primer día?</summary><p>Sí, y con la garantía de 30 días te devuelvo el primer mes.</p></details>
-  <details><summary>¿Los avisos llegan al móvil?</summary><p>Por correo; si el correo es el del móvil, te salta la notificación. El canal de Telegram llegará después, para quien lo prefiera.</p></details>
-  <details><summary>¿De dónde salen los precios?</summary><p>De Cardmarket, vía la API de TCGdex, con la media de 30 días y el mínimo. La venta real en España es dato propio y se publica solo con operaciones suficientes.</p></details>
-  <details><summary>¿Qué pasa si una carta no tiene datos?</summary><p>Se dice «sin datos suficientes» y no se estima. Prefiero un hueco a una cifra inventada.</p></details>
-  <details><summary>¿Y si no tengo tarjeta?</summary><p>Déjame tu correo en la lista y te aviso cuando esté abierto; también estudiaré pago por transferencia para quien lo pida.</p></details>
-</div>
-<script>
-(() => {
-  const h = location.hash.slice(1);
-  const raw = h.startsWith('c=') ? h.slice(2) : '';
-  const caja = document.getElementById('pr-cole');
-  if (!raw || !caja) return;
-  let lista = null;
-  try {
-    let s = raw.replace(/-/g, '+').replace(/_/g, '/');
-    s += '='.repeat((4 - s.length % 4) % 4);
-    lista = JSON.parse(decodeURIComponent(escape(atob(s))));
-  } catch (e) { return; }
-  if (!Array.isArray(lista) || !lista.length) return;
-  fetch('/data/precios-hoy.json').then((r) => r.json()).then((p) => {
-    let total = 0, n = 0;
-    for (const x of lista) { const d = p[x.s]; const q = parseInt(x.q || 0, 10); if (d && q) { total += d.p * q; n += q; } }
-    if (!n) return;
-    caja.innerHTML = 'Tu colección (<b>' + n + '</b> cartas) vale hoy <b>' +
-      total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' €</b>. El Círculo te la guarda y te dice cuánto cambia cada semana.';
-    caja.hidden = false;
-  }).catch(() => {});
-})();
-</script>
-<p class="nota small">El Círculo es un servicio de información: no es una tasación, no garantiza precios futuros y no compra ni vende cartas.</p></main>
+  <p class="st-kicker">Informe ValorCarta</p>
+  <h1>El diagnóstico de compra y venta, carta por carta.</h1>
+  <p class="pr-sub">Si una carta está cara o barata, cuánto se ha movido en 7 y 30 días y qué hacer con ella.
+  El producto se llama ahora Informe ValorCarta y su precio vive en una sola página.</p>
+  <p><a class="btn" href="/pagar/">Ver el informe y el precio →</a>
+     <a class="btn ghost" href="/informe-muestra/">Ver una muestra gratis</a></p>
+  <p class="nota small">El precio de hoy de cualquier carta sigue gratis. Esta página es la antigua del Círculo.</p>
+</section></main>
 <footer>
   <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
   <p class="foot-links">
     <a href="/indice/">Índice del mercado</a> · <a href="/datos/">Datos abiertos (CSV)</a> · <a href="/valorar-coleccion/">Valorar mi colección</a> · <a href="/caras/">Las más caras</a> · <a href="/guias/">Guías</a> · <a href="/productos/">Productos</a> · <a href="/tiendas/">Para tiendas</a> · <a href="/alertas/">Alertas de precio</a> · <a href="https://github.com/valorcarta/precios-cartas-datos">Datos abiertos</a> ·
-    <a href="/informe-muestra/">Informe de muestra</a> · <a href="/contacto/">Contacto</a> · <a href="/circulo/">Círculo</a> · <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
+    <a href="/informe-muestra/">Informe de muestra</a> · <a href="/pagar/">Informe ValorCarta</a> · <a href="/contacto/">Contacto</a> · <a href="/circulo/">Liga</a> · <a href="/aviso-legal/">Aviso legal</a> · <a href="/privacidad/">Privacidad</a>
   </p>
   <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
 </footer>
