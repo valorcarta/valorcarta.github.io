@@ -101,6 +101,13 @@
     pintarResultados([...empieza, ...out].slice(0, 14), prods);
   }
 
+  // Con la colección vacía no se enseña lo que no hace nada (compartir, CSV, vaciar, suscripción).
+  function accionesColeccion(hay) {
+    for (const id of ['compartir', 'alcirculo', 'csv', 'vaciar']) {
+      const b = document.getElementById(id);
+      if (b) b.hidden = !hay;
+    }
+  }
   function pintar() {
     const box = $('#coleccion');
     if (!box) return;
@@ -110,6 +117,7 @@
       $('#total').textContent = eur(0);
       $('#delta').textContent = '';
       $('#n-cartas').textContent = '';
+      accionesColeccion(false);
       return;
     }
     let total = 0;
@@ -134,6 +142,7 @@
       })
       .join('');
     $('#total').textContent = eur(total);
+    accionesColeccion(true);
     $('#n-cartas').textContent = `· ${list.length} cartas · ${uds} unidades`;
     const d = total - total30;
     const pct = total30 ? (d / total30) * 100 : 0;

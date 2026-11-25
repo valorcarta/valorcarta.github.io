@@ -26,8 +26,8 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=7cdbfb3a02eff30272385f0fd85eb2">
-<link rel="icon" href="/assets/icon.svg?v=7cdbfb3a02eff30272385f0fd85eb2" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=2e66da43674f7fabcfaf5f0fd85eb2">
+<link rel="icon" href="/assets/icon.svg?v=2e66da43674f7fabcfaf5f0fd85eb2" type="image/svg+xml">
 <script type="application/ld+json">[{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://valorcarta.github.io/"},{"@type":"ListItem","position":2,"name":"Valorar cartas","item":"https://valorcarta.github.io/valorar/"}]},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cuánto vale mi carta de Pokémon?","acceptedAnswer":{"@type":"Answer","text":"Depende del estado, la versión y el idioma. Aquí ves el precio de referencia de Cardmarket de la versión concreta, con su media de 30 días y el mínimo, para que el número no dependa de un día raro."}},{"@type":"Question","name":"¿Es gratis valorar mi colección?","acceptedAnswer":{"@type":"Answer","text":"Sí. No hace falta registro ni dejar tu email: buscas la carta, pones cuántas tienes y el total se calcula en tu navegador."}},{"@type":"Question","name":"¿Los precios son una tasación?","acceptedAnswer":{"@type":"Answer","text":"No. Son precios de referencia de mercado. Una carta en Near Mint puede valer el doble que la misma con desgaste, y una tasación exige ver la carta."}}]}]</script>
 </head>
 <body>
@@ -76,17 +76,15 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
   </nav>
 </header>
 <main>
-<h1>¿Cuánto vale mi carta de Pokémon?</h1>
+<h1>¿Cuánto vale tu colección?</h1>
 <p class="nota small">Precios de Cardmarket actualizados a 2026-11-25.</p>
-<p class="lede">Escribe el nombre de tu carta y te digo cuánto vale hoy. Precio de referencia de Cardmarket, media de los últimos 30 días y mínimo, para que sepas si ese número es de verdad o es de un día raro.</p>
-<p class="lede">Busca cada carta, pon cuántas tienes y el total se calcula con el precio de mercado de hoy.
-Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
+<p class="lede">Pega tu lista o busca carta por carta: te doy el valor de cada una y el total de hoy, con la fecha del precio. Gratis y sin registro.</p>
 <div class="buscador grande">
-  <input id="q" type="search" placeholder="Busca por nombre: Charizard, Pikachu, Mew ex…" autocomplete="off" aria-label="Buscar carta">
+  <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew ex…" autocomplete="off" aria-label="Buscar carta">
   <div id="resultados" class="resultados"></div>
 </div>
 <div class="modo-frase">
-  <label for="frase" class="muted small">O escríbela como la dirías: «2 charizard base y un pikachu de 151»</label>
+  <label for="frase" class="muted small">O pega la lista entera, como la dirías: «2 charizard base y un pikachu de 151»</label>
   <div class="frase-fila">
     <input id="frase" type="text" placeholder="2 charizard base, pikachu 151…" autocomplete="off">
     <button id="interpretar" class="btn">Añadir</button>
@@ -102,15 +100,14 @@ Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
     <p class="muted">Valor de mercado hoy</p>
     <p id="total" class="total">0,00 €</p>
     <p id="delta" class="muted"></p>
-    <p class="nota small" style="margin:6px 0 10px">El total de hoy es gratis y siempre lo será. Si quieres que se guarde, ver cuánto sube o baja cada semana y qué hacer con cada carta, eso es el Informe ValorCarta: 9 €/mes.</p>
-    <button id="compartir" class="btn ghost">Copiar enlace para compartir</button>
-    <button id="alcirculo" class="btn">Guardar mi colección y ver el informe · 9 €/mes</button>
-    <button id="csv" class="btn ghost">Descargar CSV</button>
-    <button id="vaciar" class="btn ghost">Vaciar</button>
+    <button id="compartir" class="btn ghost" hidden>Copiar enlace para compartir</button>
+    <button id="csv" class="btn ghost" hidden>Descargar CSV</button>
+    <button id="vaciar" class="btn ghost" hidden>Vaciar</button>
     <p class="nota small">Los precios son de referencia (Cardmarket) y no incluyen estado ni gastos de envío.</p>
-    <a class="btn ghost" href="/pagar/">Quiero el informe completo</a>
-  </aside>
-</div></main>
+    <p class="nota small" style="margin:10px 0 6px">El total de hoy es gratis y siempre lo será. Lo que se paga es la decisión: si comprar, aguantar o vender, carta por carta.</p>
+    <a class="btn" href="/informe-muestra/">Ver el diagnóstico de una carta · muestra gratis</a>
+    <p class="nota small" style="margin-top:8px"><a href="/pagar/">Guardar la colección y recibir el aviso · 9 €/mes</a></p>
+  </div></main>
 <footer>
   <p class="disclosure">En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.</p>
   <p class="foot-links">
@@ -119,7 +116,7 @@ Se guarda en tu navegador y puedes compartir el resultado con un enlace.</p>
   </p>
   <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
 </footer>
-<script src="/assets/app.js?v=7cdbfb3a02eff30272385f0fd85eb2" defer></script>
+<script src="/assets/app.js?v=2e66da43674f7fabcfaf5f0fd85eb2" defer></script>
 
 <script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";
