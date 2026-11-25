@@ -1,0 +1,50 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¿Vendo o espero? · ValorCarta</title>
+<meta name="description" content="Pon la carta, el estado y lo que te ofrecen. Te digo si vendes, si negocias o si no vendas, con el motivo y la fecha del dato.">
+<style>
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--papel);color:var(--tinta);font:16px/1.55 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.w{max-width:820px;margin:0 auto;padding:40px 22px 80px}
+.s{font:600 10px/1 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:#8a6400}
+h1{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.035em;font-size:clamp(1.9rem,4.6vw,2.8rem);margin:12px 0 8px;line-height:1.03}
+.sub{color:var(--gris);max-width:46ch;margin:0 0 24px}
+.campos{display:grid;grid-template-columns:1.4fr .8fr .8fr;gap:10px}
+@media(max-width:720px){.campos{grid-template-columns:1fr}}
+label{display:block;font:600 10px/1 ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin:0 0 6px}
+input,select{width:100%;padding:13px 14px;border:1px solid #ddd7c9;border-radius:12px;background:#fff;font:15px inherit}
+input:focus,select:focus{outline:2px solid rgba(217,163,0,.45);border-color:var(--oro)}
+.btn{display:inline-block;margin-top:14px;background:var(--tinta);color:#fff;border:0;border-radius:12px;padding:14px 22px;font:700 15px/1 inherit;cursor:pointer}
+.res{margin-top:22px;border-radius:20px;padding:22px;background:#14120f;color:#f6f4ef;display:none}
+.res.on{display:block}
+.veredicto{font-family:"Inter Tight",sans-serif;font-weight:800;letter-spacing:-.03em;font-size:2rem;line-height:1;margin:0 0 8px}
+.res .motivo{margin:0;color:#d7d1c6}
+.res .datos{margin:14px 0 0;font-size:.85rem;color:#b9b3a7}
+.res .datos b{color:#f6f4ef}
+.nota{color:var(--gris);font-size:.8rem;margin-top:16px}
+</style></head><body>
+<main style="max-width:760px;margin:0 auto;padding:32px 20px 80px">
+<p style="font-family:ui-monospace,monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#6d675e">Informe de venta · 29 €</p>
+<h1 style="font-size:2rem;line-height:1.15;margin:10px 0 14px">Tus 20 cartas, con lo que se paga por ellas y su fecha</h1>
+<p style="font-size:1.05rem;color:#3d3831">Me pasas la lista. Te devuelvo un informe con la cifra de cada carta, el rango de cierres y el mínimo por el que no deberías venderla. Una carta por línea, con su enlace cuando exista.</p>
+<h2 style="margin-top:28px">Qué incluye</h2>
+<ul style="line-height:1.8">
+<li><b>El mínimo por el que vender</b> de cada carta: si te ofrecen menos, te están comprando barato.</li>
+<li><b>Las dos que deberías vender ahora</b>, con la regla a la vista (cuántos cierres y a qué distancia del último).</li>
+<li><b>Sin referencia</b> cuando no haya datos suficientes: no relleno huecos con una cifra que suene bien.</li>
+</ul>
+<h2>Un ejemplo, sin adornos</h2>
+<pre style="background:#fffdf9;border:1px solid #e7e1d6;border-radius:12px;padding:14px;font-size:.86rem;overflow:auto">Charizard · Edición Básica 4/102 · holo · inglés
+Último cierre: 380 € · 14-11-2026 · eBay.es · n=3 · rango 342-410 €
+No vender por menos de 340 €
+= el mínimo de los 3 cierres, redondeado a la baja</pre>
+<h2>Precio y garantía</h2>
+<p><b>29 €</b> hasta 20 cartas · 49 € hasta 50 · 99 € la colección entera.</p>
+<p>Entrega por correo en menos de 24 h. <b>Si una línea no lleva enlace o la cifra no cuadra con el cierre, te devuelvo el dinero.</b></p>
+<h2>Pedirlo</h2>
+<p>El cobro automático estará abierto en unos días. Mientras tanto: <a href="mailto:carlespeadel@gmail.com?subject=Quiero%20el%20informe%20de%2020%20cartas">escríbeme con tu lista</a> y te contesto con el importe y el plazo. Pagas cuando lo recibes.</p>
+<p style="margin-top:28px"><a class="btn oro" href="mailto:carlespeadel@gmail.com?subject=Quiero%20el%20informe%20de%2020%20cartas">Pedir mi informe · 29 €</a></p>
+<p style="font-size:.8rem;color:#6d675e;margin-top:26px">Precios de referencia de cierre con fecha y fuente. No es una tasación: el estado de la carta manda.</p>
+<p><a href="/">← Volver a ValorCarta</a></p>
+</main></body></html>
