@@ -88,8 +88,8 @@ form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px
     <li><b>Cada mañana</b> se actualiza con la fecha del día; si una carta tuya se mueve, te llega el aviso.</li>
   </ol>
 
-  <form class="alta" id="alta-informe" novalidate>
-    <label for="alta-email">Déjame tu correo y te aviso el día que abra el cobro</label>
+  <form class="alta" id="alta-informe" novalidate hidden>
+    <label for="alta-email" id="alta-label">Déjame tu correo y te aviso el día que abra el cobro</label>
     <input type="hidden" id="alta-plan" name="plan" value="">
     <div class="fila">
       <input id="alta-email" type="email" name="email" placeholder="tu correo" autocomplete="email" required>
@@ -113,7 +113,11 @@ form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px
       const plan = b.getAttribute('data-plan');
       const el = document.getElementById('alta-plan');
       if (el) el.value = plan;
-      document.getElementById('alta-informe').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const form = document.getElementById('alta-informe');
+      form.hidden = false;
+      const lab = document.getElementById('alta-label');
+      if (lab) lab.textContent = 'Déjame tu correo y te aviso el día que abra el cobro (' + plan + ')';
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
       const em = document.getElementById('alta-email');
       if (em) setTimeout(() => em.focus(), 400);
     });
