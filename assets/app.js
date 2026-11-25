@@ -143,6 +143,11 @@
       .join('');
     $('#total').textContent = eur(total);
     accionesColeccion(true);
+    // La primera carta se ve entera; a partir de la segunda, el total es del informe.
+    const bloqueado = list.length > 1;
+    for (const el of document.querySelectorAll('#total, #delta, #mueven')) el.classList.toggle('cobrado', bloqueado);
+    const nota = document.getElementById('lock-nota'); if (nota) nota.hidden = !bloqueado;
+    const cta = document.getElementById('lock-cta'); if (cta) cta.hidden = !bloqueado;
     $('#n-cartas').textContent = `· ${list.length} cartas · ${uds} unidades`;
     const d = total - total30;
     const pct = total30 ? (d / total30) * 100 : 0;
