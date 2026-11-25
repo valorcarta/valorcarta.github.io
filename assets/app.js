@@ -138,7 +138,7 @@
     const d = total - total30;
     const pct = total30 ? (d / total30) * 100 : 0;
     $('#delta').innerHTML = total30
-      ? `Últimos 30 días: <b class="${d >= 0 ? 'up' : 'down'}">${d >= 0 ? '+' : ''}${eur(d)} (${pct >= 0 ? '+' : ''}${pct.toFixed(1)}%)</b>`
+      ? `Últimos 30 días: <b class="${d >= 0 ? 'up' : 'down'}">${d >= 0 ? '+' : ''}${eur(d)} (${pct >= 0 ? '+' : ''}${pct.toFixed(1).replace('.', ',')}%)</b>`
       : '';
 
     box.querySelectorAll('.fila').forEach((el) => {
