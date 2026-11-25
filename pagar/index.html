@@ -73,11 +73,11 @@ form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px
   <div class="planes">
     <div class="p best">
       <div><h3>Colección</h3><p>Tu colección guardada, el diagnóstico de cada carta y los avisos.</p></div>
-      <div><div class="precio">9 €/mes<small>o 79 €/año · dos meses gratis</small></div></div>
+      <div><div class="precio">9 €/mes<small>o 79 €/año · dos meses gratis</small></div><button class="btn oro" type="button" data-plan="Colección · 9 €/mes">Quiero este</button></div>
     </div>
     <div class="p">
       <div><h3>Tiendas</h3><p>Lotes, stock y el precio de cierre para el escaparate.</p></div>
-      <div><div class="precio">29 €/mes<small>factura y API</small></div></div>
+      <div><div class="precio">29 €/mes<small>factura y API</small></div><button class="btn" type="button" data-plan="Tiendas · 29 €/mes">Quiero este</button></div>
     </div>
   </div>
 
@@ -89,7 +89,8 @@ form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px
   </ol>
 
   <form class="alta" id="alta-informe" novalidate>
-    <label for="alta-email">Avísame el día que abra el cobro</label>
+    <label for="alta-email">Déjame tu correo y te aviso el día que abra el cobro</label>
+    <input type="hidden" id="alta-plan" name="plan" value="">
     <div class="fila">
       <input id="alta-email" type="email" name="email" placeholder="tu correo" autocomplete="email" required>
       <button class="btn oro" type="submit">Avísame</button>
@@ -107,10 +108,22 @@ form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px
 </div>
 <script>
 (() => {
+  document.querySelectorAll('[data-plan]').forEach((b) => {
+    b.addEventListener('click', () => {
+      const plan = b.getAttribute('data-plan');
+      const el = document.getElementById('alta-plan');
+      if (el) el.value = plan;
+      document.getElementById('alta-informe').scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const em = document.getElementById('alta-email');
+      if (em) setTimeout(() => em.focus(), 400);
+    });
+  });
   const f = document.getElementById('alta-informe');
   if (!f) return;
   f.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const planEl = document.getElementById('alta-plan');
+    const plan = (planEl && planEl.value) || 'sin plan elegido';
     const email = (f.querySelector('#alta-email').value || '').trim();
     if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) { f.querySelector('#alta-email').focus(); return; }
     const b = f.querySelector('button');
@@ -121,7 +134,8 @@ form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
           email,
-          _subject: 'Alta en el Informe ValorCarta',
+          plan,
+          _subject: 'Alta en el Informe ValorCarta — ' + plan,
           _autoresponse: ['Apuntado al Informe ValorCarta.', '', 'El cobro abre el 19 de diciembre y ese día te escribo una vez. Mientras tanto, el precio de hoy de cualquier carta sigue gratis en valorcarta.es.', '', '— ValorCarta'].join('\n'),
           origen: location.pathname,
           fecha: new Date().toISOString(),
@@ -129,6 +143,7 @@ form.alta label{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px
       });
       if (!r.ok) throw new Error('no');
       f.querySelector('.fila').hidden = true;
+      f.querySelector('#alta-plan') && (f.querySelector('#alta-plan').value = plan);
       f.querySelector('#alta-ok').hidden = false;
     } catch (err) {
       b.disabled = false;
