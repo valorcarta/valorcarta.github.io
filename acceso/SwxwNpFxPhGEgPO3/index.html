@@ -20,20 +20,21 @@ h1{font-size:19px;letter-spacing:-.02em;font-weight:700}
 .badge{font-size:10px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;border-radius:999px;padding:4px 9px}
 .badge.pago{background:#e7f0e9;color:var(--verde)}
 .badge.gratis{background:#f3ede2;color:#7a5a1e}
-h2{font-size:26px;line-height:1.2;letter-spacing:-.03em;margin-top:10px}
+h2{font-size:21px;line-height:1.25;letter-spacing:-.02em;margin-top:6px}
+.lead{display:none}
 .lead{color:var(--gris);font-size:14px;margin-top:8px;max-width:48ch}
 .buscador{position:sticky;top:0;z-index:5;background:linear-gradient(var(--papel) 70%,rgba(246,244,239,0));padding:12px 0 10px;margin-top:6px}
 .buscador input{width:100%;padding:13px 16px;border:1px solid var(--linea);border-radius:14px;font:inherit;background:#fff;box-shadow:var(--sombra)}
 .buscador input:focus{outline:2px solid var(--oro);outline-offset:1px}
-.foto{position:relative;float:right;width:74px;height:104px;margin:0 0 8px 12px;border-radius:9px;overflow:hidden;background:#efe9dd}
+.foto{position:relative;flex:0 0 84px;width:84px;height:118px;border-radius:9px;overflow:hidden;background:#efe9dd}
+.cuerpo{flex:1;min-width:0}
 .foto img{width:100%;height:100%;object-fit:cover;display:block}
 .foto span{display:none}
 .foto.sin img{display:none}
 .foto.sin span{display:flex;align-items:center;justify-content:center;height:100%;font-weight:700;color:var(--gris)}
-.ficha::after{content:"";display:block;clear:both}
-.ficha{background:#fff;border:1px solid var(--linea);border-radius:16px;padding:15px 16px;margin-bottom:11px;box-shadow:var(--sombra)}
+.ficha{background:#fff;border:1px solid var(--linea);border-radius:16px;padding:13px;margin-bottom:11px;box-shadow:var(--sombra);display:flex;gap:13px;align-items:flex-start}
 .ficha .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.nombre{font-weight:700;font-size:17px;letter-spacing:-.01em}
+.nombre{font-weight:700;font-size:16px;letter-spacing:-.01em;line-height:1.25}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-top:5px}
 .chip{font-size:11px;color:var(--gris);border:1px solid var(--linea);border-radius:999px;padding:2px 8px}
 .chip.antiguo{color:#8a6a1f;border-color:#ecd9ab;background:#fdf7e8}
@@ -41,7 +42,7 @@ h2{font-size:26px;line-height:1.2;letter-spacing:-.03em;margin-top:10px}
 .medidor{position:relative;height:8px;border-radius:999px;background:#efe9dd;overflow:hidden}
 .medidor i{position:absolute;top:0;bottom:0;background:linear-gradient(90deg,#f0d79a,#d9a300)}
 .medidor b{position:absolute;top:-3px;width:2px;height:14px;background:var(--tinta);border-radius:2px}
-.cifras{display:flex;justify-content:space-between;align-items:baseline;margin-top:8px}
+.precio{font-size:20px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:9px}
 .rango{font-size:19px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .rango span{font-size:13px;color:var(--gris);font-weight:400}
 .meta{color:var(--gris);font-size:12px;margin-top:6px;display:flex;gap:10px;flex-wrap:wrap}
@@ -64,7 +65,6 @@ box-shadow:0 10px 30px rgba(20,18,15,.28)}
   <span class="badge pago">Suscriptor</span>
 </header>
 <h2>Todo el catálogo con precio, banda y suelo de tienda.</h2>
-<p class="lead">Precios pedidos en España, con fecha y muestra. No es una promesa: es lo que se mueve.</p>
 <div class="aviso">Suscripción activa para <b>prueba@valorcarta.es</b>. Renueva antes del <b>2026-12-27</b>; si no, el enlace deja de mostrar precios actualizados.</div>
 <div class="buscador"><input id="q" type="search" inputmode="search" placeholder="Busca tu carta, set o estado…" aria-label="Buscar carta"></div>
 <div id="lista"></div>
@@ -79,19 +79,19 @@ function pinta(){
   const v = F.filter(c => !t || (c.n+" "+c.s+" "+c.e).toLowerCase().includes(t)).slice(0, 500);
   if (!v.length){ lista.innerHTML = '<div class="vacio"><b>No tengo precio de esa carta.</b><br>Mándamela y te la valoro.</div>'; return; }
   lista.innerHTML = v.map(c => {
-    const ancho = Math.max(6, Math.min(100, (c.a - c.b) / (c.a || 1) * 100));
-    const pos = Math.max(0, Math.min(96, (c.m - c.b) / ((c.a - c.b) || 1) * 100));
+    const igual = Math.abs(c.a - c.b) < 0.01;
+    const precio = igual ? eur(c.m) : eur(c.b) + " – " + eur(c.a);
+    const pos = igual ? 50 : Math.max(0, Math.min(96, (c.m - c.b) / ((c.a - c.b) || 1) * 100));
     return `<div class="ficha">
-      <div class="top"><span class="nombre">${c.n}</span>${c.ok ? "" : '<span class="chip antiguo">orientativo</span>'}</div>
       ${c.id ? `<div class="foto"><img loading="lazy" src="https://images.scrydex.com/pokemon/${c.id}/large" alt="${c.n}" onerror="this.parentNode.classList.add('sin')"><span>${c.n.slice(0,2)}</span></div>` : ""}
-      <div class="chips">${c.s ? `<span class="chip">${c.s}</span>` : ""}${c.e ? `<span class="chip">${c.e}</span>` : ""}</div>
-      <div class="banda">
-        <div class="etiqueta">Particulares piden</div>
-        <div class="cifras"><span class="rango">${eur(c.b)} – ${eur(c.a)}</span><span>${c.k} precios</span></div>
+      <div class="cuerpo">
+        <div class="nombre">${c.n}</div>
+        <div class="chips">${c.s ? `<span class="chip">${c.s}</span>` : ""}${c.e ? `<span class="chip">${c.e}</span>` : ""}${c.ok ? "" : '<span class="chip antiguo">orientativo</span>'}</div>
+        <div class="precio">${precio}</div>
         <div class="medidor"><i style="left:0;width:100%"></i><b style="left:${pos}%"></b></div>
-        <div class="meta"><span>lo normal: <b style="color:var(--tinta)">${eur(c.m)}</b></span><span>último dato ${c.f}</span></div>
-        ${c.suelo ? `<div class="linea"><span class="suelo">Una tienda te daría ~${eur(c.suelo)}</span></div>` : ""}
-        ${c.otra ? `<div class="linea aviso2">Ojo: la versión ${c.otra} es otra carta distinta.</div>` : ""}
+        <div class="meta"><span>${igual ? "todos los precios iguales" : "lo normal " + eur(c.m)}</span><span>${c.k} precios · ${c.f}</span></div>
+        ${c.suelo ? `<div class="linea suelo">Tienda te daría ~${eur(c.suelo)}</div>` : ""}
+        ${c.otra ? `<div class="linea aviso2">La versión ${c.otra} es otra carta</div>` : ""}
       </div></div>`;
   }).join("");
 }
