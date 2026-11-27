@@ -138,8 +138,14 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
     background:linear-gradient(180deg,#ecc14f,#d9a300);
     box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 6px 18px rgba(217,163,0,.22)}
   #app-precios .cta2:hover{filter:brightness(1.04)}
+  #app-precios .cta3{display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:13px 18px;
+    border-radius:13px;border:1px solid #d5cebf;background:#fffdf9;color:#14120f;font-weight:700;font-size:.94rem;
+    box-shadow:0 1px 2px rgba(20,18,15,.04)}
+  #app-precios .cta3:hover{border-color:#d9a300;color:#7d6100}
+  #app-precios .cta3 svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  #app-precios .enlaces{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:15px}
   #app-precios .enl{color:#14120f;text-decoration:none;border-bottom:2px solid #d9a300;padding-bottom:1px;
-    font-weight:600;font-size:.94rem}
+    font-weight:600;font-size:.9rem}
   #app-precios .appc p.micro2{margin:18px 0 0;font-size:12px;color:#958e82;letter-spacing:.01em;max-width:none}
   #app-precios .movil{justify-self:end;width:220px;position:relative}
   #app-precios .movil::before{content:"";position:absolute;inset:-48px -36px;border-radius:50%;pointer-events:none;
@@ -193,7 +199,8 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
     #app-precios .appc{grid-template-columns:1fr;gap:0;padding:24px 20px 26px;justify-items:start}
     #app-precios .movil{display:none}
     #app-precios .appc p{max-width:none}
-    #app-precios .acciones{gap:12px 22px;margin-top:18px}
+    #app-precios .acciones{gap:10px;margin-top:18px}
+    #app-precios .enlaces{gap:10px 18px;margin-top:14px}
     #app-precios h2{font-size:clamp(21px,6vw,25px)}
   }
 </style>
@@ -204,6 +211,9 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
     <p>Compara en una pantalla lo que pagan las tiendas españolas, lo que piden los particulares y lo que cuesta en tienda. Con fecha y número de precios.</p>
     <div class="acciones">
       <a class="cta2" href="/app/">Abrir la app <span aria-hidden="true">→</span></a>
+      <a class="cta3" href="/app/?instalar=1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/></svg>Descargar la app</a>
+    </div>
+    <div class="enlaces">
       <a class="enl" href="/demo/">Ver la app en el móvil</a>
       <a class="enl" href="/precios/">Ver precios por carta</a>
     </div>
