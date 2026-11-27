@@ -266,6 +266,8 @@ h1{font-size:clamp(27px,8.4vw,32px);line-height:1.06;letter-spacing:-.038em;font
 .veredicto.bien b{color:var(--ok)}.veredicto.mal b{color:var(--mal)}.veredicto.medio b{color:var(--oro-tinta)}
 .detalle{font-size:12.5px;color:var(--gris);line-height:1.5;margin-top:10px}
 .hoja .pie2{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.claro{font-size:14px;line-height:1.5;color:var(--tinta2);margin-top:10px}
+.claro b{color:var(--tinta);font-weight:700}
 .vale2{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:11px}
 .vale2 li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--tinta2)}
 .vale2 svg{flex:0 0 15px;width:15px;height:15px;margin-top:2px;stroke:var(--oro-tinta);fill:none;stroke-width:2.6}
@@ -461,7 +463,7 @@ function banda(c, grande) {
       <div class="punto p" style="left:${pM.toFixed(1)}%"></div>
     </div>
     <div class="leyenda">
-      <span class="it"><i></i>${t ? eur(t.p) + " te dan" : "tiendas —"}</span>
+      <span class="it"><i></i>${t ? eur(t.p) + " como mucho" : "tiendas —"}</span>
       <span class="ip"><i></i>piden ${rangoP(c.b, c.a)}</span>
     </div></div>`;
 }
@@ -473,7 +475,7 @@ function ficha(c, i, d) {
     <span class="cuerpo">
       <span class="nom">${esc(c.n)}</span>
       <span class="sub">${esc([c.s, c.e].filter(Boolean).join(" · ") || "sin set identificado")} · ${c.k} precios</span>
-      <span class="dinero"><b class="num">${t ? eur(t.p) : "—"}</b><span>te darían</span></span>
+      <span class="dinero"><b class="num">${t ? eur(t.p) : "—"}</b><span>como mucho</span></span>
       ${banda(c)}
     </span>
     <svg class="flecha" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
@@ -500,7 +502,7 @@ function busca(texto) {
       <div style="flex:1;min-width:0">
         <div class="nom">${esc(c.n)}</div>
         <div class="sub">${esc([c.s, c.e].filter(Boolean).join(" · ") || "sin set")}</div>
-        <div class="cifra num" style="margin-top:6px">${t_ ? eur(t_.p) : "—"}<small>te darían</small></div>
+        <div class="cifra num" style="margin-top:6px">${t_ ? eur(t_.p) : "—"}<small>en efectivo, como mucho</small></div>
       </div></div>
       ${banda(c)}
       ${hits.length > 1 ? `<div class="detalle">${hits.length - 1 === 1 ? "Una versión más abajo." : (hits.length - 1) + " versiones más abajo."}</div>` : ""}`;
@@ -534,7 +536,10 @@ function abre(i) {
   const c = F[i]; if (!c) return;
   ultimoFoco = document.activeElement;
   const t = mejorTienda(c);
-  const tiendas = [...(c.tiendas || [])].sort((a, b) => b.p - a.p);
+  const tiendas = (c.tiendas || []);
+  const pMin = tiendas.length ? Math.min(...tiendas.map(x => x.p)) : 0;
+  const pMax = tiendas.length ? Math.max(...tiendas.map(x => x.p)) : 0;
+  const cMax = tiendas.length ? Math.max(...tiendas.map(x => x.c)) : 0;
   const enTienda = c.vt && t && c.vt > t.p * 1.02;
 
   cuerpo.innerHTML = `
@@ -552,12 +557,11 @@ function abre(i) {
 
     <div class="bloque">
       <div class="et">Lo que pagan las tiendas</div>
-      <div class="cifra num">${t ? eur(t.p) : "—"}<small>la que más paga</small></div>
-      ${tiendas.length ? `<div style="margin-top:12px">${tiendas.map((x, i) => `<div class="tienda ${i === 0 ? "mejor" : ""}">
-        <div><div class="n">Tienda ${i + 1}</div><div class="c">${x.pe} % en efectivo${i === 0 ? " · la que más paga" : ""}</div></div>
-        <div class="p"><b class="num">${eur(x.p)}</b><span class="num">o ${eur(x.c)} en saldo (${x.pc} %)</span></div></div>`).join("")}</div>` : ""}
-      ${tiendas.length ? `<p class="detalle" style="margin-top:10px">Es la tarifa que publica cada tienda aplicada a la mediana de lo que piden los particulares (${eur(c.m)}). No es una oferta: es lo que darían hoy con esa tarifa.</p>` : ""}
-      ${enTienda ? `<div class="detalle">Nueva cuesta <b>${eur(c.vt)}</b> y a ti te dan ${eur(t.p)}: la tienda se queda <b>${eur(c.vt - t.p)}</b> por el camino. Ahí está el margen para regatear.</div>` : ""}
+      <div class="cifra num">${t ? eur(pMax) : "—"}<small>en efectivo, como mucho</small></div>
+      ${tiendas.length > 1 ? `<p class="claro"><b>En efectivo</b> te dan entre ${eur(pMin)} y ${eur(pMax)}, según la tienda.</p>` : ""}
+      ${cMax > pMax ? `<p class="claro">Si coges <b>saldo</b> para gastar en esa misma tienda, hasta ${eur(cMax)}.</p>` : ""}
+      ${enTienda ? `<p class="claro">Nueva cuesta ${eur(c.vt)}: la tienda se queda <b>${eur(c.vt - pMax)}</b> por el camino.</p>` : ""}
+      <p class="detalle">Sale del % de compra que publica cada tienda, aplicado a la mediana de lo que piden los particulares (${eur(c.m)}). No es una oferta: es lo que darían hoy.</p>
     </div>
 
     <div class="bloque">
