@@ -266,6 +266,14 @@ h1{font-size:clamp(27px,8.4vw,32px);line-height:1.06;letter-spacing:-.038em;font
 .veredicto.bien b{color:var(--ok)}.veredicto.mal b{color:var(--mal)}.veredicto.medio b{color:var(--oro-tinta)}
 .detalle{font-size:12.5px;color:var(--gris);line-height:1.5;margin-top:10px}
 .hoja .pie2{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.pasos3{list-style:none;margin-top:10px;counter-reset:ps}
+.pasos3 li{position:relative;padding:0 0 14px 34px;font-size:14px;line-height:1.45;color:var(--tinta2)}
+.pasos3 li:last-child{padding-bottom:0}
+.pasos3 li::before{counter-increment:ps;content:counter(ps);position:absolute;left:0;top:-1px;
+  width:23px;height:23px;border-radius:50%;display:grid;place-items:center;font-size:11.5px;font-weight:800;
+  background:var(--oro-suave);color:var(--oro-tinta);border:1px solid rgba(217,163,0,.35)}
+.pasos3 li b{color:var(--tinta);font-weight:700}
+.hoja .icono-grande{width:64px;height:64px;border-radius:16px;box-shadow:0 6px 18px rgba(20,18,15,.22);flex:0 0 64px}
 .hoja .pie2 .dos{display:flex;gap:8px}
 .hoja .pie2 .dos .cta2{flex:1;padding:13px 8px;font-size:13.5px}
 
@@ -294,6 +302,7 @@ h1{font-size:clamp(27px,8.4vw,32px);line-height:1.06;letter-spacing:-.038em;font
   color:#cfc7b8;display:grid;place-items:center;font-size:12px}
 
 /* ── navegación ────────────────────────────────────── */
+@media(max-width:380px){.barra .plan{display:none}}
 nav{position:fixed;bottom:0;left:0;right:0;z-index:40;max-width:560px;margin:0 auto;display:flex;
   padding:8px 10px calc(8px + env(safe-area-inset-bottom));gap:4px;
   background:color-mix(in srgb,var(--papel) 78%,transparent);backdrop-filter:blur(20px) saturate(1.7);
@@ -727,20 +736,40 @@ function ofrece() {
   setTimeout(() => $("#banner").classList.add("si"), 2000);
 }
 
-$("#inst-barra").addEventListener("click", async () => {
+function abreInstalar() {
   $("#banner").classList.remove("si");
-  if (elPrompt) { elPrompt.prompt(); await elPrompt.userChoice; elPrompt = null; pintaInstala(); return; }
-  cambia("cuenta");
-  setTimeout(() => $("#instala").scrollIntoView({behavior: "smooth", block: "center"}), 140);
-  pintaInstala();
+  const pasos = esIOS
+    ? ["Toca <b>Compartir</b>, el cuadro con la flecha hacia arriba, en la barra de abajo.",
+       "En el menú que sale, baja y elige <b>Añadir a pantalla de inicio</b>.",
+       "Arriba a la derecha, toca <b>Añadir</b>. Ya la tienes."]
+    : ["Abre el menú del navegador, los <b>tres puntos</b> de arriba o de abajo.",
+       "Elige <b>Instalar aplicación</b> o <b>Añadir a pantalla de inicio</b>.",
+       "Confirma. Ya está en tu pantalla, con su icono."];
+  cuerpo.innerHTML = `<div class="cab">
+      <img class="icono-grande" src="icon-192.png" alt="" width="64" height="64">
+      <div style="flex:1;min-width:0">
+        <div class="nom">Descargar la app</div>
+        <div class="detalle" style="margin-top:5px;font-size:12.5px;line-height:1.4">Gratis, sin registro. Se abre sin barra del navegador y con los precios dentro.</div>
+      </div></div>
+    <div class="bloque"><div class="et">Cómo se hace${esIOS ? " en el iPhone" : ""}</div>
+      <ol class="pasos3">${pasos.map(x => `<li>${x}</li>`).join("")}</ol></div>
+    ${elPrompt ? `<div class="pie2"><button class="cta ancho" id="binst2">Instalar ahora</button></div>` : ""}
+    <p class="detalle">Si no te sale la opción, abre esta página con Chrome o Safari, no dentro de Instagram o WhatsApp.</p>`;
+  if (elPrompt) $("#binst2").addEventListener("click", async () => {
+    elPrompt.prompt(); await elPrompt.userChoice; elPrompt = null; cierra(); pintaInstala();
+  });
+  hoja.classList.add("si"); velo.classList.add("si");
+  document.body.style.overflow = "hidden";
+  requestAnimationFrame(() => hoja.focus({preventScroll: true}));
+}
+
+$("#inst-barra").addEventListener("click", () => {
+  if (elPrompt) { elPrompt.prompt().then(() => { elPrompt = null; pintaInstala(); }); return; }
+  abreInstalar();
 });
 
 $("#bx").addEventListener("click", () => { $("#banner").classList.remove("si"); localStorage.setItem("vc_no_banner", "1"); });
-$("#bi").addEventListener("click", async () => {
-  $("#banner").classList.remove("si");
-  if (elPrompt) { elPrompt.prompt(); await elPrompt.userChoice; elPrompt = null; pintaInstala(); }
-  else { cambia("cuenta"); setTimeout(() => $("#instala").scrollIntoView({behavior: "smooth", block: "center"}), 120); }
-});
+$("#bi").addEventListener("click", () => { abreInstalar(); });
 
 /* ── pestañas ───────────────────────────────────────── */
 const ind = $("#ind");
@@ -763,7 +792,7 @@ addEventListener("scroll", () => barra.classList.toggle("pgada", scrollY > 4), {
 $("#prueba").innerHTML = `<b>${F.length}</b> cartas · <b>3</b> tiendas · revisado el <b>${FECHA}</b>`;
 busca(""); pintaLista(); pintaCuenta(); pintaInstala();
 if (instalada()) $("#inst-barra").style.display = "none"; else ofrece();
-if (new URLSearchParams(location.search).get("instalar")) $("#inst-barra").click();
+if (new URLSearchParams(location.search).get("instalar")) setTimeout(abreInstalar, 500);
 (() => {
   const m = new URLSearchParams(location.search).get("c");
   if (!m) return;
