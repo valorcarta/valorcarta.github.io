@@ -133,13 +133,17 @@ h1{font-size:clamp(27px,8.4vw,32px);line-height:1.06;letter-spacing:-.038em;font
 /* ── BANDA (pieza firma) ───────────────────────────── */
 .banda{margin-top:9px}
 .banda .eje{position:relative;height:5px;border-radius:99px;background:var(--papel2);overflow:visible}
-.banda .rango{position:absolute;top:0;height:5px;border-radius:0 99px 99px 0;
+.banda .rango{transform-origin:left center;animation:crece .62s cubic-bezier(.22,1,.36,1) .06s both;
+  position:absolute;top:0;height:5px;border-radius:0 99px 99px 0;
   background:linear-gradient(90deg,rgba(20,18,15,.10),rgba(20,18,15,.30))}
 .banda .hueco{position:absolute;top:0;height:5px;border-radius:99px;
   background:linear-gradient(90deg,rgba(217,163,0,.55),rgba(217,163,0,.95));
-  box-shadow:0 0 12px rgba(217,163,0,.28)}
+  box-shadow:0 0 12px rgba(217,163,0,.28);transform-origin:left center;
+  animation:crece .62s cubic-bezier(.22,1,.36,1) both}
+@keyframes crece{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 .banda .punto{position:absolute;top:50%;width:9px;height:9px;border-radius:50%;transform:translate(-50%,-50%);
-  border:2px solid var(--carta);box-shadow:0 0 0 1px var(--linea2)}
+  border:2px solid var(--carta);box-shadow:0 0 0 1px var(--linea2);animation:asoma .32s var(--ease) .34s both}
+@keyframes asoma{from{opacity:0;transform:translate(-50%,-50%) scale(.4)}to{opacity:1;transform:translate(-50%,-50%) scale(1)}}
 .banda .punto.t{background:var(--oro);box-shadow:0 0 0 1px var(--oro-2),0 0 10px rgba(217,163,0,.45)}
 .banda .punto.p{background:var(--tinta2)}
 .banda .leyenda{display:flex;justify-content:space-between;gap:10px;margin-top:6px;
@@ -447,6 +451,16 @@ const ALTA = "mailto:valorcartaalertas@gmail.com?subject=Quiero%20desbloquear%20
 
 const $ = s => document.querySelector(s);
 const esc = t => String(t == null ? "" : t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function animaNumero(el, valor, dur = 620) {
+  if (matchMedia("(prefers-reduced-motion:reduce)").matches) return;
+  const t0 = performance.now();
+  const paso = t => {
+    const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+    el.textContent = (valor * e).toLocaleString("es-ES", {minimumFractionDigits:2, maximumFractionDigits:2}) + "\u00a0€";
+    if (k < 1) requestAnimationFrame(paso);
+  };
+  requestAnimationFrame(paso);
+}
 const eur = n => (Math.round(n * 100) / 100).toLocaleString("es-ES", {minimumFractionDigits:2, maximumFractionDigits:2}) + "\u00a0€";
 const eur0 = n => Math.round(n).toLocaleString("es-ES") + "\u00a0€";
 const cant = n => (Math.round(n * 100) / 100).toLocaleString("es-ES", {minimumFractionDigits:2, maximumFractionDigits:2});
@@ -491,7 +505,7 @@ function ficha(c, i, d) {
     <span class="cuerpo">
       <span class="nom">${esc(c.n)}</span>
       <span class="sub">${esc([c.s, c.e].filter(Boolean).join(" · ") || "sin set identificado")} · ${c.k} precios</span>
-      <span class="dinero"><b class="num">${t ? eur(t.p) : "—"}</b><span>como mucho</span></span>
+      <span class="dinero"><b class="num" data-v="${t ? t.p : 0}">${t ? eur(t.p) : "—"}</b><span>como mucho</span></span>
       ${banda(c)}
     </span>
     <svg class="flecha" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
@@ -507,6 +521,7 @@ function muro(sobran) {
 
 /* ── buscar ─────────────────────────────────────────── */
 const q = $("#q"), campo = $("#campo"), lista = $("#lista"), resp = $("#resp"), cerrojo = $("#cerrojo");
+let primera = true;
 
 function busca(texto) {
   const t = texto.trim().toLowerCase();
@@ -537,6 +552,13 @@ function busca(texto) {
     }
   }
   campo.classList.toggle("con", !!texto);
+  if (primera) {
+    primera = false;
+    [...lista.querySelectorAll(".ficha .dinero b")].slice(0, 3).forEach(b => {
+      const v = parseFloat(b.dataset.v);
+      if (v) animaNumero(b, v);
+    });
+  }
 }
 
 q.addEventListener("input", () => busca(q.value));
