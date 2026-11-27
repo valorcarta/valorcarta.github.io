@@ -753,7 +753,9 @@ function pintaLista() {
   tot.innerHTML = `<div class="total"><div class="et">Si vendes a la que más paga</div>
     <b class="num">${eur(total)}</b>
     <small>${cartas.length} carta${cartas.length > 1 ? "s" : ""} · los particulares pedirían ${eur0(mediana)}</small>
-    ${tope > 0 && cartas.length > 1 ? `<div class="una"><span>De una vez en una sola tienda</span><b class="num">${eur(tope)}</b></div>` : ""}</div>`;
+    ${tope > 0 && cartas.length > 1 ? `<div class="una"><span>De una vez en una sola tienda</span><b class="num">${eur(tope)}</b></div>` : ""}</div>
+    <button class="cta2 ancho" id="comparte-carpeta" style="margin-top:12px">Compartir mi carpeta</button>`;
+  $("#comparte-carpeta").addEventListener("click", abreTarjeta);
   cont.querySelectorAll(".x").forEach(b => b.addEventListener("click", () => { guardar(lista0().filter(k => k !== b.dataset.k)); pintaLista(); }));
 }
 
@@ -789,6 +791,102 @@ function pintaCuenta() {
   $("#vale").innerHTML = ["Todas las cartas con precio y fecha", "Lo que paga cada tienda, una por una",
     "La banda: tiendas frente a particulares", "Aviso cuando se muevan las tuyas"]
     .map(x => `<li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>${x}</li>`).join("");
+}
+
+/* ── tarjeta para compartir ─────────────────────────── */
+async function pintaTarjeta() {
+  const cartas = lista0().map(k => F.find(x => clave(x) === k)).filter(Boolean);
+  const total = cartas.reduce((s, c) => s + precioMax(c), 0);
+  const W = 1080, H = 1350, cv = document.createElement("canvas");
+  cv.width = W; cv.height = H;
+  const g = cv.getContext("2d");
+  const FONT = "-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,sans-serif";
+
+  g.fillStyle = "#f6f4ef"; g.fillRect(0, 0, W, H);
+  const rad = g.createRadialGradient(W * .5, -180, 80, W * .5, 0, 980);
+  rad.addColorStop(0, "rgba(217,163,0,.22)"); rad.addColorStop(1, "rgba(217,163,0,0)");
+  g.fillStyle = rad; g.fillRect(0, 0, W, H);
+
+  g.fillStyle = "#14120f"; g.font = `800 27px ${FONT}`;
+  g.textBaseline = "alphabetic";
+  g.fillText("VALORCARTA", 84, 132);
+  g.fillStyle = "#d9a300"; g.fillRect(84, 156, 64, 4);
+
+  g.fillStyle = "#6d6860"; g.font = `600 34px ${FONT}`;
+  g.fillText(cartas.length === 1 ? "MI CARTA" : "MIS " + cartas.length + " CARTAS", 84, 292);
+
+  const cifra = total.toLocaleString("es-ES", {minimumFractionDigits:2, maximumFractionDigits:2});
+  g.fillStyle = "#14120f"; g.font = `800 ${cifra.length > 8 ? 148 : 176}px ${FONT}`;
+  g.fillText(cifra + " €", 78, 448);
+
+  g.fillStyle = "#6d6860"; g.font = `500 32px ${FONT}`;
+  g.fillText("si las vendiera hoy a la tienda que más paga", 84, 512);
+
+  g.strokeStyle = "rgba(20,18,15,.12)"; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(84, 592); g.lineTo(W - 84, 592); g.stroke();
+
+  const filas = cartas.slice(0, 4);
+  const paso = filas.length > 3 ? 88 : 96;
+  filas.forEach((c, i) => {
+    const y = 690 + i * paso;
+    g.fillStyle = "#14120f"; g.font = `600 36px ${FONT}`;
+    const nom = c.n.length > 26 ? c.n.slice(0, 25) + "…" : c.n;
+    g.fillText(nom, 84, y);
+    g.textAlign = "right";
+    g.font = `700 38px ${FONT}`;
+    g.fillText(precioMax(c).toLocaleString("es-ES", {minimumFractionDigits:2, maximumFractionDigits:2}) + " €", W - 84, y);
+    g.textAlign = "left";
+    g.fillStyle = "#958e82"; g.font = `500 25px ${FONT}`;
+    g.fillText((c.s || c.e || "sin set").slice(0, 34), 84, y + 32);
+  });
+  if (cartas.length > 4) {
+    g.fillStyle = "#6d6860"; g.font = `500 30px ${FONT}`;
+    g.fillText("y " + (cartas.length - 4) + " más", 84, 690 + 4 * paso + 6);
+  }
+
+  const pide = cartas.reduce((s, c) => s + c.m, 0);
+  if (pide > total * 1.02) {
+    const finLista = 690 + (filas.length - 1) * paso + 34 + (cartas.length > 4 ? 34 : 0);
+    const y2 = Math.max(finLista + 76, H - 300);
+    g.strokeStyle = "rgba(20,18,15,.12)"; g.lineWidth = 2;
+    g.beginPath(); g.moveTo(84, y2 - 46); g.lineTo(W - 84, y2 - 46); g.stroke();
+    g.fillStyle = "#6d6860"; g.font = `500 30px ${FONT}`;
+    g.fillText("Pidiendo a particulares", 84, y2);
+    g.textAlign = "right";
+    g.fillStyle = "#7d6100"; g.font = `800 40px ${FONT}`;
+    g.fillText(pide.toLocaleString("es-ES", {minimumFractionDigits:2, maximumFractionDigits:2}) + " €", W - 84, y2);
+    g.textAlign = "left";
+    g.fillStyle = "#958e82"; g.font = `500 25px ${FONT}`;
+    g.fillText("pero no está vendido", 84, y2 + 34);
+  }
+
+  g.fillStyle = "#958e82"; g.font = `500 27px ${FONT}`;
+  g.fillText("valorcarta.es · precios del " + FECHA, 84, H - 84);
+
+  return new Promise(res => cv.toBlob(b => res({ blob: b, url: URL.createObjectURL(b) }), "image/png"));
+}
+
+async function abreTarjeta() {
+  if (!lista0().length) return;
+  const { blob, url } = await pintaTarjeta();
+  cuerpo.innerHTML = `<div class="cab"><div style="flex:1;min-width:0">
+      <div class="nom">Tu carpeta, para compartir</div>
+      <div class="detalle" style="margin-top:4px;font-size:12.5px">Una imagen con tu cifra, lista para el grupo.</div></div></div>
+    <div class="bloque" style="padding-top:14px"><img src="${url}" alt="Tarjeta de mi carpeta" style="width:100%;border-radius:14px;display:block;box-shadow:0 10px 30px rgba(20,18,15,.18)"></div>
+    <div class="pie2">
+      <button class="cta ancho" id="t-share">Compartir</button>
+      <div class="dos"><a class="cta2" id="t-down" href="${url}" download="mi-carpeta-valorcarta.png">Descargar</a>
+      <button class="cta2" onclick="cierra()">Cerrar</button></div>
+    </div>`;
+  hoja.classList.add("si"); velo.classList.add("si");
+  document.body.style.overflow = "hidden";
+  requestAnimationFrame(() => hoja.focus({preventScroll: true}));
+  $("#t-share").addEventListener("click", async () => {
+    const f = new File([blob], "mi-carpeta-valorcarta.png", {type: "image/png"});
+    if (navigator.canShare && navigator.canShare({files: [f]})) {
+      try { await navigator.share({files: [f], title: "Mi carpeta en ValorCarta", text: "Esto es lo que me darían por mis cartas hoy."}); } catch (e) {}
+    } else { $("#t-down").click(); }
+  });
 }
 
 /* ── suscripción ────────────────────────────────────── */
