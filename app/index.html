@@ -92,7 +92,7 @@ function pinta(){
         <div class="precio">${precio}</div>
         <div class="medidor"><i style="left:0;width:100%"></i><b style="left:${pos}%"></b></div>
         <div class="meta"><span>${igual ? "siempre al mismo precio" : "lo normal " + eur(c.m)}</span><span>${c.k} precios · ${c.f}</span></div>
-        ${c.suelo ? `<div class="linea suelo">Tienda te daría ~${eur(c.suelo)}</div>` : ""}
+        ${c.suelo ? `<div class="linea suelo">Una tienda te daría ~${eur(c.suelo)} <span class="zona">(estimado: ${65}% de lo que se pide)</span></div>` : ""}
         ${c.otra ? `<div class="linea aviso2">La versión ${c.otra} es otra carta</div>` : ""}
       </div></div>`;
   }).join("");
