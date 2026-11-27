@@ -40,6 +40,9 @@ h2{font-size:26px;line-height:1.2;letter-spacing:-.03em;margin-top:10px}
 .rango span{font-size:13px;color:var(--gris);font-weight:400}
 .meta{color:var(--gris);font-size:12px;margin-top:6px;display:flex;gap:10px;flex-wrap:wrap}
 .suelo{color:var(--verde);font-weight:600}
+.etiqueta{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--gris);font-weight:700;margin-bottom:4px}
+.linea{margin-top:7px;font-size:13px;color:var(--gris)}
+.aviso2{color:#8a6a1f}
 .aviso{background:#fff;border:1px solid var(--linea);border-left:3px solid var(--oro);border-radius:12px;padding:13px 15px;margin:16px 0;font-size:14px;box-shadow:var(--sombra)}
 .aviso b{color:var(--tinta)}
 .cta{position:fixed;left:16px;right:16px;bottom:16px;max-width:608px;margin:0 auto;display:flex;align-items:center;justify-content:center;gap:8px;
@@ -62,7 +65,7 @@ box-shadow:0 10px 30px rgba(20,18,15,.28)}
 <p class="pie">Fuente: grupos de compraventa y anuncios de segunda mano en España. Precios pedidos, no ventas cerradas. Se actualiza cada semana.</p>
 <a class="cta" href="https://buy.stripe.com/REEMPLAZA_TU_LINK">Suscribirme · 3,99 €/mes</a>
 <script>
-const F = [{"n": "Mega Venusaur ex", "s": "", "e": "EX", "k": 24, "m": 46.99, "b": 46.99, "a": 46.99, "f": "2026-10-16", "d": 42, "ok": 1, "suelo": 30.54}, {"n": "Feraligatr", "s": "Héroes Ascendentes", "e": "EX", "k": 15, "m": 24.99, "b": 24.99, "a": 24.99, "f": "2026-11-12", "d": 15, "ok": 1, "suelo": 16.24}, {"n": "Exeggutor de Alola", "s": "", "e": "", "k": 11, "m": 18.99, "b": 18.99, "a": 18.99, "f": "2026-10-23", "d": 35, "ok": 1, "suelo": 12.34}, {"n": "Miraidon", "s": "Escarlata y Púrpura", "e": "EX", "k": 4, "m": 6.0, "b": 5.0, "a": 7.0, "f": "2026-08-26", "d": 93, "ok": 1, "suelo": 3.9}, {"n": "Cyclizar ex", "s": "", "e": "EX", "k": 69, "m": 24.99, "b": 22.45, "a": 24.99, "f": "2026-11-19", "d": 8, "ok": 1, "suelo": 16.24}, {"n": "Houndstone ex", "s": "", "e": "EX", "k": 19, "m": 24.99, "b": 24.99, "a": 24.99, "f": "2026-11-19", "d": 8, "ok": 1, "suelo": 16.24}, {"n": "Gastly", "s": "Héroes Ascendentes", "e": "", "k": 13, "m": 18.99, "b": 18.99, "a": 18.99, "f": "2026-08-03", "d": 116, "ok": 1, "suelo": 12.34}, {"n": "Tepig", "s": "Héroes Ascendentes", "e": "", "k": 7, "m": 10.99, "b": 10.99, "a": 10.99, "f": "2026-06-01", "d": 179, "ok": 1, "suelo": 7.14}, {"n": "Meloetta", "s": "151", "e": "", "k": 3, "m": 30.0, "b": 25.0, "a": 35.0, "f": "2026-06-24", "d": 156, "ok": 1, "suelo": 19.5}, {"n": "Toxtricity", "s": "", "e": "EX", "k": 30, "m": 1.5, "b": 1.5, "a": 1.5, "f": "2026-11-16", "d": 11, "ok": 1, "suelo": 0.97}, {"n": "Zorua", "s": "", "e": "", "k": 16, "m": 10.99, "b": 10.99, "a": 10.99, "f": "2026-11-26", "d": 1, "ok": 1, "suelo": 7.14}, {"n": "Caos Creciente", "s": "Caos Creciente", "e": "", "k": 12, "m": 89.82, "b": 89.82, "a": 89.82, "f": "2026-11-01", "d": 26, "ok": 1, "suelo": 58.38}];
+const F = [{"n": "Mega Venusaur ex", "s": "", "e": "EX", "k": 24, "m": 46.99, "b": 46.99, "a": 46.99, "f": "2026-10-16", "d": 42, "ok": 1, "suelo": 30.54}, {"n": "Feraligatr", "s": "Héroes Ascendentes", "e": "EX", "k": 15, "m": 24.99, "b": 24.99, "a": 24.99, "f": "2026-11-12", "d": 15, "ok": 1, "suelo": 16.24}, {"n": "Exeggutor de Alola", "s": "", "e": "", "k": 11, "m": 18.99, "b": 18.99, "a": 18.99, "f": "2026-10-23", "d": 35, "ok": 1, "suelo": 12.34}, {"n": "Miraidon", "s": "Escarlata y Púrpura", "e": "EX", "k": 4, "m": 6.0, "b": 5.0, "a": 7.0, "f": "2026-08-26", "d": 93, "ok": 1, "suelo": 3.9, "otra": "Chispas Furiosas · NM: 35 €"}, {"n": "Cyclizar ex", "s": "", "e": "EX", "k": 69, "m": 24.99, "b": 22.45, "a": 24.99, "f": "2026-11-19", "d": 8, "ok": 1, "suelo": 16.24}, {"n": "Houndstone ex", "s": "", "e": "EX", "k": 19, "m": 24.99, "b": 24.99, "a": 24.99, "f": "2026-11-19", "d": 8, "ok": 1, "suelo": 16.24}, {"n": "Gastly", "s": "Héroes Ascendentes", "e": "", "k": 13, "m": 18.99, "b": 18.99, "a": 18.99, "f": "2026-08-03", "d": 116, "ok": 1, "suelo": 12.34, "otra": "180 €"}, {"n": "Tepig", "s": "Héroes Ascendentes", "e": "", "k": 7, "m": 10.99, "b": 10.99, "a": 10.99, "f": "2026-06-01", "d": 179, "ok": 1, "suelo": 7.14}, {"n": "Meloetta", "s": "151", "e": "", "k": 3, "m": 30.0, "b": 25.0, "a": 35.0, "f": "2026-06-24", "d": 156, "ok": 1, "suelo": 19.5}, {"n": "Toxtricity", "s": "", "e": "EX", "k": 30, "m": 1.5, "b": 1.5, "a": 1.5, "f": "2026-11-16", "d": 11, "ok": 1, "suelo": 0.97}, {"n": "Zorua", "s": "", "e": "", "k": 16, "m": 10.99, "b": 10.99, "a": 10.99, "f": "2026-11-26", "d": 1, "ok": 1, "suelo": 7.14}, {"n": "Caos Creciente", "s": "Caos Creciente", "e": "", "k": 12, "m": 89.82, "b": 89.82, "a": 89.82, "f": "2026-11-01", "d": 26, "ok": 1, "suelo": 58.38}];
 const q = document.getElementById("q"), lista = document.getElementById("lista");
 function eur(n){ return (Math.round(n*100)/100).toLocaleString("es-ES",{minimumFractionDigits:2,maximumFractionDigits:2}) + " €"; }
 function pinta(){
@@ -76,10 +79,12 @@ function pinta(){
       <div class="top"><span class="nombre">${c.n}</span>${c.ok ? "" : '<span class="chip antiguo">orientativo</span>'}</div>
       <div class="chips">${c.s ? `<span class="chip">${c.s}</span>` : ""}${c.e ? `<span class="chip">${c.e}</span>` : ""}</div>
       <div class="banda">
-        <div class="medidor"><i style="left:0;width:100%"></i><b style="left:${pos}%"></b></div>
+        <div class="etiqueta">Particulares piden</div>
         <div class="cifras"><span class="rango">${eur(c.b)} – ${eur(c.a)}</span><span>${c.k} precios</span></div>
-        <div class="meta"><span>mediana ${eur(c.m)}</span><span>último ${c.f}</span>
-        ${c.suelo ? `<span class="suelo">tienda ~${eur(c.suelo)}</span>` : ""}</div>
+        <div class="medidor"><i style="left:0;width:100%"></i><b style="left:${pos}%"></b></div>
+        <div class="meta"><span>lo normal: <b style="color:var(--tinta)">${eur(c.m)}</b></span><span>último dato ${c.f}</span></div>
+        ${c.suelo ? `<div class="linea"><span class="suelo">Una tienda te daría ~${eur(c.suelo)}</span></div>` : ""}
+        ${c.otra ? `<div class="linea aviso2">Ojo: la versión ${c.otra} es otra carta distinta.</div>` : ""}
       </div></div>`;
   }).join("");
 }
