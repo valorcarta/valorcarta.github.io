@@ -824,6 +824,7 @@ $("#prueba").innerHTML = `<b>${F.length}</b> cartas · <b>3</b> tiendas · revis
 busca(""); pintaLista(); pintaCuenta(); pintaInstala();
 if (instalada()) $("#inst-barra").style.display = "none"; else ofrece();
 if (new URLSearchParams(location.search).get("instalar")) setTimeout(abreInstalar, 500);
+if (new URLSearchParams(location.search).get("alta")) setTimeout(abreAlta, 400);
 (() => {
   const m = new URLSearchParams(location.search).get("c");
   if (!m) return;
