@@ -1,0 +1,28 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Así es la app de ValorCarta</title>
+<style>
+:root{--papel:#f6f4ef;--tinta:#14120f;--oro:#d9a300;--gris:#6d675e;--linea:#e7e1d6}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--papel);color:var(--tinta);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;
+padding:44px 20px 70px;text-align:center}
+h1{font-size:clamp(24px,3.6vw,34px);letter-spacing:-.02em;line-height:1.15;max-width:22ch;margin:0 auto}
+p.sub{color:var(--gris);margin:12px auto 0;max-width:44ch;font-size:15px}
+.marco{position:relative;width:390px;max-width:100%;margin:30px auto 0;padding:12px;border-radius:52px;
+background:linear-gradient(160deg,#2a2621,#14120f 55%);box-shadow:0 1px 0 rgba(255,255,255,.12) inset,0 30px 70px rgba(20,18,15,.35),0 8px 20px rgba(20,18,15,.2)}
+.marco::before{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:112px;height:26px;border-radius:16px;background:#0a0908;z-index:3;box-shadow:0 1px 0 rgba(255,255,255,.06) inset}
+.pantalla{position:relative;border-radius:42px;overflow:hidden;background:#0a0908;height:780px}
+iframe{width:390px;height:780px;border:0;display:block;background:#0a0908}
+.cta{display:inline-flex;align-items:center;gap:9px;margin-top:28px;background:var(--tinta);color:var(--papel);text-decoration:none;
+padding:16px 26px;border-radius:14px;font-weight:800;box-shadow:0 10px 26px rgba(20,18,15,.25)}
+.cta em{font-style:normal;color:var(--oro)}
+.nota{color:var(--gris);font-size:13px;margin-top:14px}
+.nota a{color:var(--tinta);text-decoration:underline;text-decoration-color:var(--oro);text-underline-offset:3px}
+@media(max-width:430px){body{padding:26px 14px 60px}.marco{width:100%;padding:8px;border-radius:40px}.pantalla{height:640px}iframe{width:100%;height:640px}}
+</style></head><body>
+<h1>Esto es lo que ves cuando te suscribes</h1>
+<p class="sub">La app real, aquí mismo: busca tu carta y mira lo que te darían las tiendas españolas. Sin descargar nada.</p>
+<div class="marco"><div class="pantalla"><iframe src="/app/" title="App ValorCarta" loading="lazy"></iframe></div></div>
+<a class="cta" href="https://buy.stripe.com/REEMPLAZA_TU_LINK">Suscribirme · <em>3,99 €/mes</em></a>
+<p class="nota">Puedes probar el buscador dentro del móvil. Si te vale, <a href="https://valorcarta.es/precios/">mira las cartas</a> o <a href="https://valorcarta.es/">vuelve a la web</a>.</p>
+</body></html>
