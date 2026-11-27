@@ -146,7 +146,7 @@ function ficha(c, bloqueada){
     <div class="cuerpo">
       <div class="nombre">${c.n}</div>
       <div class="chips">${c.s?`<span class="chip">${c.s}</span>`:''}${c.e?`<span class="chip">${c.e}</span>`:''}${c.ok?'':'<span class="chip antiguo">orientativo</span>'}</div>
-      ${mejor?`<div class="media">Te darían <b>${eur(c.media)}</b> <span>de media</span></div><div class="tiendas-n">${(c.tiendas||[]).map(t=>t.n.split(" ")[0]).join(" · ")}</div>`:''}
+      ${mejor?`<div class="media">Te darían <b>${eur(c.media)}</b> <span>de media</span></div>`:''}
       <div class="linea">Lo piden particulares: <b>${Math.abs(c.a-c.b)<0.01?eur(c.m):eur(c.b)+" – "+eur(c.a)}</b></div>
       ${(c.vt && c.tiendas && c.vt > Math.max(...c.tiendas.map(t=>t.p))*1.02)?`<div class="linea">En tienda desde: <b>${eur(c.vt)}</b></div>`:''}
       <div class="meta">${c.k} precios · último ${c.f}</div>
@@ -170,9 +170,9 @@ function veredicto(){
   if (!c || !o){ ver.innerHTML = ""; return; }
   const mejor = mejorPrecio(c);
   if (!mejor){ ver.innerHTML = `Particulares piden ${eur(c.m)}.`; return; }
-  if (o >= mejor.p*0.95) ver.innerHTML = `<b class="bien">Buena oferta.</b> Igualas lo que da ${mejor.n} (${eur(mejor.p)}).`;
-  else if (o < mejor.p*0.8) ver.innerHTML = `<b class="mal">Oferta baja.</b> ${mejor.n} daría ${eur(mejor.p)}: te faltan ${eur(mejor.p-o)}.`;
-  else ver.innerHTML = `<b class="medio">Aceptable.</b> ${mejor.n} daría ${eur(mejor.p)}; particulares piden ${eur(c.m)}.`;
+  if (o >= mejor.p*0.95) ver.innerHTML = `<b class="bien">Buena oferta.</b> Estás en lo que pagan las tiendas (${eur(c.media)} de media).`;
+  else if (o < mejor.p*0.8) ver.innerHTML = `<b class="mal">Oferta baja.</b> De media dan ${eur(c.media)}: te faltan ${eur(c.media-o)}.`;
+  else ver.innerHTML = `<b class="medio">Aceptable.</b> De media dan ${eur(c.media)}; particulares piden ${eur(c.m)}.`;
 }
 
 /* mis cartas */
