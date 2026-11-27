@@ -48,6 +48,7 @@ background:linear-gradient(180deg,#efe9dd,#e6dfd1);box-shadow:0 1px 0 #fff inset
 .precio{font-size:22px;font-weight:900;letter-spacing:-.03em;margin-top:9px;font-variant-numeric:tabular-nums;color:var(--oro);text-shadow:0 0 18px rgba(233,182,76,.22)}
 .precio small{font-size:12px;font-weight:600;color:var(--gris);letter-spacing:0}
 .media{margin-top:10px;font-size:15px;color:#a49b8c}
+.media .et{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7d7466;margin-bottom:2px}
 .media b{font-size:24px;color:#7fe0a6;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
 .media span{font-size:12px;color:#7d7466}
 .tiendas-n{margin-top:3px;font-size:11.5px;color:#6f685c;letter-spacing:.04em}
@@ -146,7 +147,7 @@ function ficha(c, bloqueada){
     <div class="cuerpo">
       <div class="nombre">${c.n}</div>
       <div class="chips">${c.s?`<span class="chip">${c.s}</span>`:''}${c.e?`<span class="chip">${c.e}</span>`:''}${c.ok?'':'<span class="chip antiguo">orientativo</span>'}</div>
-      ${mejor?`<div class="media">Te darían <b>${eur(c.media)}</b> <span>tiendas agrupadas · vistas 24-11</span></div>`:''}
+      ${mejor?`<div class="media"><div class="et">Tiendas agrupadas · vistas 24-11</div><b>${eur(c.media)}</b> <span>te darían</span></div>`:''}
       <div class="linea">Lo piden particulares: <b>${Math.abs(c.a-c.b)<0.01?eur(c.m):eur(c.b)+" – "+eur(c.a)}</b></div>
       ${(c.vt && c.tiendas && c.vt > Math.max(...c.tiendas.map(t=>t.p))*1.02)?`<div class="linea">En tienda desde: <b>${eur(c.vt)}</b></div>`:''}
       <div class="meta">${c.k} precios · último ${c.f}</div>
