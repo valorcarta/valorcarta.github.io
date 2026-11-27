@@ -10,8 +10,10 @@
 --sombra:0 1px 2px rgba(20,18,15,.06),0 6px 18px rgba(20,18,15,.06),0 18px 48px rgba(20,18,15,.05)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html{-webkit-text-size-adjust:100%}
+html,body{overflow-x:hidden}
 body{background:var(--papel);color:var(--tinta);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;
-padding:0 16px 110px;max-width:640px;margin:0 auto}
+padding:0 16px 110px;max-width:640px;margin:0 auto;width:100%}
+.aviso,.chip,.nombre{overflow-wrap:anywhere}
 header{padding:22px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .marca{display:flex;align-items:center;gap:9px}
 .logo{width:26px;height:26px;border-radius:8px;background:var(--tinta);position:relative}
@@ -64,7 +66,7 @@ box-shadow:0 10px 30px rgba(20,18,15,.28)}
   <div class="marca"><span class="logo"></span><h1>ValorCarta</h1></div>
   <span class="badge gratis">Gratis</span>
 </header>
-<h2>Precio de tu carta en España, con fecha. Sin registro.</h2>
+<h2>El precio de tu carta, con fecha</h2>
 <div class="aviso"><b>Estás viendo 12 cartas de muestra.</b> Con la suscripción (3,99 €/mes) ves todas, actualizadas cada semana, y te aviso cuando se muevan las tuyas.</div>
 <div class="buscador"><input id="q" type="search" inputmode="search" placeholder="Busca tu carta, set o estado…" aria-label="Buscar carta"></div>
 <div id="lista"></div>
