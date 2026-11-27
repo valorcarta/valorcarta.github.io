@@ -23,6 +23,14 @@ a{color:var(--tinta)}
 <p class="zona" style="margin-top:6px">Actualizado el 27-11-2026</p>
 <p class="lead">Rango real de lo que se está pidiendo en grupos y privados españoles, con la fecha del último dato. No es una promesa de precio: es lo que se mueve, y cuántos precios lo sostienen.</p>
 <div class="caja"><b><span id="cuenta">213</span> cartas</b> con 6 o más precios y banda estrecha. Cada una dice entre cuánto se mueve, la mediana, cuántos precios hay y de qué fecha.</div>
+<div class="caja" style="border-left-color:#2f6b43">
+  <b>Si tu carta no está, te la valoro</b>
+  <div class="zona" style="font-size:14px;color:var(--tinta);margin-top:6px">
+    Mándame nombre, set y estado (o una foto de la carta). Te contesto con la banda real, la fecha del último precio
+    y lo que te daría una tienda española. Si no tengo datos suficientes, te lo digo en vez de inventarlo.
+    Las tres primeras van gratis; después, 5-9 € por carta y 29 € por una colección.
+  </div>
+</div>
 <input id="q" placeholder="Busca tu carta…">
 <table><thead><tr><th>carta</th><th>se mueve entre</th><th>muestra</th><th>último</th></tr></thead>
 <tbody id="tb"></tbody></table>
@@ -34,7 +42,7 @@ function pinta(){
   const t = q.value.trim().toLowerCase();
   tb.innerHTML = F.filter(f => !t || (f.n+" "+f.s).toLowerCase().includes(t)).slice(0,200).map(f =>
     "<tr><td class='c'>"+f.n+"<div class='zona'>"+f.s+(f.e?" · "+f.e:"")+"</div></td>"+
-    "<td class='num'>"+f.b+" – "+f.a+" &euro;<div class='zona'>mediana "+f.m+" &euro;</div></td>"+
+    "<td class='num'>"+f.b+" – "+f.a+" &euro;<div class='zona'>mediana "+f.m+" &euro; · si te dan menos de "+f.b+", es poco</div></td>"+
     "<td class='num zona'>"+f.k+" precios</td><td class='num zona'>"+f.f+"</td></tr>").join("");
   document.getElementById("cuenta").textContent = F.length;
 }
