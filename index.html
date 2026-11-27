@@ -115,13 +115,135 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
 </div>
 
 <section class="bloque" id="app-precios" style="padding-top:8px">
-  <div style="background:#fff;border:1px solid #e7e1d6;border-left:4px solid #d9a300;border-radius:14px;padding:20px 22px;box-shadow:0 1px 2px rgba(20,18,15,.06),0 10px 30px rgba(20,18,15,.07)">
-    <h2 style="margin:0 0 6px;font-size:22px;letter-spacing:-.02em">Mira lo que te dan por tu carta antes de venderla</h2>
-    <p style="margin:0 0 14px;color:#6d675e;font-size:15px">Compara en una pantalla lo que pagan las tiendas españolas, lo que piden los particulares y lo que cuesta en tienda. Con fecha y número de precios.</p>
-    <a href="/app/" style="display:inline-block;background:#14120f;color:#f6f4ef;text-decoration:none;padding:13px 20px;border-radius:12px;font-weight:700">Abrir la app →</a>
-    <a href="/demo/" style="display:inline-block;margin-left:10px;color:#14120f;text-decoration:underline;text-decoration-color:#d9a300;text-underline-offset:3px">Ver la app en el móvil</a>
-    <a href="/precios/" style="display:inline-block;margin-left:10px;color:#14120f;text-decoration:underline;text-decoration-color:#d9a300;text-underline-offset:3px">Ver precios por carta</a>
+<style>
+  #app-precios .appc{position:relative;display:grid;grid-template-columns:minmax(0,1.3fr) auto;gap:38px;
+    align-items:center;padding:28px 32px;border:1px solid #e7e1d6;border-radius:22px;
+    background:linear-gradient(180deg,#fffdf9 0%,#f8f5ee 100%);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 1px 2px rgba(20,18,15,.05),0 18px 44px rgba(20,18,15,.08)}
+  #app-precios .appc::before{content:"";position:absolute;inset:0;border-radius:22px;pointer-events:none;
+    background:radial-gradient(115% 85% at 100% 0,rgba(217,163,0,.10),rgba(217,163,0,0) 58%)}
+  #app-precios .appc>*{position:relative}
+  #app-precios .tag{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;
+    background:#f6e9c2;border:1px solid rgba(217,163,0,.38);color:#7d6100;
+    font:700 10.5px/1 "Inter Tight",system-ui,sans-serif;letter-spacing:.15em;text-transform:uppercase}
+  #app-precios .tag i{width:5px;height:5px;border-radius:50%;background:#d9a300}
+  #app-precios h2::before{content:none}
+  #app-precios h2{margin:16px 0 9px;font-family:"Inter Tight",system-ui,sans-serif;font-weight:800;
+    font-size:clamp(21px,2.1vw,27px);line-height:1.12;letter-spacing:-.03em;color:#14120f}
+  #app-precios h2 em{font-style:normal;box-shadow:inset 0 -3px 0 #d9a300}
+  #app-precios .appc p{margin:0;color:#5f5a51;font-size:15.5px;line-height:1.52;max-width:46ch}
+  #app-precios .acciones{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:20px}
+  #app-precios .cta2{display:inline-flex;align-items:center;gap:9px;text-decoration:none;padding:14px 22px;
+    border-radius:13px;border:1px solid rgba(140,105,0,.9);color:#1a1405;font-weight:750;font-size:.98rem;
+    background:linear-gradient(180deg,#ecc14f,#d9a300);
+    box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 6px 18px rgba(217,163,0,.22)}
+  #app-precios .cta2:hover{filter:brightness(1.04)}
+  #app-precios .enl{color:#14120f;text-decoration:none;border-bottom:2px solid #d9a300;padding-bottom:1px;
+    font-weight:600;font-size:.94rem}
+  #app-precios .appc p.micro2{margin:18px 0 0;font-size:12px;color:#958e82;letter-spacing:.01em;max-width:none}
+  #app-precios .movil{justify-self:end;width:220px;position:relative}
+  #app-precios .movil::before{content:"";position:absolute;inset:-48px -36px;border-radius:50%;pointer-events:none;
+    background:radial-gradient(circle,rgba(217,163,0,.17),rgba(217,163,0,0) 66%)}
+  #app-precios .pantalla{position:relative;display:flex;flex-direction:column;aspect-ratio:9/19.5;
+    border:7px solid #14120f;border-radius:30px;background:#f6f4ef;overflow:hidden;
+    box-shadow:0 20px 44px rgba(20,18,15,.20),0 44px 80px rgba(20,18,15,.10)}
+  #app-precios .pbarra{display:flex;align-items:center;gap:6px;padding:9px 10px;border-bottom:1px solid #e5e0d5}
+  #app-precios .pbarra b{width:19px;height:19px;border-radius:6px;display:grid;place-items:center;
+    background:linear-gradient(160deg,#f0c869,#b98c00);color:#1a1405;font-size:8px;font-weight:800}
+  #app-precios .pbarra span{font-size:8.5px;font-weight:700;letter-spacing:.14em;color:#3a352e}
+  #app-precios .pbarra i{margin-left:auto;font-style:normal;font-size:7.5px;font-weight:700;letter-spacing:.08em;
+    color:#6d6860;border:1px solid #d5cebf;border-radius:99px;padding:3px 6px}
+  #app-precios .pcuerpo{padding:11px 10px 0}
+  #app-precios .ptit{font-family:"Inter Tight",system-ui,sans-serif;font-weight:800;font-size:14px;
+    line-height:1.1;letter-spacing:-.035em;color:#14120f}
+  #app-precios .pficha{display:flex;gap:8px;margin-top:10px;padding:8px;border-radius:12px;background:#fffdf9;
+    border:1px solid #e5e0d5;box-shadow:0 1px 2px rgba(20,18,15,.05),0 8px 18px rgba(20,18,15,.06)}
+  #app-precios .pficha img{width:46px;height:64px;border-radius:5px;object-fit:cover;flex:0 0 46px;
+    background:#efece4;box-shadow:0 1px 3px rgba(20,18,15,.18)}
+  #app-precios .pdatos{min-width:0;flex:1}
+  #app-precios .pdatos strong{display:block;font-size:11px;letter-spacing:-.02em;color:#14120f}
+  #app-precios .pdatos small{display:block;font-size:8px;color:#958e82;margin-top:1px}
+  #app-precios .peur{font-size:15px;font-weight:800;letter-spacing:-.035em;color:#14120f;margin-top:5px;
+    font-variant-numeric:tabular-nums}
+  #app-precios .peur em{font-style:normal;font-size:7.5px;font-weight:600;letter-spacing:0;color:#6d6860;margin-left:3px}
+  #app-precios .pbanda{position:relative;height:4px;border-radius:99px;background:#efece4;margin-top:7px}
+  #app-precios .pbanda .ph{position:absolute;left:0;top:0;height:4px;width:59.7%;border-radius:99px;
+    background:linear-gradient(90deg,rgba(217,163,0,.55),rgba(217,163,0,.95))}
+  #app-precios .pbanda .pr{position:absolute;left:59.7%;top:0;height:4px;width:40.3%;border-radius:0 99px 99px 0;
+    background:linear-gradient(90deg,rgba(20,18,15,.10),rgba(20,18,15,.30))}
+  #app-precios .pbanda i{position:absolute;top:50%;width:7px;height:7px;border-radius:50%;transform:translate(-50%,-50%);
+    border:1.5px solid #fffdf9}
+  #app-precios .pbanda .d1{left:0;background:#d9a300;box-shadow:0 0 0 1px #b98c00}
+  #app-precios .pbanda .d2{left:59.7%;background:#3a352e;box-shadow:0 0 0 1px #d5cebf}
+  #app-precios .pley{display:flex;justify-content:space-between;gap:6px;margin-top:5px;
+    font-size:7.5px;color:#6d6860;letter-spacing:.01em}
+  #app-precios .prow{display:flex;align-items:center;gap:7px;margin-top:6px;padding:6px 7px;border-radius:10px;
+    background:#fffdf9;border:1px solid #eae5da}
+  #app-precios .prow img{width:24px;height:33px;border-radius:3px;object-fit:cover;flex:0 0 24px;background:#efece4}
+  #app-precios .prow div{flex:1;min-width:0}
+  #app-precios .prow strong{display:block;font-size:9px;color:#14120f;letter-spacing:-.01em;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #app-precios .prow small{display:block;font-size:7px;color:#958e82}
+  #app-precios .prow b{font-size:9.5px;font-weight:750;color:#14120f;font-variant-numeric:tabular-nums}
+  #app-precios .pnav{margin-top:auto;display:flex;justify-content:space-around;align-items:center;
+    padding:9px 4px 11px;border-top:1px solid #e5e0d5;background:#f8f5ee}
+  #app-precios .pnav b{font-size:7.5px;color:#7d6100;background:rgba(217,163,0,.13);border-radius:7px;padding:4px 8px}
+  #app-precios .pnav span{font-size:7.5px;color:#958e82}
+  @media(max-width:820px){
+    #app-precios .appc{grid-template-columns:1fr;gap:0;padding:24px 20px 26px;justify-items:start}
+    #app-precios .movil{display:none}
+    #app-precios .appc p{max-width:none}
+    #app-precios .acciones{gap:12px 22px;margin-top:18px}
+    #app-precios h2{font-size:clamp(21px,6vw,25px)}
+  }
+</style>
+<div class="appc">
+  <div>
+    <span class="tag"><i></i>La app · gratis</span>
+    <h2>Mira lo que te dan por tu carta <em>antes de venderla</em></h2>
+    <p>Compara en una pantalla lo que pagan las tiendas españolas, lo que piden los particulares y lo que cuesta en tienda. Con fecha y número de precios.</p>
+    <div class="acciones">
+      <a class="cta2" href="/app/">Abrir la app <span aria-hidden="true">→</span></a>
+      <a class="enl" href="/demo/">Ver la app en el móvil</a>
+      <a class="enl" href="/precios/">Ver precios por carta</a>
+    </div>
+    <p class="micro2">Gratis y sin registro · se revisa cada semana</p>
   </div>
+  <div class="movil" aria-hidden="true">
+    <div class="pantalla">
+      <div class="pbarra"><b>VC</b><span>VALORCARTA</span><i>GRATIS</i></div>
+      <div class="pcuerpo">
+        <div class="ptit">¿Cuánto te dan por tu carta?</div>
+        <div class="pficha">
+          <img src="https://assets.tcgdex.net/es/xy/xy12/11/high.webp" alt="" loading="lazy" width="46" height="64">
+          <div class="pdatos">
+            <strong>Charizard</strong>
+            <small>Evoluciones · 6 precios</small>
+            <div class="peur">58,50&nbsp;€<em>te darían</em></div>
+            <div class="pbanda"><span class="ph"></span><span class="pr"></span><i class="d1"></i><i class="d2"></i></div>
+            <div class="pley"><span>58,50 € te dan</span><span>piden 59–111 €</span></div>
+          </div>
+        </div>
+        <div class="prow">
+          <img src="https://assets.tcgdex.net/es/sv/sv02/079/high.webp" alt="" loading="lazy" width="28" height="39">
+          <div><strong>Bellibolt ex</strong><small>EX · 85 precios</small></div>
+          <b>30,54&nbsp;€</b>
+        </div>
+        <div class="prow">
+          <img src="https://assets.tcgdex.net/es/sv/sv06/134/high.webp" alt="" loading="lazy" width="28" height="39">
+          <div><strong>Blissey ex</strong><small>EX · 23 precios</small></div>
+          <b>30,54&nbsp;€</b>
+        </div>
+        <div class="prow">
+          <img src="https://assets.tcgdex.net/es/sv/sv03.5/025/high.webp" alt="" loading="lazy" width="28" height="39">
+          <div><strong>Pikachu</strong><small>151 · 19 precios</small></div>
+          <b>110,50&nbsp;€</b>
+        </div>
+      </div>
+      <div class="pnav"><b>Buscar</b><span>Mis cartas</span><span>Cuenta</span></div>
+    </div>
+  </div>
+</div>
 </section>
 <section class="pasos" aria-label="Cómo funciona">
 <style>
