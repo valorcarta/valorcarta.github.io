@@ -2,39 +2,52 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ValorCarta — Oscuro</title>
 <style>
-:root{--fondo:#0d0c0b;--panel:#161412;--tinta:#f6f1e7;--gris:#8d867a;--oro:#e8b64c;--linea:#26221e;--verde:#5fd08a}
+:root{--fondo:#0a0908;--panel:#141110;--panel2:#1b1714;--tinta:#f7f2e8;--gris:#8b8477;--oro:#e9b64c;--linea:#2b241d;--verde:#63d693}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:radial-gradient(120% 80% at 50% -20%,#1b1713 0%,#0d0c0b 60%);color:var(--tinta);
-font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;max-width:560px;margin:0 auto;padding:22px 18px 70px;min-height:100vh}
-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
-.marca{font-size:20px;font-weight:800;letter-spacing:-.03em}
+body{background:
+radial-gradient(90% 50% at 50% -10%,#221c15 0%,rgba(34,28,21,0) 60%),
+repeating-linear-gradient(0deg,rgba(255,255,255,.012) 0 1px,transparent 1px 4px),
+var(--fondo);color:var(--tinta);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;min-height:100vh}
+.marco{max-width:560px;margin:0 auto;padding:20px 16px 70px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:14px;
+border-bottom:1px solid var(--linea);box-shadow:0 1px 0 rgba(233,182,76,.18)}
+.marca{font-size:20px;font-weight:800;letter-spacing:-.03em;text-shadow:0 1px 0 #000,0 0 18px rgba(233,182,76,.15)}
 .marca span{color:var(--oro)}
-.sello{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--oro);border:1px solid #3a3126;border-radius:999px;padding:5px 10px}
-h1{font-size:34px;line-height:1.05;letter-spacing:-.035em;font-weight:800}
-h1 span{color:var(--oro)}
+.sello{display:flex;align-items:center;gap:7px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--oro);
+border:1px solid #3d3226;border-radius:999px;padding:5px 11px;background:linear-gradient(180deg,#1a1612,#120f0c);box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 6px 16px rgba(0,0,0,.6)}
+.sello i{width:6px;height:6px;border-radius:50%;background:var(--oro);box-shadow:0 0 10px var(--oro);animation:p 2s infinite}
+@keyframes p{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-size:34px;line-height:1.04;letter-spacing:-.035em;font-weight:800;text-shadow:0 2px 0 #000}
+h1 span{color:var(--oro);text-shadow:0 2px 0 #000,0 0 26px rgba(233,182,76,.25)}
 .lead{color:var(--gris);font-size:15px;margin-top:10px;max-width:36ch}
-.ticker{display:flex;gap:8px;overflow:auto;margin:20px 0 8px;padding-bottom:4px;scrollbar-width:none}
-.tk{flex:0 0 auto;background:var(--panel);border:1px solid var(--linea);border-radius:12px;padding:10px 12px;min-width:132px}
-.tk span{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.ticker{display:flex;gap:10px;overflow:auto;margin:20px 0 16px;padding-bottom:4px;scrollbar-width:none}
+.tk{flex:0 0 auto;min-width:136px;border-radius:14px;padding:11px 13px;background:linear-gradient(180deg,#1a1613,#100e0c);border:1px solid #2f2820;
+box-shadow:0 1px 0 rgba(255,255,255,.06) inset,0 10px 24px rgba(0,0,0,.65),0 2px 4px rgba(0,0,0,.8)}
+.tk span{display:block;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
 .tk b{font-size:21px;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
-.tk i{font-style:normal;font-size:12px;color:var(--verde)}
-.carta{display:grid;grid-template-columns:104px 1fr;gap:14px;background:linear-gradient(180deg,#191613,#141210);
-border:1px solid var(--linea);border-radius:18px;padding:12px;margin-bottom:10px;box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 16px 40px rgba(0,0,0,.5)}
-.arte{border-radius:10px;overflow:hidden;background:#221d18;box-shadow:0 10px 24px rgba(0,0,0,.55)}
+.tk i{font-style:normal;font-size:11.5px;color:var(--verde)}
+.carta{position:relative;display:grid;grid-template-columns:104px 1fr;gap:15px;padding:14px;margin-bottom:12px;border-radius:20px;
+background:linear-gradient(180deg,#171412,#0f0d0b);border:1px solid #2e2620;
+box-shadow:0 1px 0 rgba(255,255,255,.05) inset,0 1px 0 rgba(233,182,76,.10),0 18px 40px rgba(0,0,0,.7),0 3px 6px rgba(0,0,0,.85)}
+.carta::before,.carta::after{content:"";position:absolute;width:16px;height:16px;border-color:rgba(233,182,76,.45);border-style:solid;border-width:0}
+.carta::before{top:9px;left:9px;border-top-width:1px;border-left-width:1px;border-top-left-radius:6px}
+.carta::after{bottom:9px;right:9px;border-bottom-width:1px;border-right-width:1px;border-bottom-right-radius:6px}
+.arte{position:relative;border-radius:12px;overflow:hidden;background:#221d18;border:1px solid #3a3026;
+box-shadow:0 2px 0 rgba(255,255,255,.06) inset,0 16px 30px rgba(0,0,0,.8)}
 .arte img{width:100%;display:block}
-h3{font-size:17px;letter-spacing:-.01em}
-.set{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);margin-top:3px}
-.precios{margin:10px 0 8px}
-.t{display:flex;justify-content:space-between;align-items:baseline;padding:4px 0;border-bottom:1px dashed #241f1a;font-size:12.5px;color:var(--gris)}
-.t b{font-size:17px;color:var(--oro);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
-.calle{font-size:12.5px;color:var(--gris)}
+h3{font-size:17px;letter-spacing:-.01em;text-shadow:0 1px 0 #000}
+.set{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gris);margin-top:4px}
+.precios{margin:11px 0 9px}
+.t{display:flex;justify-content:space-between;align-items:baseline;padding:5px 0;border-bottom:1px dashed #241f19;font-size:12.5px;color:var(--gris)}
+.t b{font-size:17.5px;color:var(--oro);font-variant-numeric:tabular-nums;letter-spacing:-.01em;text-shadow:0 0 16px rgba(233,182,76,.20)}
+.vende{display:flex;justify-content:space-between;align-items:baseline;font-size:12.5px;color:var(--gris);margin-top:8px;
+border-top:1px solid #2a231c;padding-top:8px}
+.vende b{font-size:15px;color:var(--verde);font-variant-numeric:tabular-nums}
+.calle{font-size:12.5px;color:var(--gris);margin-top:6px}
 .calle b{color:var(--tinta)}
-.vende{font-size:12.5px;color:var(--verde);margin:7px 0 2px}
-.vende b{color:var(--verde);font-size:15px}
-.vende span{color:var(--gris)}
-.fecha{font-size:11px;color:#6b645a;margin-top:4px}
-</style></head><body>
-<header><div class="marca">Valor<span>carta</span></div><span class="sello">Live · España</span></header>
+.fecha{font-size:10.5px;color:#6f685c;margin-top:6px;letter-spacing:.02em}
+</style></head><body><div class="marco">
+<header><div class="marca">Valor<span>carta</span></div><span class="sello"><i></i>Live · España</span></header>
 <h1>Cuánto te dan.<br><span>Sin cuentos.</span></h1>
 <p class="lead">Tres tiendas comparadas y lo que piden los particulares, con fecha.</p>
 <div class="ticker">
@@ -174,4 +187,4 @@ h3{font-size:17px;letter-spacing:-.01em}
     <p class="fecha">9 precios · último 2026-07-08</p>
   </div>
 </article>
-</body></html>
+</div></body></html>
