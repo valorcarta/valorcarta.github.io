@@ -93,12 +93,23 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
     box-shadow:0 26px 50px rgba(20,18,15,.30)}
   .fan:before{content:"";position:absolute;inset:6% 4% 8%;border-radius:50%;
     background:radial-gradient(closest-side,rgba(217,163,0,.20),transparent 70%);filter:blur(18px)}
+  .hero-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:10px 12px}
+  .btn-app{display:inline-flex;align-items:center;gap:8px;text-decoration:none;padding:12px 18px;
+    border-radius:12px;border:1px solid #d5cebf;background:#fff;color:#14120f;font-weight:700;font-size:.95rem;
+    box-shadow:0 1px 2px rgba(20,18,15,.05);transition:border-color .2s,color .2s,transform .16s}
+  .btn-app:hover{border-color:#d9a300;color:#7d6100}
+  .btn-app:active{transform:scale(.98)}
+  .btn-app svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  @media(max-width:520px){.hero-acciones{gap:9px}.btn-app{padding:11px 16px;font-size:.92rem}}
 </style>
 <div class="vc-tit">
   <p class="kicker">Precio real de Cardmarket · 10.648 cartas</p>
   <h1>¿Cuánto vale tu colección hoy?</h1>
   <p class="sub">Pega tu lista y lo sabes en un minuto: la cifra, la fecha y qué se ha movido. 20 cartas gratis, sin registro.</p>
-  <p><a class="btn-todos" href="/valorar-coleccion/">Valorar mi colección</a></p>
+  <p class="hero-acciones">
+    <a class="btn-todos" href="/valorar-coleccion/">Valorar mi colección</a>
+    <a class="btn-app" href="/app/?instalar=1"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v10"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/></svg>Descargar la app</a>
+  </p>
   <p class="micro"><span>10.648 cartas</span><i></i><span>23 días de archivo</span><i></i><span>Actualizado hoy</span></p>
   <div id="buscador" class="buscador vc-buscador">
     <input id="q" type="search" placeholder="Busca una carta: Charizard, Pikachu, Mew…" autocomplete="off" aria-label="Buscar carta">
