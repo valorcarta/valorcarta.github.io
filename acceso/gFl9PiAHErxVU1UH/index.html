@@ -138,7 +138,7 @@ function ficha(c, bloqueada){
       <div class="chips">${c.s?`<span class="chip">${c.s}</span>`:''}${c.e?`<span class="chip">${c.e}</span>`:''}${c.ok?'':'<span class="chip antiguo">orientativo</span>'}</div>
       ${mejor?`<div class="tiendas">${(c.tiendas||[]).map(t=>`<span class="tienda">${t.n.split(" ")[0]} ${eur(t.p)}</span>`).join("")}</div>`:''}
       <div class="linea">Lo piden particulares: <b>${Math.abs(c.a-c.b)<0.01?eur(c.m):eur(c.b)+" – "+eur(c.a)}</b></div>
-      ${c.vt?`<div class="linea">En tienda cuesta: <b>${eur(c.vt)}</b></div>`:''}
+      ${c.vt?`<div class="linea">En tienda desde: <b>${eur(c.vt)}</b></div>`:''}
       <div class="meta">${c.k} precios · último ${c.f}</div>
     </div></div>`;
 }
