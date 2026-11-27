@@ -50,8 +50,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:linear-gradient(160deg,#f0c869,var(--oro-2));color:#1a1405;font-weight:800;font-size:11px;
   letter-spacing:.02em;box-shadow:0 1px 0 rgba(255,255,255,.45) inset,0 2px 6px rgba(217,163,0,.35)}
 .word{font-size:12px;font-weight:650;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta2)}
-.plan{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gris);
-  border:1px solid var(--linea2);border-radius:999px;padding:5px 10px;background:var(--carta)}
+.der{display:flex;align-items:center;gap:7px}
+.plan{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gris);
+  border:1px solid var(--linea2);border-radius:999px;padding:5px 8px;background:var(--carta)}
+.inst-barra{display:inline-flex;align-items:center;gap:5px;padding:7px 11px;border-radius:999px;
+  border:1px solid rgba(217,163,0,.5);background:var(--oro-suave);color:var(--oro-tinta);
+  font-size:10.5px;font-weight:800;letter-spacing:.03em;box-shadow:0 1px 0 rgba(255,255,255,.5) inset}
+.inst-barra svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
 
 /* ── pestañas ──────────────────────────────────────── */
 .tab{display:none;position:relative;z-index:1}
@@ -315,7 +320,11 @@ nav button.on svg{stroke-width:2.1}
 
 <header class="barra" id="barra">
   <div class="marca"><span class="sello">VC</span><span class="word">ValorCarta</span></div>
-  <span class="plan">Gratis</span>
+  <div class="der">
+    <button class="inst-barra" id="inst-barra" aria-label="Descargar la app en el móvil">
+      <svg viewBox="0 0 24 24"><path d="M12 4v10"/><path d="M7.5 10.5L12 15l4.5-4.5"/><path d="M5 19h14"/></svg>Instalar</button>
+    <span class="plan">Gratis</span>
+  </div>
 </header>
 
 <!-- ───────────── BUSCAR ───────────── -->
@@ -715,9 +724,16 @@ function pintaInstala() {
 
 function ofrece() {
   if (instalada() || localStorage.getItem("vc_no_banner")) return;
-  if (!elPrompt && !esIOS) return;
   setTimeout(() => $("#banner").classList.add("si"), 2000);
 }
+
+$("#inst-barra").addEventListener("click", async () => {
+  $("#banner").classList.remove("si");
+  if (elPrompt) { elPrompt.prompt(); await elPrompt.userChoice; elPrompt = null; pintaInstala(); return; }
+  cambia("cuenta");
+  setTimeout(() => $("#instala").scrollIntoView({behavior: "smooth", block: "center"}), 140);
+  pintaInstala();
+});
 
 $("#bx").addEventListener("click", () => { $("#banner").classList.remove("si"); localStorage.setItem("vc_no_banner", "1"); });
 $("#bi").addEventListener("click", async () => {
@@ -745,7 +761,9 @@ addEventListener("scroll", () => barra.classList.toggle("pgada", scrollY > 4), {
 
 /* ── arranque ───────────────────────────────────────── */
 $("#prueba").innerHTML = `<b>${F.length}</b> cartas · <b>3</b> tiendas · revisado el <b>${FECHA}</b>`;
-busca(""); pintaLista(); pintaCuenta(); pintaInstala(); if (esIOS) ofrece();
+busca(""); pintaLista(); pintaCuenta(); pintaInstala();
+if (instalada()) $("#inst-barra").style.display = "none"; else ofrece();
+if (new URLSearchParams(location.search).get("instalar")) $("#inst-barra").click();
 (() => {
   const m = new URLSearchParams(location.search).get("c");
   if (!m) return;
