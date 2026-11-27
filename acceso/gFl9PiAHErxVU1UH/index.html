@@ -266,6 +266,9 @@ h1{font-size:clamp(27px,8.4vw,32px);line-height:1.06;letter-spacing:-.038em;font
 .veredicto.bien b{color:var(--ok)}.veredicto.mal b{color:var(--mal)}.veredicto.medio b{color:var(--oro-tinta)}
 .detalle{font-size:12.5px;color:var(--gris);line-height:1.5;margin-top:10px}
 .hoja .pie2{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+.vale2{list-style:none;margin-top:14px;display:flex;flex-direction:column;gap:11px}
+.vale2 li{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:var(--tinta2)}
+.vale2 svg{flex:0 0 15px;width:15px;height:15px;margin-top:2px;stroke:var(--oro-tinta);fill:none;stroke-width:2.6}
 .pasos3{list-style:none;margin-top:10px;counter-reset:ps}
 .pasos3 li{position:relative;padding:0 0 14px 34px;font-size:14px;line-height:1.45;color:var(--tinta2)}
 .pasos3 li:last-child{padding-bottom:0}
@@ -384,7 +387,7 @@ nav button.on svg{stroke-width:2.1}
   <div class="tarjeta-plan" id="plan"></div>
   <div class="aviso">Suscripción activa para <b>prueba2@valorcarta.es</b>. Renueva antes del <b>2026-12-27</b>; si no, el enlace deja de mostrar precios actualizados.</div>
   <ul class="vale" id="vale"></ul>
-  <a class="cta ancho" href="https://buy.stripe.com/REEMPLAZA_TU_LINK">Renovar · 3,99 €/mes</a>
+  <button class="cta ancho" onclick="abreAlta()">Renovar · 3,99 €/mes</button>
   <div id="instala"></div>
   <p class="pie"><b>Precios pedidos, no ventas cerradas.</b> Lo que dan las tiendas se calcula con la tarifa que cada una publica y se revisa cada semana. Renovación mensual; si no renuevas, la app vuelve a las 12 cartas de muestra.<br><br>
   <a href="https://valorcarta.es/">← Volver a valorcarta.es</a></p>
@@ -423,6 +426,7 @@ const LIBRE = 500;
 const PAGO = true;
 const FECHA = "24-11";
 const S = "https://buy.stripe.com/REEMPLAZA_TU_LINK";
+const ALTA = "mailto:valorcartaalertas@gmail.com?subject=Quiero%20desbloquear%20la%20app%20de%20ValorCarta&body=Hola%2C%20quiero%20la%20suscripci%C3%B3n%20de%20la%20app%20(3%2C99%20%E2%82%AC%2Fmes).%20Mi%20correo%20de%20ValorCarta%20es%3A%20";
 
 const $ = s => document.querySelector(s);
 const esc = t => String(t == null ? "" : t).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -481,7 +485,7 @@ function muro(sobran) {
   if (PAGO || sobran < 1) { cerrojo.innerHTML = ""; return; }
   cerrojo.innerHTML = `<div class="muro2"><div class="et">Catálogo completo</div>
     <p>${sobran.toLocaleString("es-ES")} cartas más, con su banda de precio y el desglose de cada tienda.</p>
-    <a class="cta ancho" href="${S}">Verlas todas · 3,99 €/mes</a></div>`;
+    <button class="cta ancho" onclick="abreAlta()">Desbloquear todo · 3,99 €/mes</button></div>`;
 }
 
 /* ── buscar ─────────────────────────────────────────── */
@@ -697,6 +701,33 @@ function pintaCuenta() {
   $("#vale").innerHTML = ["Todas las cartas con precio y fecha", "Lo que paga cada tienda, una por una",
     "La banda: tiendas frente a particulares", "Aviso cuando se muevan las tuyas"]
     .map(x => `<li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>${x}</li>`).join("");
+}
+
+/* ── suscripción ────────────────────────────────────── */
+function abreAlta() {
+  $("#banner").classList.remove("si");
+  const vale = ["Todas las cartas con precio y fecha", "La banda: tiendas frente a particulares",
+    "El desglose de cada tienda, en efectivo y en crédito", "Aviso cuando se muevan las tuyas"];
+  cuerpo.innerHTML = `<div class="cab">
+      <img class="icono-grande" src="icon-192.png" alt="" width="64" height="64">
+      <div style="flex:1;min-width:0">
+        <div class="nom">Desbloquear todo</div>
+        <div class="detalle" style="margin-top:5px;font-size:12.5px;line-height:1.4">${PAGO
+          ? "Tu suscripción está activa. Si quieres renovarla, aquí mismo."
+          : "Las " + F.length + " cartas, con precio, banda y desglose de cada tienda."}</div>
+      </div></div>
+    <div class="bloque"><div class="et">Suscripción</div>
+      <div class="cifra num">3,99&nbsp;€<small>al mes${PAGO ? "" : " · sin permanencia"}</small></div>
+      <ul class="vale2">${vale.map(x => `<li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6.5"/></svg>${x}</li>`).join("")}</ul>
+    </div>
+    <div class="pie2">
+      <a class="cta ancho" id="boton-alta" href="${ALTA}"${/^https:/.test(ALTA) ? ' target="_blank" rel="noopener"' : ""}>${PAGO ? "Renovar" : "Suscribirme"} · 3,99&nbsp;€/mes</a>
+      <button class="cta2" onclick="cierra()">Ahora no</button>
+    </div>
+    <p class="detalle">Renovación mensual. Si no renuevas, la app vuelve a las 12 cartas de muestra.</p>`;
+  hoja.classList.add("si"); velo.classList.add("si");
+  document.body.style.overflow = "hidden";
+  requestAnimationFrame(() => hoja.focus({preventScroll: true}));
 }
 
 /* ── instalar en el móvil ───────────────────────────── */
