@@ -26,8 +26,8 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/style.css?v=7cdbfb3a02b5d71fcfe75f0fd85eb2">
-<link rel="icon" href="/assets/icon.svg?v=7cdbfb3a02b5d71fcfe75f0fd85eb2" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/style.css?v=b74b9cfc63a2cbb698ef5f0fd85eb2?v=7cdbfb3a02b5d71fcfe75f0fd85eb2">
+<link rel="icon" href="/assets/icon.svg?v=b74b9cfc63a2cbb698ef5f0fd85eb2?v=7cdbfb3a02b5d71fcfe75f0fd85eb2" type="image/svg+xml">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"ValorCarta","alternateName":"ValorCarta Pokémon","inLanguage":"es-ES","url":"https://valorcarta.es","mainEntity":[{"@type":"Question","name":"¿Los precios son una tasación?","acceptedAnswer":{"@type":"Answer","text":"No. Son precios de referencia de mercado; una tasación exige ver la carta."}},{"@type":"Question","name":"¿De dónde salen los precios?","acceptedAnswer":{"@type":"Answer","text":"De Cardmarket, vía la API pública de TCGdex, actualizados a diario."}},{"@type":"Question","name":"¿Cuánto cuesta usarlo?","acceptedAnswer":{"@type":"Answer","text":"El valorador y las fichas son gratis y no piden registro."}}],"potentialAction":{"@type":"SearchAction","target":"https://valorcarta.es/cartas/?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
 </head>
 <body>
@@ -329,7 +329,21 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
 <p class="e">Lo que oyes cuando vas a vender</p>
 <h2>Tres frases que te cuestan dinero</h2>
 <p class="intro">Casi nunca hay mala fe: repiten lo que oyeron. El problema es que no tienes el dato para contestar. Estas tres lo resuelven.</p>
-<div class="filas" id="casos"><!--CASOS--></div>
+<div class="filas" id="casos"><div class="fila">
+    <div class="q">«Unown está a 347,77 €»<s>347,77 €</s><em>lo que se pide hoy</em><a class="nm" href="/carta/exu-A-unown/">Unown</a></div>
+    <div class="real"><b>112,30 €</b><span>media 30 días · 2026-11-27</span></div>
+    <p class="txt">Ese es el precio que piden, no el que se paga. La media de lo vendido en 30 días está por debajo: si pagas la cifra del anuncio, pagas la prisa de otro.</p>
+  </div>
+  <div class="fila">
+    <div class="q">«Mew V: te la dejo en 40,00 €»<s>40,00 €</s><em>lo más barato del mes</em><a class="nm" href="/carta/swsh8-251-mew-v/">Mew V · Golpe Fusión</a></div>
+    <div class="real"><b>114,13 €</b><span>media 30 días · 2026-11-27</span></div>
+    <p class="txt">Ese mínimo existe, pero es el suelo del mes, no el precio de la carta. La media está muy por encima: quien te ofrece el suelo te está comprando por lo que nadie pagó.</p>
+  </div>
+  <div class="fila">
+    <div class="q">«Espeon ex está a 813,18 €»<s>813,18 €</s><em>la versión cara</em><a class="nm" href="/carta/ex10-102-espeon-ex/">Espeon ex · EX Fuerzas Ocultas</a></div>
+    <div class="real"><b>88,67 €</b><span>la otra versión del mismo número</span></div>
+    <p class="txt">Mismo dibujo y mismo número, dos cartas distintas. La de 813,18 € y la de 88,67 € no se comparan: antes de discutir el precio, mira cuál tienes.</p>
+  </div></div>
 <p class="cierre">El informe te da el precio de cierre, la fecha y la versión exacta. Y si no hay dato, lo dice en vez de inventarlo.</p>
 <p class="cta"><a class="btn" href="/valorar/">Valorar mi colección gratis →</a><a class="btn ghost" href="/informe-muestra/">Ver una muestra del informe</a></p>
 </section>
@@ -695,7 +709,18 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
   <p class="muted small"><a href="/sets/">Ver los 146 sets agrupados por serie</a></p>
 </section>
 
-<!--MOVIMIENTOS-->
+<section class="bloque">
+  <h2>Lo que se movió el 2026-11-27</h2>
+  <p class="muted small">Comparado con el día anterior. Solo cartas de más de 5 € y movimientos de hasta el 60 %: por debajo de 5 € y por encima del 60 % hay dos anuncios y un cambio de versión, no una noticia.</p>
+  <p class="muted small">Hoy ninguna carta de más de 5 € ha subido de forma creíble: las subidas grandes del día son cartas de menos de 5 € o cambios de versión.</p>
+  <style>.movlista{list-style:none;padding:0;margin:10px 0 4px;display:grid;grid-template-columns:1fr 1fr;gap:6px 22px}
+  @media(max-width:760px){.movlista{grid-template-columns:1fr}}
+  .movlista li{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #eee7d9;font-size:.95rem}
+  .movlista a{text-decoration:none;font-weight:600}
+  .movlista .c{color:#8a6400;font-variant-numeric:tabular-nums;white-space:nowrap}</style>
+  <ul class="movlista"><li><a href="/carta/swsh11-076-zoroark-de-hisui/">Zoroark de Hisui</a><span class="c">34,33 € · -40,2 %</span></li><li><a href="/carta/mep-085-bastiodon/">Bastiodon</a><span class="c">11,89 € · -39,6 %</span></li><li><a href="/carta/mep-084-dhelmise/">Dhelmise</a><span class="c">12,32 € · -36,3 %</span></li></ul>
+  <p class="muted small">Actualizado: 2026-11-27 · <a href="/mercado/">ver el radar completo</a></p>
+</section>
 
 <section class="bloque">
   <h2>Cómo se calcula lo que vale tu colección</h2>
@@ -744,7 +769,7 @@ if (location.hostname.endsWith('github.io')) location.replace('https://valorcart
   </p>
   <p class="muted">Precios de referencia de Cardmarket, actualizados a diario. No es una tasación: el estado de la carta manda. © 2026 ValorCarta</p>
 </footer>
-<script src="/assets/app.js?v=7cdbfb3a02b5d71fcfe75f0fd85eb2" defer></script>
+<script src="/assets/app.js?v=b74b9cfc63a2cbb698ef5f0fd85eb2?v=7cdbfb3a02b5d71fcfe75f0fd85eb2" defer></script>
 
 <script data-goatcounter="https://valorcarta.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 <script defer>(function(){try{var k=location.pathname.replace(/[^a-zA-Z0-9]+/g,"_").replace(/^_+|_+$/g,"")||"home";
